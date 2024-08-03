@@ -1,0 +1,9 @@
+FROM ghcr.io/converged-computing/metric-magma:latest
+
+# docker build -f Dockerfile.mnist -t ghcr.io/converged-computing/metric-magma:mnist .
+
+RUN mkdir -p /data
+COPY t10k-images.idx3-ubyte.zip /data/
+COPY t10k-labels.idx1-ubyte /data/
+COPY train-images.idx3-ubyte.zip /data/
+COPY train-labels.idx1-ubyte /data/

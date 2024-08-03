@@ -1,0 +1,134 @@
+# ----------------------------------------------------------------------
+# - shell --------------------------------------------------------------
+# ----------------------------------------------------------------------
+#
+SHELL        = /bin/sh
+#
+CD           = cd
+CP           = cp
+LN_S         = ln -s
+MKDIR        = mkdir
+RM           = /bin/rm -f
+TOUCH        = touch
+#
+# ----------------------------------------------------------------------
+# - Platform identifier ------------------------------------------------
+# ----------------------------------------------------------------------
+#
+ARCH         = linux
+#
+# ----------------------------------------------------------------------
+# - HPL Directory Structure / HPL library ------------------------------
+# ----------------------------------------------------------------------
+#
+TOPdir       = $(HOME)/hpl
+INCdir       = $(TOPdir)/include
+BINdir       = $(TOPdir)/bin/$(ARCH)
+LIBdir       = $(TOPdir)/lib/$(ARCH)
+#
+HPLlib       = $(LIBdir)/libhpl.a 
+#
+# ----------------------------------------------------------------------
+# - Message Passing library (MPI) --------------------------------------
+# ----------------------------------------------------------------------
+# MPinc tells the  C  compiler where to find the Message Passing library
+# header files,  MPlib  is defined  to be the name of  the library to be 
+# used. The variable MPdir is only used for defining MPinc and MPlib.
+#
+MPdir        = /opt/OpenMPI
+MPinc        = -I$(MPdir)/include
+MPlib        = $(MPdir)/lib/libmpi.so
+#
+# ----------------------------------------------------------------------
+# - Linear Algebra library (BLAS or VSIPL) -----------------------------
+# ----------------------------------------------------------------------
+# LAinc tells the  C  compiler where to find the Linear Algebra  library
+# header files,  LAlib  is defined  to be the name of  the library to be 
+# used. The variable LAdir is only used for defining LAinc and LAlib.
+#
+LAdir        = /opt/OpenBLAS
+LAinc        =
+LAlib        = $(LAdir)/lib/libopenblas.a
+#
+# ----------------------------------------------------------------------
+# - F77 / C interface --------------------------------------------------
+# ----------------------------------------------------------------------
+# You can skip this section  if and only if  you are not planning to use
+# a  BLAS  library featuring a Fortran 77 interface.  Otherwise,  it  is
+# necessary  to  fill out the  F2CDEFS  variable  with  the  appropriate
+# options.  **One and only one**  option should be chosen in **each** of
+# the 3 following categories:
+#
+# 1) name space (How C calls a Fortran 77 routine)
+#
+# -DAdd_              : all lower case and a suffixed underscore  (Suns,
+#                       Intel, ...),                           [default]
+# -DNoChange          : all lower case (IBM RS6000),
+# -DUpCase            : all upper case (Cray),
+# -DAdd__             : the FORTRAN compiler in use is f2c.
+#
+# 2) C and Fortran 77 integer mapping
+#
+# -DF77_INTEGER=int   : Fortran 77 INTEGER is a C int,         [default]
+# -DF77_INTEGER=long  : Fortran 77 INTEGER is a C long,
+# -DF77_INTEGER=short : Fortran 77 INTEGER is a C short.
+#
+# 3) Fortran 77 string handling
+#
+# -DStringSunStyle    : The string address is passed at the string loca-
+#                       tion on the stack, and the string length is then
+#                       passed as  an  F77_INTEGER  after  all  explicit
+#                       stack arguments,                       [default]
+# -DStringStructPtr   : The address  of  a  structure  is  passed  by  a
+#                       Fortran 77  string,  and the structure is of the
+#                       form: struct {char *cp; F77_INTEGER len;},
+# -DStringStructVal   : A structure is passed by value for each  Fortran
+#                       77 string,  and  the  structure is  of the form:
+#                       struct {char *cp; F77_INTEGER len;},
+# -DStringCrayStyle   : Special option for  Cray  machines,  which  uses
+#                       Cray  fcd  (fortran  character  descriptor)  for
+#                       interoperation.
+#
+F2CDEFS      = -DAdd_ -DF77_INTEGER=int -DStringSunStyle
+#
+# ----------------------------------------------------------------------
+# - HPL includes / libraries / specifics -------------------------------
+# ----------------------------------------------------------------------
+#
+HPL_INCLUDES = -I$(INCdir) -I$(INCdir)/$(ARCH) $(LAinc) $(MPinc)
+HPL_LIBS     = $(HPLlib) $(LAlib) $(MPlib)
+#
+# - Compile time options -----------------------------------------------
+#
+# -DHPL_COPY_L           force the copy of the panel L before bcast;
+# -DHPL_CALL_CBLAS       call the cblas interface;
+# -DHPL_CALL_VSIPL       call the vsip  library;
+# -DHPL_DETAILED_TIMING  enable detailed timers;
+#
+# By default HPL will:
+#    *) not copy L before broadcast,
+#    *) call the BLAS Fortran 77 interface,
+#    *) not display detailed timing information.
+#
+HPL_OPTS     =
+# 
+# ----------------------------------------------------------------------
+#
+HPL_DEFS     = $(F2CDEFS) $(HPL_OPTS) $(HPL_INCLUDES) 
+#
+# ----------------------------------------------------------------------
+# - Compilers / linkers - Optimization flags ---------------------------
+# ----------------------------------------------------------------------
+#
+CC           = mpicc
+CCNOOPT      = $(HPL_DEFS) 
+CCFLAGS      = $(HPL_DEFS) 
+#
+LINKER       = mpif77
+LINKFLAGS    = 
+#
+ARCHIVER     = ar
+ARFLAGS      = r
+RANLIB       = echo
+#
+# ----------------------------------------------------------------------
