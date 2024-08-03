@@ -1,0 +1,18 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  # IMPORTANT: change this to the size of the cluster
+  size: 4
+  flux:
+    container:
+      disable: true
+  interactive: true
+  containers:
+  - image: ghcr.io/converged-computing/metric-single-node:cpu
+
+    pullAlways: true
+    # Must be in privileged to get system info (e.g., /sys/mem)
+    securityContext:
+      privileged: true

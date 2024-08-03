@@ -30,11 +30,17 @@ Action items for team:
  - [ ] quicksilver doesn't run for any of the coral benchmarks, it only works at really small sizes
  - [ ] linpack/HPL works! But we need to customize an HPL.dat that we like - I used the tesing one.
  - [ ] stream does not appear to be for multiple nodes
-
+ - [ ] I'm not sure we can run nekRS (5000) unless we add Filestore
+ 
 Concerns
 
  - one node (cores) on one cloud != cores on another. If we try to make them close, we are comparing different things, network wise. That hurts Google a lot, which has fewer cores/node. I'm not sure how to consolidate this, but I did tests according to number of nodes (as we spec'd out).
  - amg2023 is really flaky - I keep getting "address already in use" at random times.
+
+
+Full testing times:
+
+ - ~2 hours (early 2024)
 
 
 ## Design
@@ -50,6 +56,8 @@ For each experiment (crd in ./crd):
   Compress results with oras
   Push to OCI registry for results
 ```
+
+We will want to either run this on a GKE instance (we all have access to) OR create the cluster and share the kubeconfig with multiple people, in case someone's computer crashes. We also need a means to programatically monitor the container creation times, etc.
 
 ## Experiments
 
