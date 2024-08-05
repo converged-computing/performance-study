@@ -31,12 +31,11 @@ Action items for team:
  - [ ] linpack/HPL works! But we need to customize an HPL.dat that we like - I used the tesing one.
  - [ ] stream does not appear to be for multiple nodes
  - [ ] I'm not sure we can run nekRS (5000) unless we add Filestore
- 
+  
 Concerns
 
  - one node (cores) on one cloud != cores on another. If we try to make them close, we are comparing different things, network wise. That hurts Google a lot, which has fewer cores/node. I'm not sure how to consolidate this, but I did tests according to number of nodes (as we spec'd out).
  - amg2023 is really flaky - I keep getting "address already in use" at random times.
-
 
 Full testing times:
 
@@ -124,6 +123,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
+
 We want to run four separate jobs, across each node. Write this into a batch file.
 
 ```console
@@ -141,13 +155,7 @@ for i in $(seq 1 1); do
   done 
 done
 
-# When they are done:
-for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
-  do
-    flux job attach $jobid &> ./$output/$app-${jobid}.out 
-  done
-
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 #### AMG2023
@@ -168,6 +176,22 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 Here is an example loop through sizes and iterations. Note that we want to use affinity - the times are faster.
 During testing I saw one MPI error about hostnames "address already in use" but it didn't re-occur.
+
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
 
 ```console
 oras login ghcr.io --username vsoch
@@ -202,7 +226,7 @@ for i in $(seq 1 1); do
   time flux run -N 4 -n 224 -o cpu-affinity=per-task amg -P 8 7 4 -n 64 64 128 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
@@ -220,6 +244,21 @@ About 42-46 seconds extra pull time.
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
 ```
 
 ```console
@@ -244,7 +283,7 @@ for i in $(seq 1 1); do
   time flux run -N 32 -n 1792 -o cpu-affinity=per-task kripke --layout GDZ --dset 8 --zones 112,112,112 --gset 16 --groups 64 --niter 10 --legendre 9 --quad 8 --procs 8,14,16 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
@@ -262,6 +301,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
 ```
 
 ```console
@@ -294,7 +348,7 @@ for i in $(seq 1 1); do
   time flux run -N2 -n 112 /opt/laghos/laghos -p 1 -m ./data/box01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 20 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
@@ -312,6 +366,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
 ```
 
 ```console
@@ -340,7 +409,7 @@ for i in $(seq 1 2); do
   time flux run -N 32 -n 1792 -o cpu-affinity=per-task lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 20000 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 Note that for "opposite scaling" apps like lammps, we are going to need to decide a maximum time to wait for something to run, otherwise we will get in trouble. Given the closeness with the affinity/without affinity times and how it improved the larger sizes, I recommend using the flag over not.
@@ -361,6 +430,22 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
+
 
 ```console
 oras login ghcr.io --username vsoch
@@ -386,7 +471,7 @@ for i in $(seq 1 2); do
   time flux run -N32 -n 1792 -o cpu-affinity=per-task miniFE.x nx=620 ny=620 nz=620 num_devices=4 use_locking=1 elem_group_size=2 use_elem_mat_fields=10 verify_solution=0 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
@@ -411,6 +496,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
+
 ```console
 oras login ghcr.io --username vsoch
 app=mixbench
@@ -429,14 +529,14 @@ for i in $(seq 1 2); do
   time mixbench-cpu
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
 kubectl delete -f ./crd/mixbench.yaml
 ```
 
-#### Mt Gem
+#### Mt-Gemm
 
 ```bash
 kubectl apply -f ./crd/mt-gem.yaml
@@ -448,6 +548,22 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
+
 
 ```console
 oras login ghcr.io --username vsoch
@@ -466,7 +582,7 @@ for i in $(seq 1 2); do
 
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 The above needs a redo - either improved printing of metrics (and increase in runtime) or a new repository.
@@ -482,6 +598,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 ```
 - Extra pull time: 19.18 seconds
 
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
 
 See the AWS runs for this setup - I couldn't get it working. The reason is because it requires a shared cache. For some reason, the initial run (and cache generation) didn't work at all here, so my strategy to flux archive / flux exec across nodes didn't work. Aside from deploying a shared filesystem (Google Filestore) for this one run we might just consider removing it.
 
@@ -501,6 +632,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
 ```
 
 ```console
@@ -531,7 +677,7 @@ for i in $(seq 1 2); do
   time flux run -N2 -n2 /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency |& tee ./$output/$app-osu_latency-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
@@ -556,6 +702,21 @@ Configuration to test from Abhik: 🥳️
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
+
 ```console
 oras login ghcr.io --username vsoch
 app=quicksilver
@@ -571,7 +732,7 @@ for i in $(seq 1 2); do
   time flux run -o cpu-affinity=per-task -N4 -n 224 qs --nParticles 1000 --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 This seems buggy - when I changed the input file, the output values didn't change, even with `--inputFile` (this was an error we saw before). The command line flags seemed to work, these:
@@ -638,6 +799,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
+```
+
 ```console
 oras login ghcr.io --username vsoch
 app=linpack
@@ -662,7 +838,7 @@ for i in $(seq 1 1); do
   time flux run -N 32 -n 1792 -o cpu-affinity=per-task xhpl |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/linpack.yaml
@@ -679,6 +855,21 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+*Important*: For each final command we need to add the final output of job info and submit attributes:
+
+```console
+
+# Identifier should be application, size, and iteration, this matches the other output file
+--setattr=user.study-id=$app-$size-iter-$i
+
+# When they are done
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid &> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+  done
 ```
 
 This does not appear to be for multiple nodes.
@@ -707,7 +898,7 @@ for i in $(seq 1 2); do
   time flux run -N32 -n 1792 ./stream_c.exe  |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
 ```
 
 ```bash
