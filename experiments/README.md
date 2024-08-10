@@ -29,9 +29,26 @@ kubectl  logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-
 This should be done by someone not running the experiments. Here are the resources the pod requires:
 
 ```bash
+Non-terminated Pods:          (4 in total)
+  Namespace                   Name                                            CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                            ------------  ----------  ---------------  -------------  ---
+  kube-system                 aws-node-t96wm                                  50m (2%)      0 (0%)      0 (0%)           0 (0%)         116m
+  kube-system                 kube-proxy-rwbzj                                100m (5%)     0 (0%)      0 (0%)           0 (0%)         116m
+  monitoring                  event-exporter-6bf9c87d4d-v4rtr                 0 (0%)        0 (0%)      0 (0%)           0 (0%)         12m
+  operator-system             operator-controller-manager-548664b97c-xkq5f    15m (0%)      1 (51%)     128Mi (1%)       256Mi (3%)     10m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                165m (8%)   1 (51%)
+  memory             128Mi (1%)  256Mi (3%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+Events:              <none>
 ```
 
-And example output. I started it up, created/deleted the flux operator a few times, creating an impossible minicluster (that would not leave pending, deleted it, then created a successful minicluster, let it run, and deleted it.
+That seems like fairly low overhead! And example output is below. I started it up, created/deleted the flux operator a few times, creating an impossible minicluster (that would not leave pending, deleted it, then created a successful minicluster, let it run, and deleted it.
 
 <details>
 
