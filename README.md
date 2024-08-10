@@ -11,8 +11,22 @@ This study will test HPC application performance across three clouds. The reposi
  - [Amazon Web Services](experiments/aws) includes Parallel Cluster (EC2), and EKS (KUbernetes) for each of CPU and GPU
  - [Microsoft Azure](experiments/azure) includes CycleCloud (VMs), and AKS (Kubernetes) for each of CPU and GPU.
 
+## Timing
 
-Note that Azure resources have not been provisioned yet, so no tested or container building has been possible.
+This is a checklist for the setups we have tested and timed:
+
+- [ ] Microsoft Azure CycleCloud CPU (date)
+- [ ] Microsoft Azure CycleCloud GPU (date)
+- [ ] Microsoft Azure AKS GPU (date)
+- [ ] Microsoft Azure AKS CPU (date)
+- [ ] Google Cloud HPC Toolkit GPU (date)
+- [ ] Google Cloud HPC Toolkit CPU (date)
+- [ ] Google Cloud GKE GPU (date)
+- [ ] Google Cloud GKE CPU (date)
+- [ ] AWS GPU Parallel Cluster (date)
+- [ ] AWS CPU Parallel Cluster (date)
+- [ ] AWS GPU EKS (date)
+- [ ] AWS CPU EKS (date)
 
 ## License
 

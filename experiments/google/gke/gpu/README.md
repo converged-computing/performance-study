@@ -28,7 +28,7 @@ like this
 Questions:
 
  - Do we want to mimic the number of CPU on lassen or stick with what Google Cloud has?
- - I'm not sure we can run nek5000 unless we also deploy filestore.
+ - I'm not sure we can run nek5000 unless we also deploy filestore (do it)
 
 and will update each set of commands after running / testing again.
 
@@ -67,7 +67,7 @@ Bring up the cluster (with some number of nodes) and install the drivers. Have y
 ```bash
 GOOGLE_PROJECT=myproject
 NODES=4
-GPUS=4
+GPUS=8
 
 gcloud compute networks create mtu9k --mtu=8896 
 
@@ -158,6 +158,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -215,6 +216,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -265,6 +267,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -384,6 +387,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -470,6 +474,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -541,6 +546,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -602,6 +608,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -657,6 +664,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -709,6 +717,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -765,6 +774,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -832,6 +842,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -879,6 +890,12 @@ flux run -N2 -n 8 -g 1 nekrs --setup turbPipe.par
 kubectl delete -f ./crd/nek5000.yaml
 ```
 
+For running on dane (test):
+
+```
+singularity exec --pwd /tmp/turb ./metric-nek5000_cpu.sif /usr/local/bin/mpirun -np 2 nekrs --setup turbPipe.par
+```
+
 ### OSU
 
 ```bash
@@ -901,6 +918,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -952,6 +970,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -1026,6 +1045,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 
@@ -1069,6 +1089,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     flux job attach $jobid &> ./$output/$app-${jobid}.out 
     flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 ```
 

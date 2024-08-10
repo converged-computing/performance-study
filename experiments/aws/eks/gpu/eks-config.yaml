@@ -1,0 +1,30 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: performance-study
+  region: us-east-1
+  version: "1.27"
+
+availabilityZones: ["us-east-1a", "us-east-1b"]
+managedNodeGroups:
+  - name: workers
+    availabilityZones: ["us-east-1b"]
+    instanceType: p3dn.24xlarge
+    # Defaults to 80, this in GB. 80 is too small to support installing EFA
+    volumeSize: 150
+    # This will default to gp3 and you'll wait 30+ minutes and it will fail
+    volumeType: gp2
+    tags:
+      k8s.io/cluster-autoscaler/performance-study: "owned"
+      k8s.io/cluster-autoscaler/enabled: "true"
+      k8s.amazonaws.com/accelerator: "nvidia-tesla-v100"
+    minSize: 4
+    maxSize: 4
+    efaEnabled: true
+    placement:
+      groupName: performance-study
+    labels: { "flux-operator": "true" }
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/id_eks.pub

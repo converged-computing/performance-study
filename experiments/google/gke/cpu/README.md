@@ -25,7 +25,7 @@ These are previous TODOs that need to be tested again to verify if they are stil
 
 Action items for team:
 
- - [ ] mt-gem needs either a refactor (different source) or better script (and should be longer I think)
+ - [ ] mt-gemm needs either a refactor (different source) or better script (and should be longer I think)
  - [ ] mixbench-cpu needs an equivalent wrapper to modify problem size and run across nodes
  - [ ] quicksilver doesn't run for any of the coral benchmarks, it only works at really small sizes
  - [ ] linpack/HPL works! But we need to customize an HPL.dat that we like - I used the tesing one.
@@ -148,7 +148,7 @@ output=./results/$app
 mkdir -p $output
 
 # Note sure if we need iterations here
-for i in $(seq 1 1); do     
+for i in $(seq 1 1); do
   echo "Running iteration $i"  
   for node in $(seq 1 4); do
     flux submit /bin/bash /entrypoint.sh
@@ -181,7 +181,6 @@ During testing I saw one MPI error about hostnames "address already in use" but 
 *Important*: For each final command we need to add the final output of job info and submit attributes:
 
 ```console
-
 # Identifier should be application, size, and iteration, this matches the other output file
 --setattr=user.study-id=$app-$size-iter-$i
 
