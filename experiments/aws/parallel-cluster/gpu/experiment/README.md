@@ -2,6 +2,8 @@
 
 > GPU Edition
 
+- TODO: what kind of volume do we want (currently have gp2)
+
 ## Experiment
 
 ### 1. Setup

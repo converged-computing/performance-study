@@ -6,6 +6,10 @@
 
 Make sure you have aws-iam-authenticator installed first! If you don't you can update your credentials as follows:
 
+
+- TODO: this instance type is 2 threads per core - how to adjust for that? 96 should be 48
+  - need to update the CRD files, figure out how, and adjust that for the other setups that use it.
+- TODO for each experiment - update cores for AWS instance, add fork safe envar as needed.
 - TODO: Testing shared filesystem, Lustre FSX with smaller cluster
 - For each: update size after in CRD, and iters for each based on time
 - Update nodes for single node benchmark
