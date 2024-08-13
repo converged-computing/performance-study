@@ -42,8 +42,8 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  - flux-core" \
     &&   echo "  - pmix@4.2.2" \
     &&   echo "  - flux-pmix@0.4.0" \
-    &&   echo "  - amg2023 +mpi" \
-    &&   echo "  - hypre" \
+    &&   echo "  - amg2023 +mpi +openmp" \
+    &&   echo "  - hypre +mixedint +openmp" \
     &&   echo "  concretizer:" \
     &&	 echo "    unify: true" \
     &&   echo "  config:" \

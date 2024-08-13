@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim .
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-amg2023:spack-slim-zen4 .
+#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-zen4
+
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
     autotools-dev \
@@ -39,7 +43,7 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  - pmix@4.2.2" \
     &&   echo "  - flux-pmix@0.4.0" \
     &&   echo "  - amg2023 +mpi +cuda cuda_arch=70" \
-    &&   echo "  - hypre +cuda cuda_arch=70" \
+    &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
     &&   echo "  concretizer:" \
     &&	 echo "    unify: true" \
     &&   echo "  config:" \
