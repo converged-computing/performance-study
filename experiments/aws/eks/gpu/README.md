@@ -15,10 +15,10 @@ Make sure you have aws-iam-authenticator installed first! If you don't you can u
 - Update nodes for single node benchmark
 
 ```bash
-aws eks update-kubeconfig --region us-east-1 --name performance-study
+eksctl create cluster --config-file ./eks-config.yaml
 ```
 ```bash
-eksctl create cluster --config-file ./eks-config.yaml
+aws eks update-kubeconfig --region us-east-1 --name performance-study
 ```
 
 ```bash

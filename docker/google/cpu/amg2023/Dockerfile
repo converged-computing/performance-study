@@ -50,7 +50,6 @@ RUN mkdir /opt/spack-environment \
     &&   echo "    install_tree: /opt/software" \
     &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
 
-
 # Install the software, remove unnecessary deps
 RUN cd /opt/spack-environment \
     && git clone https://github.com/spack/spack.git \

@@ -19,8 +19,9 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim | Google    | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
-| ghcr.io/converged-computing/metric-laghos:gpu-zen4                   | Google    | yes |[Dockerfile](docker/google/gpu/laghos)  | Needs to be built on large machine  |
+| ghcr.io/converged-computing/metric-amg:gpu-zen4                | Google    | yes |[Dockerfile](docker/google/gpu/amg) |  |
+| ghcr.io/converged-computing/metric-amg2023:spack-slim | Google | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
+| ghcr.io/converged-computing/metric-laghos:gpu-zen4             | Google    | yes |[Dockerfile](docker/google/gpu/laghos)  | Needs to be built on large machine  |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-kripke-gpu:latest           | Google    | yes |[Dockerfile](docker/google/gpu/kripke)  | |
 | ghcr.io/converged-computing/metric-lammps-gpu:kokkos           | Google    | yes |[Dockerfile](docker/google/gpu/lammps)  | using Kokkos build |
@@ -39,6 +40,7 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
+| ghcr.io/converged-computing/metric-amg:libfabric-gpu-zen4      | AWS       | yes  |[Dockerfile](docker/aws/gpu/amg) |  |
 | ghcr.io/converged-computing/metric-amg2023:spack-slim | AWS    | yes |[Dockerfile](docker/google/gpu/amg2023) | Same as Google, already has libfabric |
 | ghcr.io/converged-computing/metric-laghos:libfabric-gpu-zen4   | yes |[Dockerfile](docker/aws/gpu/laghos)  | Needs to be built on large machine |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
@@ -61,6 +63,7 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
+| ghcr.io/converged-computing/metric-amg:cpu-zen4                | Google   | no |[Dockerfile](docker/google/cpu/amg) |  |
 | ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/amg2023) |  |
 | ghcr.io/converged-computing/metric-laghos:cpu-zen4             | Google | no |[Dockerfile](docker/google/cpu/laghos)  | |
 | ghcr.io/converged-computing/metric-kripke-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/kripke)  | |
@@ -78,6 +81,7 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
+| ghcr.io/converged-computing/metric-amg:libfabric-cpu-zen4      | AWS   | no |[Dockerfile](docker/google/aws/amg) |  |
 | ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
  libfabric |
 | ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4   |  AWS | no |[Dockerfile](docker/aws/cpu/laghos) | |
