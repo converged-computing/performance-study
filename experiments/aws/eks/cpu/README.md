@@ -233,45 +233,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:t
 kubectl delete -f ./crd/kripke.yaml
 ```
 
-#### Linpack
-
-**not tested**
-
-```bash
-kubectl apply -f ./crd/linpack.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-About 30 seconds extra pull time.
-
-```bash
-flux proxy local:///mnt/flux/view/run/flux/local bash
-```
-
-```console
-oras login ghcr.io --username vsoch
-app=linpack
-output=./results/$app
-
-mkdir -p $output
-for i in $(seq 1 1); do     
-  echo "Running iteration $i"
-
-  # This still runs on each node, needs to be recompiled
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task TODOADDCOMMAND |& tee ./$output/$app-$size-iter-${i}.out
-
-  # This still runs on each node, needs to be recompiled
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task TODOADDCOMMAND |& tee ./$output/$app-$size-iter-${i}.out
-
-done
-
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
-```
-
-```bash
-kubectl delete -f ./crd/linpack.yaml
-```
-
-
 #### Laghos
 
 ```bash

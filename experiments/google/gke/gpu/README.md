@@ -698,7 +698,7 @@ kubectl delete -f ./crd/mixbench.yaml
 
 
 ```bash
-kubectl apply -f ./crd/mt-gem.yaml
+kubectl apply -f ./crd/mt-gemm.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 

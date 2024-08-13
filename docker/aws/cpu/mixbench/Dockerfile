@@ -183,7 +183,6 @@ RUN apt-get install -y \
         rdma-core
         
 # install libfabric with "all the fabrics"
-# This is what we want to emulate
 RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
