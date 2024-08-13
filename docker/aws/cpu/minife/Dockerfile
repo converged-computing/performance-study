@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-minife:libfabric-cpu .
-#  docker push ghcr.io/converged-computing/metric-minife:libfabric-cpu
+#  docker build -t ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4
 
 # Utilities
 RUN apt-get update && \
@@ -173,28 +173,32 @@ RUN apt-get update && \
         dnsutils telnet strace git g++ \
         unzip bzip2
 
+
 # Needed for libfabric
 RUN apt-get install -y \
         libibverbs-dev \
         librdmacm-dev \
         rdma-core
-        
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install && ldconfig
+    make -j 4 && make install && ldconfig
 
 WORKDIR /opt
-RUN git clone https://github.com/Mantevo/minife
+RUN mkdir minife && \
+    cd minife && \
+    git init && \
+    git remote add origin https://github.com/Mantevo/minife && \
+    git fetch --depth 1 origin abe328816d84afc319c482d6bc8df414b8f90d79 && \
+    git checkout FETCH_HEAD
 
 # We are adding this to be able to customize parameters moreso
 RUN cd /opt/minife/openmp/src && make && cp miniFE.x /usr/local/bin/miniFE.x

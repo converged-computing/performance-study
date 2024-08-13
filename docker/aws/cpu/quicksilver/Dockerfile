@@ -5,6 +5,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric .
 #  docker push ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 .
+#  docker push ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4
+
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -179,19 +184,19 @@ RUN apt-get install -y \
         librdmacm-dev \
         rdma-core
         
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+# install libfabric with "all the fabrics"
+# This is what we want to emulate
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install && ldconfig
+    make -j 4 && make install && ldconfig
 
 WORKDIR /opt
 
@@ -229,8 +234,14 @@ RUN apt-get update && \
         unzip bzip2
 
 WORKDIR /opt
-RUN git clone https://github.com/LLNL/Quicksilver quicksilver
-COPY ./Makefile /opt/quicksilver/src/Makefile
+COPY ./Makefile /opt/Makefile.qs
+RUN mkdir quicksilver && \
+    cd quicksilver && \
+    git init && \
+    git remote add origin https://github.com/LLNL/Quicksilver && \
+    git fetch --depth 1 origin eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b && \
+    git checkout FETCH_HEAD && \
+    mv /opt/Makefile.qs src/Makefile
 WORKDIR /opt/quicksilver/src
 RUN make && cp qs /usr/bin/qs
 

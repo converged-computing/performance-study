@@ -201,7 +201,6 @@ ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia
 
 WORKDIR /opt
 
-# see https://asc.llnl.gov/sites/asc/files/2020-09/AMG_Summary_v1_7.pdf
 RUN apt-get update && \
     apt-get install -y fftw3-dev fftw3 pdsh \
         openssh-client openssh-server \

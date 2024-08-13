@@ -56,8 +56,8 @@ The rest of these containers use the base `nvidia/cuda:12.4.1-cudnn-devel-ubuntu
 
  - Laghos
   - https://github.com/CEED/Laghos
-  - branch multi-gpu
-  - `2a3d27142fc55d132c5543f5ccafde7838ce6cea`
+  - Release v3.1
+  - https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz
 
 ### ghcr.io/converged-computing/metric-lammps-gpu:kokkos
 
@@ -226,8 +226,8 @@ See Google GPU entry - same container.
 
  - Laghos
   - https://github.com/CEED/Laghos
-  - branch multi-gpu
-  - `2a3d27142fc55d132c5543f5ccafde7838ce6cea`
+  - Release v3.1
+  - https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz
 
 ### ghcr.io/converged-computing/metric-magma:libfabric
 
@@ -323,11 +323,9 @@ This has a base of `ubuntu:22.04` instead of the equivalent for cuda.
 ### ghcr.io/converged-computing/metric-laghos:cpu
 
  - Laghos
-  - Feb 21, 2024
-  - `a00cb3cba70136f88e6c137d303d6548067a2abf`
   - https://github.com/CEED/Laghos
-
-**THIS IS A DIFFERENT COMMIT**
+  - Release v3.1
+  - https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz
 
 ### ghcr.io/converged-computing/metric-minife:cpu
 
@@ -373,12 +371,6 @@ This was all added via the Docker build, no clones / versions available.
   - https://repository.prace-ri.eu/git/CodeVault/hpc-kernels/dense_linear_algebra.git
   - June 19, 2018
 
-### ghcr.io/converged-computing/metric-linpack-cpu 
-
- - Linkpack
-   - https://github.com/ULHPC/tutorials
-   - HPL version 2.3  
-   - http://www.netlib.org/benchmark/hpl/hpl-${HPL_VERSION}.tar.gz
     
 ## AWS CPU
 
@@ -412,9 +404,9 @@ See Google CPU container again!
 ### ghcr.io/converged-computing/metric-laghos:libfabric-cpu   
 
  - Laghos
-  - Feb 21, 2024
-  - `a00cb3cba70136f88e6c137d303d6548067a2abf`
   - https://github.com/CEED/Laghos
+  - Release v3.1
+  - https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz
 
 ### ghcr.io/converged-computing/metric-lammps-cpu  
 
@@ -465,10 +457,3 @@ See Google CPU container again!
 ### ghcr.io/converged-computing/metric-stream:libfabric-cpu 
 
 Custom build - see src directory.
-
-### ghcr.io/converged-computing/metric-linpack-cpu:libfabric 
-
- - Linkpack
-   - https://github.com/ULHPC/tutorials
-   - HPL version 2.3  
-   - http://www.netlib.org/benchmark/hpl/hpl-${HPL_VERSION}.tar.gz

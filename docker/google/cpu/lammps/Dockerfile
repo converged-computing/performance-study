@@ -5,6 +5,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-lammps-cpu .
 #  docker push ghcr.io/converged-computing/metric-lammps-cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-lammps-cpu:zen4 .
+#  docker push ghcr.io/converged-computing/metric-lammps-cpu:zen4
+
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -183,11 +188,15 @@ RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.g
 
 WORKDIR /opt
 RUN python3 -m pip install clang-format && \
-   git clone --depth 1 https://github.com/lammps/lammps.git && \
-    cd lammps && \
-    mkdir build && \
-    cd build && \
-    cmake \
+   mkdir lammps && \
+   cd lammps && \
+   git init && \
+   git remote add origin https://github.com/lammps/lammps.git && \
+   git fetch --depth 1 origin a8687b53724b630fb5f454c8d7be9f9370f8bb3b && \
+   git checkout FETCH_HEAD && \
+   mkdir build && \
+   cd build && \
+   cmake \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=Release \
   -D MPI_CXX_COMPILER=mpicxx \

@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu .
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
 
+# AMD
+#  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4
+
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
     autotools-dev \

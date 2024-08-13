@@ -5,7 +5,7 @@ Image:
 HeadNode:
   InstanceType: hpc6a.48xlarge
   Networking:
-    SubnetId: subnet-0d174d28f9f2e9bde
+    SubnetId: subnet-077e49695466c795a
   Ssh:
     KeyName: tahcos-cat
   LocalStorage:
@@ -44,7 +44,7 @@ Scheduling:
           Size: 50
     Networking:
       SubnetIds:
-      - subnet-062e29f54aab2ced2
+      - subnet-077e49695466c795a
       PlacementGroup:
         Enabled: true
         Id: performance-study

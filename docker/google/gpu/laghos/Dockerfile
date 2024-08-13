@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-laghos:gpu .
-#  docker push ghcr.io/converged-computing/metric-laghos:gpu 
+#  docker build -t ghcr.io/converged-computing/metric-laghos:gpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-laghos:gpu-zen4
 
 # Utilities
 RUN apt-get update && \
@@ -190,30 +190,34 @@ WORKDIR /opt
 ENV MAKE_CXX_FLAG="MPICXX=mpic++"
 
 # Install hypre
-RUN export hypre_options="--disable-fortran --without-fei" && \
-    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.11.2.tar.gz && \
-    tar -xzf v2.11.2.tar.gz && \
-    mv hypre-2.11.2 hypre && \
+RUN apt-get install -y libc6-dev && \
+    export hypre_options="--disable-fortran --without-fei" && \
+    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
+    tar -xzf v2.28.0.tar.gz && \
+    mv hypre-2.28.0 hypre && \
     cd hypre/src && \
    ./configure ${hypre_options} CC=mpicc CXX=mpic++ && \
     make
 
 # Metis
-RUN wget --no-verbose http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/OLD/metis-4.0.3.tar.gz && \
+RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz && \
     tar -xzf metis-4.0.3.tar.gz && \
     mv metis-4.0.3 metis-4.0 && \
     make -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
 
 ENV MFEM_BUILD="pcuda -j CUDA_ARCH=sm_70"
-RUN git clone --single-branch --depth 1 https://github.com/mfem/mfem && \
-    unset LD_LIBRARY_PATH && \
-    cd mfem && \
+RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
+    tar -xzvf v4.7.tar.gz && \
+    mv mfem-4.7 /opt/mfem && \
+    cd /opt/mfem && \
     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS="${CPPFLAGS}" && \
     make MFEM_BUILD=${MFEM_BUILD}
-       
-# https://github.com/CEED/Laghos/blob/multi-gpu/cuda/README.md
-RUN git clone --branch multi-gpu --depth 1 https://github.com/CEED/Laghos laghos
-RUN cd laghos/cuda && \ 
+        
+WORKDIR /opt
+RUN wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz && \ 
+    tar -xzvf v3.1.tar.gz && \
+    mv Laghos-3.1 /opt/laghos && \
+    cd /opt/laghos && \
     make
 
 EXPOSE 22

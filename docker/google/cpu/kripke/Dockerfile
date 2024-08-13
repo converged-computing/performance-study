@@ -1,8 +1,12 @@
-FROM ubuntu:22.04 as builder
+FROM ubuntu:22.04 AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
 #  docker build -t ghcr.io/converged-computing/metric-kripke-cpu .
+#  docker push ghcr.io/converged-computing/metric-kripke-cpu
+
+# on AMD
+#  docker build -t ghcr.io/converged-computing/metric-kripke-cpu:zen4 .
 #  docker push ghcr.io/converged-computing/metric-kripke-cpu
 
 # Utilities
@@ -182,7 +186,6 @@ RUN mkdir -p /usr/local/pancakes && \
     ./configure && \
     make && make install
 
-# see https://asc.llnl.gov/sites/asc/files/2020-09/AMG_Summary_v1_7.pdf
 RUN apt-get update && \
     apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
         openssh-client openssh-server \
@@ -190,21 +193,19 @@ RUN apt-get update && \
         unzip bzip2
 
 WORKDIR /opt
+COPY ./gke.cmake /opt/gke.cmake
+
 RUN git clone https://github.com/LLNL/Kripke && \
     cd Kripke && \
     git submodule update --init --recursive && \
-    mkdir build 
-
-COPY ./gke.cmake /opt/Kripke/host-configs/gke.cmake
-RUN cd /opt/Kripke/build && \
+    mkdir build && \
+    mv /opt/gke.cmake /opt/Kripke/host-configs/gke.cmake && \
+    cd /opt/Kripke/build && \
     cmake  -C../host-configs/gke.cmake ../ && make && \
-    mv /opt/Kripke/build/kripke.exe /opt/Kripke/build/bin/kripke
-
-# Put those bad bois on the path!
-ENV PATH=/opt/Kripke:/opt/Kripke/build/bin:$PATH
+    mv /opt/Kripke/build/kripke.exe /usr/local/bin/kripke && \
+    rm -rf /opt/Kripke
 
 EXPOSE 22
-WORKDIR /opt/Kripke
 
 # Finally, install oras for saving artifacts
 RUN export VERSION="1.1.0" && \

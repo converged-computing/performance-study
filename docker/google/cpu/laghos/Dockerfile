@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-laghos:cpu .
 #  docker push ghcr.io/converged-computing/metric-laghos:cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-laghos:cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-laghos:cpu-zen4
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -187,31 +191,35 @@ ENV MAKE_CXX_FLAG="MPICXX=mpic++"
 # Install hypre
 RUN apt-get install -y libc6-dev && \
     export hypre_options="--disable-fortran --without-fei" && \
-    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.11.2.tar.gz && \
-    tar -xzf v2.11.2.tar.gz && \
-    mv hypre-2.11.2 hypre && \
+    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
+    tar -xzf v2.28.0.tar.gz && \
+    mv hypre-2.28.0 hypre && \
     cd hypre/src && \
    ./configure ${hypre_options} CC=mpicc CXX=mpic++ && \
     make
 
 # Metis
-RUN wget --no-verbose http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/OLD/metis-4.0.3.tar.gz && \
+RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz && \
     tar -xzf metis-4.0.3.tar.gz && \
     mv metis-4.0.3 metis-4.0 && \
     make -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
 
-RUN git clone --single-branch --depth 1 https://github.com/mfem/mfem && \
+RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
+    tar -xzvf v4.7.tar.gz && \
+    mv mfem-4.7 /opt/mfem && \
+    cd /opt/mfem && \
     unset LD_LIBRARY_PATH && \
-    cd mfem && \
     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS="${CPPFLAGS}" && \
     make
-       
-RUN git clone --depth 1 https://github.com/CEED/Laghos laghos
-RUN cd laghos && \ 
+        
+WORKDIR /opt
+RUN wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz && \ 
+    tar -xzvf v3.1.tar.gz && \
+    mv Laghos-3.1 /opt/laghos && \
+    cd /opt/laghos && \
     make
 
 EXPOSE 22
-WORKDIR /opt/laghos
 
 # Finally, install oras for saving artifacts
 RUN export VERSION="1.1.0" && \

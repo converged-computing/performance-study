@@ -5,6 +5,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-lammps-cpu:libfabric .
 #  docker push ghcr.io/converged-computing/metric-lammps-cpu:libfabric
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-lammps-cpu:libfabric-zen4 .
+#  docker push ghcr.io/converged-computing/metric-lammps-cpu:libfabric-zen4
+
+
 # oras artifact
 # oras push ghcr.io/converged-computing/metric-lammps-cpu:libfabric-data ./common 
 
@@ -181,12 +186,10 @@ RUN apt-get update && \
 
 # install libfabric with "all the fabrics"
 # This is what we want to emulate
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
@@ -197,11 +200,15 @@ RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.g
 
 WORKDIR /opt
 RUN python3 -m pip install clang-format && \
-   git clone --depth 1 https://github.com/lammps/lammps.git && \
-    cd lammps && \
-    mkdir build && \
-    cd build && \
-    cmake \
+   mkdir lammps && \
+   cd lammps && \
+   git init && \
+   git remote add origin https://github.com/lammps/lammps.git && \
+   git fetch --depth 1 origin a8687b53724b630fb5f454c8d7be9f9370f8bb3b && \
+   git checkout FETCH_HEAD && \
+   mkdir build && \
+   cd build && \
+   cmake \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=Release \
   -D MPI_CXX_COMPILER=mpicxx \
@@ -211,7 +218,7 @@ RUN python3 -m pip install clang-format && \
   -D PKG_REAXFF=on \
   -D PKG_KOKKOS=yes \
   ../cmake && make && make install
-  
+
 WORKDIR /code
 COPY ./common .
 

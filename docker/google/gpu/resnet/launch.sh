@@ -1,7 +1,7 @@
 job_name="${1:-flux-sample}"
 nodes="${2:-2}"
 proc_per_node="${3:-4}"
-batch_size="${4:-64}"
+batch_size="${4:-32}"
 
 export LOCAL_RANK=${FLUX_TASK_RANK}
 export RANK=${FLUX_TASK_RANK}
@@ -24,4 +24,3 @@ else
   main.py \
   --backend=nccl --use_syn --batch_size=${batch_size} --arch=resnet152
 fi
-

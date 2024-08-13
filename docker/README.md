@@ -19,9 +19,10 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim          | Google    | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
+| ghcr.io/converged-computing/metric-amg2023:spack-slim | Google    | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
+| ghcr.io/converged-computing/metric-laghos:gpu-zen4                   | Google    | yes |[Dockerfile](docker/google/gpu/laghos)  | Needs to be built on large machine  |
+| ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-kripke-gpu:latest           | Google    | yes |[Dockerfile](docker/google/gpu/kripke)  | |
-| ghcr.io/converged-computing/metric-laghos:gpu                  | Google    | yes |[Dockerfile](docker/google/gpu/laghos)  | Needs to be built on large machine  |
 | ghcr.io/converged-computing/metric-lammps-gpu:kokkos           | Google    | yes |[Dockerfile](docker/google/gpu/lammps)  | using Kokkos build |
 | ghcr.io/converged-computing/metric-magma                       | Google    | yes |[Dockerfile](docker/google/gpu/magma)   |  |
 | ghcr.io/converged-computing/metric-minife:latest               | Google    | yes |[Dockerfile](docker/google/gpu/minife)  | | 
@@ -32,16 +33,17 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 | ghcr.io/converged-computing/metric-osu-gpu:latest              | Google    | yes |[Dockerfile](docker/google/gpu/osu) | |
 | ghcr.io/converged-computing/metric-quicksilver-gpu:latest      | Google    | yes |[Dockerfile](docker/google/gpu/quicksilver) | |
 | ghcr.io/converged-computing/pytorch-resnet-experiment:gpu      | Google    | yes |[Dockerfile](docker/google/gpu/resnet) | |
-| ghcr.io/converged-computing/metric-stream:latest               | Google    | yes |[Dockerfile](docker/google/gpu/stream) | | 
+| ghcr.io/converged-computing/metric-stream:zen4                 | Google    | yes |[Dockerfile](docker/google/gpu/stream) | | 
 
 ### Amazon Web Services
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim     | AWS    | yes |[Dockerfile](docker/google/gpu/amg2023) | Same as Google, already has libfabric |
+| ghcr.io/converged-computing/metric-amg2023:spack-slim | AWS    | yes |[Dockerfile](docker/google/gpu/amg2023) | Same as Google, already has libfabric |
+| ghcr.io/converged-computing/metric-laghos:libfabric-gpu-zen4   | yes |[Dockerfile](docker/aws/gpu/laghos)  | Needs to be built on large machine |
+| ghcr.io/converged-computing/metric-single-node:cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-lammps-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/lammps) | |
 | ghcr.io/converged-computing/metric-kripke-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/kripke)  | |
-| ghcr.io/converged-computing/metric-laghos:libfabric-gpu   | AWS | yes |[Dockerfile](docker/aws/gpu/laghos)  | Needs to be built on large machine |
 | ghcr.io/converged-computing/metric-magma:libfabric        | AWS | yes |[Dockerfile](docker/aws/gpu/magma)   |  |
 | ghcr.io/converged-computing/metric-minife:libfabric       | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 
 | ghcr.io/converged-computing/metric-mixbench:libfabric     | AWS | yes |[Dockerfile](docker/aws/gpu/mixbench)| |
@@ -51,7 +53,7 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 | ghcr.io/converged-computing/metric-osu-gpu:libfabric      | AWS | yes |[Dockerfile](docker/aws/gpu/osu) | |
 | ghcr.io/converged-computing/metric-quicksilver-gpu:libfabric| AWS | yes |[Dockerfile](docker/aws/gpu/quicksilver) | |
 | ghcr.io/converged-computing/pytorch-resnet-experiment:libfabric-gpu | AWS   | yes |[Dockerfile](docker/aws/gpu/resnet) | |
-| ghcr.io/converged-computing/metric-stream:libfabric       | AWS  | yes | [Dockerfile](docker/aws/gpu/stream) | |
+| ghcr.io/converged-computing/metric-stream:libfabric-zen4       | AWS  | yes | [Dockerfile](docker/aws/gpu/stream) | |
 
 ## CPU
 
@@ -59,38 +61,36 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu | Google | no |[Dockerfile](docker/google/cpu/amg2023) |  |
-| ghcr.io/converged-computing/metric-lammps-cpu             | Google | no |[Dockerfile](docker/google/cpu/lammps) | |
-| ghcr.io/converged-computing/metric-kripke-cpu             | Google | no |[Dockerfile](docker/google/cpu/kripke)  | |
-| ghcr.io/converged-computing/metric-laghos:cpu             | Google | no |[Dockerfile](docker/google/cpu/laghos)  | |
-| ghcr.io/converged-computing/metric-minife:cpu             | Google | no |[Dockerfile](docker/google/cpu/minife)  | | 
-| ghcr.io/converged-computing/metric-mixbench:cpu           | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
-| ghcr.io/converged-computing/metric-nek5000:cpu            | Google | no |[Dockerfile](docker/google/cpu/nek5000) | |
-| ghcr.io/converged-computing/metric-osu-cpu                | Google | no |[Dockerfile](docker/google/cpu/osu) | |
-| ghcr.io/converged-computing/metric-quicksilver-cpu        | Google | no |[Dockerfile](docker/google/cpu/quicksilver) | |
-| ghcr.io/converged-computing/metric-stream:cpu             | Google | no |[Dockerfile](docker/google/cpu/stream) | |
-| ghcr.io/converged-computing/mt-gemm:cpu                   | Google | no |[Dockerfile](docker/google/cpu/mt-gemm-base)| |
-| ghcr.io/converged-computing/metric-linpack-cpu            | Google | no |[Dockerfile](docker/google/cpu/linpack) | |  
-| ghcr.io/converged-computing/metric-single-node            | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
+| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/amg2023) |  |
+| ghcr.io/converged-computing/metric-laghos:cpu-zen4             | Google | no |[Dockerfile](docker/google/cpu/laghos)  | |
+| ghcr.io/converged-computing/metric-kripke-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/kripke)  | |
+| ghcr.io/converged-computing/metric-lammps-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/lammps) | |
+| ghcr.io/converged-computing/metric-minife:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/minife)  | | 
+| ghcr.io/converged-computing/mt-gemm:cpu-zen4                  | Google | no |[Dockerfile](docker/google/cpu/mt-gemm-base)| |
+| ghcr.io/converged-computing/metric-nek5000:cpu-zen4           | Google | no |[Dockerfile](docker/google/cpu/nek5000) | |
+| ghcr.io/converged-computing/metric-osu-cpu:zen4               | Google | no |[Dockerfile](docker/google/cpu/osu) | |
+| ghcr.io/converged-computing/metric-quicksilver-cpu:zen4       | Google | no |[Dockerfile](docker/google/cpu/quicksilver) | |
+| ghcr.io/converged-computing/metric-single-node:cpu-zen4       | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
+| ghcr.io/converged-computing/metric-stream:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/stream) | |
+| ghcr.io/converged-computing/metric-mixbench:cpu-zen4           | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
 
 ### Amazon Web Services
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
+| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
  libfabric |
-| ghcr.io/converged-computing/metric-kripke-cpu:libfabric   | AWS | no |[Dockerfile](docker/aws/cpu/amg2023) | |
-| ghcr.io/converged-computing/metric-laghos:libfabric-cpu   | AWS | no |[Dockerfile](docker/aws/cpu/laghos) | |
-| ghcr.io/converged-computing/metric-lammps-cpu             | AWS | no |[Dockerfile](docker/aws/cpu/lammps) | | 
-| ghcr.io/converged-computing/metric-minife:libfabric-cpu   | AWS | no |[Dockerfile](docker/aws/cpu/minife) | |
-| ghcr.io/converged-computing/metric-mixbench:libfabric-cpu | AWS | no |[Dockerfile](docker/aws/cpu/mixbench) | |
-| ghcr.io/converged-computing/mt-gemm:libfabric-cpu         | AWS | no |[Dockerfile](docker/aws/cpu/mt-gemm) | |
-| ghcr.io/converged-computing/metric-nek5000:libfabric-cpu  | AWS | no |[Dockerfile](docker/aws/cpu/nek5000) | |
-| ghcr.io/converged-computing/metric-osu-cpu:libfabric      | AWS | no |[Dockerfile](docker/aws/cpu/osu) | |
-| ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric | AWS | no |[Dockerfile](docker/aws/cpu/quicksilver)| |
-| ghcr.io/converged-computing/metric-stream:libfabric-cpu  | AWS | no | [Dockerfile](docker/aws/cpu/stream) | |
-| ghcr.io/converged-computing/metric-linpack-cpu:libfabric | AWS | no |[Dockerfile](docker/aws/cpu/linpack) | |  
-| ghcr.io/converged-computing/metric-single-node           | AWS |    |[Dockerfile](docker/google/cpu/single-node) | |  
+| ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4   |  AWS | no |[Dockerfile](docker/aws/cpu/laghos) | |
+| ghcr.io/converged-computing/metric-single-node:cpu-zen4   | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
+| ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/amg2023) | |
+| ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4  | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 
+| ghcr.io/converged-computing/metric-lammps-cpu:zen4            | AWS | no |[Dockerfile](docker/aws/cpu/lammps) | | 
+| ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/mixbench) | |
+| ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4         | AWS | no |[Dockerfile](docker/aws/cpu/mt-gemm) | |
+| ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-zen4  | AWS | no |[Dockerfile](docker/aws/cpu/nek5000) | |
+| ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4   | AWS | no |[Dockerfile](docker/aws/cpu/osu) | |
+| ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/quicksilver)| |
+| ghcr.io/converged-computing/metric-stream:libfabric-cpu-zen4 | AWS | no | [Dockerfile](docker/aws/cpu/stream) | |
 
 
 The AWS images are based off of the original Google cloud, but have oras and libfabric added.  The CPU variants are the same as the GPU, with CPU stuffs removed. The exception is resnet, which uses the same pytorch base.

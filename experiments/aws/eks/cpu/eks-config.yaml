@@ -1,0 +1,31 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+# TODO
+# 1. build AWS containers without GPU
+# 2. test AWS cpu setup (size 4 at $2.88)
+# 3. 
+
+metadata:
+  name: dinosaur-efa
+  region: us-east-2
+  version: "1.27"
+
+availabilityZones: ["us-east-2b", "us-east-2c"]
+managedNodeGroups:
+  - name: workers
+    availabilityZones: ["us-east-2b"]
+    instanceType: hpc6a.48xlarge
+    # Defaults to 80, this in GB. 80 is too small to support installing EFA
+    volumeSize: 150
+    # This will default to gp3 and you'll wait 30+ minutes and it will fail
+    volumeType: gp2
+    minSize: 4
+    maxSize: 4
+    efaEnabled: true
+    placement:
+      groupName: eks-efa-testing
+    labels: { "flux-operator": "true" }
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/id_eks.pub

@@ -1,5 +1,7 @@
 # "Bare Metal" on AWS
 
+- TODO: all the container URIs need to be updated here
+
 ## Experiment
 
 ### 1. Setup

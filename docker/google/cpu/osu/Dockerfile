@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-osu-cpu .
 #  docker push ghcr.io/converged-computing/metric-osu-cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-osu-cpu:zen4 .
+#  docker push ghcr.io/converged-computing/metric-osu-cpu:zen4
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
