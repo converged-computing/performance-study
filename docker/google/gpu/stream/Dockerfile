@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-stream .
-#  docker push ghcr.io/converged-computing/metric-stream
+#  docker build -t ghcr.io/converged-computing/metric-stream:zen4 .
+#  docker push ghcr.io/converged-computing/metric-stream:zen4
 
 # Utilities
 RUN apt-get update && \
@@ -187,8 +187,9 @@ ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-12.4/compat
 
 WORKDIR /opt/stream
-RUN git clone https://github.com/bcumming/cuda-stream && \
-    cd cuda-stream && make ARCH=sm_70 && cp stream /usr/local/bin/
+RUN git clone https://github.com/bcumming/cuda-stream
+COPY Makefile /opt/stream/cuda-stream/Makefile
+RUN cd /opt/stream/cuda-stream && make ARCH=sm_70 && cp stream /usr/local/bin/
 
 EXPOSE 22
 

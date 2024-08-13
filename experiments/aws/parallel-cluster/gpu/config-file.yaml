@@ -1,0 +1,66 @@
+# hpc6a only in this region
+Region: us-east-1
+Image:
+  Os: ubuntu2204
+  CustomAmi: ami-0f468aafaa37bccb4
+HeadNode:
+  InstanceType: c5.large
+  Networking:
+    SubnetId: subnet-077e49695466c795a
+  Ssh:
+    KeyName: ed-the-dinosaur
+  LocalStorage:
+    RootVolume:
+      Size: 100
+  Iam:
+    AdditionalIamPolicies:
+      - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      - Policy: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
+      # ADD TOPOLOGY THING
+      
+Scheduling:
+  Scheduler: slurm
+  SlurmQueues:
+  - Name: queue1
+    ComputeResources:
+    - Name: gpu
+      Instances:
+      - InstanceType: p3dn.24xlarge
+      MinCount: 0
+      MaxCount: 1    
+      Efa:
+        Enabled: true
+    ComputeSettings:
+      LocalStorage:
+        RootVolume:
+          Size: 100
+    Networking:
+      SubnetIds:
+      - subnet-077e49695466c795a
+      PlacementGroup:
+        Enabled: true
+        Id: performance-study
+
+# When I enable this, some of the nodes will fail provisioning and roll back
+#    CustomActions:
+#        OnNodeConfigured:
+#          Script: >-
+#                        https://gist.githubusercontent.com/vsoch/445b720c4a6c49a1bc1535acfec79cea/raw/edf45fbb8137c0c0b95726a82fc5540b1b399c88/install.sh
+# I don't think we actually need this either...
+SharedStorage:
+- MountDir: /shared
+  Name: ebs
+  StorageType: Ebs
+  EbsSettings:
+    # Might be better to use gp3 for experiments?
+    VolumeType: gp2
+    Size: 100
+
+# I'm not starting with this - I don't think we need it
+#    - MountDir: /scratch 
+#      Name: fsx
+#      StorageType: FsxLustre
+#      FsxLustreSettings:
+#        StorageCapacity: 1200
+#        DeploymentType: SCRATCH_2
+#        ImportPath: s3:<PATH-TO-IMPORT-FILES>

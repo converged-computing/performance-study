@@ -9,7 +9,7 @@ spec:
       disable: true
   interactive: true
   containers:
-  - image: ghcr.io/converged-computing/metric-single-node:cpu
+  - image: ghcr.io/converged-computing/metric-single-node:cpu-zen4
 
     pullAlways: true
     # Must be in privileged to get system info (e.g., /sys/mem)

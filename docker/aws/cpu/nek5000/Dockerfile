@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-nek5000:libfabric-cpu .
 #  docker push ghcr.io/converged-computing/metric-nek5000:libfabric-cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-zen4
+
 # From the container, to package the data.
 # oras push ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data ./turbPipe
 
@@ -185,27 +189,33 @@ RUN apt-get install -y \
         librdmacm-dev \
         rdma-core \
         gfortran
-        
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+ 
+# install libfabric with "all the fabrics"
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install && ldconfig
+    make -j 4 && make install && ldconfig
 
 WORKDIR /opt
 ENV NRSCONFIG_NOBUILD=1
-RUN git clone https://github.com/Nek5000/nekRS nekrs && \
+
+RUN mkdir nekrs && \
     cd nekrs && \
+    git init && \
+    git remote add origin https://github.com/Nek5000/nekRS && \
+    git fetch --depth 1 origin 4f87e0e2ec0492e2a3edf27791252d6886814d00 && \
+    git checkout FETCH_HEAD && \
     CC=mpicc CXX=mpic++ FC=mpif77 ./nrsconfig -DCMAKE_INSTALL_PREFIX=/usr && \
-    cmake --build ./build --target install     
+    cd build && \
+    cmake ../ && make -j 4 && make install
+   
 WORKDIR /opt/nekrs
 ENV NEKRS_HOME=/usr
 EXPOSE 22

@@ -184,8 +184,6 @@ RUN apt-get install -y \
         librdmacm-dev \
         rdma-core
         
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
 RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \

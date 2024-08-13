@@ -1,5 +1,7 @@
 # "Bare Metal" on AWS
 
+- TODO: all the container URIs need to be updated here
+
 ## Experiment
 
 ### 1. Setup
@@ -126,15 +128,6 @@ time singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:lib
 time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec /shared/containers/metric-kripke-cpu_libfabric.sif kripke --layout GDZ --dset 8 --zones 96,96,96 --gset 16 --groups 64 --niter 10 --legendre 9 --quad 8 --procs 4,6,8
 ```
 
-#### Linpack
-
-```bash
-# 1 minute 7 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-linpack-cpu:libfabric
-
-# 8.1 seconds
-time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec --pwd /opt/hpl/hpl-2.3/testing/ptest/ /shared/containers/metric-linpack-cpu_libfabric.sif xhpl
-```
 
 #### Laghos
 

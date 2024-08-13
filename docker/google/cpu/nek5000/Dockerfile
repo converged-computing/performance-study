@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-nek5000:cpu .
 #  docker push ghcr.io/converged-computing/metric-nek5000:cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-nek5000:cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-nek5000:cpu-zen4
+
 # Docs
 # https://github.com/Nek5000/nekRS
 
@@ -181,14 +185,21 @@ RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.g
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure && \
-    make && make install && ldconfig
+    make -j4 && make install && ldconfig
 
 WORKDIR /opt
 ENV NRSCONFIG_NOBUILD=1
-RUN git clone https://github.com/Nek5000/nekRS nekrs && \
+
+RUN mkdir nekrs && \
     cd nekrs && \
+    git init && \
+    git remote add origin https://github.com/Nek5000/nekRS && \
+    git fetch --depth 1 origin 4f87e0e2ec0492e2a3edf27791252d6886814d00 && \
+    git checkout FETCH_HEAD && \
     CC=mpicc CXX=mpic++ FC=mpif77 ./nrsconfig -DCMAKE_INSTALL_PREFIX=/usr && \
-    cmake --build ./build --target install     
+    cd build && \
+    cmake ../ && make -j 4 && make install
+   
 WORKDIR /opt/nekrs
 ENV NEKRS_HOME=/usr
 EXPOSE 22
@@ -200,3 +211,10 @@ RUN export VERSION="1.1.0" && \
     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
+
+# Ensure we add path where libfabric is!
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+# This is trying to handle just in time compiling, which produces a cache with an so
+# if you don't do this, the worker nodes can't access it.
+WORKDIR /opt/nekrs/examples/turbPipe

@@ -1,9 +1,9 @@
-FROM ubuntu:22.04 as builder
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Build command
-#  docker build -t ghcr.io/converged-computing/metric-linpack-cpu .
-#  docker push ghcr.io/converged-computing/metric-linpack-cpu
+# zen4
+#  docker build -t ghcr.io/converged-computing/metric-amg:libfabric-gpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-amg:libfabric-gpu-zen4
 
 # Utilities
 RUN apt-get update && \
@@ -168,56 +168,71 @@ RUN wget https://github.com/flux-framework/flux-sched/releases/download/v0.33.1/
     ldconfig
 
 RUN apt-get update && \
-    apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
+    apt-get install -y fftw3-dev fftw3 pdsh \
         openssh-client openssh-server \
         dnsutils telnet strace git g++ \
         unzip bzip2
 
-# install openmpi without cuda
+# Needed for libfabric
+RUN apt-get install -y \
+        libibverbs-dev \
+        librdmacm-dev \
+        rdma-core
+
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+    cd libfabric && ./autogen.sh && \
+    ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
+    make -j 4 && make install
+
+# install openmpi with cuda
 WORKDIR /opt
 RUN mkdir -p /usr/local/pancakes && \
     wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
-    ./configure && \
+    ./configure --with-cuda --with-ofi=/usr/local --prefix=/usr/local/pancakes && \
     make && make install
 
-# see https://asc.llnl.gov/sites/asc/files/2020-09/AMG_Summary_v1_7.pdf
-RUN apt-get update && \
-    apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
-        openssh-client openssh-server \
-        dnsutils telnet strace cmake git g++ \
-        unzip bzip2
+ENV CUDA_VISIBLE_DEVICES=0,1,2,3
+ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-12.4/compat
 
 WORKDIR /opt
-RUN apt-get update && apt-get install -y libgtk2.0-dev \
-    net-tools hwloc libhwloc-dev libevent-dev gfortran libopenblas-dev \
-    bc
+ENV MAKE_CXX_FLAG="MPICXX=mpic++"
 
-RUN git clone --depth 1 https://github.com/ULHPC/tutorials /opt/tutorials && \
-    mkdir -p /opt/hpl && \
-    cd /opt/hpl && \
-    ln -s /opt/tutorials/parallel/mpi/HPL ref.d && \
-    ln -s ref.d/Makefile . && \   
-    mkdir src && \
-    cd src && \
-    export HPL_VERSION=2.3 && \
-    wget --no-check-certificate http://www.netlib.org/benchmark/hpl/hpl-${HPL_VERSION}.tar.gz && \
-    tar xvzf hpl-${HPL_VERSION}.tar.gz && \
-    mv hpl-${HPL_VERSION} /opt/hpl
+# Install hypre
+RUN apt-get install -y libc6-dev && \
+    export hypre_options="--disable-fortran --without-fei" && \
+    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
+    tar -xzf v2.28.0.tar.gz && \
+    mv hypre-2.28.0 hypre && \
+    cd hypre/src && \
+   ./configure ${hypre_options} CC=mpicc CXX=mpic++ && \
+    make -j 4
 
-WORKDIR /opt/hpl
-COPY Makefile ./Make.linux
-RUN make arch=linux && \
-    cd ./hpl-2.3 && \
-    ./configure --prefix=/usr/local && \
-    make && make install
-    
-ENV PATH=/opt/hpl/bin/linux:$PATH
+# Metis
+RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz && \
+    tar -xzf metis-4.0.3.tar.gz && \
+    mv metis-4.0.3 metis-4.0 && \
+    make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
 
-# mpirun --allow-run-as-root -n 4 xhpl
-WORKDIR /opt/hpl/hpl-2.3/testing/ptest
+ENV MFEM_BUILD="pcuda -j CUDA_ARCH=sm_70"
+RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
+    tar -xzvf v4.7.tar.gz && \
+    mv mfem-4.7 /opt/mfem && \
+    cd /opt/mfem && \
+    make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS="${CPPFLAGS}" && \
+    make -j 4 MFEM_BUILD=${MFEM_BUILD}
+        
+WORKDIR /opt
+RUN git clone https://github.com/LLNL/AMG.git && \
+    cd ./AMG && \
+    make
+
+ENV PATH=/opt/AMG/test:$PATH
+
 EXPOSE 22
+WORKDIR /opt/AMG
 
 # Finally, install oras for saving artifacts
 RUN export VERSION="1.1.0" && \
@@ -226,3 +241,6 @@ RUN export VERSION="1.1.0" && \
     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
+    
+# Ensure we add path where libfabric is!
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

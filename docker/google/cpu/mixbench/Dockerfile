@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-mixbench:cpu .
 #  docker push ghcr.io/converged-computing/metric-mixbench:cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-mixbench:cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-mixbench:cpu-zen4
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -182,8 +186,13 @@ RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.g
     make && make install && ldconfig
 
 WORKDIR /opt
-RUN git clone https://github.com/ekondis/mixbench
-RUN cd /opt/mixbench/mixbench-cpu && \
+RUN mkdir mixbench && \
+    cd mixbench && \
+    git init && \
+    git remote add origin https://github.com/ekondis/mixbench && \
+    git fetch --depth 1 origin 440a133a6423840ce613d1eaab43cd586effd389 && \
+    git checkout FETCH_HEAD && \
+    cd /opt/mixbench/mixbench-cpu && \
     mkdir build && \
     cd build && \
     cmake ../ && \

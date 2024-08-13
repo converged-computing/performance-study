@@ -194,7 +194,6 @@ RUN git clone https://github.com/ekondis/mixbench && \
     cmake ../mixbench-cuda && \
     cmake --build ./
 
-# see https://asc.llnl.gov/sites/asc/files/2020-09/AMG_Summary_v1_7.pdf
 RUN apt-get update && \
     apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
         openssh-client openssh-server \

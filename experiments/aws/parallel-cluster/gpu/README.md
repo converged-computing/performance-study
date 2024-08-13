@@ -182,13 +182,13 @@ This is what you see when it's done (easily 15-20 minutes)
 You can also watch cloud formation in the AWS console. This is another way to see that:
 
 ```console
-pcluster list-clusters --query 'clusters[?clusterName==`test-cluster`]' --region us-east-2
+pcluster list-clusters --query 'clusters[?clusterName==`test-cluster`]' --region us-east-1
 ```
 
 Now let's shell in! This is where you'll need your pem mounted in the pwd.
 
 ```console
-pcluster ssh --region us-east-2 --cluster-name test-cluster -i ./path-to.pem
+pcluster ssh --region us-east-1 --cluster-name test-cluster -i ./tachos-cat.pem
 ```
 
 **IMPORTANT** I spent two days trying to debug why my pem key didn't work, and one that had worked before, and (for some reason) it was just old, because I created a new one and it worked. If you get permission denied try making a new one. 🙃️
@@ -202,7 +202,7 @@ queue1*      up   infinite      3   idle queue1-st-hpc6a48xlarge-[1-3]
 ```
 
 Let's try creating a job to install singularity, the script [install-job.sh](install-job.sh).
-
+Note that you can also run this manually on the head node (this is ideal if you don't have your queue yet).
 That seemed to work. I'm not sure why srun did not.
 
 ```bash
@@ -218,6 +218,10 @@ I also ran the script locally to install on the head node. This makes me realize
 ```bash
 /bin/bash ./install-job.sh
 ```
+
+### 4. Pull containers
+
+We can pre-pull all the containers that we need.
 
 At this point you can run experiments! I'm going to prototype with flux with VMs since we are intending to run there - I don't want to learn slurm again.
 When you are done, exit and delete the cluster.

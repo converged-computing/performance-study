@@ -5,6 +5,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-single-node:cpu .
 #  docker push ghcr.io/converged-computing/metric-single-node:cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-single-node:cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-single-node:cpu-zen4
+
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \

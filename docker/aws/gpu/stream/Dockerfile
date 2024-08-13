@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-stream:libfabric .
-#  docker push ghcr.io/converged-computing/metric-stream:libfabric
+#  docker build -t ghcr.io/converged-computing/metric-stream:libfabric-zen4 .
+#  docker push ghcr.io/converged-computing/metric-stream:libfabric-zen4
 
 # Docs
 # https://github.com/Nek5000/nekRS
@@ -181,13 +181,12 @@ RUN apt-get install -y \
         libibverbs-dev \
         librdmacm-dev \
         rdma-core
-        
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+
+# install libfabric with "all the fabrics"
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install
+    make -j 4 && make install
 
 # install openmpi with cuda
 WORKDIR /opt
@@ -203,8 +202,9 @@ ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-12.4/compat
 
 WORKDIR /opt/stream
-RUN git clone https://github.com/bcumming/cuda-stream && \
-    cd cuda-stream && make ARCH=sm_70 && cp stream /usr/local/bin/
+RUN git clone https://github.com/bcumming/cuda-stream
+COPY Makefile /opt/stream/cuda-stream/Makefile
+RUN cd /opt/stream/cuda-stream && make ARCH=sm_70 && cp stream /usr/local/bin/
 
 EXPOSE 22
 

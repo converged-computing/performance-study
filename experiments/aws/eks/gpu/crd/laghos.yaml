@@ -12,7 +12,7 @@ spec:
       disable: true
 
   containers:
-  - image: ghcr.io/converged-computing/metric-laghos:libfabric-gpu
+  - image: ghcr.io/converged-computing/metric-laghos:libfabric-gpu-zen4
     commands:
       pre: |
         echo "Regenerated resources"

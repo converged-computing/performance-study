@@ -1,9 +1,9 @@
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Build command
-#  docker build -t ghcr.io/converged-computing/metric-linpack-cpu:libfabric .
-#  docker push ghcr.io/converged-computing/metric-linpack-cpu:libfabric
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-amg:cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-amg:cpu-zen4
 
 # Utilities
 RUN apt-get update && \
@@ -168,68 +168,55 @@ RUN wget https://github.com/flux-framework/flux-sched/releases/download/v0.33.1/
     ldconfig
 
 RUN apt-get update && \
-    apt-get install -y fftw3-dev fftw3 pdsh \
+    apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
         openssh-client openssh-server \
         dnsutils telnet strace git g++ \
         unzip bzip2
 
-# Needed for libfabric
-RUN apt-get install -y \
-        libibverbs-dev \
-        librdmacm-dev \
-        rdma-core
-        
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
-    cd libfabric && ./autogen.sh && \
-    ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
-
+# install openmpi without cuda
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
-    ./configure --with-ofi=/usr/local && \
+    ./configure && \
     make && make install && ldconfig
 
 WORKDIR /opt
+ENV MAKE_CXX_FLAG="MPICXX=mpic++"
 
-RUN apt-get update && \
-    apt-get install -y fftw3-dev fftw3 pdsh \
-        openssh-client openssh-server \
-        dnsutils telnet strace cmake git g++ \
-        unzip bzip2
+# Install hypre
+RUN apt-get install -y libc6-dev && \
+    export hypre_options="--disable-fortran --without-fei" && \
+    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
+    tar -xzf v2.28.0.tar.gz && \
+    mv hypre-2.28.0 hypre && \
+    cd hypre/src && \
+   ./configure ${hypre_options} CC=mpicc CXX=mpic++ && \
+    make
 
+# Metis
+RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz && \
+    tar -xzf metis-4.0.3.tar.gz && \
+    mv metis-4.0.3 metis-4.0 && \
+    make -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
+
+RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
+    tar -xzvf v4.7.tar.gz && \
+    mv mfem-4.7 /opt/mfem && \
+    cd /opt/mfem && \
+    unset LD_LIBRARY_PATH && \
+    make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS="${CPPFLAGS}" && \
+    make
+        
 WORKDIR /opt
-RUN apt-get update && apt-get install -y libgtk2.0-dev \
-    net-tools hwloc libhwloc-dev libevent-dev gfortran libopenblas-dev \
-    bc
+RUN git clone https://github.com/LLNL/AMG.git && \
+    cd ./AMG && \
+    make
 
-RUN git clone --depth 1 https://github.com/ULHPC/tutorials /opt/tutorials && \
-    mkdir -p /opt/hpl && \
-    cd /opt/hpl && \
-    ln -s /opt/tutorials/parallel/mpi/HPL ref.d && \
-    ln -s ref.d/Makefile . && \   
-    mkdir src && \
-    cd src && \
-    export HPL_VERSION=2.3 && \
-    wget --no-check-certificate http://www.netlib.org/benchmark/hpl/hpl-${HPL_VERSION}.tar.gz && \
-    tar xvzf hpl-${HPL_VERSION}.tar.gz && \
-    mv hpl-${HPL_VERSION} /opt/hpl
+ENV PATH=/opt/AMG/test:$PATH
 
-WORKDIR /opt/hpl
-COPY Makefile ./Make.linux
-RUN make arch=linux && \
-    cd ./hpl-2.3 && \
-    ./configure --prefix=/usr/local && \
-    make && make install
-    
-ENV PATH=/opt/hpl/bin/linux:$PATH
-
-# mpirun --allow-run-as-root -n 4 xhpl
-WORKDIR /opt/hpl/hpl-2.3/testing/ptest
 EXPOSE 22
+WORKDIR /opt/AMG
 
 # Finally, install oras for saving artifacts
 RUN export VERSION="1.1.0" && \
@@ -238,6 +225,3 @@ RUN export VERSION="1.1.0" && \
     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
-    
-# ENsure we add path where libfabric is!
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-kripke-cpu:libfabric .
-#  docker push ghcr.io/converged-computing/metric-kripke-cpu:libfabric
+#  docker build -t ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 .
+#  docker push ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4
 
 # Utilities
 RUN apt-get update && \
@@ -178,24 +178,21 @@ RUN apt-get install -y \
         libibverbs-dev \
         librdmacm-dev \
         rdma-core
-        
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install && ldconfig
+    make -j 4 && make install && ldconfig
 
 WORKDIR /opt
 
-# see https://asc.llnl.gov/sites/asc/files/2020-09/AMG_Summary_v1_7.pdf
 RUN apt-get update && \
     apt-get install -y fftw3-dev fftw3 pdsh \
         openssh-client openssh-server \
@@ -203,16 +200,17 @@ RUN apt-get update && \
         unzip bzip2
 
 WORKDIR /opt
+COPY ./gke.cmake /opt/gke.cmake
+
 RUN git clone https://github.com/LLNL/Kripke && \
     cd Kripke && \
     git submodule update --init --recursive && \
-    mkdir build 
-
-COPY ./gke.cmake /opt/Kripke/host-configs/gke.cmake
-RUN cd /opt/Kripke/build && \
+    mkdir build && \
+    mv /opt/gke.cmake /opt/Kripke/host-configs/gke.cmake && \
+    cd /opt/Kripke/build && \
     cmake  -C../host-configs/gke.cmake ../ && make && \
-    # Expose kripke.exe as kripke in bin
-    mv /opt/Kripke/build/kripke.exe /opt/Kripke/build/bin/kripke
+    mv /opt/Kripke/build/kripke.exe /usr/local/bin/kripke && \
+    rm -rf /opt/Kripke
 
 # Put those bad bois on the path!
 ENV PATH=/opt/Kripke:/opt/Kripke/build/bin:$PATH
@@ -228,5 +226,5 @@ RUN export VERSION="1.1.0" && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
     
-# ENsure we add path where libfabric is!
+# Ensure we add path where libfabric is!
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

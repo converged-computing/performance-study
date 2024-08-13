@@ -5,6 +5,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-laghos:libfabric-cpu .
 #  docker push ghcr.io/converged-computing/metric-laghos:libfabric-cpu 
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 
+
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -178,48 +183,52 @@ RUN apt-get install -y \
         libibverbs-dev \
         librdmacm-dev \
         rdma-core
-        
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install && ldconfig
+    make -j 4 && make install && ldconfig
 
 WORKDIR /opt
 ENV MAKE_CXX_FLAG="MPICXX=mpic++"
 
+# Install hypre
 RUN apt-get install -y libc6-dev && \
     export hypre_options="--disable-fortran --without-fei" && \
-    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.11.2.tar.gz && \
-    tar -xzf v2.11.2.tar.gz && \
-    mv hypre-2.11.2 hypre && \
+    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
+    tar -xzf v2.28.0.tar.gz && \
+    mv hypre-2.28.0 hypre && \
     cd hypre/src && \
    ./configure ${hypre_options} CC=mpicc CXX=mpic++ && \
-    make
+    make -j 4
 
 # Metis
-RUN wget --no-verbose http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/OLD/metis-4.0.3.tar.gz && \
+RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz && \
     tar -xzf metis-4.0.3.tar.gz && \
     mv metis-4.0.3 metis-4.0 && \
-    make -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
+    make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
 
-RUN git clone --single-branch --depth 1 https://github.com/mfem/mfem && \
+RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
+    tar -xzvf v4.7.tar.gz && \
+    mv mfem-4.7 /opt/mfem && \
+    cd /opt/mfem && \
     unset LD_LIBRARY_PATH && \
-    cd mfem && \
     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS="${CPPFLAGS}" && \
-    make 
-       
-RUN git clone --depth 1 https://github.com/CEED/Laghos /opt/laghos
-RUN cd /opt/laghos && \ 
-    make
+    make -j 4
+        
+WORKDIR /opt
+RUN wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz && \ 
+    tar -xzvf v3.1.tar.gz && \
+    mv Laghos-3.1 /opt/laghos && \
+    cd /opt/laghos && \
+    make -j 4
 
 EXPOSE 22
 WORKDIR /opt/laghos
@@ -232,5 +241,5 @@ RUN export VERSION="1.1.0" && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
     
-# ENsure we add path where libfabric is!
+# Ensure we add path where libfabric is!
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

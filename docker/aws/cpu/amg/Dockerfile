@@ -1,9 +1,9 @@
-FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
-
-# docker build -t ghcr.io/converged-computing/pytorch-resnet-experiment:cpu .
-# docker push ghcr.io/converged-computing/pytorch-resnet-experiment:cpu
-
+FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
+
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-amg:libfabric-cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-amg:libfabric-cpu-zen4 
 
 # Utilities
 RUN apt-get update && \
@@ -42,20 +42,16 @@ RUN apt-get update && \
         make \
         clang \
         clang-tidy \
-        python3-jsonschema \
-        python3-cffi \
-        python3-sphinx \
-        python3-six \
-        python3-ply \
         gcc \
         g++ && \
     rm -rf /var/lib/apt/lists/*
 
 # Python - instead of a system python we install anaconda
 # https://docs.conda.io/en/latest/miniconda.html#linux-installers
-RUN python3 -m pip install --upgrade --ignore-installed \
+RUN pip install --upgrade --ignore-installed \
         "markupsafe==2.0.0" \
-        coverage sphinx-rtd-theme pyyaml ply sphinxcontrib-spelling 
+        coverage cffi ply six pyyaml "jsonschema>=2.6,<4.0" \
+        sphinx sphinx-rtd-theme sphinxcontrib-spelling 
         
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -172,23 +168,65 @@ RUN wget https://github.com/flux-framework/flux-sched/releases/download/v0.33.1/
     ldconfig
 
 RUN apt-get update && \
-    apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
+    apt-get install -y fftw3-dev fftw3 pdsh \
         openssh-client openssh-server \
         dnsutils telnet strace git g++ \
         unzip bzip2
 
-# install openmpi with cuda
+# Needed for libfabric
+RUN apt-get install -y \
+        libibverbs-dev \
+        librdmacm-dev \
+        rdma-core
+
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+    cd libfabric && ./autogen.sh && \
+    ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
+    make -j 4 && make install
+
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
-    ./configure && \
-    make && make install && ldconfig
+    ./configure --with-ofi=/usr/local && \
+    make -j 4 && make install && ldconfig
 
-RUN pip install tqdm && \
-    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-COPY main.py launch.sh ./
-CMD printenv
+WORKDIR /opt
+ENV MAKE_CXX_FLAG="MPICXX=mpic++"
+
+# Install hypre
+RUN apt-get install -y libc6-dev && \
+    export hypre_options="--disable-fortran --without-fei" && \
+    wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
+    tar -xzf v2.28.0.tar.gz && \
+    mv hypre-2.28.0 hypre && \
+    cd hypre/src && \
+   ./configure ${hypre_options} CC=mpicc CXX=mpic++ && \
+    make -j 4
+
+# Metis
+RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz && \
+    tar -xzf metis-4.0.3.tar.gz && \
+    mv metis-4.0.3 metis-4.0 && \
+    make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
+
+RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
+    tar -xzvf v4.7.tar.gz && \
+    mv mfem-4.7 /opt/mfem && \
+    cd /opt/mfem && \
+    unset LD_LIBRARY_PATH && \
+    make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS="${CPPFLAGS}" && \
+    make -j 4
+
+WORKDIR /opt
+RUN git clone https://github.com/LLNL/AMG.git && \
+    cd ./AMG && \
+    make
+
+ENV PATH=/opt/AMG/test:$PATH
+
+EXPOSE 22
+WORKDIR /opt/AMG
 
 # Finally, install oras for saving artifacts
 RUN export VERSION="1.1.0" && \
@@ -197,3 +235,6 @@ RUN export VERSION="1.1.0" && \
     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
+    
+# Ensure we add path where libfabric is!
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

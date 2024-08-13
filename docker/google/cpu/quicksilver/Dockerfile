@@ -5,6 +5,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-quicksilver-cpu .
 #  docker push ghcr.io/converged-computing/metric-quicksilver-cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-quicksilver-cpu:zen4 .
+#  docker push ghcr.io/converged-computing/metric-quicksilver-cpu:zen4
+
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -211,8 +216,14 @@ WORKDIR /opt
 # /opt/quicksilver/Examples/NoFission/noFission.inp
 
 WORKDIR /opt
-RUN git clone https://github.com/LLNL/Quicksilver quicksilver
-COPY ./Makefile /opt/quicksilver/src/Makefile
+COPY ./Makefile /opt/Makefile.qs
+RUN mkdir quicksilver && \
+    cd quicksilver && \
+    git init && \
+    git remote add origin https://github.com/LLNL/Quicksilver && \
+    git fetch --depth 1 origin eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b && \
+    git checkout FETCH_HEAD && \
+    mv /opt/Makefile.qs src/Makefile
 WORKDIR /opt/quicksilver/src
 RUN make && cp qs /usr/bin/qs
 

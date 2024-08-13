@@ -3,8 +3,27 @@
 > GPU Edition
 
 - TODO: what kind of volume do we want (currently have gp2)
+- TODO: all the container URIs need to be updated here
 
 ## Experiment
+
+### 0. Pull All containers
+
+```bash
+cd /shared/containers
+time singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric
+time singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:libfabric
+time singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu
+time singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric
+time singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric
+time singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu
+```
 
 ### 1. Setup
 
@@ -44,6 +63,7 @@ Setup the shared container directory
 
 ```bash
 mkdir -p /shared/containers
+export SINGULARITY_CACHEDIR=/shared/.singularity
 ```
 
 ### 2. Applications
@@ -173,30 +193,6 @@ for jobid in $()
   done
 ```
 
-#### Linpack
-
-```bash
-# 1 minute 7 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-linpack-cpu:libfabric
-
-# 8.1 seconds
-time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec --pwd /opt/hpl/hpl-2.3/testing/ptest/ /shared/containers/metric-linpack-cpu_libfabric.sif xhpl
-```
-
-```bash
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
-```
-```bash
-# Identifier should be application, size, and iteration, this matches the other output file
---setattr=user.study-id=$app-$size-iter-$i
-
-# When they are done, we need to list job ids and then pipe into output
-for jobid in $()
-  do
-    scontrol show job $jobid &> ./$output/$app-${jobid}.out 
-  done
-```
-
 #### Laghos
 
 ```bash
@@ -305,7 +301,7 @@ for jobid in $()
 ```
 
 
-#### Mt Gem
+#### Mt Gemm
 
 ```bash
 # 51 seconds
@@ -420,7 +416,7 @@ for jobid in $()
 
 ```bash
 # 49.51 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-zen4
 
 # 6.44 seconds
 time mpirun -np 192 -map-by ppr:96:node --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-stream_libfabric-cpu.sif stream_c.exe

@@ -12,7 +12,6 @@ Status: This experiment has had one testing on GKE, and the configurations are u
 - [ ] nek5000
 - [ ] osu
 - [x] quicksilver
-- [ ] linpack
 - [ ] stream
 
 I will write the configurations from Confluence / on-premises scripts in comment blocks (when I have them).
@@ -28,7 +27,6 @@ Action items for team:
  - [ ] mt-gemm needs either a refactor (different source) or better script (and should be longer I think)
  - [ ] mixbench-cpu needs an equivalent wrapper to modify problem size and run across nodes
  - [ ] quicksilver doesn't run for any of the coral benchmarks, it only works at really small sizes
- - [ ] linpack/HPL works! But we need to customize an HPL.dat that we like - I used the tesing one.
  - [ ] stream does not appear to be for multiple nodes
  - [ ] I'm not sure we can run nekRS (5000) unless we add Filestore
   
@@ -784,64 +782,6 @@ kubectl delete -f ./crd/quicksilver.yaml
 
 But it doesn't seem to scale to more than 2 nodes.
 
-
-#### Linpack
-
-```bash
-kubectl apply -f ./crd/linpack.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-
-- Extra pull time: 10.35 seconds
-
-```bash
-flux proxy local:///mnt/flux/view/run/flux/local bash
-```
-
-*Important*: For each final command we need to add the final output of job info and submit attributes:
-
-```console
-
-# Identifier should be application, size, and iteration, this matches the other output file
---setattr=user.study-id=$app-$size-iter-$i
-
-# When they are done
-for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
-  do
-    flux job attach $jobid &> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
-  done
-```
-
-```console
-oras login ghcr.io --username vsoch
-app=linpack
-output=./results/$app
-
-mkdir -p $output
-for i in $(seq 1 1); do     
-  echo "Running iteration $i"
-
-  # 2.86 seconds for: /opt/hpl/hpl-2.3/testing/ptest
-  time flux run -N 4 -n 224 -o cpu-affinity=per-task xhpl |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 3.027 seconds
-  time flux run -N 8 -n 448 -o cpu-affinity=per-task xhpl |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 3.3 seconds
-  time flux run -N 16 -n 896 -o cpu-affinity=per-task xhpl |& tee ./$output/$app-$size-iter-${i}.out
-
-  # Does not run (need bigger data file):
-  # HPL ERROR from process # 0, on line 331 of function HPL_pdinfo:
-  # >>> Number of values of N is less than 1 or greater than 20 <<<
-  time flux run -N 32 -n 1792 -o cpu-affinity=per-task xhpl |& tee ./$output/$app-$size-iter-${i}.out
-done
-
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
-```
-```bash
-kubectl delete -f ./crd/linpack.yaml
-```
 
 #### Stream
 

@@ -5,9 +5,11 @@ metadata:
 spec:
   size: 32
   interactive: true
+
+  # This disables installing flux via the view
   flux:
     container:
       disable: true
 
   containers:
-  - image: ghcr.io/converged-computing/metric-linpack-cpu
+  - image: ghcr.io/converged-computing/mt-gemm:cpu-zen4

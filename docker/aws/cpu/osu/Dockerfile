@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-osu-cpu:libfabric .
 #  docker push ghcr.io/converged-computing/metric-osu-cpu:libfabric
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4 .
+#  docker push ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -179,19 +183,18 @@ RUN apt-get install -y \
         librdmacm-dev \
         rdma-core
         
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+# install libfabric with "all the fabrics"
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install && ldconfig
+    make -j 4 && make install && ldconfig
 
 RUN apt-get update && apt-get install -y git wget g++ gcc build-essential \
     openssh-client openssh-server libgtk2.0-dev \
@@ -225,5 +228,5 @@ RUN export VERSION="1.1.0" && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
 
-# ENsure we add path where libfabric is!
+# Ensure we add path where libfabric is!
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

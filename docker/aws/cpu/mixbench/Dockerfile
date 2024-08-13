@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-mixbench:libfabric-cpu .
 #  docker push ghcr.io/converged-computing/metric-mixbench:libfabric-cpu
 
+# AMD
+#  docker build -t ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4 .
+#  docker push ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
@@ -126,7 +130,6 @@ RUN CCACHE_DISABLE=1 && \
     cd .. && \
     rm -rf flux-security-*
 
-
 # Setup MUNGE directories & key
 RUN mkdir -p /var/run/munge && \
     dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key && \
@@ -179,23 +182,27 @@ RUN apt-get install -y \
         librdmacm-dev \
         rdma-core
         
-# openmpi@4.1.4 fabrics=ofi +legacylaunchers" 
-# libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm"
-RUN git clone https://github.com/ofiwg/libfabric.git /opt/libfabric && \
+# install libfabric with "all the fabrics"
+RUN git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric && \
     cd libfabric && ./autogen.sh && \
     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes && \
-    make && make install && ldconfig
+    make -j 4 && make install
 
 WORKDIR /opt
 RUN wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-ofi=/usr/local && \
-    make && make install
+    make -j 4 && make install && ldconfig
 
 WORKDIR /opt
-RUN git clone https://github.com/ekondis/mixbench
-RUN cd /opt/mixbench/mixbench-cpu && \
+RUN mkdir mixbench && \
+    cd mixbench && \
+    git init && \
+    git remote add origin https://github.com/ekondis/mixbench && \
+    git fetch --depth 1 origin 440a133a6423840ce613d1eaab43cd586effd389 && \
+    git checkout FETCH_HEAD && \
+    cd /opt/mixbench/mixbench-cpu && \
     mkdir build && \
     cd build && \
     cmake ../ && \
