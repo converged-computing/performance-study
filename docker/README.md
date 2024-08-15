@@ -59,6 +59,15 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 ## CPU
 
+### Azure
+
+| Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
+|----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
+| ghcr.io/converged-computing/metric-lammps-cpu:ucx                  | Azure  | no |[Dockerfile](docker/azure/cpu/lammps) |  |
+
+
+
+
 ### Google Cloud
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
