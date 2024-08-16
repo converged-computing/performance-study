@@ -216,7 +216,7 @@ RUN python3 -m pip install clang-format && \
   -D PKG_GPU=no \
   -D PKG_REAXFF=on \
   -D PKG_KOKKOS=yes \
-  ../cmake && make && make install
+  ../cmake && make -j 40  && make install
 
 WORKDIR /code
 COPY ./common .

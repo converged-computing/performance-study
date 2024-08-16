@@ -1,13 +1,16 @@
 FROM ghcr.io/converged-computing/azurehpc:flux-slim
 
-ENV DEBIAN_FRONTEND=noninteractive
-
 # Build command
 #  docker build -f Dockerfile.azurehpc -t ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc .
 #  docker push ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc
 
-# TODO:
-# Try both mpirun builds (ompi and hpcx) in here for lammps
+ENV DEBIAN_FRONTEND=noninteractive
+ENV UCX_NET_DEVICES=mlx5_0:1
+ENV UCX_TLS=ib,sm,self
+ENV OMPI_MCA_btl_openib_warn_no_device_params_found=0
+ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin
+
 WORKDIR /opt
 RUN python3 -m pip install clang-format && \
    mkdir lammps && \
@@ -27,7 +30,7 @@ RUN python3 -m pip install clang-format && \
   -D PKG_GPU=no \
   -D PKG_REAXFF=on \
   -D PKG_KOKKOS=yes \
-  ../cmake && make && make install
+  ../cmake && make -j4 && make install
   
 WORKDIR /code
 COPY ./common .

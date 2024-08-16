@@ -153,7 +153,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ### AMG2023
@@ -190,10 +190,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 15); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 200 -P 4 4 2 -problem 2 |& tee ./$output/$app-4-iter-${i}.out
-  flux run --setattr=user.study-id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 200 -P 8 4 2 -problem 2 |& tee ./$output/$app-8-iter-${i}.out
-  flux run --setattr=user.study-id=$app-16-iter-$i -N 16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 200 -P 16 4 2 -problem 2 |& tee ./$output/$app-16-iter-${i}.out
-  flux run --setattr=user.study-id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 200 -P 32 4 2 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study-id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 4 4 2 -problem 2 |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study-id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 8 4 2 -problem 2 |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study-id=$app-16-iter-$i -N 16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 16 4 2 -problem 2 |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study-id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 32 4 2 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
 done
 
 # When they are done:
@@ -204,7 +204,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 On two nodes this problem is almost instant.
@@ -233,15 +233,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-
   time flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,2,4  |& tee ./$output/$app-4-iter-${i}.out
-
   time flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-8-iter-${i}.out
-
   time flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-16-iter-${i}.out
-
   time flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-32-iter-${i}.out
-
 done
 
 # When they are done:
@@ -252,7 +247,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash
@@ -286,11 +281,8 @@ for i in $(seq 1 5); do
   echo "Running iteration $i"
   
   time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-4-iter-${i}.out
-
   time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-8-iter-${i}.out
-
   time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-16-iter-${i}.out
-
   time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-32-iter-${i}.out
 
 done
@@ -303,7 +295,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 This might be a problem:
@@ -338,11 +330,8 @@ for i in $(seq 1 5); do
   echo "Running iteration $i"
 
   flux run --setattr=user.study-id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-4-iter-${i}.out
-
   flux run --setattr=user.study-id=$app-8-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N8 -n 64 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-8-iter-${i}.out
-
   flux run --setattr=user.study-id=$app-16-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N16 -n 128 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-16-iter-${i}.out
-
   flux run --setattr=user.study-id=$app-32-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N32 -n 256 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
   
 done
@@ -355,7 +344,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash
@@ -396,7 +385,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/magma.yaml
@@ -441,7 +430,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash
@@ -468,7 +457,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 ./wrapper 64 |& tee ./$output/$app-$size-iter-${i}.out
+  flux run --setattr=user.study-id=$app-$size-iter-$i -l -N2 -n 8 -g 1 ./wrapper 64 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
 # When they are done:
@@ -479,7 +468,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash
@@ -524,7 +513,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash
@@ -569,7 +558,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 Other options:
@@ -635,7 +624,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 Other commands:
@@ -687,7 +676,6 @@ Write this script to the filesystem:
 nodes=$1
 output=$2
 app=$3
-hosts=$4
 
 # At most 28 combinations, 8 nodes 2 at a time
 hosts=$(flux run -N $1 hostname | shuf -n 28 | tr '\n' ' ')
@@ -721,7 +709,7 @@ oras login ghcr.io --username vsoch
 app=osu
 output=./results/$app
 
-./flux-run-combinations-cuda.sh 32 $output $app 8
+./flux-run-combinations-cuda.sh 32 $output $app
 
 mkdir -p $output
 for i in $(seq 1 5); do     
@@ -744,7 +732,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/osu.yaml
@@ -783,7 +771,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 Both options:
@@ -832,7 +820,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash
@@ -868,7 +856,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog &> ./$output/$app-${jobid}.out
   done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:parallel-cluster-gpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
 ```
 
 ```bash

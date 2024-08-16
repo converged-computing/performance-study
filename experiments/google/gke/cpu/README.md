@@ -263,6 +263,9 @@ oras login ghcr.io --username vsoch
 app=kripke
 output=./results/$app
 
+# 32 nodes from Ani: --zones 144,448,256 --procs 14,16,8
+
+
 mkdir -p $output
 for i in $(seq 1 1); do     
   echo "Running iteration $i"

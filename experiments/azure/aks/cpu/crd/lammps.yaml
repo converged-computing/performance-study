@@ -1,0 +1,31 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 2
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+# ./openmpi-5.0.5/bin/mpirun
+# ./hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin/mpirun
+# ./hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/ompi/bin/mpirun
+# ./mvapich2-2.3.7-1/bin/mpirun
+# ./intel/oneapi/mpi/2021.13/bin/mpirun
+
+  containers:
+  - image: ghcr.io/converged-computing/azurehpc:flux-slim
+#  - image: ghcr.io/converged-computing/metric-lammps-cpu:azure-openmpi
+    commands:
+      pre: echo "ulimit -l unlimited" >> /root/.bashrc
+    securityContext:
+      privileged: true
+    resources:
+      limits:
+        mellanox.com/shared_hca_rdma: 1
+      requests:
+        mellanox.com/shared_hca_rdma: 1

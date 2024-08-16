@@ -61,12 +61,20 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 ### Azure
 
-| Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
-|----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-lammps-cpu:ucx                  | Azure  | no |[Dockerfile](docker/azure/cpu/lammps) |  |
-
-
-
+| Container                                               | Cloud     | GPU | Dockerfile                          |
+|---------------------------------------------------------|-----------|-----|------------------------------------|
+| ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/lammps/Dockerfile.azurehpc) |
+| ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/kripke/Dockerfile.azurehpc) |
+| ghcr.io/converged-computing/metric-amg:azure-hpc      | Azure   | no |[Dockerfile](docker/azure/cpu/amg) |
+| ghcr.io/converged-computing/metric-laghos:azure-hpc   |  Azure | no |[Dockerfile](docker/azure/cpu/laghos) |
+| ghcr.io/converged-computing/metric-single-node:cpu-zen4   | Azure | no |[Dockerfile](docker/azure/cpu/single-node) |
+| ghcr.io/converged-computing/metric-minife:azure-hpc  | Azure | yes |[Dockerfile](docker/azure/cpu/minife)  |
+| ghcr.io/converged-computing/metric-mixbench:azure-hpc | Azure | no |[Dockerfile](docker/azure/cpu/mixbench) |
+| ghcr.io/converged-computing/mt-gemm:azure-hpc         | Azure | no |[Dockerfile](docker/azure/cpu/mt-gemm) |
+| ghcr.io/converged-computing/metric-nek5000:azure-hpc  | Azure | no |[Dockerfile](docker/azure/cpu/nek5000) |
+| ghcr.io/converged-computing/metric-osu-cpu:azure-hpc   | Azure | no |[Dockerfile](docker/azure/cpu/osu) |
+| ghcr.io/converged-computing/metric-quicksilver-cpu:azure-hpc | Azure | no |[Dockerfile](docker/azure/cpu/quicksilver)|
+| ghcr.io/converged-computing/metric-stream:azure-hpc | Azure | no | [Dockerfile](docker/azure/cpu/stream) |
 
 ### Google Cloud
 

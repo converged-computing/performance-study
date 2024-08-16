@@ -159,6 +159,16 @@ RUN sudo apt-get -qq install -y --no-install-recommends \
         libyaml-cpp-dev \
 	curl
 
+# Flux pmix (must be installed after flux core)
+RUN git clone https://github.com/flux-framework/flux-pmix /opt/flux-pmix && \
+    cd /opt/flux-pmix && \
+    ./autogen.sh && \
+    ./configure --prefix=/usr && \
+    make -j 4 && \
+    make install && \
+    cd /opt && \
+    rm -rf flux-pmix && rm -rf flux-*.tar.gz
+
 ENV LD_LIBRARY_PATH=/opt/miniconda/lib:$LD_LIBRARY_PATH
 
 ENV CMAKE=3.23.1

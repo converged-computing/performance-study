@@ -20,6 +20,7 @@ HeadNode:
       
 Scheduling:
   Scheduler: slurm
+  ScalingStrategy: all-or-nothing
   SlurmQueues:
   - Name: queue1
     ComputeResources:
