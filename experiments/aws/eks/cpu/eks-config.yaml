@@ -1,13 +1,8 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
-# TODO
-# 1. build AWS containers without GPU
-# 2. test AWS cpu setup (size 4 at $2.88)
-# 3. 
-
 metadata:
-  name: dinosaur-efa
+  name: performance-study
   region: us-east-2
   version: "1.27"
 
@@ -24,7 +19,7 @@ managedNodeGroups:
     maxSize: 4
     efaEnabled: true
     placement:
-      groupName: eks-efa-testing
+      groupName: performance-study
     labels: { "flux-operator": "true" }
     ssh:
       allow: true

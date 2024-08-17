@@ -11,7 +11,6 @@ spec:
 
   containers:
   - image: ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4
-    pullAlways: true
     resources:
       limits:
         vpc.amazonaws.com/efa: 1

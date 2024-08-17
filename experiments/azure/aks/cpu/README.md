@@ -5,7 +5,8 @@ Still needs to be done:
  - [ ] mixbench-cpu segfaults
  - [ ] amg is working but needs final decision on params since is different from amg2023
  - [ ] mt-gemm output is useless, only the wrapped time would be comparable
- 
+ - [ ] kripke parameters not done
+
 For all runs, we need to subtract the "hookup time" to get the actual runtime. We can use lammps since it records the actual runtime.
 The hookup time (for 2 nodes) is 12-14 seconds, and this might scale badly given 256 nodes. Not much to do about it but account for it. We need to test when we time a larger cluster.
 
@@ -786,7 +787,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream  |& tee ./$output/$app-1-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream_c.exe  |& tee ./$output/$app-1-iter-${i}.out
 done
 
 # When they are done:

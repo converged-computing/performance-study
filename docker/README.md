@@ -95,7 +95,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4 | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
+| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu      | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
  libfabric |
 | ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4   |  AWS | no |[Dockerfile](docker/aws/cpu/laghos) | |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4   | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
