@@ -6,38 +6,29 @@ Image:
 HeadNode:
   InstanceType: c6a.large
   Networking:
-    SubnetId: subnet-077e49695466c795a
+    SubnetId: subnet-0cc6a5b9cf370702d
   Ssh:
-    KeyName: tahcos-cat
+    KeyName: dinosaur-performance-study
   LocalStorage:
     RootVolume:
       Size: 50
   Iam:
-    # List topology API
+    # List topology API?
     AdditionalIamPolicies:
       - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
       - Policy: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
-      # ADD TOPOLOGY THING
-      
-#  CustomActions:
-#    OnNodeConfigured:
-      # I made this publicly accessible with ACL after upload to the interface and then via the UI
-#      Script: https://performance-study-2024.s3.us-east-2.amazonaws.com/parallel-cluster-performance-study-install.sh
 
 Scheduling:
   Scheduler: slurm
   ScalingStrategy: all-or-nothing 
   SlurmQueues:
   - Name: queue1
-#    CustomActions:
-#      OnNodeConfigured:
-#        Script: https://performance-study-2024.s3.us-east-2.amazonaws.com/parallel-cluster-performance-study-install.sh
     ComputeResources:
     - Name: hpc6a48xlarge
       Instances:
       - InstanceType: hpc6a.48xlarge
-      MinCount: 2
-      MaxCount: 2    
+      MinCount: 0
+      MaxCount: 4    
       Efa:
         Enabled: true
     ComputeSettings:
@@ -46,17 +37,11 @@ Scheduling:
           Size: 50
     Networking:
       SubnetIds:
-      - subnet-077e49695466c795a
+      - subnet-0cc6a5b9cf370702d
       PlacementGroup:
         Enabled: true
         Id: performance-study
 
-# When I enable this, some of the nodes will fail provisioning and roll back
-#    CustomActions:
-#        OnNodeConfigured:
-#          Script: >-
-#                        https://gist.githubusercontent.com/vsoch/445b720c4a6c49a1bc1535acfec79cea/raw/edf45fbb8137c0c0b95726a82fc5540b1b399c88/install.sh
-# I don't think we actually need this either...
 SharedStorage:
 - MountDir: /shared      
   Name: ebs
@@ -65,12 +50,3 @@ SharedStorage:
     # Might be better to use gp3 for experiments?
     VolumeType: gp2
     Size: 100
-
-# I'm not starting with this - I don't think we need it
-#    - MountDir: /scratch 
-#      Name: fsx
-#      StorageType: FsxLustre
-#      FsxLustreSettings:
-#        StorageCapacity: 1200
-#        DeploymentType: SCRATCH_2
-#        ImportPath: s3:<PATH-TO-IMPORT-FILES>

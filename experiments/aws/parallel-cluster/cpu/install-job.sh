@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# cd /shared
+cd /shared
 
 # System dependencies
 sudo apt-get update
@@ -26,7 +26,7 @@ export VERSION=1.21.0 OS=linux ARCH=amd64
 wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz
 sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz
 rm go$VERSION.$OS-$ARCH.tar.gz
-  
+
 echo 'export PATH=/usr/local/go/bin:$PATH' >> ~/.bashrc
 . ~/.bashrc
 export PATH=/usr/local/go/bin:$PATH

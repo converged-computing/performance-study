@@ -13,6 +13,13 @@ These containers require data:
 
 ## GPU
 
+### Azure
+
+| Container                                               | Cloud     | GPU | Dockerfile                          |
+|---------------------------------------------------------|-----------|-----|------------------------------------|
+| ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc | Azure     | yes |[Dockerfile](docker/azure/gpu/lammps/Dockerfile) |
+
+
 ### Google Cloud
 
 Since we need to vary builds across clouds, let's keep track of that here. These only include the ones we are intending to run.

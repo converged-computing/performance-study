@@ -6,7 +6,11 @@ This setup study aims to prototype using [AWS parallel cluster](https://docs.aws
 docker build -t cowpie .
 ```
 
-💩️
+💩️🐮
+
+Questions:
+
+- Can we/ do we want to get topology?
 
 ## Usage
 
@@ -96,7 +100,7 @@ The main thing that matters is the VPC/subnet I think. Then copy over those part
 We already have our [config-file.yaml](config-file.yaml)
 
 ```bash
-pcluster create-cluster --cluster-name test-cluster --cluster-configuration config-file.yaml
+pcluster create-cluster --cluster-name performance-study --cluster-configuration config-file.yaml
 ```
 
 That seemed to work! Of course we aren't actively monitoring the creation status.

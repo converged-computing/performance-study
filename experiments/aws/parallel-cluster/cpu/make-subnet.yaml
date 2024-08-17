@@ -1,28 +1,22 @@
 Region: us-east-2
 Image:
-  Os: ubuntu2004
+  Os: ubuntu2204
 HeadNode:
   InstanceType: t2.micro
   Networking:
-    SubnetId: subnet-0d174d28f9f2e9bde
+    SubnetId: subnet-0cc6a5b9cf370702d
   Ssh:
-    KeyName: dinosaur
+    KeyName: dinosaur-performance-study
 Scheduling:
   Scheduler: slurm
   SlurmQueues:
   - Name: queue1
     ComputeResources:
-    - Name: hpc6a48xlarge
+    - Name: t2micro
       Instances:
-      - InstanceType: hpc6a.48xlarge
+      - InstanceType: t2.micro
       MinCount: 0
-      MaxCount: 3
-      Efa:
-        Enabled: true
+      MaxCount: 10
     Networking:
-      PlacementGroup:
-        Enabled: true
-        Id: performance-study
       SubnetIds:
-      - subnet-062e29f54aab2ced2
-
+      - subnet-0cc6a5b9cf370702d

@@ -1,6 +1,27 @@
-# "Bare Metal" on AWS
+# "Bare Metal" on AWS with Parallel Cluster
 
-- TODO: all the container URIs need to be updated here
+Pull all containers.
+
+```bash
+export SINGULARITY_CACHEDIR=/shared/.singularity
+mkdir -p /shared/containers
+cd /shared/containers
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
+singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4
+singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4
+singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu-zen4
+
+```
+
+- started 17 minutes after midnigh
+- finished 3 minutes after 1 am
 
 ## Experiment
 
@@ -35,38 +56,46 @@ Let's cleanup the singularity install.
 
 ```bash
 rm -rf singularity-ce-4.1.3
-rm singularity-c2*.tar.gz
-```
-
-Setup the shared container directory
-
-```bash
-mkdir -p /shared/containers
+rm singularity-ce*.tar.gz
 ```
 
 ### 2. Applications
 
-Let's do it! We will pull each application to all nodes, and then run a test.
-Note that if we use this approach, we can pre-pull all images and save that time.
+Let's do it!  I got my nodes up like this:
 
-This is not tested yet, I don't know what this should look like.
-
+```bash
+srun -N 4 --exclusive --pty bash
 ```
-time singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu
 
+This is how to see all node names:
+
+```bash
+sinfo --Node
+```
+
+That didn't seem to work though. I never got nodes, in any way (sbatch or srun) and the error in the log said insufficient capacity.
+
+#### Single Node Benchmarh
+
+Batch script:
+
+```bash
+#!/bin/bash
+# run_node_benchmark.sh
+/shared/bin/singularity exec /shared/containers/metric-single-node_cpu-zen4.sif /bin/bash /entrypoint.sh
+rm -rf test_file*
+```
+
+```console
 oras login ghcr.io --username vsoch
 app=single-node
 output=./results/$app
 
-mkdir -p $output
-
 # Note sure if we need iterations here
-for i in $(seq 1 1); do     
-  echo "Running iteration $i"  
-  for node in $(seq 1 4); do
-    flux submit /bin/bash /entrypoint.sh
-  done 
-done
+for node in $(seq 1 4); do
+  # Does this mean one on each node?
+  sbatch -N 1 /shared/run_node_benchmark.sh
+done 
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
@@ -87,31 +116,28 @@ sacct -u (user) -S (start datetime) --json | jq -r .jobs.job_id
 
 #### AMG2023
 
-Create the minicluster and shell in.
-
-```bash
-time singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4
-```
-
-Pull time: 48 seconds.
 Since this container requires sourcing spack, we need to write a bash script to run on the host.
 
 ```bash
 #!/bin/bash
 # run-amg.sh
 . /etc/profile.d/z10_spack_environment.sh
-amg -P 8 6 4 -n 64 64 128
+/shared/bin/singularity exec /shared/containers/metric-amg2023_spack-slim-cpu.sif ./run_amg.sh
+singularity amg -P 8 6 4 -n 64 64 128
 ```
+
 And then copy the script and run.
 
 ```bash
+sbatch -N 4 /shared/bin/singularity exec /shared/containers/metric-amg2023_spack-slim-cpu.sif ./run_amg.sh
+
 # 21.46 seconds
 time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec /shared/containers/metric-amg2023_spack-slim-cpu.sif /bin/bash ./run_amg.sh
 ```
 
 I couldn't get this working with flux, so I tried mpirun alone:
 
-```
+```console
 mpirun --hostfile ./hostlist.txt -N 2 -n 192 singularity exec metric-amg2023_spack-slim-cpu.sif /bin/bash ./run-amg.sh
 ```
 That didn't work either - I suspect the spack environment / bash script is adding issue. Needs more thinking - maybe requiring bindings to the host (ew).
@@ -180,7 +206,7 @@ time mpirun -np 2 --hostfile ./hostfile.txt /shared/bin/singularity exec /shared
 
 Again, this seems like it's for one node only, and needs a wrapper.
 
-#### Mt Gem
+#### Mt-Gemm
 
 ```bash
 # 51 seconds
