@@ -22,14 +22,14 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
 - [ ] Microsoft Azure AKS GPU (date)
-- [x] [Microsoft Azure AKS CPU (9/16/2024)](experiments/azure/aks/cpu) Issues addressed? (no)
+- [x] [Microsoft Azure AKS CPU (8/16/2024)](experiments/azure/aks/cpu) Issues addressed? (no)
 - [ ] Google Cloud HPC Toolkit GPU (date)
 - [ ] Google Cloud HPC Toolkit CPU (date)
 - [ ] Google Cloud GKE GPU (date)
 - [ ] Google Cloud GKE CPU (date)
 - [ ] AWS GPU Parallel Cluster (date)
 - [ ] AWS CPU Parallel Cluster (date)
-- [ ] AWS GPU EKS (date)
+- [x] [AWS GPU EKS (8/16/2024)](experiments/aws/eks/cpu) Issues addressed? (no)
 - [ ] AWS CPU EKS (date)
 
 ### Timed
