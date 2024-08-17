@@ -15,6 +15,25 @@ This study will test HPC application performance across three clouds. The reposi
 
 This is a checklist for the setups we have tested and timed:
 
+### Tested
+
+Tested means we have verified that things run on a small set of resources (e.g., 2 nodes). We can proceed to timing when all issues have been addressed for each.
+
+- [ ] Microsoft Azure CycleCloud CPU (date)
+- [ ] Microsoft Azure CycleCloud GPU (date)
+- [ ] Microsoft Azure AKS GPU (date)
+- [x] [Microsoft Azure AKS CPU (9/16/2024)](experiments/azure/aks/cpu) Issues addressed? (no)
+- [ ] Google Cloud HPC Toolkit GPU (date)
+- [ ] Google Cloud HPC Toolkit CPU (date)
+- [ ] Google Cloud GKE GPU (date)
+- [ ] Google Cloud GKE CPU (date)
+- [ ] AWS GPU Parallel Cluster (date)
+- [ ] AWS CPU Parallel Cluster (date)
+- [ ] AWS GPU EKS (date)
+- [ ] AWS CPU EKS (date)
+
+### Timed
+
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
 - [ ] Microsoft Azure AKS GPU (date)

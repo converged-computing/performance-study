@@ -1,15 +1,25 @@
-FROM ghcr.io/converged-computing/azurehpc:flux-slim
+FROM ghcr.io/converged-computing/azurehpc:flux-slim-nogpu
 
 # Build command
-#  docker build -f Dockerfile.azurehpc -t ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc .
-#  docker push ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc
+#  docker build -f Dockerfile.azurehpc -t ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-vanilla .
+#  docker push ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-vanilla
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV UCX_NET_DEVICES=mlx5_0:1
-ENV UCX_TLS=ib,sm,self
+ENV UCX_TLS=ib
 ENV OMPI_MCA_btl_openib_warn_no_device_params_found=0
+
+# This is for hpc-x - faster but HUGE startup delay with warnings that make it irrelevant
 ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin
+
+# This was openmpi - 120x slower, no startup delay
+# ENV LD_LIBRARY_PATH=/opt/openmpi-5.0.5/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib
+# ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/openmpi-5.0.5/bin:$PATH
+
+# mpich
+# ENV LD_LIBRARY_PATH=/opt/mvapich2-2.3.7-1/lib
+# ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/mvapich2-2.3.7-1/bin:$PATH
 
 WORKDIR /opt
 RUN python3 -m pip install clang-format && \

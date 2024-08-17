@@ -9,7 +9,7 @@ spec:
     container:
       disable: true
   containers:
-  - image: ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4
+  - image: ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4
     commands:
        pre: |
         . /etc/profile.d/z10_spack_environment.sh

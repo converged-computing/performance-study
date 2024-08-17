@@ -1,9 +1,10 @@
 # hpc6a only in this region
+# us-west-2a or us-west-2c
 Region: us-east-2
 Image:
   Os: ubuntu2004
 HeadNode:
-  InstanceType: hpc6a.48xlarge
+  InstanceType: c6a.large
   Networking:
     SubnetId: subnet-077e49695466c795a
   Ssh:

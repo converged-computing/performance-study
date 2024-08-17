@@ -90,7 +90,7 @@ sacct -u (user) -S (start datetime) --json | jq -r .jobs.job_id
 Create the minicluster and shell in.
 
 ```bash
-time singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
+time singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4
 ```
 
 Pull time: 48 seconds.

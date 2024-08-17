@@ -1,5 +1,14 @@
 # Kubernetes on Azure (AKS)
 
+Still needs to be done:
+
+ - [ ] mixbench-cpu segfaults
+ - [ ] amg is working but needs final decision on params since is different from amg2023
+ - [ ] mt-gemm output is useless, only the wrapped time would be comparable
+ 
+For all runs, we need to subtract the "hookup time" to get the actual runtime. We can use lammps since it records the actual runtime.
+The hookup time (for 2 nodes) is 12-14 seconds, and this might scale badly given 256 nodes. Not much to do about it but account for it. We need to test when we time a larger cluster.
+
 ```console
 For each experiment (crd in ./crd):
   Create the MiniCluster, and shell in
@@ -16,6 +25,13 @@ For each experiment (crd in ./crd):
 Note that we need to create this in the web interface.
 
 - HB120-96rs_v3
+
+And this uses infiniband. 
+
+```console
+# These are the available transports: cma, dc, dc_mlx5, dc_x, ib, mm, posix, rc, rc_mlx5, rc_v, rc_verbs, rc_x, self, shm, sm, sysv, tcp, ud, ud_mlx5, ud_v, ud_verbs, ud_x
+```
+
 
 ## Experiment
 
@@ -47,6 +63,7 @@ az provider register --namespace Microsoft.ContainerService
 ```
 
 Note that if you shell in now and install `ibverbs-utils` and do `ibv_devices` it will be empty.
+If you are doing this in the cloud shell, you'll next want to copy the entirety of the `~/.kube/config` to your local machine to access the cluster.
 Let's try to install infiniband next, and we will use a container that is also built with ubuntu 22.04 drivers.
 
 I was originally looking at [https://github.com/Mellanox/ib-kubernetes](https://github.com/Mellanox/ib-kubernetes). You can just do but then I switched to [https://github.com/Azure/aks-rdma-infiniband](https://github.com/Azure/aks-rdma-infiniband) and then put together a customized variant [here](https://github.com/converged-computing/aks-infiniband-install). Instructions are provided there and briefly here.
@@ -71,7 +88,7 @@ That should equal the number of nodes. Then.
 kubectl delete -f infiniband/driver-installation.yml 
 ```
 
-If you want to test Infiniband, you need to use ping.
+If you want to test Infiniband, you can use pingpong.
 
 ```bash
 # First node
@@ -103,13 +120,11 @@ kubectl exec -it flux-sample-0-xxx bash
 
 ### 2. Applications
 
-**TODO these are not tested yet**
-
 #### Single Node Benchmark
 
 We are going to run this via flux batch, running the job across nodes (and then when they are complete, getting the logs from flux)
 
-**IMPORTANT** change the size of the minicluster yaml to the correct cluster size.
+**IMPORTANT** change the size of the minicluster.yaml to the correct cluster size.
 
 ```bash
 kubectl apply -f ./crd/single-node.yaml
@@ -121,102 +136,88 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 We want to run four separate jobs, across each node. Write this into a batch file.
 
-```
+```console
 oras login ghcr.io --username vsoch
 app=single-node
 output=./results/$app
-
+nodes=2
 mkdir -p $output
 
-# Note sure if we need iterations here
-for i in $(seq 1 1); do     
-  echo "Running iteration $i"  
-  for node in $(seq 1 4); do
-    flux submit /bin/bash /entrypoint.sh
-  done 
+for node in $(seq 1 $nodes); do
+  flux submit /bin/bash /entrypoint.sh
+done 
+
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
+```
+
+#### AMG
+
+We are using AMG because AMG2023 segfaults.
+Create the minicluster and shell in.
+
+```bash
+kubectl apply -f ./crd/amg.yaml
+time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
+```
+
+```bash
+flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+```bash
+# Testing amg sizes on 2 nodes
+# 34 seconds
+time flux run --env OMP_NUM_THREADS=1 -N 2 -n 192 -o cpu-affinity=per-task amg -n 32 32 32 -P 4 6 8 -problem 2
+
+# 1m 51 seconds
+time flux run --env OMP_NUM_THREADS=1 -N 2 -n 192 -o cpu-affinity=per-task amg -n 64 64 64 -P 4 6 8 -problem 2
+
+# 1m 55 seconds
+time flux run --env OMP_NUM_THREADS=3 -N 2 -n 192 -o cpu-affinity=per-task amg -n 64 64 64 -P 4 6 8 -problem 2
+
+# 3m 15 seconds
+time flux run --env OMP_NUM_THREADS=1 -N 2 -n 192 -o cpu-affinity=per-task amg -n 128 64 64 -P 4 6 8 -problem 2
+
+# 5m 55 seconds
+time flux run --env OMP_NUM_THREADS=1 -N 2 -n 192 -o cpu-affinity=per-task amg -n 128 128 64 -P 4 6 8 -problem 2
+```
+
+**IMPORTANT** we have not finalized the below yet since the amg is different. See above runs for reference.
+
+```console
+oras login ghcr.io --username vsoch
+app=amg
+output=./results/$app
+
+mkdir -p $output
+for i in $(seq 1 15); do
+  echo "Running iteration $i"
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 8 -problem 2 |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 16 -problem 2 |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task amg -n 256 256 128 -P 32 16 16 -problem 2 |& tee ./$output/$app-256-iter-${i}.out
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid &> ./$output/$app-${jobid}.out 
-  done
-
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-$app $output
-```
-
-#### AMG2023
-
-Create the minicluster and shell in.
-
-```bash
-kubectl apply -f ./crd/amg2023.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-
-This one requires sourcing spack
-
-```bash
-. /etc/profile.d/z10_spack_environment.sh
-flux proxy local:///mnt/flux/view/run/flux/local bash
-```
-
-Here is an example loop through sizes and iterations. Note that this is done expecting that parameters
-might change for different sizes.
-
-Summary:
-
-- cpu affinity helps
-- from 4 to 2 it gets faster... 
-
-```console
-oras login ghcr.io --username vsoch
-app=amg2023
-output=./results/$app
-
-mkdir -p $output
-for i in $(seq 1 1); do     
-  echo "Running iteration $i"
-
-  # 39.22 seconds
-  time flux run -N 4 -n 384 amg -P 12 8 4 -n 64 64 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 32.33 seconds
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task amg -P 12 8 4 -n 64 64 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 59.32 seconds
-  time flux run -N 4 -n 384 amg -P 12 8 4 -n 64 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 47.3 seconds
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task amg -P 12 8 4 -n 64 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1m 43 seconds
-  time flux run -N 4 -n 384 amg -P 12 8 4 -n 128 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1m 17 seconds
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task amg -P 12 8 4 -n 128 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 31.71 seconds
-  time flux run -N 2 -n 192 amg -P 6 8 4 -n 64 64 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 28.277 seconds
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task amg -P 6 8 4 -n 64 64 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 47 seconds
-  time flux run -N 2 -n 192 amg -P 6 8 4 -n 64 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 42.98 seconds
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task amg -P 6 8 4 -n 64 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1 minute 34 seconds
-  time flux run -N 2 -n 192 amg -P 6 8 4 -n 128 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1 minute 13 seconds
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task amg -P 6 8 4 -n 128 128 128 |& tee ./$output/$app-$size-iter-${i}.out
-
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
 
 There must be something wrong running on GKE when the problem is instant - that doesn't make sense.
@@ -231,10 +232,18 @@ kubectl delete -f ./crd/amg2023.yaml
 kubectl apply -f ./crd/kripke.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
-About 30 seconds extra pull time.
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+Testing size - note I didn't know the parameters here, so this didn't run, but it looked like it would (it was just angry about my parameter specification)
+
+```console
+time flux run --env OMP_NUM_THREADS=1 -N 2 -n 160 kripke --layout DGZ --dset 8 --zones 16,16,16 --gset 8 --groups 8 --niter 100 --legendre 2 --quad 16 --procs 4,5,8
+
+# This worked
+kripke
 ```
 
 ```console
@@ -243,20 +252,28 @@ app=kripke
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 1 1); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16  |& tee ./$output/$app-32-iter-${i}.out
 
-  # This still runs on each node, needs to be recompiled
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task kripke |& tee ./$output/$app-$size-iter-${i}.out
-
-  # This still runs on each node, needs to be recompiled
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task kripke |& tee ./$output/$app-$size-iter-${i}.out
-
+  # TODO these are not done. The CUDA needs to be removed
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-256-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
-```
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
 
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
+```
 ```bash
 kubectl delete -f ./crd/kripke.yaml
 ```
@@ -264,17 +281,21 @@ kubectl delete -f ./crd/kripke.yaml
 
 #### Laghos
 
+
 ```bash
 kubectl apply -f ./crd/laghos.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- Extra pull time: ~10 seconds
-- Termination time:
-
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+Testing on 2 nodes:
+
+```bash
+# 2m 39 seconds
+time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-32-iter-$i -N2 -n 192 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 ```
 
 ```console
@@ -283,37 +304,27 @@ app=laghos
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 1 1); do     
-  echo "Running iteration $i"
+for i in $(seq 1 5); do
+  echo "Running iteration $i" 
+  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-32-iter-$i -N32 -n 3072 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-32-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-64-iter-$i -N64 -n 6144 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-64-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-128-iter-$i -N128 -n 12288 1 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-128-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-256-iter-$i -N256 -n 24576 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-256-iter-${i}.out
 
-  # "You are trying to bisect a graph into too many parts! Cannot bisect a graph with 0 vertices!**
-  # 18 seconds
-  time flux run -N 4 -n 384 /opt/laghos/laghos -p 1 -m ./data/cube01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 20 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # This one seems to work well (no weird errors)
-  # 18.75 seconds (too fast)
-  time flux run -N 4 -n 384 /opt/laghos/laghos -p 1 -m ./data/box01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 20 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # Trying with affinity
-  # 17.7 seconds (faster)
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task /opt/laghos/laghos -p 1 -m ./data/box01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 20 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # Let's increase steps
-  # 52.75 seconds
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task /opt/laghos/laghos -p 1 -m ./data/box01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 100 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 2 minutes 21 seconds
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task /opt/laghos/laghos -p 1 -m ./data/box01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 300 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 2 minutes 12 seconds
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task /opt/laghos/laghos -p 1 -m ./data/box01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 300 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
-
-This can be controlled fairly well by adding more steps. I'm still surprised size 2 is a little faster...
-
 ```bash
 kubectl delete -f ./crd/laghos.yaml --wait
 ```
@@ -328,39 +339,111 @@ kubectl apply -f ./crd/lammps.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- Additional pull time: 10 seconds
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
+
+```bash
+# Testing on 2 nodes
+# 14 seconds wrapped, 0 seconds wall time?
+time flux run -o cpu-affinity=per-task -N2 -n 192 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+
+# Maybe this is supposed to be 10k steps?
+# 6 seconds wall time, 14 seconds hookup
+time flux run -o cpu-affinity=per-task -N2 -n 192 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 10000
+
+# Try 100,000...
+# 1m 9 seconds wall time, same hookup
+time flux run -N 2 -n 192 lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 1000
+```
+
+<details>
+
+<summary>Original testing</summary>
+
+```console
+# time: 26 seconds, Total wall time: 4 seconds
+time flux run -N 2 -n 192 --env UCX_TLS=rc  lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 64 -v y 64 -v z 64 -var nsteps 1000
+
+# time: 22.5 seconds, Total wall time: 0 seconds (so cpu affinity helps)
+time flux run -N 2 -n 192 --env UCX_TLS=rc -o cpu-affinity=per-task  lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 64 -v y 64 -v z 64 -var nsteps 1000
+
+# rc_mlx5 does not work, with or without pmix
+ml_ucx.c:424  Error: ucp_ep_create(proc=60) failed: Destination is unreachable)
+select.c:634  UCX  ERROR   no auxiliary transport to <no debug data>: Unsupported operation
+
+# ib, 14 seconds, Total wall time 1 seconds (the best so far)
+time flux run -N 2 -n 192 --env UCX_TLS=ib -o cpu-affinity=per-task lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 64 -v y 64 -v z 64 -var nsteps 1000
+
+# ib,shm did not work
+
+# 17 seconds Total Wall time 4 seconds
+time flux run -N 2 -n 192 --env UCX_TLS=ib,self  lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 64 -v y 64 -v z 64 -var nsteps 1000
+
+# error with rc_verbs (same as above)
+
+# 23.5 seconds, Total wall time 3 seconds
+time flux run -N 2 -n 192 --env UCX_TLS=rc_v  lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 64 -v y 64 -v z 64 -var nsteps 1000
+```
+
+With openmpi
+
+```
+time flux run -N 2 -n 192 --env UCX_TLS=ib -o cpu-affinity=per-task -opmi=pmix lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 64 -v y 64 -v z 64 -var nsteps 1000
+```
+
+With mpich segfaults
+
+
+```console
+ulimit -a
+real-time non-blocking time  (microseconds, -R) unlimited
+core file size              (blocks, -c) unlimited
+data seg size               (kbytes, -d) unlimited
+scheduling priority                 (-e) 0
+file size                   (blocks, -f) unlimited
+pending signals                     (-i) 1837992
+max locked memory           (kbytes, -l) unlimited
+max memory size             (kbytes, -m) unlimited
+open files                          (-n) 1048576
+pipe size                (512 bytes, -p) 8
+POSIX message queues         (bytes, -q) 819200
+real-time priority                  (-r) 0
+stack size                  (kbytes, -s) 8192
+cpu time                   (seconds, -t) unlimited
+max user processes                  (-u) unlimited
+virtual memory              (kbytes, -v) unlimited
+file locks                          (-x) unlimited
+```
+
+</details>
 
 ```console
 oras login ghcr.io --username vsoch
 app=lammps
 output=./results/$app
 
-# 1 minute 1 second on 2 nodes
 mkdir -p $output
-for i in $(seq 1 2); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
-
-  # 2 minutes 2 seconds
-  time flux run -N 4 -n 384 -o cpu-affinity=per-task lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 20000 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 2 minutes 5 seconds (without cpu affinity)s
-  time flux run -N 4 -n 384 lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 20000 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1 minute 37 seconds
-  time flux run -N 2 -n 192 -o cpu-affinity=per-task lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 20000 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1 minute 40 seconds
-  time flux run -N 2 -n 192 lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 20000 |& tee ./$output/$app-$size-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-256-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
-```
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
 
-It's strange that cpu affinity helped with the larger size (a little bit) but not the size 2. It must make a trivial difference, but maybe would be more useful at larger sizes.
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
+```
 
 ```bash
 kubectl delete -f ./crd/lammps.yaml --wait
@@ -375,7 +458,15 @@ kubectl apply -f ./crd/minife.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- 5 seconds extra pull time.
+Testing size:
+
+```bash
+# 14 seconds
+time flux run -N2 -n 192 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
+
+# 58.6 seconds
+time flux run -N2 -n 192 -o cpu-affinity=per-task miniFE.x nx=640 ny=640 nz=640 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
+```
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
@@ -386,22 +477,27 @@ oras login ghcr.io --username vsoch
 app=minife
 output=./results/$app
 
-# 5.7 seconds
 mkdir -p $output
-for i in $(seq 1 2); do     
+for i in $(seq 1 5); do
   echo "Running iteration $i"
+  time flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-256-iter-${i}.out
 
-  # 33.25 seconds
-  time flux run -N4 -n 384 -o cpu-affinity=per-task miniFE.x nx=620 ny=620 nz=620 num_devices=4 use_locking=1 elem_group_size=2 use_elem_mat_fields=10 verify_solution=0 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # Wow, doesn't seem to really run without affinity! (went for a few minutes and I didn't feel like waiting)
-  time flux run -N4 -n 384 miniFE.x nx=620 ny=620 nz=620 num_devices=4 use_locking=1 elem_group_size=2 use_elem_mat_fields=10 verify_solution=0 |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 1 minute 1 second
-  time flux run -N2 -n 192 -o cpu-affinity=per-task miniFE.x nx=620 ny=620 nz=620 num_devices=4 use_locking=1 elem_group_size=2 use_elem_mat_fields=10 verify_solution=0 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
 
 ```bash
@@ -410,19 +506,18 @@ kubectl delete -f ./crd/minife.yaml
 
 - Terminating about ~45 seconds
 
-#### Mixbench
+#### Mixbench CPU
+
+**IMPORTANT does not work on azure**
 
 ```bash
 kubectl apply -f ./crd/mixbench.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- ~7 seconds extra pull time.
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
-
 ```console
 oras login ghcr.io --username vsoch
 app=mixbench
@@ -430,30 +525,30 @@ output=./results/$app
 
 # ~26 seconds
 mkdir -p $output
-for i in $(seq 1 2); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
-
-  # This went for 10 minutes - and seems to be running on one core. We need to figure out how to shorten this.
-  time flux run -N4 -n 384 mixbench-cpu |& tee ./$output/$app-$size-iter-${i}.out
-  
-  # This is running on one cpu / node without flux - we need this across nodes
-  # Actually this might be the single node app, in which case this is OK. Let's time that.
-  # 1 minute 7 seconds
-  time mixbench-cpu
-
-  # This at least runs one copy per node - but we would have a hard time separating the (interleaved) rows of data
-  # 1 minute 18 seconds
-  time flux run -N4 mixbench-cpu |& tee ./$output/$app-$size-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 64 |& tee ./$output/$app-2-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/mixbench.yaml
 ```
 
-#### Mt Gem
+#### Mt-Gemm
 
+**IMPORTANT** this is not ready, the performance output is wrong.
 
 ```bash
 kubectl apply -f ./crd/mt-gem.yaml
@@ -466,13 +561,20 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
+Testing 2 nodes:
+
+```bash
+# 12 seconds, but performance output is wrong
+time flux run -N2 -n 192 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
+```
+
 ```console
 oras login ghcr.io --username vsoch
 app=mt-gem
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 1 2); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   
   # 9 seconds
@@ -488,61 +590,10 @@ for i in $(seq 1 2); do
   time flux run -N2 -n 192 /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi |& tee ./$output/$app-$size-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
-
 ```bash
-kubectl delete -f ./crd/mt-gem.yaml
-```
-
-#### Nek5000
-
-```bash
-kubectl apply -f ./crd/nek5000.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-
-- ~14 seconds extra pull time
-
-```bash
-flux proxy local:///mnt/flux/view/run/flux/local bash
-```
-
-Note: this takes a while to run, we likely need to decrease the size (somewhere) because it goes over 1k steps.
-It gives summary output stats every 1500 steps.
-
-```console
-oras login ghcr.io --username vsoch
-app=nek5000
-output=./results/$app
-
-mkdir -p $output
-for i in $(seq 1 2); do     
-  echo "Running iteration $i"
-  
-  # This first run is going to fail - we need to JIT compile then copy
-  time flux run -N4 -n 384 nekrs --setup turbPipe.par
-
-  # We will need to do this likely for each problem size
-  # time for flux run (includes only second JIT) is 
-  flux archive create --name cache-4 -C /opt/nekrs/examples/turbPipe .cache/*
-  flux archive list --name cache-4
-  flux exec -x 0 flux archive extract --name cache-4 -C /opt/nekrs/examples/turbPipe
-  flux exec -x 0 ls /opt/nekrs/examples/turbPipe/.cache
-  time flux run -N4 -n 384 nekrs --setup turbPipe.par |& tee ./$output/$app-$size-iter-${i}.out
-  flux archive remove --name cache-4
-  flux exec -x 0 rm -rf /opt/nekrs/examples/turbPipe/.cache
-done
-
-
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
-```
-
-Note that this seems to still require the shared FS for checkpoints. It hangs indefinitely and doesn't finish.
-
-
-```bash
-kubectl delete -f ./crd/nek5000.yaml
+kubectl delete -f ./crd/mt-gemm.yaml
 ```
 
 #### OSU
@@ -552,11 +603,13 @@ kubectl apply -f ./crd/osu.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- Additional pull time: 8.67 seconds.
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
+
+<details>
+
+<summary>Original testing</summary>
 
 This works!
 
@@ -572,31 +625,85 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.1
 flux run --env LD_LIBRARY_PATH=$LD_LIBRARY_PATH --env PATH=$PATH --env UCX_TLS=ib,self --env UCX_NET_DEVICES=mlx5_0:1 -N2 -n2 /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency
 ```
 
+</details>
+
+Write this script to the filesystem `flux-run-combinations.sh`
+
+```bash
+#/bin/bash
+
+nodes=$1
+output=$2
+app=$3
+
+# At most 28 combinations, 8 nodes 2 at a time
+hosts=$(flux run -N $1 hostname | shuf -n 28 | tr '\n' ' ')
+list=${hosts}
+
+dequeue_from_list() {
+  shift;
+  list=$@
+}
+
+for i in $hosts; do
+  dequeue_from_list $list
+  for j in $list; do
+    echo "${i} ${j}"
+    iter="${i}-${j}"
+    time flux run -N 2 -n 2 \
+      --setattr=user.study-id=$app-2-iter-$iter \
+      --requires="hosts:${i},${j}" \
+      -o cpu-affinity=per-task \
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency |& tee ./$output/$app-osu_latency-2-iter-${iter}.out 
+    time flux run -N 2 -n 2 \
+      --setattr=user.study-id=$app-2-iter-$iter \
+      --requires="hosts:${i},${j}" \
+      -o cpu-affinity=per-task \
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw |& tee ./$output/$app-osu_bw-2-iter-${iter}.out 
+   done
+done
+```
+
+Testing 2 nodes:
+
+```bash
+app=osu
+output=./results/$app
+mkdir -p $output
+./flux-run-combinations.sh 2 $output $app
+time flux run -N2 -n 192 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+```
+
+And then run as follows.
+
 ```console
 oras login ghcr.io --username vsoch
 app=osu
 output=./results/$app
 
+./flux-run-combinations.sh 32 $output $app
+
 mkdir -p $output
-for i in $(seq 1 2); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
-
-  # These requires 2 nodes, 2 procs
-  # 2.8 seconds (affinity doesn't make a difference)
-  time flux run -N2 -n2 /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw |& tee ./$output/$app-osu_bw-iter-${i}.out
-
-  # 11.58 seconds
-  time flux run -N2 -n2 /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency |& tee ./$output/$app-osu_latency-iter-${i}.out
-
-  # 30.64 seconds
-  time flux run -N4 -n384 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-4-iter-${i}.out
-
-  # 27.86 seconds
-  time flux run -N2 -n192 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-2-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-32-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-64-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-128-iter-${i}.out
+  time flux run --setattr=user.study-id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-256-iter-${i}.out
 
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
 
 ```bash
@@ -610,11 +717,16 @@ kubectl apply -f ./crd/quicksilver.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- 4.889 seconds
-
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+Testing on 2 nodes:
+
+```bash
+# parameters provided by Abhik
+# This app is fussy like that. Wonker.
+flux run --env OMP_NUM_THREADS=3 -N2 -n 64 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 10485760
 ```
 
 ```console
@@ -623,48 +735,47 @@ app=quicksilver
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 1 2); do     
-  echo "Running iteration $i"
-
-  # This problem size does not run - hangs after parameters. I can see 100% CPU utilization on other nodes, waited 15 mins
-  time flux run -o cpu-affinity=per-task -N4 -n 384 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp |& tee ./$output/$app-$size-iter-${i}.out
+for i in $(seq 1 5); do     
+    echo "Running iteration $i"
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320  |& tee ./$output/$app-32-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-64-iter-$i -N64 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8 -n 671088640  |& tee ./$output/$app-64-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-128-iter-$i -N128 -n 4096  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 128 -Z 128 -x 256 -y 128 -z 128 -I 16 -J 16 -K 16 -n 1342117280  |& tee ./$output/$app-128-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-256-iter-$i -N256 -n 8192  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 256 -Z 128 -x 256 -y 256 -z 128 -I 32 -J 16 -K 16 -n 2684354560  |& tee ./$output/$app-256-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
 ```
 
-I can't get any of these to run - they start and then nothing, with our without affinity. For later ones (not listed above) I also see:
-
-```
-file=initMC.cc: line=273 ERROR
-```
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
 ```
 
-#### Resnet
-
-```bash
-kubectl apply -f ./crd/resnet.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-
-- This is an entirely new container, so 2m 42 seconds is the entire pull.
-
-Gah, this torch model requires GPU does not work.
-
-
 #### Stream
+
 
 ```bash
 kubectl apply -f ./crd/stream.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
-- pull time: 4 minutes 45 seconds
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+Testing on 2 nodes:
+
+```bash
+time flux run -N1 -n 96 -o cpu-affinity=per-task stream_c.exe
 ```
 
 ```console
@@ -673,42 +784,27 @@ app=stream
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 1 2); do     
-  echo "Running iteration $i"  
-
-  # It's not clear if this is intended for multiple nodes?
-  # 4.68 seconds
-  # cpu affinity does nothing
-  time flux run -N4 -n 384 ./stream_c.exe  |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 4.52 seconds
-  time flux run -N2 -n 192 ./stream_c.exe  |& tee ./$output/$app-$size-iter-${i}.out
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  time flux run --setattr=user.study-id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream  |& tee ./$output/$app-1-iter-${i}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:test-aws-$app $output
-```
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    flux job attach $jobid > ./$output/$app-${jobid}.out 
+    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
+    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+done
 
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
+```
 ```bash
 kubectl delete -f ./crd/stream.yaml
 ```
 
 ### Clean Up
 
-When you are done:
-
-```bash
-time eksctl delete cluster --config-file ./eks-config.yaml --wait
-```
-
-Deletion time is 8minutes 46 seconds
-
-**IMPORTANT** AWS has a bug that it won't delete, ever, unless you force delete all pods. It will say:
-
-```
-2024-05-25 14:52:56 [!]  1 pods are unevictable from node ip-192-168-19-163.us-east-2.compute.internal
-```
-And you need to do:
-
-```bash
-kubectl delete pods --all-namespaces --all
-```
+When you are done, make sure to delete your cluster in the user interface!

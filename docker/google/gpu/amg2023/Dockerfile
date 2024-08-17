@@ -33,6 +33,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
 
 # What we want to install and how we want to install it
 # is specified in a manifest file (spack.yaml)
+# IMPORTANT: cpu gets +int64, and gpu +mixedint
 RUN mkdir /opt/spack-environment \
     &&  (echo "spack:" \
     &&   echo "  specs:" \

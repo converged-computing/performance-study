@@ -588,37 +588,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:g
 The above needs a redo - either improved printing of metrics (and increase in runtime) or a new repository.
 
 ```bash
-kubectl delete -f ./crd/mt-gem.yaml
-```
-#### Nek5000
-
-```bash
-kubectl apply -f ./crd/nek5000.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-- Extra pull time: 19.18 seconds
-
-
-*Important*: For each final command we need to add the final output of job info and submit attributes:
-
-```console
-
-# Identifier should be application, size, and iteration, this matches the other output file
---setattr=user.study-id=$app-$size-iter-$i
-
-# When they are done
-for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
-  do
-    flux job attach $jobid &> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec &> ./$output/$app-${jobid}.out 
-  done
-```
-
-See the AWS runs for this setup - I couldn't get it working. The reason is because it requires a shared cache. For some reason, the initial run (and cache generation) didn't work at all here, so my strategy to flux archive / flux exec across nodes didn't work. Aside from deploying a shared filesystem (Google Filestore) for this one run we might just consider removing it.
-
-
-```bash
-kubectl delete -f ./crd/nek5000.yaml
+kubectl delete -f ./crd/mt-gemm.yaml
 ```
 
 #### OSU

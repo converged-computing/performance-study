@@ -1,0 +1,14 @@
+FROM ghcr.io/converged-computing/azurehpc:flux-slim
+
+# Let's compile UCX without GPU checking.
+# This is the one we wound up using for our experiments
+
+# docker build -f Dockerfile.ucx -t ghcr.io/converged-computing/azurehpc:flux-slim-nogpu .
+# docker push ghcr.io/converged-computing/azurehpc:flux-slim-nogpu
+
+# Get build flags with ucx_info -b
+RUN wget https://github.com/openucx/ucx/releases/download/v1.17.0/ucx-1.17.0.tar.gz && \
+    tar -xzvf ucx-1.17.0.tar.gz && \
+    cd ucx-1.17.0 && \
+    ./configure --disable-logging --disable-debug --disable-assertions --disable-params-check --enable-mt --prefix=/usr --enable-examples --without-java --without-go --without-xpmem --without-cuda && \
+    make -j4 && make install && ldconfig

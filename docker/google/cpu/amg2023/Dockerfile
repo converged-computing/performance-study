@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 as builder
+FROM ubuntu:22.04 AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
 
 # AMD
-#  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4 .
-#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-zen4
+#  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4 .
+#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
@@ -33,6 +33,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
 
 # What we want to install and how we want to install it
 # is specified in a manifest file (spack.yaml)
+# IMPORTANT: cpu gets +int64, and gpu +mixedint
 RUN mkdir /opt/spack-environment \
     &&  (echo "spack:" \
     &&   echo "  specs:" \
@@ -43,7 +44,7 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  - pmix@4.2.2" \
     &&   echo "  - flux-pmix@0.4.0" \
     &&   echo "  - amg2023 +mpi +openmp" \
-    &&   echo "  - hypre +mixedint +openmp" \
+    &&   echo "  - hypre +int64 +openmp" \
     &&   echo "  concretizer:" \
     &&	 echo "    unify: true" \
     &&   echo "  config:" \

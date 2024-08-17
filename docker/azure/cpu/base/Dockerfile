@@ -1,5 +1,7 @@
 FROM ubuntu:22.04
 
+# docker build -t ghcr.io/converged-computing/azurehpc:flux-slim .
+
 WORKDIR /opt
 RUN apt-get update && apt-get install -y munge git curl wget unzip gpg debian-archive-keyring \  
     pkg-config vim ubuntu-keyring systemctl && apt-get clean
@@ -17,18 +19,17 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN oras pull ghcr.io/converged-computing/rdma-infiniband:ubuntu-22.04-tgz --output /opt && \
     cd /opt && \
     tar -xzvf MLNX_OFED_LINUX-24.04-0.7.0.0-ubuntu22.04-x86_64.tgz && \
-    cd MLNX_OFED_LINUX-24.04-0.7.0.0-ubuntu22.04-x86_64/DEBS && \
-    dpkg -i MLNX_OFED_LINUX-24.04-0.7.0.0-ubuntu22.04-x86_64/DEBS/mpitests_3.2.23-45a045b.2404066_amd64.deb && \
-    dpkg -i ibverbs-providers_2404mlnx51-1.2404066_amd64.deb && \
+    cd MLNX_OFED_LINUX-24.04-0.7.0.0-ubuntu22.04-x86_64/DEBS/ && \
+    dpkg -i mpitests_3.2.23-45a045b.2404066_amd64.deb && \
+    dpkg -i ibverbs-providers* && \
     dpkg -i libibverbs* && \
     dpkg -i librdmacm* && \
     dpkg -i libib* && \
     dpkg -i ucx_1.17.0-1.2404066_amd64.deb && \
     dpkg -i sharp_3.7.0.MLNX20240421.48444036-1.2404066_amd64.deb && \
     dpkg -i hcoll_4.8.3227-1.2404066_amd64.deb 
-    
-RUN ./install.sh
 
+RUN ./install.sh
 
 # NOW ADD FLUX
 # Install openpmix, prrte
@@ -48,9 +49,7 @@ RUN git clone https://github.com/openpmix/openpmix.git && \
     ./autogen.pl && \
     ./configure --prefix=/usr && make -j 4 install && \
     cd ../.. && \
-    rm -rf prrte
-
-unset +x
+    rm -rf prrte && unset +x
 
 ENV LANG=C.UTF-8
 ENV FLUX_SECURITY_VERSION=0.11.0
