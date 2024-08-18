@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     // MPI_Barrier(MPI_COMM_WORLD);
-    // start = MPI_Wtime();
+    start = MPI_Wtime();
 
     if (rank == 0) {
         // Initialize buffers.
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
     MPI_Finalize();   
     
     // MPI_Barrier(MPI_COMM_WORLD);
-    // end = MPI_Wtime();
+    end = MPI_Wtime();
 
     if (rank == 0) { /* use time on master node */
          float msec_total = 0.0f;

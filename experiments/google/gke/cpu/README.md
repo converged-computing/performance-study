@@ -567,7 +567,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
 
 ```console
 oras login ghcr.io --username vsoch
-app=mt-gem
+app=mt-gemm
 output=./results/$app
 
 mkdir -p $output

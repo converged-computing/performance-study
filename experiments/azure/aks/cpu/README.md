@@ -3,7 +3,6 @@
 Still needs to be done:
 
  - [ ] amg is working but needs final decision on params since is different from amg2023
- - [ ] mt-gemm output is useless, only the wrapped time would be comparable
  - [ ] kripke parameters not done
 
 For all runs, we need to subtract the "hookup time" to get the actual runtime. We can use lammps since it records the actual runtime.
@@ -142,17 +141,20 @@ nodes=2
 mkdir -p $output
 
 for node in $(seq 1 $nodes); do
-  flux submit /bin/bash /entrypoint.sh
-done 
+  flux submit -N 1 --setattr=user.study_id=$app-1-node-$node /bin/bash /entrypoint.sh
+done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -189,7 +191,7 @@ time flux run --env OMP_NUM_THREADS=1 -N 2 -n 192 -o cpu-affinity=per-task amg -
 time flux run --env OMP_NUM_THREADS=1 -N 2 -n 192 -o cpu-affinity=per-task amg -n 128 128 64 -P 4 6 8 -problem 2
 ```
 
-**IMPORTANT** we have not finalized the below yet since the amg is different. See above runs for reference.
+**IMPORTANT** we have not finalized the below yet since the AMG is different. See above runs for reference.
 
 ```console
 oras login ghcr.io --username vsoch
@@ -199,20 +201,23 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 15); do
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 8 -problem 2 |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 16 -problem 2 |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task amg -n 256 256 128 -P 32 16 16 -problem 2 |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task amg -n 256 256 128 -P 32 16 16 -problem 2
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -252,22 +257,25 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16  |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16
 
   # TODO these are not done. The CUDA needs to be removed
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -304,21 +312,24 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i" 
-  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-32-iter-${i}.out
-  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-64-iter-${i}.out
-  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 1 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-128-iter-${i}.out
-  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-256-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 1 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -424,20 +435,22 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-256-iter-${i}.out
-done
+  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -478,21 +491,24 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-32-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
+  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
+  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
+  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -501,8 +517,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 kubectl delete -f ./crd/minife.yaml
 ```
-
-- Terminating about ~45 seconds
 
 #### Mixbench CPU
 
@@ -525,17 +539,20 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 64 |& tee ./$output/$app-2-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 64
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -544,9 +561,22 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 kubectl delete -f ./crd/mixbench.yaml
 ```
 
-#### Mt-Gemm
 
-**IMPORTANT** this is not ready, the performance output is wrong.
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
+done
+
+
+#### Mt-Gemm
 
 ```bash
 kubectl apply -f ./crd/mt-gem.yaml
@@ -568,24 +598,16 @@ time flux run -N2 -n 192 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm
 
 ```console
 oras login ghcr.io --username vsoch
-app=mt-gem
+app=mt-gemm
 output=./results/$app
 
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  
-  # 9 seconds
-  time flux run -N4 -n 384 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi |& tee ./$output/$app-$size-iter-${i}.out
-  
-  # 9.66 seconds
-  time flux run -N4 -n 384 /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi |& tee ./$output/$app-$size-iter-${i}.out
-
-  # 8.34 seconds
-  time flux run -N2 -n 192 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi |& tee ./$output/$app-$size-iter-${i}.out
-  
-  # 8.66 seconds
-  time flux run -N2 -n 192 /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi |& tee ./$output/$app-$size-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi  
+  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
+  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
+  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -631,8 +653,7 @@ Write this script to the filesystem `flux-run-combinations.sh`
 #/bin/bash
 
 nodes=$1
-output=$2
-app=$3
+app=$2
 
 # At most 28 combinations, 8 nodes 2 at a time
 hosts=$(flux run -N $1 hostname | shuf -n 28 | tr '\n' ' ')
@@ -652,12 +673,12 @@ for i in $hosts; do
       --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency |& tee ./$output/$app-osu_latency-2-iter-${iter}.out 
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency
     time flux run -N 2 -n 2 \
       --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw |& tee ./$output/$app-osu_bw-2-iter-${iter}.out 
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw
     iter=$((iter+1))
   done
 done
@@ -669,7 +690,7 @@ Testing 2 nodes:
 app=osu
 output=./results/$app
 mkdir -p $output
-./flux-run-combinations.sh 2 $output $app
+./flux-run-combinations.sh 2 $app
 time flux run -N2 -n 192 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
 ```
 
@@ -680,26 +701,28 @@ oras login ghcr.io --username vsoch
 app=osu
 output=./results/$app
 
-./flux-run-combinations.sh 32 $output $app
+./flux-run-combinations.sh 32 $app
 
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-32-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-64-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-128-iter-${i}.out
-  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-256-iter-${i}.out
-
+  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -736,20 +759,23 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
     echo "Running iteration $i"
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320  |& tee ./$output/$app-32-iter-${i}.out
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8 -n 671088640  |& tee ./$output/$app-64-iter-${i}.out
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 128 -Z 128 -x 256 -y 128 -z 128 -I 16 -J 16 -K 16 -n 1342117280  |& tee ./$output/$app-128-iter-${i}.out
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 256 -Z 128 -x 256 -y 256 -z 128 -I 32 -J 16 -K 16 -n 2684354560  |& tee ./$output/$app-256-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320 
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8 -n 671088640
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 128 -Z 128 -x 256 -y 128 -z 128 -I 16 -J 16 -K 16 -n 1342117280
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 256 -Z 128 -x 256 -y 256 -z 128 -I 32 -J 16 -K 16 -n 2684354560
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output
@@ -785,17 +811,20 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream_c.exe  |& tee ./$output/$app-1-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream_c.exe
 done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
-    flux job attach $jobid > ./$output/$app-${jobid}.out 
-    echo "START OF JOBSPEC" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid jobspec >> ./$output/$app-${jobid}.out 
-    echo "START OF EVENTLOG" >> ./$output/$app-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> ./$output/$app-${jobid}.out
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-cpu-$app $output

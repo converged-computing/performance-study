@@ -352,7 +352,7 @@ Write this script to the filesystem `flux-run-combinations.sh`
 #/bin/bash
 
 nodes=$1
-app=$3
+app=$2
 
 # At most 28 combinations, 8 nodes 2 at a time
 hosts=$(flux run -N $1 hostname | shuf -n 28 | tr '\n' ' ')
