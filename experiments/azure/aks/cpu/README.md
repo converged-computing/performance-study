@@ -2,7 +2,6 @@
 
 Still needs to be done:
 
- - [ ] mixbench-cpu segfaults
  - [ ] amg is working but needs final decision on params since is different from amg2023
  - [ ] mt-gemm output is useless, only the wrapped time would be comparable
  - [ ] kripke parameters not done
@@ -38,9 +37,7 @@ And this uses infiniband.
 
 ### 1. Setup
 
-Note that I needed to create this entirely in the UI, and you can't do automatic. In practice I don't think we need any agent pool - just user. I created a cluster with 3 nodes to test (see the [template.json](template.json) for the setup).
-
-Register the feature for AKSInfinibandSupport:
+Note that I needed to create this entirely in the UI, and you can't do automatic. We are required to have at least one node in hte agent pool. I created a cluster with 3 nodes to test (1 agent, 2 workers or user pool). Register the feature for AKSInfinibandSupport:
 
 ```bash
 az feature register --namespace Microsoft.ContainerService --name AKSInfinibandSupport
@@ -71,7 +68,7 @@ I was originally looking at [https://github.com/Mellanox/ib-kubernetes](https://
 
 ```bash
 git clone https://github.com/converged-computing/aks-infiniband-install ./infiniband
-kubectl apply -k infiniband/driver-installation.yaml
+kubectl apply -f infiniband/driver-installation.yaml
 ```
 
 When they are done, here is how to check that it was successful.
@@ -202,10 +199,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 15); do
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 8 -problem 2 |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 16 -problem 2 |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task amg -n 256 256 128 -P 32 16 16 -problem 2 |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 8 -problem 2 |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 16 -problem 2 |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task amg -n 256 256 128 -P 32 16 16 -problem 2 |& tee ./$output/$app-256-iter-${i}.out
 done
 
 # When they are done:
@@ -255,12 +252,12 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16  |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16  |& tee ./$output/$app-32-iter-${i}.out
 
   # TODO these are not done. The CUDA needs to be removed
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study-id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-256-iter-${i}.out
 done
 
 # When they are done:
@@ -296,7 +293,7 @@ Testing on 2 nodes:
 
 ```bash
 # 2m 39 seconds
-time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-32-iter-$i -N2 -n 192 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N2 -n 192 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 ```
 
 ```console
@@ -307,10 +304,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i" 
-  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-32-iter-$i -N32 -n 3072 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-32-iter-${i}.out
-  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-64-iter-$i -N64 -n 6144 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-64-iter-${i}.out
-  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-128-iter-$i -N128 -n 12288 1 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-128-iter-${i}.out
-  time flux run -o cpu-affinity=per-task --setattr=user.study-id=$app-256-iter-$i -N256 -n 24576 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-256-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-32-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-64-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 1 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-128-iter-${i}.out
+  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom |& tee ./$output/$app-256-iter-${i}.out
 
 done
 
@@ -427,10 +424,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-256-iter-${i}.out
 done
 
 # When they are done:
@@ -481,10 +478,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-32-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-64-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-128-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-256-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-64-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-128-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-256-iter-${i}.out
 
 done
 
@@ -509,7 +506,7 @@ kubectl delete -f ./crd/minife.yaml
 
 #### Mixbench CPU
 
-**IMPORTANT does not work on azure**
+**Should work with intel, but not tested yet**
 
 ```bash
 kubectl apply -f ./crd/mixbench.yaml
@@ -528,7 +525,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 64 |& tee ./$output/$app-2-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 64 |& tee ./$output/$app-2-iter-${i}.out
 done
 
 # When they are done:
@@ -646,22 +643,23 @@ dequeue_from_list() {
   list=$@
 }
 
+iter=0
 for i in $hosts; do
   dequeue_from_list $list
   for j in $list; do
     echo "${i} ${j}"
-    iter="${i}-${j}"
     time flux run -N 2 -n 2 \
-      --setattr=user.study-id=$app-2-iter-$iter \
+      --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o cpu-affinity=per-task \
       /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency |& tee ./$output/$app-osu_latency-2-iter-${iter}.out 
     time flux run -N 2 -n 2 \
-      --setattr=user.study-id=$app-2-iter-$iter \
+      --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o cpu-affinity=per-task \
       /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw |& tee ./$output/$app-osu_bw-2-iter-${iter}.out 
-   done
+    iter=$((iter+1))
+  done
 done
 ```
 
@@ -687,10 +685,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-32-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-64-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-128-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-256-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-32-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 6144 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-64-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 12288 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-128-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce |& tee ./$output/$app-osu_allreduce-256-iter-${i}.out
 
 done
 
@@ -738,10 +736,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
     echo "Running iteration $i"
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320  |& tee ./$output/$app-32-iter-${i}.out
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-64-iter-$i -N64 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8 -n 671088640  |& tee ./$output/$app-64-iter-${i}.out
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-128-iter-$i -N128 -n 4096  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 128 -Z 128 -x 256 -y 128 -z 128 -I 16 -J 16 -K 16 -n 1342117280  |& tee ./$output/$app-128-iter-${i}.out
-    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study-id=$app-256-iter-$i -N256 -n 8192  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 256 -Z 128 -x 256 -y 256 -z 128 -I 32 -J 16 -K 16 -n 2684354560  |& tee ./$output/$app-256-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320  |& tee ./$output/$app-32-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8 -n 671088640  |& tee ./$output/$app-64-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 128 -Z 128 -x 256 -y 128 -z 128 -I 16 -J 16 -K 16 -n 1342117280  |& tee ./$output/$app-128-iter-${i}.out
+    time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 256 -Y 256 -Z 128 -x 256 -y 256 -z 128 -I 32 -J 16 -K 16 -n 2684354560  |& tee ./$output/$app-256-iter-${i}.out
 done
 
 # When they are done:
@@ -787,7 +785,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream_c.exe  |& tee ./$output/$app-1-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-1-iter-$i -N1 -n 96 -o cpu-affinity=per-task stream_c.exe  |& tee ./$output/$app-1-iter-${i}.out
 done
 
 # When they are done:

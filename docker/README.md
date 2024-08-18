@@ -96,7 +96,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-quicksilver-cpu:zen4       | Google | no |[Dockerfile](docker/google/cpu/quicksilver) | |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4       | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-stream:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/stream) | |
-| ghcr.io/converged-computing/metric-mixbench:cpu-zen4           | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
+| ghcr.io/converged-computing/metric-mixbench:cpu               | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
 
 ### Amazon Web Services
 
@@ -109,7 +109,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/amg2023) | |
 | ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4  | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 
 | ghcr.io/converged-computing/metric-lammps-cpu:zen4            | AWS | no |[Dockerfile](docker/aws/cpu/lammps) | | 
-| ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/mixbench) | |
+| ghcr.io/converged-computing/metric-mixbench:libfabric-cpu | AWS | no |[Dockerfile](docker/aws/cpu/mixbench) | |
 | ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4         | AWS | no |[Dockerfile](docker/aws/cpu/mt-gemm) | |
 | ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4   | AWS | no |[Dockerfile](docker/aws/cpu/osu) | |
 | ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/quicksilver)| |

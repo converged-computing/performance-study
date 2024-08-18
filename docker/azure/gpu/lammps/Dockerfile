@@ -1,4 +1,4 @@
-FROM ghcr.io/converged-computing/azurehpc:flux-gpu 
+FROM ghcr.io/converged-computing/azurehpc:flux-gpu-focal
 
 # Build command
 #  docker build -t ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc .
@@ -10,8 +10,8 @@ ENV UCX_TLS=ib
 ENV OMPI_MCA_btl_openib_warn_no_device_params_found=0
 
 # hpcx
-ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin
+ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu20.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu20.04-cuda12-x86_64/hcoll/lib
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu20.04-cuda12-x86_64/hpcx-rebuild/bin
 
 WORKDIR /opt
 

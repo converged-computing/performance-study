@@ -12,7 +12,7 @@ spec:
       disable: true
 
   containers:
-  - image: ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4
+  - image: ghcr.io/converged-computing/metric-mixbench:libfabric-cpu
     resources:
       limits:
         vpc.amazonaws.com/efa: 1

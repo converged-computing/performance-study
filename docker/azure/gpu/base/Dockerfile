@@ -15,7 +15,7 @@ RUN export VERSION="1.1.0" && \
     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ && \
     mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
-COPY git clone -b azure-performance-study-gpu-build-2024 https://github.com/researchapps/azurehpc-images /opt/azhpc-images
+RUN git clone -b azure-performance-study-gpu-build-2024 https://github.com/researchapps/azurehpc-images /opt/azhpc-images
 WORKDIR /opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc
 ENV DEBIAN_FRONTEND=noninteractive
 

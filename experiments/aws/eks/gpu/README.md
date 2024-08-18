@@ -141,7 +141,7 @@ nodes=4
 for i in $(seq 1 1); do     
   echo "Running iteration $i"  
   for node in $(seq 1 $nodes); do
-    flux submit --setattr=user.study-id=$app-node-$node /bin/bash /entrypoint.sh |& tee ./$output/$app-node-$node.out
+    flux submit --setattr=user.study_id=$app-node-$node /bin/bash /entrypoint.sh |& tee ./$output/$app-node-$node.out
   done 
 done
 
@@ -190,10 +190,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 15); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 4 4 2 -problem 2 |& tee ./$output/$app-4-iter-${i}.out
-  flux run --setattr=user.study-id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 8 4 2 -problem 2 |& tee ./$output/$app-8-iter-${i}.out
-  flux run --setattr=user.study-id=$app-16-iter-$i -N 16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 16 4 2 -problem 2 |& tee ./$output/$app-16-iter-${i}.out
-  flux run --setattr=user.study-id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 32 4 2 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 4 4 2 -problem 2 |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 8 4 2 -problem 2 |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 16 4 2 -problem 2 |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 32 4 2 -problem 2 |& tee ./$output/$app-32-iter-${i}.out
 done
 
 # When they are done:
@@ -233,10 +233,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,2,4  |& tee ./$output/$app-4-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-8-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-16-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-32-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,2,4  |& tee ./$output/$app-4-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4  |& tee ./$output/$app-8-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4  |& tee ./$output/$app-16-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8  |& tee ./$output/$app-32-iter-${i}.out
 done
 
 # When they are done:
@@ -280,10 +280,10 @@ mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
   
-  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-4-iter-${i}.out
-  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-8-iter-${i}.out
-  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-16-iter-${i}.out
-  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-32-iter-${i}.out
+  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-4-iter-${i}.out
+  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-8-iter-${i}.out
+  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-16-iter-${i}.out
+  time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 /opt/laghos/cuda/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom -d cuda |& tee ./$output/$app-32-iter-${i}.out
 
 done
 
@@ -329,10 +329,10 @@ mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
 
-  flux run --setattr=user.study-id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-4-iter-${i}.out
-  flux run --setattr=user.study-id=$app-8-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N8 -n 64 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-8-iter-${i}.out
-  flux run --setattr=user.study-id=$app-16-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N16 -n 128 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-16-iter-${i}.out
-  flux run --setattr=user.study-id=$app-32-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N32 -n 256 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N8 -n 64 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N16 -n 128 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N32 -n 256 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000  |& tee ./$output/$app-32-iter-${i}.out
   
 done
 
@@ -372,8 +372,8 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm |& tee ./$output/$app-1-iter-${i}.out
-  time flux run --setattr=user.study-id=$app-vbatched-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched --ngpu 1 |& tee ./$output/$app-vbatched-1-iter-${i}.out
+  flux run --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm |& tee ./$output/$app-1-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-vbatched-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched --ngpu 1 |& tee ./$output/$app-vbatched-1-iter-${i}.out
 
 done
 
@@ -412,13 +412,13 @@ mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i"
 
-  flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-4-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-8-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-16-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0 |& tee ./$output/$app-32-iter-${i}.out
 
 done
 
@@ -457,7 +457,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-$size-iter-$i -l -N2 -n 8 -g 1 ./wrapper 64 |& tee ./$output/$app-$size-iter-${i}.out
+  flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 8 -g 1 ./wrapper 64 |& tee ./$output/$app-$size-iter-${i}.out
 done
 
 # When they are done:
@@ -495,13 +495,13 @@ mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
 
-  flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-4-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-8-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-16-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-32-iter-${i}.out
 
 done
 
@@ -540,13 +540,13 @@ mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
 
-  flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-4-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-8-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-16-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000 -nx 32768 -ny 32768 |& tee ./$output/$app-32-iter-${i}.out
 
 done
 
@@ -574,13 +574,13 @@ flux submit --watch -N1 --gpus-per-node 4 /opt/multi-gpu-programming-models/mpi/
 flux submit --watch -N1 --gpus-per-node 4 /opt/multi-gpu-programming-models/mpi/jacobi -niter 20000
 
 # 28 seconds
-flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 /opt/multi-gpu-programming-models/mpi/jacobi -niter 5000
+flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 /opt/multi-gpu-programming-models/mpi/jacobi -niter 5000
 
 # 50 seconds
-flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000
+flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000
 
 # 1 minute 36 seconds
-flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000
+flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 /opt/multi-gpu-programming-models/mpi/jacobi -niter 10000
 ```
 
 
@@ -613,7 +613,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 2); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 nekrs --setup turbPipe.par |& tee ./$output/$app-$size-iter-${i}.out
+  flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 nekrs --setup turbPipe.par |& tee ./$output/$app-$size-iter-${i}.out
 done
 
 # When they are done:
@@ -643,8 +643,8 @@ mpirun --allow-run-as-root -np 4 nekrs --setup turbPipe.par
 mpirun --allow-run-as-root -n 4 nekrs --setup turbPipe.par
 
 # Flux with one node and two nodes
-flux run --setattr=user.study-id=$app-$size-iter-$i -N1 -n 4 -g 1 nekrs --setup turbPipe.par
-flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 nekrs --setup turbPipe.par
+flux run --setattr=user.study_id=$app-$size-iter-$i -N1 -n 4 -g 1 nekrs --setup turbPipe.par
+flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 nekrs --setup turbPipe.par
 ```
 
 ```bash
@@ -692,7 +692,7 @@ for i in $hosts; do
     echo "${i} ${j}"
     iter="${i}-${j}"
     flux run -N 2 -n 2 -g 1 \
-      --setattr=user.study-id=$app-2-iter-$iter \
+      --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o gpu-affinity=per-task \
       -o cpu-affinity=per-task \
@@ -714,13 +714,13 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-4-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-8-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-16-iter-${i}.out
 
-  flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D |& tee ./$output/$app-osu_allreduce-32-iter-${i}.out
 
 done
 
@@ -757,10 +757,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
-    flux run --setattr=user.study-id=$app-4-iter-$i -N4 -n 32 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800  |& tee ./$output/$app-4-iter-${i}.out
-    flux run --setattr=user.study-id=$app-8-iter-$i -N8 -n 64 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600 |& tee ./$output/$app-8-iter-${i}.out
-    flux run --setattr=user.study-id=$app-16-iter-$i -N16 -n 128 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200 |& tee ./$output/$app-16-iter-${i}.out
-    flux run --setattr=user.study-id=$app-32-iter-$i -N32 -n 256 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 64  -x 64  -y 64  -z 64  -I 8  -J 8  -K 4 -n 419430400  |& tee ./$output/$app-32-iter-${i}.out
+    flux run --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800  |& tee ./$output/$app-4-iter-${i}.out
+    flux run --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600 |& tee ./$output/$app-8-iter-${i}.out
+    flux run --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200 |& tee ./$output/$app-16-iter-${i}.out
+    flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 64  -x 64  -y 64  -z 64  -I 8  -J 8  -K 4 -n 419430400  |& tee ./$output/$app-32-iter-${i}.out
 done
 
 # When they are done:
@@ -777,10 +777,10 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 Both options:
 
 ```bash
-flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
+flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
 
 # Coral 2 example
-flux run --setattr=user.study-id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem2/Coral2_P2.inp
+flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem2/Coral2_P2.inp
 ```
 
 ```bash
@@ -806,10 +806,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-4-iter-$i -N 4 -n 32 -g 1 /bin/bash ./launch.sh flux-sample 4 32 32 |& tee ./$output/$app-4-iter-${i}.out
-  flux run --setattr=user.study-id=$app-8-iter-$i -N 8 -n 64 -g 1 /bin/bash ./launch.sh flux-sample 8 64 32 |& tee ./$output/$app-8-iter-${i}.out
-  flux run --setattr=user.study-id=$app-16-iter-$i -N 16 -n 128 -g 1 /bin/bash ./launch.sh flux-sample 16 128 32 |& tee ./$output/$app-16-iter-${i}.out
-  flux run --setattr=user.study-id=$app-32-iter-$i -N 32 -n 256 -g 1 /bin/bash ./launch.sh flux-sample 32 256 32 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 /bin/bash ./launch.sh flux-sample 4 32 32 |& tee ./$output/$app-4-iter-${i}.out
+  flux run --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 /bin/bash ./launch.sh flux-sample 8 64 32 |& tee ./$output/$app-8-iter-${i}.out
+  flux run --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 /bin/bash ./launch.sh flux-sample 16 128 32 |& tee ./$output/$app-16-iter-${i}.out
+  flux run --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 /bin/bash ./launch.sh flux-sample 32 256 32 |& tee ./$output/$app-32-iter-${i}.out
 done
 
 # When they are done:
@@ -845,7 +845,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study-id=$app-1-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream  |& tee ./$output/$app-1-iter-${i}.out
+  flux run --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream  |& tee ./$output/$app-1-iter-${i}.out
 done
 
 # When they are done:
