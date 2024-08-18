@@ -79,6 +79,7 @@ provider: efa
 Write this script to file that we can run incrementally to save output (that does not exist yet)
 
 ```bash
+#!/bin/bash
 output=$1
 
 # When they are done:
@@ -121,7 +122,7 @@ nodes=3
 mkdir -p $output
 
 for node in $(seq 1 $nodes); do
-  flux submit -N1 --setattr=user.study_id=$app-$node-$node singularity exec metric-single-node_cpu-zen4.sif /bin/bash /entrypoint.sh
+  flux submit -N1 --setattr=user.study_id=$app-node-$node singularity exec metric-single-node_cpu-zen4.sif /bin/bash /entrypoint.sh
 done 
 
 ./save.sh $output
@@ -291,7 +292,7 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 Testing:
 
 ```bash
-time flux run -l -N2 -n 192 mixbench-cpu 64
+time flux run -l -N2 mixbench-cpu 64
 ```
 
 ```console
@@ -300,7 +301,7 @@ app=mixbench
 
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 192 singularity exec /home/ubuntu/metric-mixbench_libfabric-cpu.sif mixbench-cpu 64
+  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 singularity exec /home/ubuntu/metric-mixbench_libfabric-cpu.sif mixbench-cpu 64
 done
 
 # When they are done:
@@ -346,7 +347,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 
 #### OSU
 
-Write this script to the filesystem `flux-run-combinations.sh`
+Write this script to the filesystem `flux_run_combinations.sh`
 
 ```bash
 #/bin/bash
@@ -387,7 +388,7 @@ done
 Testing:
 
 ```bash
-./flux-run-combinations.sh 3 $app
+./flux_run_combinations.sh 3 $app
 
 # 10 seconds
 time flux run -N3 -n 288 -o cpu-affinity=per-task singularity exec /home/ubuntu/metric-osu-cpu_libfabric-zen4.sif /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce 
@@ -399,7 +400,7 @@ And then run as follows.
 oras login ghcr.io --username vsoch
 app=osu
 
-./flux-run-combinations.sh 32 $output $app
+./flux_run_combinations.sh 32 $app
 
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
