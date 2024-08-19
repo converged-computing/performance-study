@@ -1,0 +1,15 @@
+FROM ghcr.io/converged-computing/flux-rocky:8
+
+# AMD
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-amg:rocky-8 .
+#  docker push ghcr.io/converged-computing/metric-amg:rocky-8
+
+WORKDIR /opt
+RUN git clone https://github.com/LLNL/AMG.git && \
+    cd ./AMG && \
+    make
+
+ENV PATH=/opt/AMG/test:$PATH
+
+EXPOSE 22
+WORKDIR /opt/AMG

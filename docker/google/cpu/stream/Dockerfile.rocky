@@ -1,0 +1,12 @@
+FROM ghcr.io/converged-computing/flux-rocky:8
+
+# Build command
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-stream:rocky-8 .
+#  docker push ghcr.io/converged-computing/metric-stream:rocky-8
+
+WORKDIR /opt/stream
+COPY ./src .
+RUN mv Makefile.c Makefile && \
+    make && cp stream_c.exe /usr/local/bin
+
+EXPOSE 22

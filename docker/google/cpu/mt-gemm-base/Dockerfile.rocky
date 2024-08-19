@@ -1,0 +1,14 @@
+FROM ghcr.io/converged-computing/flux-rocky:8
+
+# Build command
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/mt-gemm:rocky-8 .
+#  docker push ghcr.io/converged-computing/mt-gemm:rocky-8
+
+WORKDIR /opt
+RUN git clone https://repository.prace-ri.eu/git/CodeVault/hpc-kernels/dense_linear_algebra.git
+COPY gemm_mpi.cpp /opt/dense_linear_algebra/gemm/mpi/src/
+RUN cd /opt/dense_linear_algebra/gemm/mpi && \
+    mkdir build && cd build && \
+    cmake ../ && make && make install
+
+EXPOSE 22

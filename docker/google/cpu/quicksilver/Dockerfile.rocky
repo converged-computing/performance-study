@@ -1,0 +1,20 @@
+FROM ghcr.io/converged-computing/flux-rocky:8
+
+# Build command
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-quicksilver-cpu:rocky-8 .
+#  docker push ghcr.io/converged-computing/metric-quicksilver-cpu:rocky-8
+
+WORKDIR /opt
+COPY ./Makefile /opt/Makefile.qs
+RUN mkdir quicksilver && \
+    cd quicksilver && \
+    git init && \
+    git remote add origin https://github.com/LLNL/Quicksilver && \
+    git fetch --depth 1 origin eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b && \
+    git checkout FETCH_HEAD && \
+    mv /opt/Makefile.qs src/Makefile
+WORKDIR /opt/quicksilver/src
+RUN make && cp qs /usr/bin/qs
+
+EXPOSE 22
+WORKDIR /opt/quicksilver/Examples

@@ -1,0 +1,28 @@
+FROM ghcr.io/converged-computing/flux-rocky:8
+
+# Build command
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-lammps-cpu:rocky-8 .
+#  docker push ghcr.io/converged-computing/metric-lammps-cpu:rocky-8
+
+WORKDIR /opt
+RUN mkdir lammps && \
+   cd lammps && \
+   git init && \
+   git remote add origin https://github.com/lammps/lammps.git && \
+   git fetch --depth 1 origin a8687b53724b630fb5f454c8d7be9f9370f8bb3b && \
+   git checkout FETCH_HEAD && \
+   mkdir build && \
+   cd build && \
+   cmake \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D MPI_CXX_COMPILER=mpicxx \
+  -D BUILD_MPI=yes \
+  -D PKG_ML-SNAP=yes \
+  -D PKG_GPU=no \
+  -D PKG_REAXFF=on \
+  -D PKG_KOKKOS=yes \
+  ../cmake && make && make install
+  
+WORKDIR /code
+COPY ./common .
