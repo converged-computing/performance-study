@@ -86,17 +86,30 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4 | Google | no |[Dockerfile](docker/google/cpu/amg2023) |  |
-| ghcr.io/converged-computing/metric-laghos:cpu-zen4             | Google | no |[Dockerfile](docker/google/cpu/laghos)  | |
-| ghcr.io/converged-computing/metric-kripke-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/kripke)  | |
-| ghcr.io/converged-computing/metric-lammps-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/lammps) | |
-| ghcr.io/converged-computing/metric-minife:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/minife)  | | 
-| ghcr.io/converged-computing/mt-gemm:cpu-zen4                  | Google | no |[Dockerfile](docker/google/cpu/mt-gemm-base)| |
-| ghcr.io/converged-computing/metric-osu-cpu:zen4               | Google | no |[Dockerfile](docker/google/cpu/osu) | |
-| ghcr.io/converged-computing/metric-quicksilver-cpu:zen4       | Google | no |[Dockerfile](docker/google/cpu/quicksilver) | |
+| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4 | Google | no |[Dockerfile](docker/google/cpu/amg2023/Dockerfile) |  |
+| ghcr.io/converged-computing/metric-amg:rocky-8                 | Google | no | [Dockerfile](docker/google/cpu/amg/Dockerfile.rocky)  | |
+| ghcr.io/converged-computing/metric-laghos:cpu-zen4             | Google | no |[Dockerfile](docker/google/cpu/laghos/Dockerfile)  | |
+| ghcr.io/converged-computing/metric-laghos:rocky-8              | Google | no |[Dockerfile](docker/google/cpu/laghos/Dockerfile.rocky) | |
+| ghcr.io/converged-computing/metric-kripke-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/kripke/Dockerfile)  | |
+| ghcr.io/converged-computing/metric-kripke-cpu:rocky-8         | Google | no |[Dockerfile](docker/google/cpu/kripke/Dockerfile.rocky) | Rocky Linux 8|
+| ghcr.io/converged-computing/metric-lammps-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/lammps/Dockerfile) | |
+| ghcr.io/converged-computing/metric-lammps-cpu:rocky-8         | Google | no |[Dockerfile](docker/google/cpu/lammps/Dockerfile.rocky) | Rocky Linux 8 |
+| ghcr.io/converged-computing/metric-minife:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/minife/Dockerfile)  | | 
+| ghcr.io/converged-computing/metric-minife:rocky-8             | Google | no |[Dockerfile](docker/google/cpu/minife/Dockerfile.rocky)  | Rocky Linux 8|
+| ghcr.io/converged-computing/mt-gemm:cpu-zen4                  | Google | no |[Dockerfile](docker/google/cpu/mt-gemm-base/Dockerfile)| |
+| ghcr.io/converged-computing/mt-gemm:rocky-8                   | Google | no |[Dockerfile](docker/google/cpu/mt-gemm-base/Dockerfile.rocky)| Rocky Linux 8 |
+| ghcr.io/converged-computing/metric-osu-cpu:zen4               | Google | no |[Dockerfile](docker/google/cpu/osu/Dockerfile) | |
+| ghcr.io/converged-computing/metric-osu-cpu:rocky-8            | Google | no |[Dockerfile](docker/google/cpu/osu/Dockerfile.rocky) | Rocky Linux 8| 
+| ghcr.io/converged-computing/metric-quicksilver-cpu:zen4       | Google | no |[Dockerfile](docker/google/cpu/quicksilver/Dockerfile) | |
+| ghcr.io/converged-computing/metric-quicksilver-cpu:rocky-8    | Google | no |[Dockerfile](docker/google/cpu/quicksilver/Dockerfile.rocky) | Rocky Linux 8|
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4       | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
-| ghcr.io/converged-computing/metric-stream:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/stream) | |
+| ghcr.io/converged-computing/metric-stream:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/stream/Dockerfile) | |
+| ghcr.io/converged-computing/metric-stream:rocky-8             | Google | no |[Dockerfile](docker/google/cpu/stream/Dockerfile.rocky) | Rocky Linux 8 |
 | ghcr.io/converged-computing/metric-mixbench:cpu               | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
+
+For the above, Rocky Linux 8 are generally for the Terraform setup, and the others for GKE.
+
+
 
 ### Amazon Web Services
 
