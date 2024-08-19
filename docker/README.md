@@ -19,7 +19,6 @@ These containers require data:
 |---------------------------------------------------------|-----------|-----|------------------------------------|
 | ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc | Azure     | yes |[Dockerfile](docker/azure/gpu/lammps/Dockerfile) |
 
-
 ### Google Cloud
 
 Since we need to vary builds across clouds, let's keep track of that here. These only include the ones we are intending to run.
@@ -108,8 +107,6 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-mixbench:cpu               | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
 
 For the above, Rocky Linux 8 are generally for the Terraform setup, and the others for GKE.
-
-
 
 ### Amazon Web Services
 

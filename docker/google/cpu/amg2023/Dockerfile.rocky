@@ -1,0 +1,29 @@
+FROM ghcr.io/converged-computing/flux-rocky:8
+
+# AMD
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-amg2023:rocky-8 .
+#  docker push ghcr.io/converged-computing/metric-amg2023:rocky-8
+
+RUN yum update && yum install -y gcc-gfortran
+WORKDIR /opt/spack-environment
+COPY ./spack.yaml /opt/spack-environment/spack.yaml
+
+# Install the software, remove unnecessary deps
+RUN cd /opt/spack-environment \
+    && git clone https://github.com/spack/spack.git \
+    && cd spack && git fetch && git checkout v0.22.1 \
+    && cd ../ 
+    && . spack/share/spack/setup-env.sh \
+    && spack env activate . \
+    && spack external find openssh \
+    && spack external find cmake \
+    && spack install --reuse --fail-fast \
+    && spack gc -y
+
+# Modifications to the environment that are necessary to run
+RUN cd /opt/spack-environment \
+    && . spack/share/spack/setup-env.sh \
+    && spack env activate --sh -d . >> /etc/profile.d/z10_spack_environment.sh
+
+WORKDIR /opt
+EXPOSE 22

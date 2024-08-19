@@ -1,0 +1,20 @@
+.idea/
+*.iml
+**/target/
+**/bin
+*.zip
+
+# Terraform
+**/.terraform
+**/.terraform*
+**/terraform.tfplan
+**/terraform.tfstate
+**/terraform.tfstate.backup
+**/terraform.tfstate.d
+**/*.auto.tfvars
+**/.terraform.lock.hcl
+
+# Temporary SSH keys
+**/id_rsa
+**/id_rsa.pub
+*.pem
