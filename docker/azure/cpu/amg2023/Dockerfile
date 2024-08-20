@@ -3,8 +3,8 @@ FROM ghcr.io/converged-computing/azurehpc:flux-slim-nogpu
 # WARNING: This image does not work - hypre segfaults
 # We are using amg vanilla from 2013 instead, which runs OK
 # AMD
-#  docker build -t ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu .
-#  docker push ghcr.io/converged-computing/metric-amg:azure-hpc-cpu 
+#  docker build -t ghcr.io/converged-computing/metric-amg2023:azure-int64-zen3 .
+#  docker push ghcr.io/converged-computing/metric-amg:azure-hpc-int64-zen3 
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV UCX_NET_DEVICES=mlx5_0:1

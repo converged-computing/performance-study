@@ -71,7 +71,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 |---------------------------------------------------------|-----------|-----|------------------------------------|
 | ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/lammps/Dockerfile.azurehpc) |
 | ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/kripke/Dockerfile.azurehpc) |
-| ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64 | Azure   | no |[Dockerfile](docker/azure/cpu/amg) |
+| ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3 | Azure   | no |[Dockerfile](docker/azure/cpu/amg) |
 | ghcr.io/converged-computing/metric-laghos:azure-hpc     |  Azure | no |[Dockerfile](docker/azure/cpu/laghos) |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Azure | no |[Dockerfile](docker/azure/cpu/single-node) |
 | ghcr.io/converged-computing/metric-minife:azure-hpc     | Azure | yes |[Dockerfile](docker/azure/cpu/minife)  |
