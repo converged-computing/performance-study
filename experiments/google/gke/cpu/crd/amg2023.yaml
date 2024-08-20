@@ -3,13 +3,13 @@ kind: MiniCluster
 metadata:
   name: flux-sample
 spec:
-  size: 32
+  size: 4
   interactive: true
   flux:
     container:
       disable: true
   containers:
-  - image: ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4
+  - image: ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
     commands:
       pre: |
         . /etc/profile.d/z10_spack_environment.sh

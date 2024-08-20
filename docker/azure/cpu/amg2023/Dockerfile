@@ -16,9 +16,10 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-
 WORKDIR /opt/spack-environment
 COPY ./spack.yaml ./spack.yaml
 
-# Install the software, remove unnecessary deps
+# IMPORTANT: you MUST use this version of spack, as later
+# versions will segfault when you run flux + amg
 RUN cd /opt/spack-environment \
-    && git clone https://github.com/spack/spack.git \
+    && git clone --depth 1 --branch v0.22.1 https://github.com/spack/spack.git \
     && . spack/share/spack/setup-env.sh \
     && spack env activate . \
     && spack install --reuse --fail-fast \

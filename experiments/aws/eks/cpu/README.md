@@ -282,8 +282,6 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-Testing on 4 nodes
-
 ```bash
 # 3 seconds wall time, 11.7 seconds real (hookup)
 time flux run -o cpu-affinity=per-task -N4 -n 384 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 

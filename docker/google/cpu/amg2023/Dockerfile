@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
 
 # AMD
-#  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4 .
-#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4
+#  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 .
+#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
@@ -52,8 +52,10 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
 
 # Install the software, remove unnecessary deps
+# IMPORTANT: you MUST use this version of spack, as later
+# versions will segfault when you run flux + amg
 RUN cd /opt/spack-environment \
-    && git clone https://github.com/spack/spack.git \
+    && git clone --depth 1 --branch v0.22.1 https://github.com/spack/spack.git \
     && . spack/share/spack/setup-env.sh \
     && spack env activate . \
     && spack external find openssh \
