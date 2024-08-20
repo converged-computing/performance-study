@@ -1,7 +1,7 @@
 spack:
   specs:
-  - amg2023 +mpi +openmp
-  - hypre +int64 +openmp
+  - amg2023 +mpi +openmp ^openmpi@4.1.2%gcc@8.5.0
+  - hypre +int64 +openmp ~fortran ^openmpi@4.1.2%gcc@8.5.0
   concretizer:
     unify: true
   config:
@@ -13,10 +13,17 @@ spack:
       externals:
       - spec: cmake@3.26.5
         prefix: /usr
+      buildable: false
     openssh:
       externals:
       - spec: openssh@8.0p1
         prefix: /usr
+      buildable: false
+    openmpi:
+      externals:
+      - spec: openmpi@4.1.2%gcc@8.5.0
+        prefix: /usr/local
+      buildable: false
   compilers:
   - compiler:
       spec: gcc@=8.5.0
