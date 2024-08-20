@@ -23,7 +23,7 @@ kubectl apply -f deploy
 And then you can watch events in the terminal and pipe to file:
 
 ```bash
-kubectl  logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-$(date +%s).json
+kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-$(date +%s).json
 ```
 
 This should be done by someone not running the experiments. Here are the resources the pod requires:

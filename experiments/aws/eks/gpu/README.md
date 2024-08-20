@@ -749,6 +749,14 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
+Testing size:
+
+```
+Quicksilver GPU updated parameters:
+16 MPI processes: 	
+ -X 32  -Y 32  -Z 16  -x 32  -y 32  -z 16  -I 4  -J 2  -K 2  -n 26214400
+```
+
 ```console
 oras login ghcr.io --username vsoch
 app=quicksilver

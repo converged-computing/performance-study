@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
-# docker build -t ghcr.io/converged-computing/azurehpc:flux-slim-gpu .
-# docker push ghcr.io/converged-computing/azurehpc:flux-slim-gpu
+# docker build -t ghcr.io/converged-computing/azurehpc:flux-gpu .
+# docker push ghcr.io/converged-computing/azurehpc:flux-gpu
 # Note that I built this a bit manually after extraction - the reason is I had
 # to figure out the order of installs. I would up doing many apt --fix-broken install, etc.
 

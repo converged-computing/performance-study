@@ -6,7 +6,20 @@
 
 | Container                                               | Cloud     | GPU | Dockerfile                          |
 |---------------------------------------------------------|-----------|-----|------------------------------------|
-| ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc | Azure     | yes |[Dockerfile](docker/azure/gpu/lammps/Dockerfile) |
+| ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc-ubuntu2204 | Azure     | yes |[Dockerfile](docker/azure/gpu/lammps/Dockerfile) |
+| ghcr.io/converged-computing/metric-amg:azure-hpc-gpu-ubuntu2204 | Azure | yes | [Dockerfile](docker/azure/gpu/amg/Dockerfile) |
+| ghcr.io/converged-computing/metric-kripke-gpu:azure-hpc-gpu-ubuntu2204  | Azure | yes|  [Dockerfile](docker/azure/gpu/kripke/Dockerfile) |
+| ghcr.io/converged-computing/metric-laghos:azure-hpc-gpu-ubuntu2204 | Azure | yes |[Dockerfile](docker/azure/gpu/laghos/Dockerfile) |
+| ghcr.io/converged-computing/metric-minife:azure-hpc-gpu-ubuntu2204  | Azure | yes |[Dockerfile](docker/azure/gpu/minife/Dockerfile) |
+| ghcr.io/converged-computing/metric-mixbench:azure-hpc-gpu-ubuntu2204   | Azure | yes |[Dockerfile](docker/azure/gpu/mixbench/Dockerfile) |
+| ghcr.io/converged-computing/mt-gemm:azure-hpc-gpu-ubuntu2204 | Azure | yes |[Dockerfile](docker/azure/gpu/mt-gemm/Dockerfile) |
+| ghcr.io/converged-computing/metric-magma:azure-hpc-gpu-ubuntu2204 | Azure | yes | [Dockerfile](docker/azure/gpu/magma/Dockerfile) |
+| ghcr.io/converged-computing/multi-gpu-models:azure-hpc-gpu-ubuntu2204 | Azure | yes | [Dockerfile](docker/azure/gpu/multi-gpu-models/Dockerfile) |
+| ghcr.io/converged-computing/metric-osu-gpu:azure-hpc-gpu-ubuntu2204 | Azure | yes |[Dockerfile](docker/azure/gpu/osu/Dockerfile) |
+| ghcr.io/converged-computing/metric-nek5000:azure-hpc-gpu-ubuntu2204 | Azure | yes |[Dockerfile](docker/azure/gpu/nekrs/Dockerfile) |
+| ghcr.io/converged-computing/metric-quicksilver-gpu:azure-hpc-gpu-ubuntu2204 | Azure | yes |[Dockerfile](docker/azure/gpu/quicksilver/Dockerfile) |
+| ghcr.io/converged-computing/metric-stream:azure-hpc-ubuntu2204 |Azure | yes |[Dockerfile](docker/azure/gpu/stream/Dockerfile) |
+| ghcr.io/converged-computing/pytorch-resnet-experiment:azure-gpu | Azure | yes | [Dockerfile](docker/azure/gpu/resnet/Dockerfile)|
 
 ### Google Cloud
 

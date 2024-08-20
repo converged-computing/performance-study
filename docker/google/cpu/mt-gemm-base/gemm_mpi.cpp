@@ -1,8 +1,8 @@
+#include <stdlib.h>
 #include "stdio.h"
 #include "mpi.h"
 
-const int size = 1000;
-
+const int size = 9000;
 float a[size][size];
 float b[size][size];
 float c[size][size];
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &nproc);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    // MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
     start = MPI_Wtime();
 
     if (rank == 0) {
@@ -56,15 +56,27 @@ int main(int argc, char* argv[])
     // C <- C + A x B
     multiply(istart, iend);
 
-    // Gather computed results.
-    MPI_Gather(c + (size/nproc*rank),
-               size*size/nproc,
-               MPI_FLOAT,
-               c + (size/nproc*rank),
-               size*size/nproc,
-               MPI_FLOAT,
-               0,
-               MPI_COMM_WORLD);
+    if(rank==0) {
+        // Gather computed results.
+        MPI_Gather(MPI_IN_PLACE,
+                   size*size/nproc,
+                   MPI_FLOAT,
+                   c + (size/nproc*rank),
+                   size*size/nproc,
+                   MPI_FLOAT,
+                   0,
+                   MPI_COMM_WORLD);
+    } else {
+        // Gather computed results.
+        MPI_Gather(c + (size/nproc*rank),
+                   size*size/nproc,
+                   MPI_FLOAT,
+                   c + (size/nproc*rank),
+                   size*size/nproc,
+                   MPI_FLOAT,
+                   0,
+                   MPI_COMM_WORLD);
+    }
 
     if (rank == 0) {
         // Compute remaining multiplications
@@ -74,10 +86,9 @@ int main(int argc, char* argv[])
         }
     }
 
-    MPI_Finalize();   
-    
-    // MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
     end = MPI_Wtime();
+    MPI_Finalize();
 
     if (rank == 0) { /* use time on master node */
          float msec_total = 0.0f;

@@ -191,6 +191,10 @@ Testing on 4 nodes:
 time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 4 -n 64 kripke --layout DGZ --dset 16 --zones 128,128,128 --gset 16 --groups 16 --niter 10 --legendre 2 --quad 16 --procs 4,4,4
 ```
 
+Dane and Google (Dan in slack, LDRD channel August 20th 2024)
+(112 CPUs/node): 32 nodes, 3584 tasks: --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 400 --legendre 2 --quad 16 --procs 16,14,16
+
+
 *Important*: For each final command we need to add the final output of job info and submit attributes:
 
 ```console

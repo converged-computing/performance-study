@@ -30,10 +30,30 @@ Note that I always get this error, even with the aws-authenticator, and then get
 aws eks update-kubeconfig --region us-east-2 --name performance-study
 ```
 
+Collect topology and instances:
+
 ```bash
 aws ec2 describe-instance-topology --region us-east-1 --filters Name=instance-type,Values=hpc7g.4xlarge > topology-33.json
 aws ec2 describe-instances --filters "Name=instance-type,Values=hpc7g.4xlarge" --region us-east-1 > instances-33.json
 ```
+
+Monitoring:
+
+```bash
+git clone https://github.com/resmoio/kubernetes-event-exporter
+cd kubernetes-event-exporter
+kubectl create namespace monitoring
+# edit deploy/<config> yaml
+kubectl apply -f deploy
+```
+
+And then you can watch events in the terminal and pipe to file:
+
+```bash
+kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-$(date +%s).json
+```
+
+
 
 Install the Flux Operator:
 
@@ -164,8 +184,6 @@ kubectl delete -f ./crd/amg2023.yaml
 
 #### Kripke
 
-**IMPORTANT: not done yet, we skipped it**
-
 ```bash
 kubectl apply -f ./crd/kripke.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
@@ -181,7 +199,6 @@ Testing on 4 nodes:
 time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 4 -n 64 kripke --layout DGZ --dset 16 --zones 128,128,128 --gset 16 --groups 16 --niter 10 --legendre 2 --quad 16 --procs 4,4,4
 ```
 
-
 ```console
 oras login ghcr.io --username vsoch
 app=kripke
@@ -190,11 +207,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16
-
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 16,12,16
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 6144 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 32,12,16
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 12288 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 32,12,32
+  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 24576 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 32,24,32
 done
 
 # When they are done:
@@ -393,7 +409,7 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 Testing:
 
 ```bash
-time flux run -l -N2 -n 192 mixbench-cpu 64
+time flux run -l -N2 mixbench-cpu 32
 ```
 
 ```console
@@ -405,7 +421,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 64 |& tee ./$output/$app-2-iter-${i}.out
+  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 192 mixbench-cpu 32
 done
 
 # When they are done:
