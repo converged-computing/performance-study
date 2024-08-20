@@ -20,14 +20,14 @@ spack:
       paths:
         cc: /usr/bin/gcc
         cxx: /usr/bin/g++
-        f77: /usr/bin/f77
-        fc: /usr/bin/f77
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
       flags:
         cflags: -O3 -Ofast -fopenmp 
         cxxflags: -O3 -Ofast -fopenmp 
         fflags: -O3 -Ofast -fopenmp 
       modules: []
-      operating_system: ubuntu22.04
+      operating_system: rocky8
       environment: {}
       extra_rpaths: []
   config:

@@ -15,7 +15,7 @@ since it exists.
 
 ```bash
 cd /home/ubuntu
-flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
+flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4

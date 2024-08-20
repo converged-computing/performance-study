@@ -71,7 +71,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 |---------------------------------------------------------|-----------|-----|------------------------------------|
 | ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/lammps/Dockerfile.azurehpc) |
 | ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/kripke/Dockerfile.azurehpc) |
-| ghcr.io/converged-computing/metric-amg:azure-hpc        | Azure   | no |[Dockerfile](docker/azure/cpu/amg) |
+| ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64 | Azure   | no |[Dockerfile](docker/azure/cpu/amg) |
 | ghcr.io/converged-computing/metric-laghos:azure-hpc     |  Azure | no |[Dockerfile](docker/azure/cpu/laghos) |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Azure | no |[Dockerfile](docker/azure/cpu/single-node) |
 | ghcr.io/converged-computing/metric-minife:azure-hpc     | Azure | yes |[Dockerfile](docker/azure/cpu/minife)  |
@@ -85,7 +85,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen4 | Google | no |[Dockerfile](docker/google/cpu/amg2023/Dockerfile) |  |
+| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 | Google | no |[Dockerfile](docker/google/cpu/amg2023/Dockerfile) |  |
 | ghcr.io/converged-computing/metric-amg:rocky-8                 | Google | no | [Dockerfile](docker/google/cpu/amg/Dockerfile.rocky)  | |
 | ghcr.io/converged-computing/metric-laghos:cpu-zen4             | Google | no |[Dockerfile](docker/google/cpu/laghos/Dockerfile)  | |
 | ghcr.io/converged-computing/metric-laghos:rocky-8              | Google | no |[Dockerfile](docker/google/cpu/laghos/Dockerfile.rocky) | |
@@ -112,7 +112,7 @@ For the above, Rocky Linux 8 are generally for the Terraform setup, and the othe
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu      | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
+| ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3      | AWS | no |[Dockerfile](docker/google/cpu/amg2023) |  Same as Google, already has
  libfabric |
 | ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4   |  AWS | no |[Dockerfile](docker/aws/cpu/laghos) | |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4   | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  

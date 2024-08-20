@@ -1,11 +1,5 @@
 # Kubernetes CPU on AWS
 
-Still needs to be done:
-
- - [ ] kripke parameters not done
- - [ ] amg2023 zen4 builds segfault, we are using older intel build (works)
-
-- TODO: remember to test recording metrics / times for pods
 
 ```console
 For each experiment (crd in ./crd):

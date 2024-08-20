@@ -19,32 +19,30 @@ This is a checklist for the setups we have tested and timed:
 
 Tested means we have verified that things run on a small set of resources (e.g., 2 nodes). We can proceed to timing when all issues have been addressed for each.
 
-- [ ] Microsoft Azure CycleCloud CPU (date)
-- [ ] Microsoft Azure CycleCloud GPU (date)
-- [ ] Microsoft Azure AKS GPU (date)
-- [x] [Microsoft Azure AKS CPU (8/16/2024)](experiments/azure/aks/cpu) Issues addressed? (no)
-- [ ] Google Cloud HPC Toolkit GPU (date)
-- [ ] Google Cloud HPC Toolkit CPU (date)
-- [ ] Google Cloud GKE GPU (date)
-- [ ] Google Cloud GKE CPU (date)
-- [ ] AWS GPU Parallel Cluster (date)
-- [ ] AWS CPU Parallel Cluster (date)
-- [x] [AWS GPU EKS (8/16/2024)](experiments/aws/eks/cpu) Issues addressed? (no)
-- [ ] AWS CPU EKS (date)
-
-### Timed
+#### HPC in a Box Options
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
-- [ ] Microsoft Azure AKS GPU (date)
-- [ ] Microsoft Azure AKS CPU (date)
 - [ ] Google Cloud HPC Toolkit GPU (date)
 - [ ] Google Cloud HPC Toolkit CPU (date)
-- [ ] Google Cloud GKE GPU (date)
-- [ ] Google Cloud GKE CPU (date)
 - [ ] AWS GPU Parallel Cluster (date)
 - [ ] AWS CPU Parallel Cluster (date)
-- [ ] AWS GPU EKS (date)
+
+#### Bare Metal Options
+
+- [x] [Microsoft Azure VM Set (CPU) (8/18/2024)](experiments/azure/vmset/cpu)
+- [ ] Microsoft Azure VM Set (GPU) (8/18/2024)
+- [ ] Google Cloud Compute Engine GPU (date)
+- [ ] [Google Cloud Compute Engine CPU (8/19/2024)](experiments/google/compute-engine/cpu)
+- [ ] [AWS GPU EC2 CPU (8/17/2024)](experiments/aws/ec2/cpu)
+- [ ] AWS CPU EC2 GPU (date)
+
+
+- [ ] Microsoft Azure AKS GPU (date)
+- [x] [Microsoft Azure AKS CPU (8/16/2024)](experiments/azure/aks/cpu)
+- [ ] Google Cloud GKE GPU (date)
+- [ ] [Google Cloud GKE CPU (8/19/2024)](experiments/google/eks/cpu)
+- [x] [AWS GPU EKS (8/16/2024)](experiments/aws/eks/cpu)
 - [ ] AWS CPU EKS (date)
 
 ## License

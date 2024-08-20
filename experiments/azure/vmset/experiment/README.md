@@ -11,6 +11,11 @@
 ### 0. Pulling Containers
 
 The containers are already pulled and located in `/home/ubuntu/containers`. Oras is also installed.
+We need to pull a new one for amg
+
+```bash
+flux exec singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3
+```
 
 ### 1. Applications
 
@@ -71,9 +76,48 @@ Clean up test files
 flux exec -r all /bin/bash -c "rm -rf /home/ubuntu/containers/test_file*"
 ```
 
+#### AMG2023
+
+This container DOES use spack, should be:
+
+```bash
+flux exec singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3
+```
+
+Test size run:
+
+```bash
+# 25 seconds
+time flux run --env OMP_NUM_THREADS=3 -N 2 -n 8 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 32 32 32 -P 2 2 2 -problem 2
+
+# 1m 7 seconds
+time flux run --env OMP_NUM_THREADS=3 -N 2 -n 8 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 64 64 64 -P 2 2 2 -problem 2
+
+# 4m 28 seconds
+time flux run --env OMP_NUM_THREADS=3 -N 2 -n 8 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 128 128 128 -P 2 2 2 -problem 2
+```
+
+```console
+oras login ghcr.io --username vsoch
+app=amg
+
+# QUESTION: if this takes a long time, 15 iterations might take too long
+for i in $(seq 1 15); do     
+  echo "Running iteration $i"
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 256 256 128 -P 16 8 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 256 256 128 -P 16 16 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 256 256 128 -P 16 16 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 -opmi=pmix -o cpu-affinity=per-task singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-amg_azure-hpc-cpu-int64.sif amg -n 256 256 128 -P 32 16 16 -problem 2
+done
+
+# When they are done:
+./save.sh $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cpu-$app $output
+```
+
 #### AMG
 
-This container does not use spack.
+NOTE that if the above works, we don't need this one. This container does not use spack.
 
 Test size run:
 

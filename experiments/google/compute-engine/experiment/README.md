@@ -2,7 +2,6 @@
 
 - [ ] kripke missing params for most
 - Google Cloud is the first one where larger miniFE problem size (640) causes an error - it runs out of memory, but only 2 nodes
-- amg is the 2013 version, spack builds do not work
 
 ## Experiment
 
@@ -58,6 +57,13 @@ export output=/opt/containers/results
 mkdir -p $output
 ```
 
+We also need to pull the rocky image:
+
+```bash
+cd ~/
+flux exec singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
+```
+
 #### Single Node Benchmark
 
 We are going to run this via flux, running the job across nodes (and then when they are complete, getting the logs from flux).
@@ -92,19 +98,16 @@ Test size run:
 
 ```bash
 # 5 seconds
-time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 32 32 32 -P 2 2 2 -problem 2
+time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 32 32 32 -P 2 2 2 -problem 2
 
 # 2 minutes 43 seconds
-time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 64 64 64 -P 2 2 2 -problem 2
+time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 64 64 64 -P 2 2 2 -problem 2
 
 # 2 minutes 43 seconds
-time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 128 128 128 -P 2 2 2 -problem 2
+time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 128 128 128 -P 2 2 2 -problem 2
 
 # 2 minutes 44 seconds
-time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 256 256 256 -P 2 2 2 -problem 2
-
-# testing amg2023 (segfaults with flux)
-time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -opmi=pmix -N 2 -n 8 -o cpu-affinity=per-task singularity exec /home/sochat1_llnl_gov/metric-amg2023_spack-slim-int64-c2d.sif /bin/bash /home/sochat1_llnl_gov/run_amg.sh amg -n 32 32 32 -P 2 2 2 -problem 2
+time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N 2 -n 8 -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 256 256 256 -P 2 2 2 -problem 2
 ```
 
 ```console
@@ -114,10 +117,10 @@ app=amg
 # QUESTION: if this takes a long time, 15 iterations might take too long
 for i in $(seq 1 15); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 256 256 128 -P 16 8 8 -problem 2
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 256 256 128 -P 16 16 8 -problem 2
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 256 256 128 -P 16 16 16 -problem 2
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg_rocky-8.sif amg -n 256 256 128 -P 32 16 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 256 256 128 -P 16 8 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 256 256 128 -P 16 16 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 256 256 128 -P 16 16 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec ~/metric-amg_rocky-8.sif amg -n 256 256 128 -P 32 16 16 -problem 2
 done
 
 

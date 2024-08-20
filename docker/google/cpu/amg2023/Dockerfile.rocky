@@ -4,7 +4,7 @@ FROM ghcr.io/converged-computing/flux-rocky:8
 #  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-amg2023:rocky-8 .
 #  docker push ghcr.io/converged-computing/metric-amg2023:rocky-8
 
-RUN yum update && yum install -y gcc-gfortran
+RUN yum update -y && yum install -y gcc-gfortran
 WORKDIR /opt/spack-environment
 COPY ./spack.yaml /opt/spack-environment/spack.yaml
 
@@ -12,8 +12,6 @@ COPY ./spack.yaml /opt/spack-environment/spack.yaml
 # versions will segfault when you run flux + amg
 RUN cd /opt/spack-environment \
     && git clone --depth 1 --branch v0.22.1 https://github.com/spack/spack.git \
-    && cd spack && git fetch && git checkout v0.22.1 \
-    && cd ../ 
     && . spack/share/spack/setup-env.sh \
     && spack env activate . \
     && spack external find openssh \
