@@ -31,9 +31,6 @@ NODES=4
 gcloud compute networks create mtu9k --mtu=8896 
 gcloud compute firewall-rules create mtu9k-firewall --network mtu9k --allow tcp,udp,icmp --source-ranges 0.0.0.0/0
 
-n1-standard-32
-v100
-
 time gcloud container clusters create test-cluster \
     --threads-per-core=1 \
     --num-nodes=$NODES \

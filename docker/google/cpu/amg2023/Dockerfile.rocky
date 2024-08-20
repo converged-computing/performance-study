@@ -1,8 +1,8 @@
 FROM ghcr.io/converged-computing/flux-rocky:8
 
 # AMD
-#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-amg2023:rocky-8 .
-#  docker push ghcr.io/converged-computing/metric-amg2023:rocky-8
+#  docker build -f Dockerfile.rocky -t ghcr.io/converged-computing/metric-amg2023:rocky8-cpu-int64-zen3 .
+#  docker push ghcr.io/converged-computing/metric-amg2023:rocky8-cpu-int64-zen3
 
 RUN yum update -y && yum install -y gcc-gfortran
 WORKDIR /opt/spack-environment

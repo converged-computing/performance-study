@@ -61,7 +61,7 @@ We also need to pull the rocky image:
 
 ```bash
 cd ~/
-flux exec singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
+flux exec singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky8-cpu-int64-zen3
 ```
 
 #### Single Node Benchmark
@@ -90,10 +90,55 @@ Clean up test files (note this won't work here)
 flux exec -r all /bin/bash -c "rm -rf /opt/containers/test_file*"
 ```
 
+#### AMG2023
+
+This container does use spack
+
+```bash
+flux exec singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3
+```
+
+This one requires sourcing spack, so we need to write a little wrapper for it.
+
+```bash
+#!/bin/bash
+# run_amg.sh
+. /etc/profile.d/z10_spack_environment.sh
+$@
+```
+```bash
+chmod +x run_amg.sh
+flux archive create --name amg -C /home/ubuntu run_amg.sh
+flux exec -x 0 flux archive extract --name amg -C /home/ubuntu
+```
+
+Test size run:
+
+```bash
+# 3 seconds
+time flux run --env OMP_NUM_THREADS=3 -N 2 -n 8 -o cpu-affinity=per-task singularity exec ~/metric-amg2023_spack-slim-cpu.sif /bin/bash ~/run_amg.sh amg -n 32 32 32 -P 2 2 2 -problem 2
+```
+
+```console
+oras login ghcr.io --username vsoch
+app=amg2023
+
+for i in $(seq 1 15); do     
+  echo "Running iteration $i"
+  time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task singularity exec ~/metric-amg2023_spack-slim-cpu.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 16 8 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task singularity exec ~/metric-amg2023_spack-slim-cpu.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 16 16 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task singularity exec ~/metric-amg2023_spack-slim-cpu.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 16 16 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task singularity exec ~/metric-amg2023_spack-slim-cpu.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 32 16 16 -problem 2
+done
+
+# When they are done:
+./save.sh $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-$app $output
+```
+
 #### AMG
 
 This container does not use spack.
-
 Test size run:
 
 ```bash

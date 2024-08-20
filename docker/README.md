@@ -1,16 +1,5 @@
 # Docker Containers
 
-## Data
-
-These containers require data:
-
-- linpack
-- laghos
-- lammps
-- nek5000
-- quicksilver
-- resnet
-
 ## GPU
 
 ### Azure
@@ -86,7 +75,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
 | ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 | Google | no |[Dockerfile](docker/google/cpu/amg2023/Dockerfile) |  |
-| ghcr.io/converged-computing/metric-amg:rocky-8                 | Google | no | [Dockerfile](docker/google/cpu/amg/Dockerfile.rocky)  | |
+| ghcr.io/converged-computing/metric-amg2023:rocky8-cpu-int64-zen3 | Google | no | [Dockerfile](docker/google/cpu/amg/Dockerfile.rocky)  | |
 | ghcr.io/converged-computing/metric-laghos:cpu-zen4             | Google | no |[Dockerfile](docker/google/cpu/laghos/Dockerfile)  | |
 | ghcr.io/converged-computing/metric-laghos:rocky-8              | Google | no |[Dockerfile](docker/google/cpu/laghos/Dockerfile.rocky) | |
 | ghcr.io/converged-computing/metric-kripke-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/kripke/Dockerfile)  | |

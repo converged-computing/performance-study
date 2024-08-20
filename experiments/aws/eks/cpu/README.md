@@ -30,9 +30,6 @@ Note that I always get this error, even with the aws-authenticator, and then get
 aws eks update-kubeconfig --region us-east-2 --name performance-study
 ```
 
-Total time: 14 minutes 29 seconds.
-Get topology for later:
-
 ```bash
 aws ec2 describe-instance-topology --region us-east-1 --filters Name=instance-type,Values=hpc7g.4xlarge > topology-33.json
 aws ec2 describe-instances --filters "Name=instance-type,Values=hpc7g.4xlarge" --region us-east-1 > instances-33.json
@@ -116,6 +113,7 @@ Create the minicluster and shell in.
 kubectl apply -f ./crd/amg2023.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
+
 This one requires sourcing spack
 
 ```bash
@@ -126,10 +124,8 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 Test size run:
 
 ```bash
-# 27 seconds
 time flux run --env OMP_NUM_THREADS=3 -N 4 -n 384 -o cpu-affinity=per-task amg -n 128 128 64 -P 12 8 4 -problem 2
 
-# 43 seconds
 time flux run --env OMP_NUM_THREADS=3 -N 4 -n 384 -o cpu-affinity=per-task amg -n 128 128 128 -P 12 8 4 -problem 2
 ```
 
@@ -178,6 +174,13 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
+Testing on 4 nodes:
+
+```bash
+# 9.5 seconds
+time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 4 -n 64 kripke --layout DGZ --dset 16 --zones 128,128,128 --gset 16 --groups 16 --niter 10 --legendre 2 --quad 16 --procs 4,4,4
+```
+
 
 ```console
 oras login ghcr.io --username vsoch
@@ -426,10 +429,6 @@ kubectl delete -f ./crd/mixbench.yaml
 
 #### Mt-Gemm
 
-**NOT DONE**
-
-Ani is testing the MPI variant and then we will update here.
-
 ```bash
 kubectl apply -f ./crd/mt-gemm.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
@@ -442,7 +441,6 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 Testing:
 
 ```bash
-# runs but output is gibberish (9 seconds)
 time flux run -N4 -n 384 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
 ```
 
@@ -685,7 +683,7 @@ time eksctl delete cluster --config-file ./eks-config.yaml --wait
 
 **IMPORTANT** AWS sometimes has a bug that it won't delete, ever, unless you force delete all pods. It will say:
 
-```
+```console
 2024-05-25 14:52:56 [!]  1 pods are unevictable from node ip-192-168-19-163.us-east-2.compute.internal
 ```
 And you need to do:

@@ -31,19 +31,18 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 #### Bare Metal Options
 
 - [x] [Microsoft Azure VM Set (CPU) (8/18/2024)](experiments/azure/vmset/cpu)
+- [x] [Google Cloud Compute Engine CPU (8/19/2024)](experiments/google/compute-engine/cpu)
+- [x] [AWS CPU EC2 CPU (8/17/2024)](experiments/aws/ec2/cpu)
 - [ ] Microsoft Azure VM Set (GPU) (8/18/2024)
 - [ ] Google Cloud Compute Engine GPU (date)
-- [ ] [Google Cloud Compute Engine CPU (8/19/2024)](experiments/google/compute-engine/cpu)
-- [ ] [AWS GPU EC2 CPU (8/17/2024)](experiments/aws/ec2/cpu)
-- [ ] AWS CPU EC2 GPU (date)
+- [ ] AWS GPU EC2 GPU (date)
 
-
-- [ ] Microsoft Azure AKS GPU (date)
 - [x] [Microsoft Azure AKS CPU (8/16/2024)](experiments/azure/aks/cpu)
+- [x] [Google Cloud GKE CPU (8/19/2024)](experiments/google/eks/cpu)
+- [x] [AWS CPU EKS (8/16/2024)](experiments/aws/eks/cpu)
+- [ ] Microsoft Azure AKS GPU (date)
 - [ ] Google Cloud GKE GPU (date)
-- [ ] [Google Cloud GKE CPU (8/19/2024)](experiments/google/eks/cpu)
-- [x] [AWS GPU EKS (8/16/2024)](experiments/aws/eks/cpu)
-- [ ] AWS CPU EKS (date)
+- [ ] AWS GPU EKS (8/19/2024)]
 
 ## License
 
