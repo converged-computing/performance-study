@@ -47,11 +47,18 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 #### Experiments
 
 - [ ] Microsoft Azure AKS CPU
+  - [ ] size 32
+  - [ ] size 64
+  - [ ] size 128
+  - [ ] size 256
 - [ ] Google Cloud GKE CPU
   - [x] size 32
+  - [ ] size 64
+  - [ ] size 128
+  - [ ] size 256
 - [ ] AWS CPU EKS
-  - [x] size 32
-  - [ ] size 64 (needs redo with shared memory)
+  - [x] size 32 (needs amg2023 redo)
+  - [x] size 64
   - [ ] size 128
   - [ ] size 256
 - [ ] Microsoft Azure AKS GPU

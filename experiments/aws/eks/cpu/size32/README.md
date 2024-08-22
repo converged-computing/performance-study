@@ -126,8 +126,8 @@ We want to run four separate jobs, across each node. Write this into a batch fil
 
 ```console
 oras login ghcr.io --username vsoch
-#export app=single-node
-export app=single-node-quicksilver
+export app=single-node
+# export app=single-node-quicksilver
 output=./results/$app
 nodes=31
 
@@ -341,7 +341,7 @@ export FI_EFA_FORK_SAFE=1
 export FI_PROVIDER=efa
 
 mkdir -p $output
-for i in $(seq 2 6); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-iter-$i -l -N2 mixbench-cpu 32
 done
@@ -464,8 +464,10 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 export FI_EFA_FORK_SAFE=1
 ```
 
-  time flux run --env OMP_NUM_THREADS=1 -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 16,12,16
-
+```console
+# Testing 
+time flux run --env OMP_NUM_THREADS=1 -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 16,12,16
+```
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
@@ -517,11 +519,6 @@ export app=laghos
 output=./results/$app
 export FI_EFA_FORK_SAFE=1
 export FI_PROVIDER=efa
-export FI_EFA_ENABLE_SHM_TRANSFER=1
-export FI_EFA_USE_DEVICE_RDMA=1
-
-  time flux run -o cpu-affinity=per-task  -N32 -n 3072 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m ./data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
-
 
 mkdir -p $output
 for i in $(seq 1 5); do
@@ -561,8 +558,6 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:pcluster-tests ./pcluster-initial-tests
-
 ```console
 oras login ghcr.io --username vsoch
 export app=minife
@@ -570,7 +565,7 @@ output=./results/$app
 export FI_EFA_FORK_SAFE=1
 
 mkdir -p $output
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 3072 -o cpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 done

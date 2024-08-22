@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      12.51
+1                      12.54
+2                      12.50
+4                      12.51
+8                      13.24
+16                     13.26
+32                     13.27
+64                     13.30
+128                    13.33
+256                    13.37
+512                    13.45
+1024                   13.58
+2048                   13.78
+4096                   14.39
+8192                   15.83
+16384                  16.60
+32768                  18.22
+65536                  21.55
+131072                 56.23
+262144                 69.76
+524288                123.33
+1048576               230.82
+2097152               446.41
+4194304               855.21
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-50,flux-sample-47"]}}, "user": {"study_id": "osu-2-iter-8"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724356076.5801098,"name":"init"}
+{"timestamp":1724356076.5807517,"name":"starting"}
+{"timestamp":1724356076.6013079,"name":"shell.init","context":{"service":"0-shell-f2UxyjddR","leader-rank":47,"size":2}}
+{"timestamp":1724356076.6045125,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724356085.7056599,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":76,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724356085.7114089,"name":"complete","context":{"status":0}}
+{"timestamp":1724356085.711468,"name":"done"}
+
