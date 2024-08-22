@@ -45,6 +45,10 @@ Collect topology and instances:
 aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > topology-32.json
 aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-32.json
 
+# amg2023 redo
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > topology-amg2023-32.json
+aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-amg2023-32.json
+
 # quicksilver redo
 aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > topology-quicksilver-32.json
 aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-quicksilver-32.json
@@ -407,6 +411,8 @@ kubectl delete -f ./crd/lammps.yaml --wait
 
 #### AMG2023
 
+> Important: this was run twice, because we realized that `--cores-per-task 3 --exclusive` needed to be added. The runtimes improved from 3.5 down to 1m20 seconds for size 64, and I expect similar results here. Note that this events file with -fix also has events for installing the flux operator.
+
 Create the minicluster and shell in.
 
 ```bash
@@ -430,12 +436,13 @@ export FI_EFA_FORK_SAFE=1
 export FI_PROVIDER=efa
 
 mkdir -p $output
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=3 --cores-per-task 3 --exclusive --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2
 done
 
 # When they are done:
+apt-get update && apt-get install -y jq
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     # Get the job study id
@@ -448,12 +455,11 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-efa-cpu-32-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-efa-cpu-32-$app-fix $output
 ```
 ```bash
 kubectl delete -f ./crd/amg2023.yaml
 ```
-
 
 #### Kripke
 

@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: performance-study
+  name: performance-study-gpu-16
   region: us-east-1
   version: "1.27"
 
@@ -20,8 +20,8 @@ managedNodeGroups:
       k8s.io/cluster-autoscaler/performance-study: "owned"
       k8s.io/cluster-autoscaler/enabled: "true"
       k8s.amazonaws.com/accelerator: "nvidia-tesla-v100"
-    minSize: 4
-    maxSize: 4
+    minSize: 16
+    maxSize: 16
     efaEnabled: true
     placement:
       groupName: performance-study

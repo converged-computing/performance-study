@@ -1,4 +1,7 @@
-# Performance Experiments on Kubernetes
+# Performance Experiments on EKS (Kubernetes)
+
+For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down to be 16,8,4 from 32,16,8.
+Each has 8 GPU.
 
 > V100 nodes 
 
@@ -18,7 +21,7 @@ Make sure you have aws-iam-authenticator installed first! If you don't you can u
 eksctl create cluster --config-file ./eks-config.yaml
 ```
 ```bash
-aws eks update-kubeconfig --region us-east-1 --name performance-study
+aws eks update-kubeconfig --region us-east-1 --name performance-study-gpu-16
 ```
 
 ```bash
@@ -43,55 +46,6 @@ Install the flux operator (downloaded on 8/9/2024 and image pinned)
 ```bash
 kubectl apply -f ./flux-operator.yaml
 ```
-
-And now for the [FSx for Lustre](https://docs.aws.amazon.com/eks/latest/userguide/fsx-csi.html)
-
-```console
-export cluster_name=performance-study
-export region_code=us-east-1
-```
-
-Create a service account for our cluster for FSx
-
-```bash
-eksctl create iamserviceaccount \
-  --name fsx-csi-controller-sa \
-  --namespace kube-system \
-  --cluster $cluster_name \
-  --attach-policy-arn arn:aws:iam::aws:policy/AmazonFSxFullAccess \
-  --approve \
-  --role-name AmazonEKSFSxLustreCSIDriverFullAccess \
-  --region $region_code
-```
-
-When that is done, apply the driver:
-
-```bash
-# https://github.com/kubernetes-sigs/aws-fsx-csi-driver/branches/all
-kubectl apply -k "github.com/kubernetes-sigs/aws-fsx-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.2"
-```
-
-Get the ARN created and annotate the service account (I got mine from the kubeconfig update and it's also in cloud formation)
-
-```
-aws eks update-kubeconfig --region us-east-1 --name $cluster_name
-Updated context arn:aws:eks:us-east-1:633731392008:cluster/performance-study in /home/vanessa/.kube/config
-```
-
-```bash
-kubectl annotate serviceaccount -n kube-system fsx-csi-controller-sa \
-  eks.amazonaws.com/role-arn=arn:aws:eks:us-east-1:633731392008:role/AmazonEKSFSxLustreCSIDriverFullAccess --overwrite=true
-```
-
-The security group:
-
-```bash
-aws eks describe-cluster --name $cluster_name --query cluster.resourcesVpcConfig.clusterSecurityGroupId --region us-east-1
-```
-
-Note that I stopped when I had to manually create a VPC, I am wondering if it's too much anguish for the benefit of one more app.
-
-See [here](https://docs.aws.amazon.com/eks/latest/userguide/fsx-csi.html) for full instructions.
 
 ## 2. Design
 

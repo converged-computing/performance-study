@@ -3,7 +3,7 @@
 > This setup has a fix with efa, the shared memory added.
 
 - Start time: 1:18pm Mountain
-- End time:  4:06pm
+- End time:  4:06pm Mountain
 
 ```console
 For each experiment (crd in ./crd):
@@ -663,6 +663,11 @@ When you are done:
 
 ```bash
 time eksctl delete cluster --config-file ./eks-config.yaml --wait
+2024-08-22 16:14:25 [✔]  all cluster resources were deleted
+
+real	8m24.377s
+user	0m0.176s
+sys	0m0.073s
 ```
 
 **IMPORTANT** AWS sometimes has a bug that it won't delete, ever, unless you force delete all pods. It will say:
