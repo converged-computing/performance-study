@@ -1,0 +1,114 @@
+flux-job: task(s) exited with exit code 1
+
+   _  __       _         _
+  | |/ /      (_)       | |
+  | ' /  _ __  _  _ __  | | __ ___
+  |  <  | '__|| || '_ \ | |/ // _ \ 
+  | . \ | |   | || |_) ||   <|  __/
+  |_|\_\|_|   |_|| .__/ |_|\_\\___|
+                 | |
+                 |_|        Version 1.2.5-dev
+
+LLNL-CODE-775068
+
+Copyright (c) 2014-23, Lawrence Livermore National Security, LLC
+
+Kripke is released under the BSD 3-Clause License, please see the
+LICENSE file for the full license
+
+This work was produced under the auspices of the U.S. Department of
+Energy by Lawrence Livermore National Laboratory under Contract
+DE-AC52-07NA27344.
+
+Author: Adam J. Kunen <kunen1@llnl.gov>
+
+Compilation Options:
+  Architecture:           Sequential
+  Compiler:               /usr/bin/g++
+  Compiler Flags:         "    "
+  Linker Flags:           "-lstdc++ -pthread "
+  CHAI Enabled:           Yes
+  CUDA Enabled:           No
+  MPI Enabled:            Yes
+  OpenMP Enabled:         No
+  Caliper Enabled:        No
+Usage:  [srun ...] kripke [options...]
+
+Problem Size Options:
+---------------------
+  --groups <ngroups>     Number of energy groups
+                         Default:  --groups 32
+
+  --legendre <lorder>    Scattering Legendre Expansion Order (0, 1, ...)
+                         Default:  --legendre 4
+
+  --quad [<ndirs>|<polar>:<azim>]
+                         Define the quadrature set to use
+                         Either a fake S2 with <ndirs> points,
+                         OR Gauss-Legendre with <polar> by <azim> points
+                         Default:  --quad 96
+
+  --zones <x,y,z>        Number of zones in x,y,z
+                         Default:  --zones 16,16,16
+
+
+Physics Parameters:
+-------------------
+  --sigt <st0,st1,st2>   Total material cross-sections
+                         Default:   --sigt 0.100000,0.000100,0.100000
+
+  --sigs <ss0,ss1,ss2>   Scattering material cross-sections
+                         Default:   --sigs 0.050000,0.000050,0.050000
+
+
+On-Node Options:
+----------------
+  --arch <ARCH>          Architecture selection
+                         Available: Sequential, OpenMP, CUDA
+                         Default:   --arch Sequential
+
+  --layout <LAYOUT>      Data layout and loop nesting order
+                         Available: DGZ,DZG,GDZ,GZD,ZDG,ZGD
+                         Default:   --layout DGZ
+
+
+Parallel Decomposition Options:
+-------------------------------
+  --procs <npx,npy,npz>  Number of MPI ranks in each spatial dimension
+                         Default:  --procs 1,1,1
+
+  --dset <ds>            Number of direction-sets
+                         Must be a factor of 8, and divide evenly the number
+                         of quadrature points
+                         Default:  --dset 8
+
+  --gset <gs>            Number of energy group-sets
+                         Must divide evenly the number energy groups
+                         Default:  --gset 2
+
+  --zset <zx>,<zy>,<zz>  Number of zone-sets in x,y, and z
+                         Default:  --zset 1,1,1
+
+
+Solver Options:
+---------------
+  --niter <NITER>        Number of solver iterations to run
+                         Default:  --niter 10
+
+  --pmethod <method>     Parallel solver method
+                         sweep: Full up-wind sweep (wavefront algorithm)
+                         bj: Block Jacobi
+                         Default: --pmethod sweep
+
+
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["kripke", "--layout", "DGZ", "--dset", "16", "--zones", "448,168,256", "--gset", "16", "--groups", "16", "--niter", "500", "--legendre", "2", "--quad", "16", "--procs", "8*14*16"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}, "user": {"study_id": "kripke-32-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724279758.1661518,"name":"init"}
+{"timestamp":1724279758.166791,"name":"starting"}
+{"timestamp":1724279758.1912808,"name":"shell.init","context":{"service":"0-shell-fYz2GNKq","leader-rank":0,"size":32}}
+{"timestamp":1724279758.3055031,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,56,1]]}}}
+{"timestamp":1724279762.5471139,"name":"shell.task-exit","context":{"localid":52,"rank":52,"state":"Exited","pid":231,"wait_status":256,"signaled":0,"exitcode":1}}
+{"timestamp":1724279762.6770205,"name":"complete","context":{"status":256}}
+{"timestamp":1724279762.6770496,"name":"done"}
+

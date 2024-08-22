@@ -1,0 +1,52 @@
+flux-job: task(s) exited with exit code 135
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+[flux-sample-4:00070] *** Process received signal ***
+[flux-sample-4:00070] Signal: Bus error (7)
+[flux-sample-4:00070] Signal code: Non-existant physical address (2)
+[flux-sample-4:00070] Failing at address: 0x7fcc46000000
+[flux-sample-4:00070] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7fcc51d7f520]
+[flux-sample-4:00070] [ 1] /lib/x86_64-linux-gnu/libc.so.6(+0x1a0fc9)[0x7fcc51eddfc9]
+[flux-sample-4:00070] [ 2] /usr/local/lib/libfabric.so.1(+0x6a274)[0x7fcc50a5b274]
+[flux-sample-4:00070] [ 3] /usr/local/lib/libfabric.so.1(+0xc62a0)[0x7fcc50ab72a0]
+[flux-sample-4:00070] [ 4] /usr/local/lib/libfabric.so.1(+0xd169b)[0x7fcc50ac269b]
+[flux-sample-4:00070] [ 5] /usr/local/lib/libfabric.so.1(+0xc41f5)[0x7fcc50ab51f5]
+[flux-sample-4:00070] [ 6] /usr/local/lib/openmpi/mca_mtl_ofi.so(+0x85f2)[0x7fcc508dd5f2]
+[flux-sample-4:00070] [ 7] /usr/local/lib/openmpi/mca_pml_cm.so(+0x465d)[0x7fcc508f865d]
+[flux-sample-4:00070] [ 8] /usr/local/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x7fcc52028b4b]
+[flux-sample-4:00070] [ 9] /usr/local/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x7fcc51fd8920]
+[flux-sample-4:00070] [10] /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency(+0x2e29)[0x55d3ba047e29]
+[flux-sample-4:00070] [11] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7fcc51d66d90]
+[flux-sample-4:00070] [12] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7fcc51d66e40]
+[flux-sample-4:00070] [13] /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency(+0x2565)[0x55d3ba047565]
+[flux-sample-4:00070] *** End of error message ***
+[flux-sample-19:00106] *** Process received signal ***
+[flux-sample-19:00106] Signal: Bus error (7)
+[flux-sample-19:00106] Signal code: Non-existant physical address (2)
+[flux-sample-19:00106] Failing at address: 0x7f7cbb400000
+[flux-sample-19:00106] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7f7cc7880520]
+[flux-sample-19:00106] [ 1] /lib/x86_64-linux-gnu/libc.so.6(+0x1a0fc9)[0x7f7cc79defc9]
+[flux-sample-19:00106] [ 2] /usr/local/lib/libfabric.so.1(+0x6a274)[0x7f7cc655c274]
+[flux-sample-19:00106] [ 3] /usr/local/lib/libfabric.so.1(+0xc62a0)[0x7f7cc65b82a0]
+[flux-sample-19:00106] [ 4] /usr/local/lib/libfabric.so.1(+0xd169b)[0x7f7cc65c369b]
+[flux-sample-19:00106] [ 5] /usr/local/lib/libfabric.so.1(+0xc41f5)[0x7f7cc65b61f5]
+[flux-sample-19:00106] [ 6] /usr/local/lib/openmpi/mca_mtl_ofi.so(+0x85f2)[0x7f7cc63de5f2]
+[flux-sample-19:00106] [ 7] /usr/local/lib/openmpi/mca_pml_cm.so(+0x465d)[0x7f7cc63f965d]
+[flux-sample-19:00106] [ 8] /usr/local/lib/libmpi.so.40(ompi_coll_base_barrier_intra_recursivedoubling+0xcb)[0x7f7cc7b29b4b]
+[flux-sample-19:00106] [ 9] /usr/local/lib/libmpi.so.40(MPI_Barrier+0xb0)[0x7f7cc7ad9920]
+[flux-sample-19:00106] [10] /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency(+0x2e29)[0x5568068f4e29]
+[flux-sample-19:00106] [11] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7f7cc7867d90]
+[flux-sample-19:00106] [12] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f7cc7867e40]
+[flux-sample-19:00106] [13] /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency(+0x2565)[0x5568068f4565]
+[flux-sample-19:00106] *** End of error message ***
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-19,flux-sample-4"]}}, "user": {"study_id": "osu-2-iter-6"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724209964.9621475,"name":"init"}
+{"timestamp":1724209964.9628215,"name":"starting"}
+{"timestamp":1724209964.9801512,"name":"shell.init","context":{"service":"0-shell-fqpFdT7V","leader-rank":4,"size":2}}
+{"timestamp":1724209964.9825351,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724209965.3057363,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":106,"wait_status":135,"signaled":7,"exitcode":135}}
+{"timestamp":1724209965.3099496,"name":"complete","context":{"status":34560}}
+{"timestamp":1724209965.3099663,"name":"done"}
+

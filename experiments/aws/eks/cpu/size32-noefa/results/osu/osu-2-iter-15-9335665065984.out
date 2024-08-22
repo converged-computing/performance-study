@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      12.54
+1                      12.54
+2                      12.53
+4                      12.54
+8                      13.22
+16                     13.22
+32                     13.23
+64                     13.27
+128                    13.26
+256                    13.30
+512                    13.40
+1024                   13.52
+2048                   13.73
+4096                   14.34
+8192                   15.75
+16384                  16.44
+32768                  17.89
+65536                  21.20
+131072                 55.18
+262144                 68.93
+524288                121.04
+1048576               227.34
+2097152               439.28
+4194304               839.04
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-21,flux-sample-25"]}}, "user": {"study_id": "osu-2-iter-15"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724210410.6478693,"name":"init"}
+{"timestamp":1724210410.6486428,"name":"starting"}
+{"timestamp":1724210410.665689,"name":"shell.init","context":{"service":"0-shell-f5EETkhRy","leader-rank":21,"size":2}}
+{"timestamp":1724210410.6687741,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724210419.7512062,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":162,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724210419.7557313,"name":"complete","context":{"status":0}}
+{"timestamp":1724210419.7557614,"name":"done"}
+

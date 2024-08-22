@@ -1,0 +1,21 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 32
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+  containers:
+  - image: ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4@sha256:3d3fbd919836549f79b09db9ec5274cbd6dc27cba849eb1f13a9e58c068108cf
+    resources:
+      limits:
+        vpc.amazonaws.com/efa: 1
+      requests:
+        vpc.amazonaws.com/efa: 1
+

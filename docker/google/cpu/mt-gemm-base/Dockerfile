@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker push ghcr.io/converged-computing/mt-gemm:cpu
 
 # AMD
-#  docker build -t ghcr.io/converged-computing/mt-gemm:cpu-zen4 .
-#  docker push ghcr.io/converged-computing/mt-gemm:cpu-zen4
+#  docker build -t ghcr.io/converged-computing/mt-gemm:cpu-zen4-9k .
+#  docker push ghcr.io/converged-computing/mt-gemm:cpu-zen4-9k
 
 
 # Utilities

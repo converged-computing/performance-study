@@ -1,0 +1,15 @@
+4.512s: job.exception type=cancel severity=0 
+4.754s: job.exception type=exec severity=0 task 164 (host flux-sample-29): start failed: mixbench-cpu: Protocol error
+5.291s: job.exception type=exec severity=0 task 47 (host flux-sample-28): start failed: mixbench-cpu: No such file or directory
+flux-job: task(s) exited with exit code 127
+4.623s: flux-shell[1]: FATAL: task 164 (host flux-sample-29): start failed: mixbench-cpu: Protocol error
+5.263s: flux-shell[0]: FATAL: task 47 (host flux-sample-28): start failed: mixbench-cpu: No such file or directory
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["mixbench-cpu", "32"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/mixbench", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}, "user": {"study_id": "mixbench--iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724212714.1441181,"name":"init"}
+{"timestamp":1724212714.1447091,"name":"starting"}
+{"timestamp":1724212714.1641414,"name":"shell.init","context":{"service":"0-shell-fy915guV","leader-rank":28,"size":2}}
+{"timestamp":1724212719.5152442,"name":"complete","context":{"status":32512}}
+{"timestamp":1724212719.5152981,"name":"done"}
+

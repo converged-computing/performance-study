@@ -66,6 +66,28 @@ kubectl get pods -o json  | jq -r .items[].spec.nodeName | uniq | wc -l
 Note that the configs are currently set to 8 nodes, with 8 gpu each. size 32vcpu (16 cores) instance (n1-standard-32).
 
 
+Monitoring:
+
+```bash
+git clone https://github.com/resmoio/kubernetes-event-exporter
+cd kubernetes-event-exporter
+kubectl create namespace monitoring
+# edit deploy/<config> yaml
+kubectl apply -f deploy
+```
+
+Install the Flux Operator:
+
+```bash
+kubectl apply -f ./flux-operator.yaml
+```
+
+Now we are ready for different MiniCluster setups. For each of the below, to shell in to the lead broker (index 0) you do:
+
+```bash
+kubectl exec -it flux-sample-0-xxx bash
+```
+
 ### 2. Applications
 
 #### Single Node Benchmark
@@ -73,7 +95,6 @@ Note that the configs are currently set to 8 nodes, with 8 gpu each. size 32vcpu
 We are going to run this via flux batch, running the job across nodes (and then when they are complete, getting the logs from flux)
 
 **IMPORTANT** change the size of the minicluster.yaml to the correct cluster size.
-
 
 ```bash
 kubectl apply -f ./crd/single-node.yaml
@@ -83,18 +104,18 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-*Important*: For each final command we need to add the final output of job info and submit attributes:
-
 ```console
 oras login ghcr.io --username vsoch
 app=single-node
 output=./results/$app
-nodes=4
+
+# This is the number of nodes -1
+nodes=31
 
 mkdir -p $output
 
-for node in $(seq 1 $nodes); do
-  flux submit -N 1 --setattr=user.study_id=$app-1-node-$node /bin/bash /entrypoint.sh
+for node in $(seq 0 $nodes); do
+  flux submit --requires="hosts:flux-sample-$node" -N 1 --setattr=user.study_id=$app-node-$node /bin/bash /entrypoint.sh
 done 
 
 # When they are done:
@@ -147,10 +168,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 15); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 8 8 -problem 2
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 8 -problem 2
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 4096 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 16 16 -problem 2
-  time flux run --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 8192 -o cpu-affinity=per-task amg -n 256 256 128 -P 32 16 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 896 -o cpu-affinity=per-task amg -n 256 256 128 -P 7 8 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 1792 -o cpu-affinity=per-task amg -n 256 256 128 -P 8 14 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 3584 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 14 16 -problem 2
+  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-256-iter-$i -N 256 -n 7168 -o cpu-affinity=per-task amg -n 256 256 128 -P 16 28 16 -problem 2
 done
 
 # When they are done:
@@ -192,7 +213,7 @@ time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N
 ```
 
 Dane and Google (Dan in slack, LDRD channel August 20th 2024)
-(112 CPUs/node): 32 nodes, 3584 tasks: --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 400 --legendre 2 --quad 16 --procs 16,14,16
+(112 vCPUs/node 56 CPU/node): 32 nodes, 1792 tasks: --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 400 --legendre 2 --quad 16 --procs 8*14*16
 
 
 *Important*: For each final command we need to add the final output of job info and submit attributes:
@@ -205,8 +226,13 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 3072 kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16
 
+time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1792 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 8,14,16
+
+# TODO need for larger sizes
+time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1792 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 8,14,16
+
+# THESE ARE OLD
 time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N64 -n 2048 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4
   time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N128 -n 4096 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4
   time flux run --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-256-iter-$i -N256 -n 8192 kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 8,4,8
@@ -244,7 +270,6 @@ Testing 4 nodes
 # 1 minute 24 seconds
 time flux run -o cpu-affinity=per-task -N4 -n 224 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 ```
-
 
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
@@ -312,10 +337,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 1792 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 3584 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 7168 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 12768 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 1792 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
+  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 3584 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
+  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 7168 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
+  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 12768 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
 done
 
 # When they are done:
@@ -399,20 +424,19 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 Testing:
 
-```bash
-time flux run -l -N2 -n 112 mixbench-cpu 64
-```
-
 ```console
 oras login ghcr.io --username vsoch
 app=mixbench
 output=./results/$app
+nodes=N
 
-# ~26 seconds
 mkdir -p $output
+# each single run take about 4.6m
 for i in $(seq 1 5); do     
-  echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 -n 112 mixbench-cpu 64 |& tee ./$output/$app-2-iter-${i}.out
+    echo "Running iteration $i"
+    for node in $(seq 0 $nodes); do
+    flux submit --requires="hosts:flux-sample-$node" --env OMP_NUM_THREADS=96 --setattr=user.study_id=$app-iter-$i -l -N1 -n 1 mixbench-cpu 32
+  done
 done
 
 # When they are done:
@@ -504,7 +528,7 @@ nodes=$1
 app=$2
 
 # At most 28 combinations, 8 nodes 2 at a time
-hosts=$(flux run -N $1 hostname | shuf -n 28 | tr '\n' ' ')
+hosts=$(flux run -N $1 hostname | shuf -n 8 | tr '\n' ' ')
 list=${hosts}
 
 dequeue_from_list() {
@@ -656,10 +680,15 @@ oras login ghcr.io --username vsoch
 app=stream
 output=./results/$app
 
+# This should be zero indexed
+nodes=N
+
 mkdir -p $output
-for i in $(seq 1 5); do     
+for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-1-iter-$i -N1 -n 56 -o cpu-affinity=per-task stream_c.exe
+  for node in $(seq 1 $nodes); do
+    flux submit --requires="hosts:flux-sample-$node" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 96 -o cpu-affinity=per-task stream_c.exe
+  done
 done
 
 # When they are done:

@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      15.82
+1                      15.83
+2                      15.84
+4                      15.84
+8                      16.40
+16                     16.40
+32                     16.41
+64                     16.47
+128                    16.49
+256                    16.52
+512                    16.59
+1024                   16.74
+2048                   17.01
+4096                   17.92
+8192                   20.21
+16384                  20.99
+32768                  22.70
+65536                  25.92
+131072                 67.95
+262144                 81.29
+524288                142.33
+1048576               264.02
+2097152               507.15
+4194304               962.59
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-29,flux-sample-22"]}}, "user": {"study_id": "osu-2-iter-12"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724210818.8852899,"name":"init"}
+{"timestamp":1724210818.8859031,"name":"starting"}
+{"timestamp":1724210818.9027963,"name":"shell.init","context":{"service":"0-shell-f2sGoirsZ","leader-rank":22,"size":2}}
+{"timestamp":1724210818.9059031,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724210829.5768847,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":76,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724210829.5816135,"name":"complete","context":{"status":0}}
+{"timestamp":1724210829.5816584,"name":"done"}
+

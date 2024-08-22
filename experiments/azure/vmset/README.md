@@ -50,6 +50,9 @@ flux resource list
 flux run -N 2 hostname
 ```
 
+# TODO THIS NEEDS TO BE THE UPDATED ONE
+# time flux run --setattr=user.study_id=$app-32-iter-$i-20k -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 512 -v y 512 -v z 512 -var nsteps 20000
+
 And lammps?
 
 ```bash

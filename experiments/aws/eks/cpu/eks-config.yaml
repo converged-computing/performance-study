@@ -15,8 +15,8 @@ managedNodeGroups:
     volumeSize: 150
     # This will default to gp3 and you'll wait 30+ minutes and it will fail
     volumeType: gp2
-    minSize: 4
-    maxSize: 4
+    minSize: 256
+    maxSize: 256
     efaEnabled: true
     placement:
       groupName: performance-study

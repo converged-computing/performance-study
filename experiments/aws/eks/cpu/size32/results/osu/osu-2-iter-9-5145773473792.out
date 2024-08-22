@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      15.79
+1                      15.78
+2                      15.77
+4                      15.77
+8                      16.38
+16                     16.38
+32                     16.38
+64                     16.47
+128                    16.48
+256                    16.51
+512                    16.57
+1024                   16.73
+2048                   16.99
+4096                   17.86
+8192                   20.12
+16384                  20.91
+32768                  22.81
+65536                  25.94
+131072                 67.65
+262144                 81.57
+524288                142.29
+1048576               264.29
+2097152               507.54
+4194304               963.18
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-22,flux-sample-11"]}}, "user": {"study_id": "osu-2-iter-9"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724292654.1281073,"name":"init"}
+{"timestamp":1724292654.1287513,"name":"starting"}
+{"timestamp":1724292654.1479261,"name":"shell.init","context":{"service":"0-shell-f3LAuP6hm","leader-rank":11,"size":2}}
+{"timestamp":1724292654.1508515,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724292664.7728157,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":76,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724292664.7822599,"name":"complete","context":{"status":0}}
+{"timestamp":1724292664.7823148,"name":"done"}
+
