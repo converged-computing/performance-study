@@ -8,7 +8,7 @@ docker build -t cowpie .
 
 💩️🐮
 
-**IMPORTANT** this setup is the root for the actual experiments, which are organized by size here. Please edit those files and do not add experimental protocol to this file.
+**IMPORTANT** this setup is the root for the actual experiments, which are all under [experiment](experiment). All of the configs and automation and interaction with oras and saving of metadata still needs to be written.
 
 ## Usage
 
