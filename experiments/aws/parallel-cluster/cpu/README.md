@@ -8,9 +8,7 @@ docker build -t cowpie .
 
 💩️🐮
 
-Questions:
-
-- Can we/ do we want to get topology?
+**IMPORTANT** this setup is the root for the actual experiments, which are organized by size here. Please edit those files and do not add experimental protocol to this file.
 
 ## Usage
 
@@ -169,8 +167,9 @@ queue1*      up   infinite      3   idle queue1-st-hpc6a48xlarge-[1-3]
 ```
 
 Let's try creating a job to install singularity, the script [install-job.sh](install-job.sh).
-
 That seemed to work. I'm not sure why srun did not.
+
+**IMPORTANT** If you run this as a job or script,  you will need to source your `~/.bashrc` so that singularity and oras are added to the path.
 
 ```bash
 $ sbatch -N 2 ./install-job.sh

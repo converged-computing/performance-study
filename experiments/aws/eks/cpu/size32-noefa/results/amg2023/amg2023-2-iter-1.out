@@ -1,0 +1,48 @@
+Running with these driver parameters:
+  Problem ID    = 1
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.674006 seconds
+  Laplacian_27pt:
+    (Nx, Ny, Nz) = (256, 256, 128)
+    (Px, Py, Pz) = (4, 2, 1)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 0.615471 seconds
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.012315 seconds
+=============================================
+Problem 1: AMG Setup Time:
+=============================================
+GMRES Setup:
+  wall clock time = 0.333613 seconds
+
+FOM_Setup: nnz_AP / Setup Phase Time: 1.385190e+09
+
+=============================================
+Problem 1: AMG-GMRES Solve Time:
+=============================================
+GMRES Solve:
+  wall clock time = 0.313069 seconds
+
+Iterations = 19
+Final Relative Residual Norm = 6.357621e-13
+
+
+FOM_Solve: nnz_AP / Solve Phase Time: 1.476086e+09
+
+
+
+Figure of Merit (FOM): nnz_AP / (Setup Phase Time + Solve Phase Time) 7.145972e+08
+

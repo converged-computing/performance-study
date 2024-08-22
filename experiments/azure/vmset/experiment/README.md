@@ -6,6 +6,24 @@
 - miniFe has no problem with larger size (640) and other clouds don't either, should we be constraining clouds because lassen/dane can't do it?
 - miniFE outputs result files with quite a bit more metadata, I found them and am going to save to our artifacts
 
+TODO: Try this in the cloud shell. With the UI, the placement group never works.
+
+```bash
+az vmss create \
+  --orchestration-mode Uniform \
+  --resource-group ${rg} \
+  --name ${rg}-eus \
+  --vm-sku Standard_HB120-96rs_v3 \
+  --location southcentralus \
+  --image microsoft-dsvm:ubuntu-hpc:2204:latest \
+  --instance-count 2 \
+  --admin-username azure user \
+  --ssh-key-values “"  \
+  --subnet /subscriptions/${subscription}/resourceGroups/${rg}/providers/Microsoft.Network/virtualNetworks/${vnet}/subnets/${subnet} \
+  --platform-fault-domain-count 1 \
+  --single-placement-group true 
+```
+
 ## Experiment
 
 ### 0. Pulling Containers

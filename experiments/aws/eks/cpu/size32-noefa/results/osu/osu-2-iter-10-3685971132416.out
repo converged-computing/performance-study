@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      13.32
+1                      13.35
+2                      13.33
+4                      13.36
+8                      14.02
+16                     14.04
+32                     14.04
+64                     14.11
+128                    14.12
+256                    14.17
+512                    14.25
+1024                   14.42
+2048                   14.71
+4096                   15.42
+8192                   17.10
+16384                  17.83
+32768                  19.35
+65536                  22.42
+131072                 58.46
+262144                 72.13
+524288                126.95
+1048576               236.89
+2097152               456.17
+4194304               869.31
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-29,flux-sample-21"]}}, "user": {"study_id": "osu-2-iter-10"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724210792.9069688,"name":"init"}
+{"timestamp":1724210792.9076355,"name":"starting"}
+{"timestamp":1724210792.9261155,"name":"shell.init","context":{"service":"0-shell-f2fpoeXMy","leader-rank":21,"size":2}}
+{"timestamp":1724210792.9289734,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724210802.4241376,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":76,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724210802.4281991,"name":"complete","context":{"status":0}}
+{"timestamp":1724210802.4282312,"name":"done"}
+

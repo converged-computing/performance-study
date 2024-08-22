@@ -1,8 +1,8 @@
 FROM ghcr.io/converged-computing/azurehpc:flux-slim-nogpu
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/mt-gemm:azure-hpc .
-#  docker push ghcr.io/converged-computing/mt-gemm:azure-hpc
+#  docker build -t ghcr.io/converged-computing/mt-gemm:azure-hpc-9k .
+#  docker push ghcr.io/converged-computing/mt-gemm:azure-hpc-9k
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV UCX_NET_DEVICES=mlx5_0:1

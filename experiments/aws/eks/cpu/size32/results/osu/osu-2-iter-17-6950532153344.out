@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      15.60
+1                      15.63
+2                      15.62
+4                      15.62
+8                      16.27
+16                     16.28
+32                     16.29
+64                     16.38
+128                    16.38
+256                    16.41
+512                    16.52
+1024                   16.69
+2048                   17.00
+4096                   17.99
+8192                   20.31
+16384                  21.14
+32768                  22.83
+65536                  26.13
+131072                 67.97
+262144                 81.93
+524288                142.97
+1048576               266.92
+2097152               513.62
+4194304               971.80
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-29,flux-sample-26"]}}, "user": {"study_id": "osu-2-iter-17"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724292761.7002418,"name":"init"}
+{"timestamp":1724292761.7009604,"name":"starting"}
+{"timestamp":1724292761.7167394,"name":"shell.init","context":{"service":"0-shell-f49aZj5HZ","leader-rank":26,"size":2}}
+{"timestamp":1724292761.7196748,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724292772.3596852,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":106,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724292772.3637006,"name":"complete","context":{"status":0}}
+{"timestamp":1724292772.3637567,"name":"done"}
+

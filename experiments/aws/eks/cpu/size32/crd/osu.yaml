@@ -1,0 +1,28 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 32
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+  containers:
+  - image: ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4
+    environment:
+      FI_PROVIDER: "efa"
+      FI_EFA_FORK_SAFE: "1"
+    volumes:
+      # Ensure /dev/shm does not limit efa
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
+    resources:
+      limits:
+        vpc.amazonaws.com/efa: 1
+      requests:
+        vpc.amazonaws.com/efa: 1

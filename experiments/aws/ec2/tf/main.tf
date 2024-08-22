@@ -10,7 +10,7 @@ locals {
 
   instance_type = "hpc6a.48xlarge"
   vpc_cidr      = "10.0.0.0/16"
-  key_name      = "<your-key-here>"
+  key_name      = "dinosaur-performance-study"
 
   # both hpc7g and hpc6a have ens5
   ethernet_device = "ens5"
@@ -20,9 +20,9 @@ locals {
 
   # Set autoscaling to consistent size so we don't scale for now
   # We need one extra for the control plane, etc for a size 32 cluster
-  min_size     = 3
-  max_size     = 3
-  desired_size = 3
+  min_size     = 2
+  max_size     = 2
+  desired_size = 2
 
   cidr_block_a = "10.0.1.0/24"
   cidr_block_b = "10.0.2.0/24"

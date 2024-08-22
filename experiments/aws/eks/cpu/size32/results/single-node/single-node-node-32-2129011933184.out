@@ -1,0 +1,4 @@
+0.024s: job.exception type=alloc severity=0 alloc denied due to type="unsatisfiable"
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 1, "exclusive": true, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/bin/bash", "/entrypoint.sh"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}, "constraints": {"hostlist": ["flux-sample-32"]}}, "user": {"study_id": "single-node-node-32"}}, "version": 1}
+START OF EVENTLOG

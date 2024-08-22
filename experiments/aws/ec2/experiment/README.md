@@ -17,8 +17,8 @@ since it exists.
 cd /home/ubuntu
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 
-flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4
+flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4
 #flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4
 flux exec --dir /home/ubuntu -r all singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4
@@ -181,6 +181,8 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 
 ```bash
 time flux run --env OMP_NUM_THREADS=1 -N 1 -n 96 singularity exec /home/ubuntu/metric-kripke-cpu_libfabric-zen4.sif kripke
+
+time flux run --env OMP_NUM_THREADS=3 -N 2 -n 64 singularity exec /home/ubuntu/metric-kripke-cpu_libfabric-zen4.sif kripke --layout DGZ --dset 16 --zones 144,448,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 12,16,16
 ```
 
 ```console
@@ -208,6 +210,8 @@ Testing:
 ```bash
 # 1m 41 seconds
 time flux run -o cpu-affinity=per-task -N3 -n 288 singularity exec /home/ubuntu/metric-laghos_libfabric-cpu-zen4.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+
+time flux run -o cpu-affinity=per-task -N2 -n  singularity exec /home/ubuntu/metric-laghos_libfabric-cpu-zen4.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 ```
 
 ```console
@@ -230,7 +234,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 
 ```bash
 # 1 seconds wall time, 8 seconds real (hookup)
-time flux run -o cpu-affinity=per-task -N3 -n 288 singularity exec --pwd /code /home/ubuntu/metric-lammps-cpu_zen4.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 
+time flux run -o cpu-affinity=per-task -N3 -n 288 singularity exec --pwd /code /home/ubuntu/metric-lammps-cpu_zen4.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 2000
 ```
 
 ```console
@@ -239,6 +243,9 @@ app=lammps
 
 # NOTE: the below takes 4 minutes. If taking too long, drop back to 3 iterations
 # IMPORTANT: Ani is testing if 128 works on lassen and 1500 vs 1000 steps
+
+# TODO THIS NEEDS TO BE THE UPDATED ONE
+# time flux run --setattr=user.study_id=$app-32-iter-$i-20k -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 512 -v y 512 -v z 512 -var nsteps 20000
 
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
@@ -420,8 +427,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 For testing I used the smaller problem size for AKS from Abhik:
 
 ```bash
-flux run --env OMP_NUM_THREADS=3 -N2 -n 64 singularity exec /home/ubuntu/metric-quicksilver-cpu_libfabric-zen4.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 10485760
+time flux run --cores-per-task 3 --env OMP_NUM_THREADS=3 -N2 -n 64 singularity exec /home/ubuntu/metric-quicksilver-cpu_libfabric-zen4.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 10485760
 ```
+
+    time flux run --env OMP_NUM_THREADS=3 -N32 -n 1024 singularity exec /home/ubuntu/metric-quicksilver-cpu_libfabric-zen4.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320
+
 
 That seemed to start working (the matrix started getting printed), but I didn't want to wait for it to finish.
 

@@ -1,0 +1,35 @@
+5.896s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) exited with exit code 143
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      15.35
+1                      15.37
+2                      15.34
+4                      15.33
+8                      16.01
+16                     16.03
+32                     16.02
+64                     16.10
+128                    16.10
+256                    16.15
+512                    16.25
+1024                   16.43
+2048                   16.73
+4096                   17.71
+8192                   20.04
+16384                  20.82
+32768                  22.53
+65536                  25.85
+131072                 66.92
+262144                 81.10
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-21,flux-sample-8"]}}, "user": {"study_id": "osu-2-iter-17"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724210436.2966411,"name":"init"}
+{"timestamp":1724210436.2973754,"name":"starting"}
+{"timestamp":1724210436.3136115,"name":"shell.init","context":{"service":"0-shell-f5RY457E7","leader-rank":8,"size":2}}
+{"timestamp":1724210436.3159807,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724210442.3056865,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":75,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1724210442.3097234,"name":"complete","context":{"status":36608}}
+{"timestamp":1724210442.3097456,"name":"done"}
+

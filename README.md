@@ -44,6 +44,24 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] Google Cloud GKE GPU (date)
 - [ ] AWS GPU EKS (8/19/2024)]
 
+#### Experiments
+
+- [ ] Microsoft Azure AKS CPU
+- [ ] Google Cloud GKE CPU
+  - [x] size 32
+- [ ] AWS CPU EKS
+  - [x] size 32
+  - [ ] size 64 (needs redo with shared memory)
+  - [ ] size 128
+  - [ ] size 256
+- [ ] Microsoft Azure AKS GPU
+- [ ] Google Cloud GKE GPU
+- [ ] AWS GPU EKS
+
+## TODO
+
+- update gemm_mpi script to be one we ultimately used.
+
 ## License
 
 HPCIC DevTools is distributed under the terms of the MIT license.

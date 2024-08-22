@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      13.53
+1                      13.54
+2                      13.50
+4                      13.52
+8                      14.19
+16                     14.21
+32                     14.21
+64                     14.28
+128                    14.29
+256                    14.34
+512                    14.42
+1024                   14.61
+2048                   14.89
+4096                   15.60
+8192                   17.26
+16384                  17.97
+32768                  19.61
+65536                  22.69
+131072                 59.37
+262144                 72.75
+524288                128.17
+1048576               240.23
+2097152               462.38
+4194304               881.82
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-13,flux-sample-9"]}}, "user": {"study_id": "osu-2-iter-13"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724210832.5232902,"name":"init"}
+{"timestamp":1724210832.5240417,"name":"starting"}
+{"timestamp":1724210832.5404263,"name":"shell.init","context":{"service":"0-shell-f2yHS9ySf","leader-rank":9,"size":2}}
+{"timestamp":1724210832.5427272,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724210842.1423604,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":82,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724210842.1470814,"name":"complete","context":{"status":0}}
+{"timestamp":1724210842.1471293,"name":"done"}
+
