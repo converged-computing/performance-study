@@ -3,7 +3,7 @@ Region: us-east-2
 Image:
   Os: ubuntu2204
 HeadNode:
-  InstanceType: c6a.xlarge
+  InstanceType: c6a.2xlarge
   Networking:
     SubnetId: subnet-09ccdd58760a98c34
   Ssh:
@@ -15,7 +15,6 @@ HeadNode:
     # List topology API?
     AdditionalIamPolicies:
     - Policy: arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
-    - Policy: arn:aws:iam::aws:policy/DescribeInstanceTopology
 Scheduling:
   Scheduler: slurm
   ScalingStrategy: all-or-nothing 
@@ -48,3 +47,6 @@ SharedStorage:
     VolumeType: gp3
     Size: 400
     DeletionPolicy: Delete
+Tags:
+  - Key: pclster-name
+    Value: test-cluster
