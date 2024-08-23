@@ -140,7 +140,8 @@ Batch script:
 oras login ghcr.io --username vsoch
 srun --time=00:04 -N 2 slurm-single-node-benchmarks.sh
 rm -rf test_file*
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-single-node-benchmark single-node-benchmark
+cd ../../data/single-node-benchmarks
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-single-node-benchmarks single-node-benchmarks
 ```
 
 #### AMG2023
@@ -149,57 +150,48 @@ Since this container requires sourcing spack, we need to write a bash script to 
 
 ```bash
 cd configs/amg2023/
-for i in {1..5}; do sbatch --output=../data/amg2023/amg-2n-%x-%j-iter-${i}.out --error=../data/amg2023/amg-2n-%x-%j-iter-${i}.err slurm-amg-2n.sh; done
+for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
+cd ../../data/amg2023
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-amg2023 amg2023
 ```
 
 
 #### Kripke
 
 ```bash
-# 1 minute 5 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric
-
-# works!
-# 2 minutes 49 seconds
-time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec /shared/containers/metric-kripke-cpu_libfabric.sif kripke --layout GDZ --dset 8 --zones 96,96,96 --gset 16 --groups 64 --niter 10 --legendre 9 --quad 8 --procs 4,6,8
+cd configs/kripke/
+for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-32n.sh; done
+cd ../../data/kripke
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-kripke kripke
 ```
 
 
 #### Laghos
 
 ```bash
-# 54 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu
-
-# 9.34 seconds
-time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec --pwd /opt/laghos metric-laghos_libfabric-cpu.sif /opt/laghos/laghos -p 1 -m ./data/cube01_hex.mesh -rs 2 -tf 0.6 -pa -cfl 0.08 --max-steps 20
+cd configs/laghos/
+for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-32n.sh; done
+cd ../../data/laghos
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-laghos laghos
 ```
 
 #### LAMMPS
 
 ```bash
-# 1 minute 1 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:libfabric
-
-# pull the data
-cd /home/ubuntu
-oras pull ghcr.io/converged-computing/metric-lammps-cpu:libfabric-data
-cd /shared/containers
-
-# 22.14 seconds
-time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec --pwd /home/ubuntu/common /shared/containers/metric-lammps-cpu_libfabric.sif  lmp -in in.snap.test -var snapdir 2J8_W.SNAP -v x 228 -v y 228 -v z 228 -var nsteps 20000
+cd configs/lammps/
+for i in {1..5}; do sbatch --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-32n.sh; done
+cd ../../data/lammps
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-lammps lammps
 ```
+
 
 #### MiniFE
 
-**Important** this is 8x slower than an equivalent setup with flux / efa / libfabric etc also on AWS.
-
 ```bash
-# 49.84 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu
-
-# 8 minutes!
-time mpirun -np 96 -map-by ppr:48:node --hostfile ./hostfile.txt /shared/bin/singularity exec /shared/containers/metric-minife_libfabric-cpu.sif miniFE.x nx=620 ny=620 nz=620 num_devices=4 use_locking=1 elem_group_size=2 use_elem_mat_fields=10 verify_solution=0
+cd configs/minife/
+for i in {1..5}; do sbatch --output=../../data/minife/%x-%j-iter-${i}.out --error=../../data/minife/%x-%j-iter-${i}.err slurm-minife-32n.sh; done
+cd ../../data/minife
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-minife minife
 ```
 
 Don't forget to save the MiniFE yaml output files that generate in the PWD.
