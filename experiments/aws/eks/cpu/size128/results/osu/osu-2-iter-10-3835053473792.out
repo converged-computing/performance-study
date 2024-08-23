@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      12.68
+1                      12.70
+2                      12.67
+4                      12.68
+8                      13.39
+16                     13.39
+32                     13.39
+64                     13.44
+128                    13.45
+256                    13.48
+512                    13.56
+1024                   13.69
+2048                   13.89
+4096                   14.51
+8192                   15.93
+16384                  16.70
+32768                  18.11
+65536                  21.29
+131072                 55.59
+262144                 69.40
+524288                122.54
+1048576               229.65
+2097152               442.84
+4194304               845.25
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-61,flux-sample-16"]}}, "user": {"study_id": "osu-2-iter-10"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724369720.4415786,"name":"init"}
+{"timestamp":1724369720.4426403,"name":"starting"}
+{"timestamp":1724369720.4665432,"name":"shell.init","context":{"service":"0-shell-f2jjwYVW7","leader-rank":16,"size":2}}
+{"timestamp":1724369720.4697123,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724369729.5741599,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":76,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724369729.5803587,"name":"complete","context":{"status":0}}
+{"timestamp":1724369729.5803976,"name":"done"}
+

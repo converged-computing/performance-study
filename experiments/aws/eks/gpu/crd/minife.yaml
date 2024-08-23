@@ -13,6 +13,14 @@ spec:
 
   containers:
   - image: ghcr.io/converged-computing/metric-minife:libfabric
+    environment:
+      FI_PROVIDER: "efa"
+      FI_EFA_FORK_SAFE: "1"
+    volumes:
+      # Ensure /dev/shm does not limit efa
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
     commands:
       pre: |
         echo "Regenerated resources"

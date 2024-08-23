@@ -15,6 +15,14 @@ spec:
   containers:
   - image: ghcr.io/converged-computing/pytorch-resnet-experiment:libfabric-gpu
     # command: flux submit --watch -N 2 --gpus-per-node 4 /bin/bash ./launch.sh flux-sample 2 4
+    environment:
+      FI_PROVIDER: "efa"
+      FI_EFA_FORK_SAFE: "1"
+    volumes:
+      # Ensure /dev/shm does not limit efa
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
     commands:
       pre: |
         echo "Regenerated resources"

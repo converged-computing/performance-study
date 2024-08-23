@@ -1,0 +1,4 @@
+0.031s: job.exception type=alloc severity=0 alloc denied due to type="unsatisfiable"
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 128, "exclusive": true, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 3}], "label": "task"}]}], "tasks": [{"command": ["kripke", "--layout", "DGZ", "--dset", "16", "--zones", "448,168,256", "--gset", "16", "--groups", "16", "--niter", "500", "--legendre", "2", "--quad", "16", "--procs", "32,12,32"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/Kripke", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}, "user": {"study_id": "kripke-128-iter-2"}}, "version": 1}
+START OF EVENTLOG

@@ -10,7 +10,14 @@ spec:
   flux:
     container:
       disable: true
-
+    environment:
+      FI_PROVIDER: "efa"
+      FI_EFA_FORK_SAFE: "1"
+    volumes:
+      # Ensure /dev/shm does not limit efa
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
   containers:
   - image: ghcr.io/converged-computing/metric-lammps-gpu:libfabric
     commands:

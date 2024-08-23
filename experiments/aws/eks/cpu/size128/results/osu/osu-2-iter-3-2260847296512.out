@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      16.08
+1                      16.08
+2                      16.07
+4                      16.09
+8                      16.76
+16                     16.77
+32                     16.78
+64                     16.87
+128                    16.88
+256                    16.94
+512                    17.02
+1024                   17.22
+2048                   17.56
+4096                   18.55
+8192                   20.86
+16384                  21.68
+32768                  23.44
+65536                  26.78
+131072                 70.30
+262144                 83.51
+524288                145.46
+1048576               270.48
+2097152               520.27
+4194304               985.01
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-58,flux-sample-28"]}}, "user": {"study_id": "osu-2-iter-3"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724369626.6121147,"name":"init"}
+{"timestamp":1724369626.613009,"name":"starting"}
+{"timestamp":1724369626.6353951,"name":"shell.init","context":{"service":"0-shell-f22PYLMWw","leader-rank":28,"size":2}}
+{"timestamp":1724369626.638428,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724369637.4960845,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":70,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724369637.5021329,"name":"complete","context":{"status":0}}
+{"timestamp":1724369637.502202,"name":"done"}
+

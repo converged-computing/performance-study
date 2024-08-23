@@ -59,7 +59,7 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] AWS CPU EKS
   - [x] size 32 (done 8/21/2024-8/22/2024)
   - [x] size 64  (done 8/22/2024)
-  - [ ] size 128
+  - [x] size 128 (done 8/22/2024)
   - [ ] size 256
 - [ ] Microsoft Azure AKS GPU
 - [ ] Google Cloud GKE GPU

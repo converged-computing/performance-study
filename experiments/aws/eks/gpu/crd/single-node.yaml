@@ -10,7 +10,14 @@ spec:
   interactive: true
   containers:
   - image: ghcr.io/converged-computing/metric-single-node:cpu
-
+    environment:
+      FI_PROVIDER: "efa"
+      FI_EFA_FORK_SAFE: "1"
+    volumes:
+      # Ensure /dev/shm does not limit efa
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
     pullAlways: true
     # Must be in privileged to get system info (e.g., /sys/mem)
     securityContext:

@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      16.10
+1                      16.13
+2                      16.09
+4                      16.12
+8                      16.80
+16                     16.80
+32                     16.82
+64                     16.89
+128                    16.92
+256                    16.95
+512                    17.05
+1024                   17.26
+2048                   17.56
+4096                   18.60
+8192                   20.89
+16384                  21.70
+32768                  23.52
+65536                  26.81
+131072                 70.40
+262144                 83.46
+524288                145.85
+1048576               271.03
+2097152               520.70
+4194304               986.35
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-61,flux-sample-46"]}}, "user": {"study_id": "osu-2-iter-8"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724369694.5905149,"name":"init"}
+{"timestamp":1724369694.5914214,"name":"starting"}
+{"timestamp":1724369694.6153162,"name":"shell.init","context":{"service":"0-shell-f2YMAGbVy","leader-rank":46,"size":2}}
+{"timestamp":1724369694.6185119,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724369705.482249,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":76,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724369705.4899449,"name":"complete","context":{"status":0}}
+{"timestamp":1724369705.4899931,"name":"done"}
+
