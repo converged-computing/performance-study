@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      36.16
+1                      36.18
+2                      36.09
+4                      36.18
+8                      36.15
+16                     36.23
+32                     36.21
+64                     38.77
+128                    39.32
+256                    40.64
+512                    41.29
+1024                   41.75
+2048                   44.15
+4096                   46.99
+8192                   54.79
+16384                  64.14
+32768                  85.64
+65536                 204.21
+131072                244.72
+262144                320.66
+524288                453.28
+1048576               726.11
+2097152              1282.65
+4194304              2387.99
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-84,flux-sample-53"]}}, "user": {"study_id": "osu-2-iter-16"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724444974.0837758,"name":"init"}
+{"timestamp":1724444974.0847673,"name":"starting"}
+{"timestamp":1724444974.1041865,"name":"shell.init","context":{"service":"0-shell-f5NZbLesZ","leader-rank":53,"size":2}}
+{"timestamp":1724444974.1073964,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724444999.1903722,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":82,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724444999.1939571,"name":"complete","context":{"status":0}}
+{"timestamp":1724444999.1939929,"name":"done"}
+

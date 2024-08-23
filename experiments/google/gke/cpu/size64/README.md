@@ -158,7 +158,12 @@ mkdir -p $output
 
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --exclusive --cores-per-task 2 --exclusive --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 1792 -o cpu-affinity=per-task amg -n 256 256 128 -P 8 14 16 -problem 2
+  time flux run --exclusive --cores-per-task 2 --exclusive --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-64-iter-$i 
+  
+ 
+  -N 64 -n 1792 -o cpu-affinity=per-task amg -n 256 256 128 -P 8 14 16 -problem 2
+
+
 done
 
 apt-get update && apt-get install -y jq
