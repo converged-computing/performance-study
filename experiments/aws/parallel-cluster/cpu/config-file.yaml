@@ -1,23 +1,20 @@
 # hpc6a only in this region
-# us-west-2a or us-west-2c
 Region: us-east-2
 Image:
-  Os: ubuntu2004
+  Os: ubuntu2204
 HeadNode:
-  InstanceType: c6a.large
+  InstanceType: c6a.2xlarge
   Networking:
-    SubnetId: subnet-0cc6a5b9cf370702d
+    SubnetId: subnet-09ccdd58760a98c34
   Ssh:
-    KeyName: dinosaur-performance-study
+    KeyName: milroy1-ldrd-east2-ed2
   LocalStorage:
     RootVolume:
       Size: 50
   Iam:
     # List topology API?
     AdditionalIamPolicies:
-      - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
-      - Policy: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
-
+    - Policy: arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
 Scheduling:
   Scheduler: slurm
   ScalingStrategy: all-or-nothing 
@@ -28,25 +25,28 @@ Scheduling:
       Instances:
       - InstanceType: hpc6a.48xlarge
       MinCount: 0
-      MaxCount: 4    
+      MaxCount: 32
       Efa:
         Enabled: true
+    Networking:
+      PlacementGroup:
+        Enabled: true
+        Id: performance-study-parallelcluster
+      SubnetIds:
+      - subnet-09ccdd58760a98c34
     ComputeSettings:
       LocalStorage:
         RootVolume:
           Size: 50
-    Networking:
-      SubnetIds:
-      - subnet-0cc6a5b9cf370702d
-      PlacementGroup:
-        Enabled: true
-        Id: performance-study
-
 SharedStorage:
 - MountDir: /shared      
   Name: ebs
   StorageType: Ebs
   EbsSettings:
     # Might be better to use gp3 for experiments?
-    VolumeType: gp2
-    Size: 100
+    VolumeType: gp3
+    Size: 400
+    DeletionPolicy: Delete
+Tags:
+  - Key: pclster-name
+    Value: test-cluster
