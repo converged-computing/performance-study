@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      36.89
+1                      36.44
+2                      36.68
+4                      36.90
+8                      36.86
+16                     36.68
+32                     36.81
+64                     39.57
+128                    39.93
+256                    41.70
+512                    41.97
+1024                   42.68
+2048                   45.10
+4096                   48.68
+8192                   55.61
+16384                  64.78
+32768                  85.87
+65536                 206.54
+131072                248.15
+262144                323.06
+524288                460.08
+1048576               730.13
+2097152              1287.72
+4194304              2391.76
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-13,flux-sample-37"]}}, "user": {"study_id": "osu-2-iter-12"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724391938.8105125,"name":"init"}
+{"timestamp":1724391938.8113663,"name":"starting"}
+{"timestamp":1724391938.8261051,"name":"shell.init","context":{"service":"0-shell-f4WiXZBLB","leader-rank":13,"size":2}}
+{"timestamp":1724391938.8286743,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724391964.2006743,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":106,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724391964.2046764,"name":"complete","context":{"status":0}}
+{"timestamp":1724391964.2047007,"name":"done"}
+

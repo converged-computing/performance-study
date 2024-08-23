@@ -5,6 +5,9 @@
 - Start time: 2024-08-21 19:02:07
 - End time: 2024-08-21 00:32:15
 
+Note: I did try adding the shared memory volume, and for lammps it made it slower by about 3 seconds.
+CPU utilization was the same.
+
 ```console
 For each experiment (crd in ./crd):
   Create the MiniCluster, and shell in
@@ -383,8 +386,8 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 oras login ghcr.io --username vsoch
 export app=lammps
 output=./results/$app
-
 mkdir -p $output
+
 for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i-20k -o cpu-affinity=per-task -N32 -n 3072 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000

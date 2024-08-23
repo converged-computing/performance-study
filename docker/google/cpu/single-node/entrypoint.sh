@@ -17,13 +17,14 @@ dmidecode
 # except the ProcessName lstopo -> hwloc-ls
 echo 
 echo "====== hwloc-ls machine.xml"
-hwloc-ls machine.xml
-cat machine.xml
+mydir=$(mktemp -d)
+hwloc-ls $mydir/machine.xml
+cat $mydir/machine.xml
 
 echo
 echo "====== lstopo --of svg > machine.svg"
-lstopo --of svg > machine.svg
-cat machine.svg
+lstopo --of svg > $mydir/machine.svg
+cat $mydir/machine.svg
 
 # Single thread, if we do >1 the output gets messed up
 echo
@@ -32,6 +33,7 @@ sysbench cpu run
 
 echo
 echo "====== sysbench fileio run --file-test-mode=seqwr"
+cd $mydir
 sysbench fileio run --file-test-mode=seqwr
 
 echo
@@ -50,3 +52,5 @@ cat /proc/cpuinfo
 
 echo "====== cpuid"
 cpuid
+cd -
+rm -rf $mydir

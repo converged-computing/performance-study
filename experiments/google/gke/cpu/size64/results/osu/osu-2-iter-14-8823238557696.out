@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      36.01
+1                      35.78
+2                      35.80
+4                      35.81
+8                      35.74
+16                     35.81
+32                     35.96
+64                     39.00
+128                    39.48
+256                    41.10
+512                    41.48
+1024                   41.73
+2048                   43.81
+4096                   46.41
+8192                   54.37
+16384                  64.03
+32768                  85.56
+65536                 203.06
+131072                248.55
+262144                325.10
+524288                456.64
+1048576               733.13
+2097152              1301.24
+4194304              2419.05
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-2,flux-sample-52"]}}, "user": {"study_id": "osu-2-iter-14"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724392002.470861,"name":"init"}
+{"timestamp":1724392002.4716904,"name":"starting"}
+{"timestamp":1724392002.4859827,"name":"shell.init","context":{"service":"0-shell-f4zmkNuBu","leader-rank":2,"size":2}}
+{"timestamp":1724392002.4884102,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724392027.6516035,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":88,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724392027.6551478,"name":"complete","context":{"status":0}}
+{"timestamp":1724392027.6551695,"name":"done"}
+

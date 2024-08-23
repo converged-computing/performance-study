@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      35.99
+1                      35.72
+2                      35.87
+4                      35.86
+8                      35.73
+16                     35.85
+32                     35.75
+64                     38.60
+128                    39.11
+256                    40.98
+512                    41.60
+1024                   41.82
+2048                   44.19
+4096                   48.07
+8192                   54.54
+16384                  62.64
+32768                  84.37
+65536                 202.62
+131072                243.96
+262144                323.15
+524288                452.35
+1048576               729.17
+2097152              1295.09
+4194304              2422.96
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-2,flux-sample-15"]}}, "user": {"study_id": "osu-2-iter-16"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724392065.8583124,"name":"init"}
+{"timestamp":1724392065.8591154,"name":"starting"}
+{"timestamp":1724392065.87451,"name":"shell.init","context":{"service":"0-shell-f5Ui1wzPq","leader-rank":2,"size":2}}
+{"timestamp":1724392065.876678,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724392091.0296202,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":100,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724392091.0334845,"name":"complete","context":{"status":0}}
+{"timestamp":1724392091.0335064,"name":"done"}
+
