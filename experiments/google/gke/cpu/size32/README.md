@@ -22,9 +22,8 @@ For each experiment (crd in ./crd):
 We will want to either run this on a GKE instance (we all have access to) OR create the cluster and share the kubeconfig with multiple people, in case someone's computer crashes. We also need a means to programatically monitor the container creation times, etc.
 
 ```bash
-kubectl get nodes -o json > nodes-32.json 
+kubectl get nodes -o json > nodes-quicksilver-32.json 
 ```
-
 ## Experiments
 
 ### 1. Setup
@@ -70,8 +69,18 @@ kubectl get pods -o json  | jq -r .items[].spec.nodeName | uniq | wc -l
 32
 ```
 
-Note that the configs are currently set to 8 nodes, with 8 gpu each. size 32vcpu (16 cores) instance (n1-standard-32).
+Get placement (note this is for the quicksilver cluster, August 23rd 8:48pm)
 
+```console
+mkdir placement
+cd placement
+for node in $(kubectl get -o json nodes | jq -r .items[].metadata.name)
+  do
+   echo $node
+   gcloud compute instances describe $node --zone=us-central1-a > $node.txt
+done
+cd ../
+```
 
 Monitoring:
 
@@ -525,23 +534,6 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
-
-```console
-# These do not work
-time flux run --exclusive --cores-per-task=3 -N32 -n 253  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320
-
-time flux run --env OMP_MCA_btl=tcp,self --env OMP_NUM_THREADS=4 -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320
-
-time flux run --env OMP_MCA_btl=tcp,self --env OMP_NUM_THREADS=2 -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320
-
-[flux-sample-31:00839] *** An error occurred in MPI_Irecv
-[flux-sample-31:00839] *** reported by process [0,247]
-[flux-sample-31:00839] *** on communicator MPI_COMM_WORLD
-[flux-sample-31:00839] *** MPI_ERR_RANK: invalid rank
-[flux-sample-31:00839] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
-[flux-sample-31:00839] ***    and potentially your MPI job)
-```
-
 ```console
 oras login ghcr.io --username vsoch
 export app=quicksilver
@@ -550,7 +542,7 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 2 5); do     
     echo "Running iteration $i"
-    time flux run --cores-per-task 3 --exclusive --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320
+    time flux run --cores-per-task=7 --exclusive --env OMP_NUM_THREADS=7 --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 64  -x 64  -y 64  -z 64  -I 8  -J 8  -K 4  -n 83886080
 done
 
 # When they are done:
@@ -566,7 +558,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app-7-threads $output
 ```
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml

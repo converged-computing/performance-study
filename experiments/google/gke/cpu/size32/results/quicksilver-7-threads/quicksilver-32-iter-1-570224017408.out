@@ -1,0 +1,112 @@
+373.792s: job.exception type=cancel severity=0 interrupted by ctrl-C
+374.076s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) exited with exit code 143
+MPI Initialized         : MPI_THREAD_FUNNELED
+Copyright (c) 2016
+Lawrence Livermore National Security, LLC
+All Rights Reserved
+Quicksilver Version     : 2023-Aug-18-15:12:10
+Quicksilver Git Hash    : eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b
+MPI Version             : 3.1
+Number of MPI ranks     : 256
+Number of OpenMP Threads: 7
+Number of OpenMP CPUs   : 8
+
+Simulation:
+   dt: 2e-09
+   fMax: 0.1
+   inputFile: /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
+   energySpectrum: 
+   boundaryCondition: reflect
+   loadBalance: 0
+   cycleTimers: 0
+   debugThreads: 0
+   lx: 64
+   ly: 64
+   lz: 64
+   nParticles: 83886080
+   batchSize: 0
+   nBatches: 10
+   nSteps: 100
+   nx: 64
+   ny: 64
+   nz: 64
+   seed: 1029384756
+   xDom: 8
+   yDom: 8
+   zDom: 4
+   eMax: 20
+   eMin: 1e-09
+   nGroups: 230
+   lowWeightCutoff: 0.001
+   bTally: 1
+   fTally: 1
+   cTally: 1
+   coralBenchmark: 1
+   crossSectionsOut:
+
+Geometry:
+   material: sourceMaterial
+   shape: brick
+   xMax: 10000
+   xMin: 0
+   yMax: 10000
+   yMin: 0
+   zMax: 10000
+   zMin: 0
+
+Material:
+   name: sourceMaterial
+   mass: 12.011
+   nIsotopes: 20
+   nReactions: 9
+   sourceRate: 1e+10
+   totalCrossSection: 1.5
+   absorptionCrossSection: flat
+   fissionCrossSection: flat
+   scatteringCrossSection: flat
+   absorptionCrossSectionRatio: 0.04
+   fissionCrossSectionRatio: 0.05
+   scatteringCrossSectionRatio: 1
+
+CrossSection:
+   name: flat
+   A: 0
+   B: 0
+   C: 0
+   D: 0
+   E: 1
+   nuBar: 1.6
+Building partition 0
+done building
+Building MC_Domain 0
+Finished initMesh
+cycle           start       source           rr        split       absorb      scatter      fission      produce      collisn       escape       census      num_seg   scalar_flux      cycleInit  cycleTracking  cycleFinalize
+       0            0      8388608            0     75497472     17069826    426848364     21340725     34146085    465258915            0     79621614   1010163421  1.938632e+07   2.412600e-02   8.793549e+00   9.770000e-04
+       1     79621614      8388608      4121543            0     29923387    747940111     37402442     59843913    815265940            0     76406763   1706956270  5.308518e+07   2.596500e-02   1.161941e+01   2.397000e-03
+       2     76406763      8388608       909069            0     28576238    714514352     35724036     57156847    778814626            0     76742875   1634367619  8.210325e+07   2.321400e-02   1.132327e+01   2.117000e-03
+       3     76742875      8388608      1245816            0     28107281    702470507     35122068     56194623    765699856            0     76850941   1608233292  1.079493e+08   2.316600e-02   1.125550e+01   1.483000e-03
+       4     76850941      8388608      1354764            0     27855908    696410365     34824050     55717945    759090323            0     76922772   1595164854  1.312302e+08   2.332400e-02   1.117866e+01   1.612000e-03
+       5     76922772      8388608      1425309            0     27719061    692882961     34650690     55440346    755252712            0     76956666   1587423471  1.523490e+08   2.335600e-02   1.114279e+01   1.614000e-03
+       6     76956666      8388608      1458300            0     27629644    690666032     34528163     55245421    752823839            0     76974588   1582586795  1.715879e+08   2.345800e-02   1.064415e+01   2.013000e-03
+       7     76974588      8388608      1477561            0     27563208    689116437     34461718     55137145    751141363            0     76997854   1579297001  1.891007e+08   2.329200e-02   1.098091e+01   3.004000e-03
+       8     76997854      8388608      1500345            0     27522850    688053541     34405092     55048449    749981483            0     77006624   1576926722  2.051196e+08   5.928000e-02   1.072897e+01   3.059000e-03
+       9     77006624      8388608      1508327            0     27475683    687205784     34360595     54976563    749042062            0     77027190   1575064126  2.197631e+08   2.328700e-02   1.053870e+01   2.764000e-03
+      10     77027190      8388608      1529457            0     27456100    686468273     34335414     54935134    748259787            0     77029961   1573600780  2.331637e+08   1.502570e-01   1.072397e+01   3.034000e-03
+      11     77029961      8388608      1534305            0     27439807    685907028     34286168     54856491    747633003            0     77014780   1572289429  2.453965e+08   3.600200e-02   1.034469e+01   2.950000e-03
+      12     77014780      8388608      1517427            0     27416954    685506673     34282789     54858182    747206416            0     77044400   1571444878  2.565845e+08   2.336300e-02   1.077150e+01   2.709000e-03
+      13     77044400      8388608      1549101            0     27402630    685112834     34252292     54802464    746767756            0     77031449   1570575124  2.668532e+08   2.318700e-02   1.076600e+01   2.493000e-03
+      14     77031449      8388608      1533363            0     27393968    684901053     34243195     54794306    746538216            0     77043837   1570106306  2.762625e+08   2.341400e-02   1.035618e+01   2.570000e-03
+      15     77043837      8388608      1547957            0     27382441    684683234     34237069     54783903    746302744            0     77048881   1569612941  2.848879e+08   3.591300e-02   1.029588e+01   2.931000e-03
+      16     77048881      8388608      1551303            0     27375705    684462117     34216537     54750437    746054359            0     77044381   1569147349  2.928381e+08   2.341900e-02   1.071402e+01   2.964000e-03
+      17     77044381      8388608      1547356            0    START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["qs", "--inputFile", "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp", "-X", "64", "-Y", "64", "-Z", "64", "-x", "64", "-y", "64", "-z", "64", "-I", "8", "-J", "8", "-K", "4", "-n", "83886080"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/quicksilver/Examples", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}, "user": {"study_id": "quicksilver-32-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724467930.0256829,"name":"init"}
+{"timestamp":1724467930.0264194,"name":"starting"}
+{"timestamp":1724467930.0467634,"name":"shell.init","context":{"service":"0-shell-fFymk951","leader-rank":0,"size":32}}
+{"timestamp":1724467930.0631707,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,8,1]]}}}
+{"timestamp":1724468304.1015604,"name":"shell.task-exit","context":{"localid":1,"rank":249,"state":"Exited","pid":69,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1724468304.1420975,"name":"complete","context":{"status":36608}}
+{"timestamp":1724468304.1421232,"name":"done"}
+

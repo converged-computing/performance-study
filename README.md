@@ -54,8 +54,8 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] Google Cloud GKE CPU
   - [x] size 32 (done 8/21/2024)
   - [x] size 64 (done 8/22/2024)
-  - [ ] size 128
-  - [ ] size 256
+  - [x] size 128
+  - [x] size 256
 - [ ] AWS CPU EKS
   - [x] size 32 (done 8/21/2024-8/22/2024)
   - [x] size 64  (done 8/22/2024)

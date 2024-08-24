@@ -1,8 +1,5 @@
 # GKE CPU Experiment Size 64
 
-- Creation time: 
-- Done at 
-
 ## Design
 
 ```console
@@ -55,7 +52,20 @@ kubectl apply -f ./flux-operator.yaml
 Save nodes:
 
 ```bash
-kubectl get nodes -o json > nodes-64.json 
+kubectl get nodes -o json > nodes-quicksilver-64.json 
+```
+
+Get placement (note this is for the quicksilver cluster, August 23rd 8:48pm)
+
+```console
+mkdir placement
+cd placement
+for node in $(kubectl get -o json nodes | jq -r .items[].metadata.name)
+  do
+   echo $node
+   gcloud compute instances describe $node --zone=us-central1-a > $node.txt
+done
+cd ../
 ```
 
 Now we are ready for different MiniCluster setups. For each of the below, to shell in to the lead broker (index 0) you do:
@@ -538,7 +548,7 @@ mkdir -p $output
 
 for i in $(seq 2 5); do     
     echo "Running iteration $i"
-    time flux run --cores-per-task 7 --exclusive --env OMP_NUM_THREADS=7 -N64 -n 512 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 64 -Z 64 -x 128 -y 64 -z 64 -I 8 -J 8 -K 8 -n 83886080
+    time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive --setattr=user.study_id=$app-64-iter-$i -N64 -n 512  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 64  -Z 64  -x 128 -y 64  -z 64  -I 8  -J 8  -K 8  -n 167772160
 done
 
 # When they are done:
@@ -554,7 +564,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-64-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-64-$app-7-threads $output
 ```
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
