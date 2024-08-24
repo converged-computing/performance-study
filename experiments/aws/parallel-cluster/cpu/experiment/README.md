@@ -72,8 +72,8 @@ ssh -i ~/.ssh/milroy1-ldrd-east2-ed2.pem ubuntu@ec2-18-117-224-238.us-east-2.com
 Get the topology:
 
 ```bash
-aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge --filters Name=tag-key,Values=cluster-tag-value > topology-2.json
-aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-2.json
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge --filters Name=tag-key,Values=cluster-tag-value > topology-size32.json
+aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-size32.json
 ```
 
 Install Singularity and pull all containers.
@@ -88,21 +88,18 @@ mkdir -p /shared/containers
 cd /shared/containers
 
 # This is the newer build with spack
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3
-
-# This is the previous one - works, but not in some environments.
-# singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 && \
 singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 && \
 singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile && \
 singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 && \
 singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4 && \
 singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu-zen4 && \
+singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu && \
 singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4 && \
 singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4 && \
 singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 && \
 singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu-zen4 &&
-singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-zen4
+singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
 ```
 
 Sanity check efa is there.
@@ -146,9 +143,12 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 
 #### AMG2023
 
-Since this container requires sourcing spack, we need to write a bash script to run on the host.
+All the following examples are for 32 nodes. Mutatis mutandis for other sizes.
 
 ```bash
+# May want to try these env variables in the job scripts:
+#export FI_EFA_FORK_SAFE=1
+#export FI_PROVIDER=efa
 cd configs/amg2023/
 for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
 cd ../../data/amg2023
@@ -184,7 +184,6 @@ cd ../../data/lammps
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-lammps lammps
 ```
 
-
 #### MiniFE
 
 ```bash
@@ -198,85 +197,63 @@ Don't forget to save the MiniFE yaml output files that generate in the PWD.
 
 #### Mixbench
 
-This wasn't on the path.
-
 ```bash
-# 49.78 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu
-
-# 24 seconds
-time mpirun -np 2 --hostfile ./hostfile.txt /shared/bin/singularity exec /shared/containers/metric-mixbench_libfabric-cpu.sif mixbench-cpu
+cd configs/mixbench/
+for i in {1..5}; do 
+  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
+    sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/%x-%j-iter-${i}.err slurm-mixbench-1n.sh
+  done
+done
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-mixbench mixbench
 ```
-
-Again, this seems like it's for one node only, and needs a wrapper.
 
 #### Mt-Gemm
 
 ```bash
-# 51 seconds
-time singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu
-
-# 7.35 seconds
-time mpirun -np 192 --hostfile ./hostfile.txt /shared/bin/singularity exec /shared/containers/mt-gemm_libfabric-cpu.sif /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
+cd configs/mt-gemm/
+for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-32n.sh; done
+cd ../../data/mt-gemm
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-mt-gemm mt-gemm
 ```
 
 #### Nek5000
 
 ```bash
-# 1 minute 9 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu
-
-mkdir -p /home/ubuntu/nekrs
-cd /home/ubuntu/nekrs
+mkdir /shared/nekrs
+cd /shared/nekrs/
 oras pull ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
-
-time mpirun -np 192 --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec --pwd /home/ubuntu/nekrs/turbPipe /shared/containers/metric-nek5000_libfabric-cpu.sif nekrs --setup /home/ubuntu/nekrs/turbPipe/turbPipe.par
+for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-32n.sh; done
+cd ../../data/nekrs
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-nekrs nekrs
 ```
-
-This works but runs forever - needs tweaking of parameters.
 
 #### OSU
 
 ```bash
-# 1 minute
-time singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric
-
-# 3 minutes 47 seconds
-time mpirun -np 2 -map-by ppr:1:node --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-osu-cpu_libfabric.sif /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw
-
-# 11.928 seconds
-time mpirun -np 2 -map-by ppr:1:node --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-osu-cpu_libfabric.sif /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency
-
-# 12.5 seconds
-time mpirun -np 192 --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-osu-cpu_libfabric.sif /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+cd configs/osu/
+sbatch --output=../../data/osu/%x-%j-iter-${i}.out --error=../../data/osu/%x-%j-iter-${i}.err slurm-osu-32n.sh
+cd ../../data/osu
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-osu osu
 ```
 
 #### Quicksilver
 
 ```bash
-# 1 minute 12 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric
-
-# This hangs
-time mpirun -np 192 --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-quicksilver-cpu_libfabric.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
-
-# This runs in 34.48 seconds
-time mpirun -np 8 -map-by ppr:4:node --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-quicksilver-cpu_libfabric.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
+cd configs/quicksilver/
+for i in {1..5}; do sbatch --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-32n.sh; done
+cd ../../data/quicksilver
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-quicksilver quicksilver
 ```
 
 #### Stream
 
 ```bash
-# 49.51 seconds
-time singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu
-
-# 6.44 seconds
-time mpirun -np 192 -map-by ppr:96:node --hostfile /shared/containers/hostfile.txt /shared/bin/singularity exec /shared/containers/metric-stream_libfabric-cpu.sif stream_c.exe
-```
-
-This doesn't seem like it's mapping right.
-
-```
-Solution Validates: avg error less than 1.000000e-13 on all three arrays
+cd configs/stream/
+for i in {1..5}; do 
+  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
+    sbatch --nodelist=${node} --output=../../data/stream/${node}-%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-1n.sh
+  done
+done
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-stream stream
 ```
 

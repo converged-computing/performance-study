@@ -12,7 +12,6 @@ HeadNode:
     RootVolume:
       Size: 50
   Iam:
-    # List topology API?
     AdditionalIamPolicies:
     - Policy: arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
 Scheduling:
@@ -43,7 +42,6 @@ SharedStorage:
   Name: ebs
   StorageType: Ebs
   EbsSettings:
-    # Might be better to use gp3 for experiments?
     VolumeType: gp3
     Size: 400
     DeletionPolicy: Delete
