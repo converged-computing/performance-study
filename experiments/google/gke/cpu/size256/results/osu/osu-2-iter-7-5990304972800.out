@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       0.10
+2                       0.21
+4                       0.42
+8                       0.83
+16                      1.66
+32                      3.29
+64                      6.51
+128                    12.52
+256                    25.54
+512                    49.57
+1024                   98.81
+2048                  192.07
+4096                  367.66
+8192                  692.55
+16384                1237.63
+32768                1608.86
+65536                1492.85
+131072               2159.35
+262144               2793.01
+524288               3377.33
+1048576              3227.20
+2097152              3306.69
+4194304              3299.19
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-240,flux-sample-109"]}}, "user": {"study_id": "osu-2-iter-7"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724462424.3216691,"name":"init"}
+{"timestamp":1724462424.3227029,"name":"starting"}
+{"timestamp":1724462424.3476119,"name":"shell.init","context":{"service":"0-shell-f3iMbjnKh","leader-rank":109,"size":2}}
+{"timestamp":1724462424.3514857,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724462430.3094258,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":79,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724462430.3186691,"name":"complete","context":{"status":0}}
+{"timestamp":1724462430.3187032,"name":"done"}
+

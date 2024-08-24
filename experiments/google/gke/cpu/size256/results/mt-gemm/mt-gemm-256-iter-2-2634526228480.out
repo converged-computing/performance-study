@@ -1,0 +1,12 @@
+Performance= 350.95 GFlop/s, Time= 5.699 msec, Size= 2000000000 Ops
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 256, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/dense_linear_algebra/gemm/mpi", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}, "user": {"study_id": "mt-gemm-256-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724461696.3880095,"name":"init"}
+{"timestamp":1724461696.3893707,"name":"starting"}
+{"timestamp":1724461696.536293,"name":"shell.init","context":{"service":"0-shell-f2CCs4ZDH","leader-rank":0,"size":256}}
+{"timestamp":1724461696.6865411,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,256,56,1]]}}}
+{"timestamp":1724461792.5713911,"name":"shell.task-exit","context":{"localid":54,"rank":166,"state":"Exited","pid":286,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724461793.4379287,"name":"complete","context":{"status":0}}
+{"timestamp":1724461793.4379582,"name":"done"}
+
