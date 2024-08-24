@@ -52,13 +52,26 @@ kubectl apply -f ./flux-operator.yaml
 Save nodes:
 
 ```bash
-kubectl get nodes -o json > nodes-256.json 
+kubectl get nodes -o json > nodes-quicksilver-256.json 
 ```
 
 Now we are ready for different MiniCluster setups. For each of the below, to shell in to the lead broker (index 0) you do:
 
 ```bash
 kubectl exec -it flux-sample-0-xxx bash
+```
+
+Get placement (note this is for the quicksilver cluster, August 23rd 8:48pm)
+
+```console
+mkdir placement
+cd placement
+for node in $(kubectl get -o json nodes | jq -r .items[].metadata.name)
+  do
+   echo $node
+   gcloud compute instances describe $node --zone=us-central1-a > $node.txt
+done
+cd ../
 ```
 
 Here is how to check that we are getting unique nodes assigned to pods (after you have a minicluster deployed)
@@ -538,8 +551,8 @@ export app=quicksilver
 output=./results/$app
 mkdir -p $output
 
-for i in $(seq 1 1); do     
-   time flux run --env OMP_NUM_THREADS=7 --setattr=user.study_id=$app-256-iter-$i -N256 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8  -n 671088640
+for i in $(seq 1 2); do     
+    time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive --setattr=user.study_id=$app-256-iter-$i -N256 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8  -n 671088640    
 done
 
 # When they are done:
@@ -555,7 +568,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-256-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-256-$app-7-threads $output
 ```
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
