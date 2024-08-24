@@ -617,7 +617,7 @@ export app=quicksilver
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 2 5); do     
+for i in $(seq 2 2); do     
     echo "Running iteration $i"
     time flux run --cores-per-task 3 --exclusive --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-32-iter-$i -N32 -n 1024  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 64 -x 128 -y 128 -z 64 -I 16 -J 8 -K 8 -n 335544320
 done
@@ -639,18 +639,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 ```
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
-```
-
-From the top of the run - had between 250 and 300 CPU utilization (closer to 250) and took ~5m50s.
-
-```console
-All Rights Reserved
-Quicksilver Version     : 2023-Aug-18-15:12:10
-Quicksilver Git Hash    : eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b
-MPI Version             : 3.1
-Number of MPI ranks     : 1024
-Number of OpenMP Threads: 3
-Number of OpenMP CPUs   : 96
 ```
 
 ### Clean Up

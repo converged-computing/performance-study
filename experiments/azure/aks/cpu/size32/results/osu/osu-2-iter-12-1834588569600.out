@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       3.96
+2                       7.89
+4                      15.81
+8                      31.81
+16                     63.52
+32                    126.51
+64                    247.52
+128                   489.08
+256                   936.40
+512                  1765.51
+1024                 3349.93
+2048                 6078.91
+4096                 9148.36
+8192                13539.73
+16384               18040.14
+32768               21122.42
+65536               22526.70
+131072              23699.47
+262144              24141.89
+524288              24395.33
+1048576             24543.50
+2097152             24250.41
+4194304             24502.92
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-27,flux-sample-23"]}}, "user": {"study_id": "osu-2-iter-12"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724527482.3245397,"name":"init"}
+{"timestamp":1724527482.3253372,"name":"starting"}
+{"timestamp":1724527482.3189919,"name":"shell.init","context":{"service":"0-shell-fqC7Jxdu","leader-rank":23,"size":2}}
+{"timestamp":1724527482.3223302,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724527483.478502,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":83,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724527483.508935,"name":"complete","context":{"status":0}}
+{"timestamp":1724527483.5089552,"name":"done"}
+

@@ -47,7 +47,7 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 #### Experiments
 
 - [ ] Microsoft Azure AKS CPU
-  - [ ] size 32
+  - [x] size 32 (done 8/24/2024)
   - [ ] size 64
   - [ ] size 128
   - [ ] size 256

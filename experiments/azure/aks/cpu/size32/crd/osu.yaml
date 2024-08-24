@@ -1,0 +1,32 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 32
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+  containers:
+  - image: ghcr.io/converged-computing/metric-osu-cpu:azure-hpc
+    commands:
+      pre: echo "ulimit -l unlimited" >> /root/.bashrc
+    volumes:
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
+    environment:
+      OMPI_MCA_btl: "^openib"
+      UCX_TLS: "ib"
+      UCX_UNIFIED_MODE: "y"
+    securityContext:
+      privileged: true
+    resources:
+      limits:
+        mellanox.com/shared_hca_rdma: 1
+      requests:
+        mellanox.com/shared_hca_rdma: 1

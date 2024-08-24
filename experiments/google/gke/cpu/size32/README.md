@@ -5,6 +5,8 @@
 
 **Important** I forgot to include the size in the gke tags, so these are just "gke-cpu" and we will add sizes to other runs.
 
+- Done again to fix mt-gemm
+
 ## Design
 
 ```console
@@ -23,7 +25,9 @@ We will want to either run this on a GKE instance (we all have access to) OR cre
 
 ```bash
 kubectl get nodes -o json > nodes-quicksilver-32.json 
+kubectl get nodes -o json > nodes-mt-gemm-32.json 
 ```
+
 ## Experiments
 
 ### 1. Setup
@@ -416,8 +420,9 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 oras login ghcr.io --username vsoch
 export app=mt-gemm
 output=./results/$app
-
 mkdir -p $output
+export FI_PROVIDER=tcp,self
+
 for i in $(seq 2 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 -o cpu-affinity=per-task /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
@@ -436,7 +441,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-$app-1k $output
 ```
 ```bash
 kubectl delete -f ./crd/mt-gemm.yaml

@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "mpi.h"
 
-const int size = 9000;
+const int size = 1000;
 
 float a[size][size];
 float b[size][size];
@@ -74,9 +74,10 @@ int main(int argc, char* argv[])
         }
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Finalize();   
+    
+    // MPI_Barrier(MPI_COMM_WORLD);
     end = MPI_Wtime();
-    MPI_Finalize();
 
     if (rank == 0) { /* use time on master node */
          float msec_total = 0.0f;

@@ -12,6 +12,7 @@ spec:
       disable: true
 
   containers:
+    # Note this should be the same as ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4-1k
   - image: ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4
     environment:
       FI_PROVIDER: "efa"

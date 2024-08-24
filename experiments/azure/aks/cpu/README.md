@@ -31,7 +31,6 @@ And this uses infiniband.
 # These are the available transports: cma, dc, dc_mlx5, dc_x, ib, mm, posix, rc, rc_mlx5, rc_v, rc_verbs, rc_x, self, shm, sm, sysv, tcp, ud, ud_mlx5, ud_v, ud_verbs, ud_x
 ```
 
-
 ## Experiment
 
 ### 1. Setup
@@ -114,6 +113,9 @@ Now we are ready for different MiniCluster setups. For each of the below, to she
 ```bash
 kubectl exec -it flux-sample-0-xxx bash
 ```
+Next, choose a cluster size in one of the experiment folders.
+
+
 
 ### 2. Applications
 
