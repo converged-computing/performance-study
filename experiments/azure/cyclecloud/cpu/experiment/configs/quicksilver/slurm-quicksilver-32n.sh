@@ -2,8 +2,6 @@
 
 #SBATCH --job-name=quicksilver-32n
 #SBATCH --nodes=32
-#SBATCH --output=qs-output-N32n1024t3-slurm.txt
-#SBATCH --error=qs-error--N32n1024t3-slurm.txt
 #SBATCH --time=0:10:00
 #SBATCH --exclusive
 

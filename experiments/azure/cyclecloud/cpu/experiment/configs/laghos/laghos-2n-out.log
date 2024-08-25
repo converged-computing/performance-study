@@ -1,0 +1,71 @@
+Start time: 1724313210
+
+       __                __                 
+      / /   ____  ____  / /_  ____  _____   
+     / /   / __ `/ __ `/ __ \/ __ \/ ___/ 
+    / /___/ /_/ / /_/ / / / / /_/ (__  )    
+   /_____/\__,_/\__, /_/ /_/\____/____/  
+               /____/                       
+
+Options used:
+   --dimension 3
+   --mesh /opt/laghos/data/cube_311_hex.mesh
+   --refine-serial 4
+   --refine-parallel 2
+   --cartesian-partitioning ''
+   --problem 1
+   --order-kinematic 3
+   --order-thermo 2
+   --order-intrule -1
+   --ode-solver 7
+   --t-final 0.6
+   --cfl 0.5
+   --cg-tol 0
+   --ftz-tol 0
+   --cg-max-steps 50
+   --max-steps 10
+   --partial-assembly
+   --no-impose-viscosity
+   --no-visualization
+   --visualization-steps 5
+   --no-visit
+   --no-print
+   --outputfilename results/Laghos
+   --partition 311
+   --device cpu
+   --no-checks
+   --no-mem
+   --fom
+   --no-gpu-aware-mpi
+   --dev 0
+Device configuration: cpu
+Memory configuration: host-std
+Number of zones in the serial mesh: 12288
+Zones min/max: 4096 4096
+Number of kinematic (position, velocity) dofs: 64478019
+Number of specific internal energy dofs: 21233664
+Repeating step 3
+step     5,	t = 0.0000,	dt = 0.000000,	|e| = 2.9273016842e+06
+Repeating step 6
+step     9,	t = 0.0000,	dt = 0.000000,	|e| = 2.7885467985e+06
+
+CG (H1) total time: 76.9198286830
+CG (H1) rate (megadofs x cg_iterations / second): 922.0746082561
+
+CG (L2) total time: 29.7740948430
+CG (L2) rate (megadofs x cg_iterations / second): 63.2158233500
+
+Forces total time: 3.2984446480
+Forces rate (megadofs x timesteps / second): 571.6806638375
+
+UpdateQuadData total time: 44.8046367000
+UpdateQuadData rate (megaquads x timesteps / second): 94.7833329937
+
+Major kernels total time (seconds): 120.2517821080
+Major kernels total rate (megadofs x time steps / second): 640.8072244351
+
+| Ranks | Zones   | H1 dofs | L2 dofs | QP | N dofs   | FOM0   | FOM1   | T1   | FOM2   | T2   | FOM3   | T3   | FOM    | TT   |
+|    192|   786432| 64478019| 21233664| 216| 320059014|  15.681| 922.075| 76.920| 571.681| 3.298|  94.783| 44.805| 640.807| 120.252| 
+
+Energy  diff: 2.25e-15
+End time: 1724313379
