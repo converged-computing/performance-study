@@ -47,8 +47,8 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 #### Experiments
 
 - [ ] Microsoft Azure AKS CPU
-  - [x] size 32 (done 8/24/2024)
-  - [ ] size 64
+  - [x] size 32 (done 8/24/2024) lammps needs redo
+  - [x] size 64 (done 8/24/2024) lammps needs redo
   - [ ] size 128
   - [ ] size 256
 - [ ] Google Cloud GKE CPU
@@ -64,6 +64,8 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] Microsoft Azure AKS GPU
 - [ ] Google Cloud GKE GPU
 - [ ] AWS GPU EKS
+
+laghos needs up.
 
 ## License
 

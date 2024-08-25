@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       2.33
+2                       4.58
+4                       8.85
+8                      17.73
+16                     34.93
+32                     69.36
+64                    136.51
+128                   268.31
+256                   508.08
+512                   989.55
+1024                 1885.95
+2048                 3576.96
+4096                 5594.97
+8192                 9835.97
+16384                9823.02
+32768               15774.34
+65536               19524.46
+131072              21639.83
+262144              22607.17
+524288              23476.32
+1048576             22930.08
+2097152             23498.82
+4194304             23932.55
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-35,flux-sample-63"]}}, "user": {"study_id": "osu-2-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724544915.2462952,"name":"init"}
+{"timestamp":1724544915.2472653,"name":"starting"}
+{"timestamp":1724544915.2598374,"name":"shell.init","context":{"service":"0-shell-ftw2Bt47","leader-rank":35,"size":2}}
+{"timestamp":1724544915.2635248,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724544916.7420321,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":92,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724544916.7526762,"name":"complete","context":{"status":0}}
+{"timestamp":1724544916.7526991,"name":"done"}
+

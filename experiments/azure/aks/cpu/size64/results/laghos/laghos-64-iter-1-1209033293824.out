@@ -1,0 +1,87 @@
+840.245s: job.exception type=cancel severity=0 interrupted by ctrl-C
+840.448s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) exited with exit code 143
+
+       __                __                 
+      / /   ____  ____  / /_  ____  _____   
+     / /   / __ `/ __ `/ __ \/ __ \/ ___/ 
+    / /___/ /_/ / /_/ / / / / /_/ (__  )    
+   /_____/\__,_/\__, /_/ /_/\____/____/  
+               /____/                       
+
+Options used:
+   --dimension 3
+   --mesh ./data/cube_311_hex.mesh
+   --refine-serial 4
+   --refine-parallel 2
+   --cartesian-partitioning ''
+   --problem 1
+   --order-kinematic 3
+   --order-thermo 2
+   --order-intrule -1
+   --ode-solver 7
+   --t-final 0.6
+   --cfl 0.5
+   --cg-tol 0
+   --ftz-tol 0
+   --cg-max-steps 50
+   --max-steps 400
+   --partial-assembly
+   --no-impose-viscosity
+   --no-visualization
+   --visualization-steps 5
+   --no-visit
+   --no-print
+   --outputfilename results/Laghos
+   --partition 311
+   --device cpu
+   --no-checks
+   --no-mem
+   --fom
+   --no-gpu-aware-mpi
+   --dev 0
+Device configuration: cpu
+Memory configuration: host-std
+Number of zones in the serial mesh: 12288
+Non-Cartesian partitioning through METIS will be used.
+Mesh::GeneratePartitioning(...): METIS returned 2824 empty parts! Applying a simple fix ...
+Mesh::GeneratePartitioning(...): edgecut = 28391
+Zones min/max: 64 192
+Number of kinematic (position, velocity) dofs: 64478019
+Number of specific internal energy dofs: 21233664
+Repeating step 3
+step     5,	t = 0.0000,	dt = 0.000000,	|e| = 2.9273016842e+06
+Repeating step 6
+step    10,	t = 0.0000,	dt = 0.000000,	|e| = 2.7548731952e+06
+step    15,	t = 0.0000,	dt = 0.000000,	|e| = 2.6005931958e+06
+step    20,	t = 0.0000,	dt = 0.000000,	|e| = 2.4668403355e+06
+step    25,	t = 0.0000,	dt = 0.000000,	|e| = 2.3476774766e+06
+Repeating step 30
+step    30,	t = 0.0000,	dt = 0.000000,	|e| = 2.2468136043e+06
+Repeating step 34
+step    35,	t = 0.0000,	dt = 0.000000,	|e| = 2.1718745027e+06
+step    40,	t = 0.0000,	dt = 0.000000,	|e| = 2.1039332192e+06
+step    45,	t = 0.0000,	dt = 0.000000,	|e| = 2.0393897885e+06
+Repeating step 47
+step    50,	t = 0.0000,	dt = 0.000000,	|e| = 1.9857614817e+06
+step    55,	t = 0.0000,	dt = 0.000000,	|e| = 1.9320038994e+06
+step    60,	t = 0.0000,	dt = 0.000000,	|e| = 1.8768113505e+06
+step    65,	t = 0.0000,	dt = 0.000000,	|e| = 1.8219683824e+06
+Repeating step 66
+step    70,	t = 0.0000,	dt = 0.000000,	|e| = 1.7779709708e+06
+step    75,	t = 0.0000,	dt = 0.000000,	|e| = 1.7338233987e+06
+step    80,	t = 0.0000,	dt = 0.000000,	|e| = 1.6920199936e+06
+step    85,	t = 0.0000,	dt = 0.000000,	|e| = 1.6530371402e+06
+step    90,	t = 0.0000,	dt = 0.000000,	|e| = 1.6151886020e+06
+step    95,	t = 0.0000,	dt = 0.000000,	|e| = 1.5785624388e+06
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 64, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/laghos/laghos", "-pa", "-p", "1", "-tf", "0.6", "-pt", "311", "-m", "./data/cube_311_hex.mesh", "--ode-solver", "7", "--max-steps", "400", "--cg-tol", "0", "-cgm", "50", "-ok", "3", "-ot", "2", "-rs", "4", "-rp", "2", "--fom"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/laghos", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "laghos-64-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724551468.5625618,"name":"init"}
+{"timestamp":1724551468.5636151,"name":"starting"}
+{"timestamp":1724551468.6263523,"name":"shell.init","context":{"service":"0-shell-fYm38fAf","leader-rank":0,"size":64}}
+{"timestamp":1724551469.0081844,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,64,96,1]]}}}
+{"timestamp":1724552309.1689699,"name":"shell.task-exit","context":{"localid":48,"rank":2256,"state":"Exited","pid":158,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1724552309.6433973,"name":"complete","context":{"status":36608}}
+{"timestamp":1724552309.6434231,"name":"done"}
+
