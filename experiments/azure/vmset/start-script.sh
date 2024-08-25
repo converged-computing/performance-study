@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Write the hostlist size here:
-NODELIST=flux-user00000[0-2]
+NODELIST=flux-user00000[0-9],flux-user00000A,flux-user00000B,flux-user00000C,flux-user00000D,flux-user00000E,flux-user00000F,flux-user00000G,flux-user00000H,flux-user00000I,flux-user00000J,flux-user00000K,flux-user00000L,flux-user00000M,flux-user00000N,flux-user00000O,flux-user00000P,flux-user00000Q,flux-user00000R,flux-user00000S,flux-user00000T,flux-user00000U,flux-user00000V
 lead_broker=flux-user000000
 
 flux R encode --hosts=$NODELIST --local > R

@@ -225,7 +225,38 @@ done
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-$app $output
 ```
 
+#### LAMMPS-REAX
+
+```bash
+cd /opt/containers
+cd -
+flux exec singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:rocky-8-reax
+
+# 3 seconds wall time almost instant
+time flux run -o cpu-affinity=per-task -N2 -n 112 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+```
+
+```console
+oras login ghcr.io --username vsoch
+app=lammps-reax
+
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+done
+
+# When they are done:
+./save.sh $output
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-$app $output
+```
+
 #### LAMMPS
+
+**Don't use this one, doesn't scale right**
 
 ```bash
 # 3 seconds wall time almost instant

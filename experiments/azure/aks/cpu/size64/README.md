@@ -19,7 +19,7 @@
 - Integrations: disabled Azure policy
 - Monitoring, disable:
   - container insights
-  - managed prometheus
+  - managed Prometheus
   - alerts
 
 Note there is no option to add a placement group - I assume with the instance type we get that already.
@@ -136,6 +136,7 @@ export VERSION="1.1.0" && \
 
 ```
 kubectl get nodes -o json > nodes-64.json
+kubectl get nodes -o json > nodes-lammps-64.json
 ```
 
 ### 2. Applications
@@ -402,7 +403,52 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 kubectl delete -f ./crd/mixbench.yaml
 ```
 
+#### LAMMPS-REAX
+
+```bash
+kubectl apply -f ./crd/lammps-reax.yaml
+time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
+```
+```bash
+flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+```console
+oras login ghcr.io --username vsoch
+export app=lammps-reax
+output=./results/$app
+mkdir -p $output
+
+for i in $(seq 2 5); do
+  echo "Running iteration $i"
+  flux run -o cpu-affinity=per-task -N64 -n 6144 /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+done
+
+export UCX_TLS=rc,ud,self,shm
+export UCX_UNIFIED_MODE=y
+export OPAL_PREFIX=
+
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-infiniband-cpu-64-$app $output
+```
+
+```bash
+kubectl delete -f ./crd/lammps-reax.yaml --wait
+```
+
 #### LAMMPS
+
+**We did not wind up using this problem - does not scale correctly**
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-lammps-$(date +%s).json

@@ -47,25 +47,25 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 #### Experiments
 
 - [ ] Microsoft Azure AKS CPU
-  - [x] size 32 (done 8/24/2024) lammps needs redo
-  - [x] size 64 (done 8/24/2024) lammps needs redo
+  - [x] size 32 (done 8/24/2024)
+  - [x] size 64 (done 8/24/2024)
   - [ ] size 128
   - [ ] size 256
 - [ ] Google Cloud GKE CPU
   - [x] size 32 (done 8/21/2024)
   - [x] size 64 (done 8/22/2024)
-  - [x] size 128
-  - [x] size 256
+  - [x] size 128 (done 8/23/2024)
+  - [x] size 256 (done 8/23/2024)
 - [ ] AWS CPU EKS
   - [x] size 32 (done 8/21/2024-8/22/2024)
-  - [x] size 64  (done 8/22/2024)
-  - [x] size 128 (done 8/22/2024)
+  - [x] size 64  (done 8/22/2024) 
+  - [x] size 128 (done 8/22/2024) 
   - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting))
 - [ ] Microsoft Azure AKS GPU
 - [ ] Google Cloud GKE GPU
 - [ ] AWS GPU EKS
 
-laghos needs up.
+For the above, the Azure setups are problematic - the Infiniband does not seem to be effectively combining across many nodes.
 
 ## License
 

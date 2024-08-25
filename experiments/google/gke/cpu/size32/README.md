@@ -6,6 +6,7 @@
 **Important** I forgot to include the size in the gke tags, so these are just "gke-cpu" and we will add sizes to other runs.
 
 - Done again to fix mt-gemm
+- Done again to re-run lammps (8/25/2024)
 
 ## Design
 
@@ -22,11 +23,6 @@ For each experiment (crd in ./crd):
 ```
 
 We will want to either run this on a GKE instance (we all have access to) OR create the cluster and share the kubeconfig with multiple people, in case someone's computer crashes. We also need a means to programatically monitor the container creation times, etc.
-
-```bash
-kubectl get nodes -o json > nodes-quicksilver-32.json 
-kubectl get nodes -o json > nodes-mt-gemm-32.json 
-```
 
 ## Experiments
 
@@ -58,6 +54,14 @@ Install the Flux Operator (container digest pinned on August 2, 2024)
 
 ```bash
 kubectl apply -f ./flux-operator.yaml
+```
+
+Save nodes:
+
+```bash
+kubectl get nodes -o json > nodes-quicksilver-32.json 
+kubectl get nodes -o json > nodes-mt-gemm-32.json 
+kubectl get nodes -o json > nodes-lammps-32.json 
 ```
 
 Now we are ready for different MiniCluster setups. For each of the below, to shell in to the lead broker (index 0) you do:
@@ -276,7 +280,48 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:g
 kubectl delete -f ./crd/laghos.yaml --wait
 ```
 
+#### LAMMPS-REAX
+
+```bash
+kubectl apply -f ./crd/lammps-reax.yaml
+time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
+```
+```bash
+flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+```console
+oras login ghcr.io --username vsoch
+export app=lammps-reax
+output=./results/$app
+mkdir -p $output
+
+for i in $(seq 2 4); do
+  echo "Running iteration $i"
+  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 1792 /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+done
+
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-cpu-32-$app $output
+```
+
+```bash
+kubectl delete -f ./crd/lammps-reax.yaml --wait
+```
+
 #### LAMMPS
+
+**We did not wind up using this problem - does not scale correctly**
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-lammps-$(date +%s).json

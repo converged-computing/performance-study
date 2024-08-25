@@ -1,0 +1,91 @@
+LAMMPS (17 Apr 2024 - Development - a8687b5)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Reading data file ...
+  triclinic box = (0 0 0) to (22.326 11.1412 13.778966) with tilt (0 -5.02603 0)
+  16 by 14 by 16 MPI processor grid
+  reading atoms ...
+  304 atoms
+  reading velocities ...
+  304 velocities
+  read_data CPU = 0.145 seconds
+Replication is creating a 64x64x32 = 131072 times larger system...
+  triclinic box = (0 0 0) to (1428.864 713.0368 440.92691) with tilt (0 -160.83296 0)
+  28 by 16 by 8 MPI processor grid
+  bounding box image = (0 -1 -1) to (0 1 1)
+  bounding box extra memory = 0.03 MB
+  average # of replicas added to proc = 117.19 out of 131072 (0.09%)
+  39845888 atoms
+  replicate CPU = 0.149 seconds
+Neighbor list info ...
+  update: every = 20 steps, delay = 0 steps, check = no
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 5.5, bins = 290 130 81
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair reaxff, perpetual
+      attributes: half, newton off, ghost
+      pair build: half/bin/ghost/newtoff
+      stencil: full/ghost/bin/3d
+      bin: standard
+  (2) fix qeq/reax, perpetual, copy from (1)
+      attributes: half, newton off
+      pair build: copy
+      stencil: none
+      bin: none
+Setting up Verlet run ...
+  Unit style    : real
+  Current step  : 0
+  Time step     : 0.1
+Per MPI rank memory allocation (min/avg/max) = 569.9 | 575 | 580.8 Mbytes
+   Step          Temp          PotEng         Press          E_vdwl         E_coul         Volume    
+         0   300           -113.27833      439.02048     -111.57687     -1.7014647      4.4923072e+08
+        10   300.76708     -113.28045      807.30078     -111.57901     -1.7014362      4.4923072e+08
+        20   302.42351     -113.28524      1696.9908     -111.58392     -1.7013253      4.4923072e+08
+        30   302.57588     -113.28557      4297.9273     -111.58447     -1.7010962      4.4923072e+08
+        40   300.62223     -113.27967      6393.3854     -111.5789      -1.7007688      4.4923072e+08
+        50   297.4189      -113.27008      6471.1366     -111.56968     -1.7004027      4.4923072e+08
+        60   294.72952     -113.26202      6185.6848     -111.56199     -1.7000319      4.4923072e+08
+        70   294.6668      -113.26179      6831.2654     -111.56213     -1.6996546      4.4923072e+08
+        80   297.78807     -113.27107      8233.8395     -111.5718      -1.6992761      4.4923072e+08
+        90   301.67958     -113.28267      9372.0699     -111.58373     -1.6989385      4.4923072e+08
+       100   302.56511     -113.28525      10370.559     -111.58656     -1.698695       4.4923072e+08
+Loop time of 142.01 on 3584 procs for 100 steps with 39845888 atoms
+
+Performance: 0.006 ns/day, 3944.723 hours/ns, 0.704 timesteps/s, 28.059 Matom-step/s
+61.3% CPU use with 3584 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 50.776     | 55.714     | 78.866     |  16.5 | 39.23
+Neigh   | 0.69369    | 0.71969    | 0.84452    |   1.0 |  0.51
+Comm    | 0.29423    | 6.3338     | 25.767     | 214.1 |  4.46
+Output  | 0.12332    | 2.0728     | 2.3453     |  21.0 |  1.46
+Modify  | 61.986     | 77.161     | 80.143     |  58.2 | 54.33
+Other   |            | 0.008223   |            |       |  0.01
+
+Nlocal:        11117.7 ave       11354 max       10992 min
+Histogram: 514 510 773 1256 19 0 0 0 0 512
+Nghost:        22657.4 ave       22892 max       22324 min
+Histogram: 508 13 503 0 0 0 553 1493 4 510
+Neighs:    3.36702e+06 ave  3.4386e+06 max 3.33132e+06 min
+Histogram: 511 521 1077 960 3 0 0 0 0 512
+
+Total # of neighbors = 1.2067409e+10
+Ave neighs/atom = 302.85206
+Neighbor list builds = 5
+Dangerous builds not checked
+Total wall time: 0:02:26
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 64, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/usr/bin/lmp", "-v", "x", "64", "-v", "y", "64", "-v", "z", "32", "-in", "in.reaxff.hns", "-nocite"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/code", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "lammps-reax-64-iter-3"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724600439.3466895,"name":"init"}
+{"timestamp":1724600439.3474278,"name":"starting"}
+{"timestamp":1724600439.377481,"name":"shell.init","context":{"service":"0-shell-f4f1SADFm","leader-rank":0,"size":64}}
+{"timestamp":1724600439.5185435,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,64,56,1]]}}}
+{"timestamp":1724600594.139504,"name":"shell.task-exit","context":{"localid":46,"rank":102,"state":"Exited","pid":383,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724600594.3704846,"name":"complete","context":{"status":0}}
+{"timestamp":1724600594.3705199,"name":"done"}
+
