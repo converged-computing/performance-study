@@ -3,6 +3,8 @@
 For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down to be 16,8,4 from 32,16,8.
 Each has 8 GPU.
 
+> TODO need to add runs for lammps-reax
+
 > V100 nodes 
 
 ## 1. Setup

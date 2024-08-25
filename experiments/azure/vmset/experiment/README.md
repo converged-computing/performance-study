@@ -170,10 +170,16 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 
 #### Kripke
 
+Run these sizes to test.
+
+32, 16, 8, 4
+
 **IMPORTANT: not done yet, we skipped it, so I skipped testing, but added the container name**
 
 ```bash
-time flux run --env OMP_NUM_THREADS=1 -N 1 -n 96 singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-kripke-cpu_azure-hpc.sif kripke
+export LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/ompi/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib/:/opt/mellanox/hcoll/lib/
+export PATH=/opt/mellanox/hcoll/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/ompi/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/bin:$PATH
+time flux run --env OMP_NUM_THREADS=1 -N 32 -n 96 singularity exec --env OMPI_MCA_btl="^openib" --env UCX_TLS="ib" --env OMPI_mca_coll_hcoll_enable=0 --env UCX_NET_DEVICES=mlx5_ib0:1 /home/ubuntu/containers/metric-kripke-cpu_azure-hpc.sif kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 16,12,16
 ```
 
 ```console

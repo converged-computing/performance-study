@@ -47,6 +47,9 @@ Collect topology and instances:
 ```bash
 aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > topology-128.json
 aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-128.json
+
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > topology-lammps-128.json
+aws ec2 describe-instances --filters "Name=instance-type,Values=hpc6a.48xlarge" --region us-east-2 > instances-lammps-128.json
 ```
 
 Monitoring:
@@ -389,14 +392,53 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 kubectl delete -f ./crd/mixbench.yaml
 ```
 
+#### LAMMPS-REAX
+
+```bash
+kubectl apply -f ./crd/lammps-reax.yaml
+time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
+```
+```bash
+flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+```console
+oras login ghcr.io --username vsoch
+export app=lammps-reax
+output=./results/$app
+mkdir -p $output
+
+for i in $(seq 1 5); do
+  echo "Running iteration $i"
+  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+done
+
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-efa-cpu-128-$app $output
+```
+```bash
+kubectl delete -f ./crd/lammps-reax.yaml --wait
+```
+
 #### LAMMPS
+
+**We did not wind up using this problem - does not scale correctly**
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-lammps-$(date +%s).json
 kubectl apply -f ./crd/lammps.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```

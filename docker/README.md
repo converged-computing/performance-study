@@ -7,6 +7,7 @@
 | Container                                               | Cloud     | GPU | Dockerfile                          |
 |---------------------------------------------------------|-----------|-----|------------------------------------|
 | ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc-ubuntu2204 | Azure     | yes |[Dockerfile](docker/azure/gpu/lammps/Dockerfile) |
+| ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc-reax | Azure | yes |[Dockerfile](docker/azure/gpu/lammps-reax/Dockerfile) |
 | ghcr.io/converged-computing/metric-amg:azure-hpc-gpu-ubuntu2204 | Azure | yes | [Dockerfile](docker/azure/gpu/amg/Dockerfile) |
 | ghcr.io/converged-computing/metric-kripke-gpu:azure-hpc-gpu-ubuntu2204  | Azure | yes|  [Dockerfile](docker/azure/gpu/kripke/Dockerfile) |
 | ghcr.io/converged-computing/metric-laghos:azure-hpc-gpu-ubuntu2204 | Azure | yes |[Dockerfile](docker/azure/gpu/laghos/Dockerfile) |
@@ -32,6 +33,7 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-kripke-gpu:latest           | Google    | yes |[Dockerfile](docker/google/gpu/kripke)  | |
 | ghcr.io/converged-computing/metric-lammps-gpu:kokkos           | Google    | yes |[Dockerfile](docker/google/gpu/lammps)  | using Kokkos build |
+| ghcr.io/converged-computing/metric-lammps-gpu:kokkos-reax      | Google    | yes |[Dockerfile](docker/google/gpu/lammps-reax)  | |
 | ghcr.io/converged-computing/metric-magma                       | Google    | yes |[Dockerfile](docker/google/gpu/magma)   |  |
 | ghcr.io/converged-computing/metric-minife:latest               | Google    | yes |[Dockerfile](docker/google/gpu/minife)  | | 
 | ghcr.io/converged-computing/metric-mixbench:latest             | Google    | yes |[Dockerfile](docker/google/gpu/mixbench)| |
@@ -51,6 +53,7 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 | ghcr.io/converged-computing/metric-laghos:libfabric-gpu-zen4   | yes |[Dockerfile](docker/aws/gpu/laghos)  | Needs to be built on large machine |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-lammps-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/lammps) | |
+| ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax | AWS | yes |[Dockerfile](docker/aws/gpu/lammps-reax) | |
 | ghcr.io/converged-computing/metric-kripke-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/kripke)  | |
 | ghcr.io/converged-computing/metric-magma:libfabric        | AWS | yes |[Dockerfile](docker/aws/gpu/magma)   |  |
 | ghcr.io/converged-computing/metric-minife:libfabric       | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 
@@ -75,8 +78,9 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc | Azure  | no |[Dockerfile](docker/azure/cpu/kripke/Dockerfile.azurehpc) |
 | ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3 | Azure   | no |[Dockerfile](docker/azure/cpu/amg) |
 | ghcr.io/converged-computing/metric-laghos:azure-hpc     |  Azure | no |[Dockerfile](docker/azure/cpu/laghos) |
-| ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Azure | no |[Dockerfile](docker/azure/cpu/single-node) |
-| ghcr.io/converged-computing/metric-minife:azure-hpc     | Azure | yes |[Dockerfile](docker/azure/cpu/minife)  |
+| ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-reax | Azure | no |[Dockerfile](docker/azure/cpu/lammps-reax) |
+| ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Azure | no |[Dockerfile](docker/azure/cpu/single-node) | 
+| ghcr.io/converged-computing/metric-minife:azure-hpc     | Azure | no |[Dockerfile](docker/azure/cpu/minife)  |
 | ghcr.io/converged-computing/metric-mixbench:azure-hpc   | Azure | no |[Dockerfile](docker/azure/cpu/mixbench) |
 | ghcr.io/converged-computing/mt-gemm:azure-hpc           | Azure | no |[Dockerfile](docker/azure/cpu/mt-gemm) |
 | ghcr.io/converged-computing/metric-osu-cpu:azure-hpc    | Azure | no |[Dockerfile](docker/azure/cpu/osu) |
@@ -84,6 +88,9 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-stream:azure-hpc     | Azure | no | [Dockerfile](docker/azure/cpu/stream) |
 
 ### Google Cloud
+
+
+
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
@@ -95,6 +102,8 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-kripke-cpu:rocky-8         | Google | no |[Dockerfile](docker/google/cpu/kripke/Dockerfile.rocky) | Rocky Linux 8|
 | ghcr.io/converged-computing/metric-lammps-cpu:zen4            | Google | no |[Dockerfile](docker/google/cpu/lammps/Dockerfile) | |
 | ghcr.io/converged-computing/metric-lammps-cpu:rocky-8         | Google | no |[Dockerfile](docker/google/cpu/lammps/Dockerfile.rocky) | Rocky Linux 8 |
+| ghcr.io/converged-computing/metric-lammps-cpu:zen4-reax       | Google | no |[Dockerfile](docker/google/cpu/lammps-reax/Dockerfile) | |
+| ghcr.io/converged-computing/metric-lammps-cpu:rocky-8-reax    | Google | no |[Dockerfile](docker/google/cpu/lammps-reax/Dockerfile.rocky) | Rocky Linux 8 |
 | ghcr.io/converged-computing/metric-minife:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/minife/Dockerfile)  | | 
 | ghcr.io/converged-computing/metric-minife:rocky-8             | Google | no |[Dockerfile](docker/google/cpu/minife/Dockerfile.rocky)  | Rocky Linux 8|
 | ghcr.io/converged-computing/mt-gemm:cpu-zen4                  | Google | no |[Dockerfile](docker/google/cpu/mt-gemm-base/Dockerfile)| |
@@ -121,6 +130,7 @@ For the above, Rocky Linux 8 are generally for the Terraform setup, and the othe
 | ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 | AWS | no |[Dockerfile](docker/aws/cpu/amg2023) | |
 | ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4  | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 
 | ghcr.io/converged-computing/metric-lammps-cpu:zen4            | AWS | no |[Dockerfile](docker/aws/cpu/lammps) | | 
+| ghcr.io/converged-computing/metric-lammps-cpu:libfabric-zen4-reax | AWS | no | [Dockerfile](docker/aws/cpu/lammps-reax) |  |
 | ghcr.io/converged-computing/metric-mixbench:libfabric-cpu | AWS | no |[Dockerfile](docker/aws/cpu/mixbench) | |
 | ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4         | AWS | no |[Dockerfile](docker/aws/cpu/mt-gemm) | |
 | ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4   | AWS | no |[Dockerfile](docker/aws/cpu/osu) | |

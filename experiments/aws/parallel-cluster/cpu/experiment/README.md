@@ -165,7 +165,6 @@ cd ../../data/kripke
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-kripke kripke
 ```
 
-
 #### Laghos
 
 ```bash
