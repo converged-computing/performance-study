@@ -24,7 +24,11 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
 - [ ] Google Cloud HPC Toolkit GPU (date)
-- [ ] Google Cloud HPC Toolkit CPU (date)
+- [ ] Google Cloud Compute Engine CPU (date)
+  - [x] size 32
+  - [ ] size 64
+  - [ ] size 128
+  - [ ] size 256
 - [ ] AWS GPU Parallel Cluster (date)
 - [ ] AWS CPU Parallel Cluster (date)
 

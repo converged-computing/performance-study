@@ -53,11 +53,12 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 | ghcr.io/converged-computing/metric-laghos:libfabric-gpu-zen4   | yes |[Dockerfile](docker/aws/gpu/laghos)  | Needs to be built on large machine |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-lammps-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/lammps) | |
-| ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax | AWS | yes |[Dockerfile](docker/aws/gpu/lammps-reax) | |
+| ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax | AWS | yes |[Dockerfile](docker/aws/gpu/lammps-reax/Dockerfile) | |
+| ghcr.io/converged-computing/metric-lammps-gpu:libfabric-openmpi5-reax | AWS | yes | [Dockerfile](docker/aws/gpu/lammps-reax/Dockerfile.reax)| rebuilt with openmpi5, lammps reax, and kokkos |
 | ghcr.io/converged-computing/metric-kripke-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/kripke)  | |
 | ghcr.io/converged-computing/metric-magma:libfabric        | AWS | yes |[Dockerfile](docker/aws/gpu/magma)   |  |
 | ghcr.io/converged-computing/metric-minife:libfabric       | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 
-| ghcr.io/converged-computing/metric-mixbench:libfabric     | AWS | yes |[Dockerfile](docker/aws/gpu/mixbench)| |
+| ghcr.io/converged-computing/metric-mixbench:libfabric-gpu | AWS | yes |[Dockerfile](docker/aws/gpu/mixbench/Dockerfile.mixbench)  | |
 | ghcr.io/converged-computing/mt-gemm:libfabric             | AWS | yes |[Dockerfile](docker/aws/gpu/mt-gemm-base)| |
 | ghcr.io/converged-computing/multi-gpu-models:libfabric    | AWS | yes |[Dockerfile](docker/aws/gpu/multi-gpu-models)| |
 | ghcr.io/converged-computing/metric-nek5000:libfabric      | AWS | yes |[Dockerfile](docker/aws/gpu/nek5000) | |

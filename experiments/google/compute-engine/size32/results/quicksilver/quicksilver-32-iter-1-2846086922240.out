@@ -1,0 +1,140 @@
+1.324s: job.exception type=exec severity=0 MPI_Abort: N/A
+flux-job: task(s) Terminated
+MPI Initialized         : MPI_THREAD_FUNNELED
+Copyright (c) 2016
+Lawrence Livermore National Security, LLC
+All Rights Reserved
+Quicksilver Version     : 2023-Aug-18-15:12:10
+Quicksilver Git Hash    : eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b
+MPI Version             : 3.1
+Number of MPI ranks     : 448
+Number of OpenMP Threads: 4
+Number of OpenMP CPUs   : 112
+
+Simulation:
+   dt: 2e-09
+   fMax: 0.1
+   inputFile: /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
+   energySpectrum: 
+   boundaryCondition: reflect
+   loadBalance: 0
+   cycleTimers: 0
+   debugThreads: 0
+   lx: 128
+   ly: 128
+   lz: 64
+   nParticles: 10000000
+   batchSize: 0
+   nBatches: 10
+   nSteps: 100
+   nx: 128
+   ny: 128
+   nz: 64
+   seed: 1029384756
+   xDom: 16
+   yDom: 8
+   zDom: 8
+   eMax: 20
+   eMin: 1e-09
+   nGroups: 230
+   lowWeightCutoff: 0.001
+   bTally: 1
+   fTally: 1
+   cTally: 1
+   coralBenchmark: 1
+   crossSectionsOut:
+
+Geometry:
+   material: sourceMaterial
+   shape: brick
+   xMax: 10000
+   xMin: 0
+   yMax: 10000
+   yMin: 0
+   zMax: 10000
+   zMin: 0
+
+Material:
+   name: sourceMaterial
+   mass: 12.011
+   nIsotopes: 20
+   nReactions: 9
+   sourceRate: 1e+10
+   totalCrossSection: 1.5
+   absorptionCrossSection: flat
+   fissionCrossSection: flat
+   scatteringCrossSection: flat
+   absorptionCrossSectionRatio: 0.04
+   fissionCrossSectionRatio: 0.05
+   scatteringCrossSectionRatio: 1
+
+CrossSection:
+   name: flat
+   A: 0
+   B: 0
+   C: 0
+   D: 0
+   E: 1
+   nuBar: 1.6
+file=initMC.cc: line=273 ERROR
+Building partition 0
+[flux-028:60060] *** An error occurred in MPI_Irecv
+[flux-028:60060] *** reported by process [0,384]
+[flux-028:60060] *** on communicator MPI_COMM_WORLD
+[flux-028:60060] *** MPI_ERR_RANK: invalid rank
+[flux-028:60060] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:60060] ***    and potentially your MPI job)
+[flux-029:59909] *** An error occurred in MPI_Irecv
+[flux-029:59909] *** reported by process [0,392]
+[flux-029:59909] *** on communicator MPI_COMM_WORLD
+[flux-029:59909] *** MPI_ERR_RANK: invalid rank
+[flux-029:59909] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59909] ***    and potentially your MPI job)
+[flux-028:60064] *** An error occurred in MPI_Irecv
+[flux-028:60078] *** An error occurred in MPI_Irecv
+[flux-028:60064] *** reported by process [0,385]
+[flux-028:60078] *** reported by process [0,386]
+[flux-028:60064] *** on communicator MPI_COMM_WORLD
+[flux-028:60078] *** on communicator MPI_COMM_WORLD
+[flux-028:60064] *** MPI_ERR_RANK: invalid rank
+[flux-028:60078] *** MPI_ERR_RANK: invalid rank
+[flux-028:60064] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:60078] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:60064] ***    and potentially your MPI job)
+[flux-028:60078] ***    and potentially your MPI job)
+[flux-029:59951] *** An error occurred in MPI_Irecv
+[flux-029:59950] *** An error occurred in MPI_Irecv
+[flux-029:59951] *** reported by process [0,394]
+[flux-029:59950] *** reported by process [0,395]
+[flux-029:59951] *** on communicator MPI_COMM_WORLD
+[flux-029:59950] *** on communicator MPI_COMM_WORLD
+[flux-029:59951] *** MPI_ERR_RANK: invalid rank
+[flux-029:59950] *** MPI_ERR_RANK: invalid rank
+[flux-029:59951] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59950] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59951] ***    and potentially your MPI job)
+[flux-029:59950] ***    and potentially your MPI job)
+[flux-028:60099] *** An error occurred in MPI_Irecv
+[flux-028:60099] *** reported by process [0,387]
+[flux-028:60099] *** on communicator MPI_COMM_WORLD
+[flux-028:60099] *** MPI_ERR_RANK: invalid rank
+[flux-028:60099] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:60099] ***    and potentially your MPI job)
+[flux-029:59910] *** An error occurred in MPI_Irecv
+[flux-029:59910] *** reported by process [0,393]
+[flux-029:59910] *** on communicator MPI_COMM_WORLD
+[flux-029:59910] *** MPI_ERR_RANK: invalid rank
+[flux-029:59910] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59910] ***    and potentially your MPI job)
+file=initMC.cc: line=273 ERROR
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "exclusive": true, "with": [{"type": "slot", "count": 14, "with": [{"type": "core", "count": 4}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--env", "OMPI_MCA_btl_vader_single_copy_mechanism=none", "/opt/containers/metric-quicksilver-cpu_rocky-8.sif", "qs", "--inputFile", "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp", "-X", "128", "-Y", "128", "-Z", "64", "-x", "128", "-y", "128", "-z", "64", "-I", "16", "-J", "8", "-K", "8", "-n", "10000000"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}}}}, "user": {"study_id": "quicksilver-32-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724707204.3822496,"name":"init"}
+{"timestamp":1724707204.3832021,"name":"starting"}
+{"timestamp":1724707204.4015303,"name":"shell.init","context":{"service":"1356918789-shell-f2HmBxQoZ","leader-rank":0,"size":32}}
+{"timestamp":1724707204.4253774,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,14,1]]}}}
+{"timestamp":1724707205.7171774,"name":"shell.task-exit","context":{"localid":13,"rank":27,"state":"Exited","pid":55220,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1724707205.7720187,"name":"complete","context":{"status":36608}}
+{"timestamp":1724707205.7720461,"name":"done"}
+

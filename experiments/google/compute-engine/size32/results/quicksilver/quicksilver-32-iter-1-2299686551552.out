@@ -1,0 +1,142 @@
+2.778s: job.exception type=exec severity=0 MPI_Abort: N/A
+2.778s: job.exception type=exec severity=0 MPI_Abort: N/A
+flux-job: task(s) Terminated
+MPI Initialized         : MPI_THREAD_FUNNELED
+Copyright (c) 2016
+Lawrence Livermore National Security, LLC
+All Rights Reserved
+Quicksilver Version     : 2023-Aug-18-15:12:10
+Quicksilver Git Hash    : eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b
+MPI Version             : 3.1
+Number of MPI ranks     : 448
+Number of OpenMP Threads: 4
+Number of OpenMP CPUs   : 112
+
+Simulation:
+   dt: 2e-09
+   fMax: 0.1
+   inputFile: /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
+   energySpectrum: 
+   boundaryCondition: reflect
+   loadBalance: 0
+   cycleTimers: 0
+   debugThreads: 0
+   lx: 128
+   ly: 128
+   lz: 64
+   nParticles: 335544320
+   batchSize: 0
+   nBatches: 10
+   nSteps: 100
+   nx: 128
+   ny: 128
+   nz: 64
+   seed: 1029384756
+   xDom: 16
+   yDom: 8
+   zDom: 8
+   eMax: 20
+   eMin: 1e-09
+   nGroups: 230
+   lowWeightCutoff: 0.001
+   bTally: 1
+   fTally: 1
+   cTally: 1
+   coralBenchmark: 1
+   crossSectionsOut:
+
+Geometry:
+   material: sourceMaterial
+   shape: brick
+   xMax: 10000
+   xMin: 0
+   yMax: 10000
+   yMin: 0
+   zMax: 10000
+   zMin: 0
+
+Material:
+   name: sourceMaterial
+   mass: 12.011
+   nIsotopes: 20
+   nReactions: 9
+   sourceRate: 1e+10
+   totalCrossSection: 1.5
+   absorptionCrossSection: flat
+   fissionCrossSection: flat
+   scatteringCrossSection: flat
+   absorptionCrossSectionRatio: 0.04
+   fissionCrossSectionRatio: 0.05
+   scatteringCrossSectionRatio: 1
+
+CrossSection:
+   name: flat
+   A: 0
+   B: 0
+   C: 0
+   D: 0
+   E: 1
+   nuBar: 1.6
+file=initMC.cc: line=273 ERROR
+Building partition 0
+[flux-028:59247] *** An error occurred in MPI_Irecv
+[flux-028:59247] *** reported by process [0,384]
+[flux-028:59247] *** on communicator MPI_COMM_WORLD
+[flux-028:59247] *** MPI_ERR_RANK: invalid rank
+[flux-028:59247] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:59247] ***    and potentially your MPI job)
+[flux-029:59146] *** An error occurred in MPI_Irecv
+[flux-029:59146] *** reported by process [0,392]
+[flux-029:59146] *** on communicator MPI_COMM_WORLD
+[flux-029:59146] *** MPI_ERR_RANK: invalid rank
+[flux-028:59258] *** An error occurred in MPI_Irecv
+[flux-029:59146] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:59258] *** reported by process [0,387]
+[flux-028:59258] *** on communicator MPI_COMM_WORLD
+[flux-029:59146] ***    and potentially your MPI job)
+[flux-028:59258] *** MPI_ERR_RANK: invalid rank
+[flux-028:59258] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:59258] ***    and potentially your MPI job)
+[flux-029:59143] *** An error occurred in MPI_Irecv
+[flux-029:59143] *** reported by process [0,393]
+[flux-029:59143] *** on communicator MPI_COMM_WORLD
+[flux-029:59149] *** An error occurred in MPI_Irecv
+[flux-029:59150] *** An error occurred in MPI_Irecv
+[flux-029:59143] *** MPI_ERR_RANK: invalid rank
+[flux-029:59149] *** reported by process [0,395]
+[flux-029:59150] *** reported by process [0,394]
+[flux-029:59143] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59149] *** on communicator MPI_COMM_WORLD
+[flux-029:59150] *** on communicator MPI_COMM_WORLD
+[flux-029:59143] ***    and potentially your MPI job)
+[flux-029:59149] *** MPI_ERR_RANK: invalid rank
+[flux-029:59150] *** MPI_ERR_RANK: invalid rank
+[flux-029:59149] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59150] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-029:59149] ***    and potentially your MPI job)
+[flux-029:59150] ***    and potentially your MPI job)
+[flux-028:59260] *** An error occurred in MPI_Irecv
+[flux-028:59260] *** reported by process [0,386]
+[flux-028:59220] *** An error occurred in MPI_Irecv
+[flux-028:59260] *** on communicator MPI_COMM_WORLD
+[flux-028:59220] *** reported by process [0,385]
+[flux-028:59260] *** MPI_ERR_RANK: invalid rank
+[flux-028:59220] *** on communicator MPI_COMM_WORLD
+[flux-028:59260] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:59220] *** MPI_ERR_RANK: invalid rank
+[flux-028:59260] ***    and potentially your MPI job)
+[flux-028:59220] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+[flux-028:59220] ***    and potentially your MPI job)
+file=initMC.cc: line=273 ERROR
+file=initMC.cc: line=273 ERROR
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "exclusive": true, "with": [{"type": "slot", "count": 14, "with": [{"type": "core", "count": 4}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--env", "OMPI_MCA_btl_vader_single_copy_mechanism=none", "/opt/containers/metric-quicksilver-cpu_rocky-8.sif", "qs", "--inputFile", "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp", "-X", "128", "-Y", "128", "-Z", "64", "-x", "128", "-y", "128", "-z", "64", "-I", "16", "-J", "8", "-K", "8", "-n", "335544320"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}}}}, "user": {"study_id": "quicksilver-32-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724707171.8155868,"name":"init"}
+{"timestamp":1724707171.8163538,"name":"starting"}
+{"timestamp":1724707171.8386626,"name":"shell.init","context":{"service":"1356918789-shell-f23QiRguD","leader-rank":0,"size":32}}
+{"timestamp":1724707171.8627596,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,14,1]]}}}
+{"timestamp":1724707174.6219859,"name":"shell.task-exit","context":{"localid":12,"rank":194,"state":"Exited","pid":54325,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1724707174.6943467,"name":"complete","context":{"status":36608}}
+{"timestamp":1724707174.6943712,"name":"done"}
+

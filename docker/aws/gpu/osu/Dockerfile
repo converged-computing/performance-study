@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build -t ghcr.io/converged-computing/metric-osu-gpu:libfabric .
 #  docker push ghcr.io/converged-computing/metric-osu-gpu:libfabric
 
+# zen4
+#  docker build -t ghcr.io/converged-computing/metric-osu-gpu:libfabric-zen4 .
+#  docker push ghcr.io/converged-computing/metric-osu-gpu:libfabric-zen4
+
 # Utilities
 RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \

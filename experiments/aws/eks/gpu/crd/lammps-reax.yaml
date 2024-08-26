@@ -3,13 +3,15 @@ kind: MiniCluster
 metadata:
   name: flux-sample
 spec:
-  size: 16
+  size: 8
   interactive: true
 
   # This disables installing flux via the view
   flux:
     container:
       disable: true
+  containers:
+  - image: ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax
     environment:
       FI_PROVIDER: "efa"
       FI_EFA_FORK_SAFE: "1"
@@ -18,14 +20,11 @@ spec:
       shared-memory:
         emptyDir: true
         emptyDirMedium: "memory"
-  containers:
-  - image: ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax
     commands:
       pre: |
         echo "Regenerated resources"
         flux R encode --hosts=${hosts} --cores=0-15 --gpu=0-7 > ${viewroot}/etc/flux/system/R
         cat ${viewroot}/etc/flux/system/R
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
     resources:
       limits:
         nvidia.com/gpu: "8"

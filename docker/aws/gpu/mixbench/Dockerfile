@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-mixbench:libfabric .
-#  docker push ghcr.io/converged-computing/metric-mixbench:libfabric
+#  docker build -t ghcr.io/converged-computing/metric-mixbench:libfabric-gpu .
+#  docker push ghcr.io/converged-computing/metric-mixbench:libfabric-gpu
 
 # Utilities
 RUN apt-get update && \

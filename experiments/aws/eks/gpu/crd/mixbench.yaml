@@ -3,7 +3,7 @@ kind: MiniCluster
 metadata:
   name: flux-sample
 spec:
-  size: 16
+  size: 8
   interactive: true
 
   # This disables installing flux via the view
@@ -12,7 +12,7 @@ spec:
       disable: true
 
   containers:
-  - image: ghcr.io/converged-computing/metric-mixbench:libfabric
+  - image: ghcr.io/converged-computing/metric-mixbench:libfabric-gpu
     environment:
       FI_PROVIDER: "efa"
       FI_EFA_FORK_SAFE: "1"
