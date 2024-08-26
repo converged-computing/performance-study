@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #SBATCH --job-name=mt-gemm-64n
-#SBATCH --nodes=2
-#SBATCH --time=0:10:00
+#SBATCH --nodes=64
+#SBATCH --time=0:20:00
 #SBATCH --exclusive
 
 echo "Start time:" $( date +%s )

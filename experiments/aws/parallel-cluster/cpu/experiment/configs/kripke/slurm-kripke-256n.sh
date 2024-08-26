@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=kripke-256n
 #SBATCH --nodes=256
-#SBATCH --time=0:10:00
+#SBATCH --time=0:20:00
 #SBATCH --exclusive
 
 export OMP_NUM_THREADS=1
