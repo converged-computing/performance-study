@@ -3,9 +3,9 @@
 For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down to be 16,8,4 from 32,16,8.
 Each has 8 GPU.
 
-> TODO need to add runs for lammps-reax
-
 > V100 nodes 
+
+We attempted asking for 16, and were only able to get 11. We had to start our cluster with 8 nodes and then try to update later.
 
 ## 1. Setup
 
@@ -70,9 +70,8 @@ We want to run four separate jobs, across each node. Write this into a batch fil
 
 ```console
 oras login ghcr.io --username vsoch
-app=single-node
-output=./results/$app
-
+export app=single-node
+export output=./results/$app
 mkdir -p $output
 
 # This is the number of nodes -1
@@ -102,7 +101,6 @@ kubectl delete -f crd/single-node.yaml
 
 ### AMG2023
 
-
 ```bash
 kubectl apply -f ./crd/amg2023.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
@@ -119,12 +117,11 @@ Here is an example loop through sizes and iterations.
 
 ```console
 oras login ghcr.io --username vsoch
-app=amg2023
-output=./results/$app
-
-# Submit in groups that divide into the cluster size (16)
-# Test one first with flux run...
+export app=amg2023
+export output=./results/$app
 mkdir -p $output
+
+# Test once with flux run...
 
 # Size 4
 for i in $(seq 1 15); do     
@@ -176,8 +173,8 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 ```console
 oras login ghcr.io --username vsoch
-app=kripke
-output=./results/$app
+export app=kripke
+export output=./results/$app
 mkdir -p $output
 
 for i in $(seq 1 5); do     
@@ -236,8 +233,8 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 ```console
 oras login ghcr.io --username vsoch
-app=laghos
-output=./results/$app
+export app=laghos
+export output=./results/$app
 mkdir -p $output
 
 # Size 4
@@ -284,7 +281,67 @@ MPI is NOT CUDA aware
 kubectl delete -f ./crd/laghos.yaml
 ```
 
+### LAMMPS-REAX
+
+```bash
+kubectl apply -f ./crd/lammps.yaml
+time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
+```
+
+```bash
+flux proxy local:///mnt/flux/view/run/flux/local bash
+```
+
+```console
+oras login ghcr.io --username vsoch
+app=lammps-reax
+output=./results/$app
+
+mkdir -p $output
+
+# Try this
+time flux submit -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+
+# Size 4
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  time flux submit --setattr=user.study_id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
+done 
+
+# Size 8
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  time flux submit --setattr=user.study_id=$app-8-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N8 -n 64 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 
+
+# Size 16
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  time flux run --setattr=user.study_id=$app-16-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N16 -n 128 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+done
+
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-$app $output
+```
+```bash
+kubectl delete -f ./crd/lammps.yaml
+```
+
+
 ### LAMMPS
+
+**This problem size does not scale, use reax**
 
 ```bash
 kubectl apply -f ./crd/lammps.yaml
@@ -646,7 +703,7 @@ app=osu
 output=./results/$app
 mkdir -p $output
 
-./flux-run-combinations-cuda.sh 64 $output $app
+./flux-run-combinations-cuda.sh 16 $output $app
 
 # 4 Nodes
 for i in $(seq 1 5); do     
@@ -768,10 +825,17 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux run --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 /bin/bash ./launch.sh flux-sample 4 32 32 |& tee ./$output/$app-4-iter-${i}.out
-  flux run --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 /bin/bash ./launch.sh flux-sample 8 64 32 |& tee ./$output/$app-8-iter-${i}.out
-  flux run --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 /bin/bash ./launch.sh flux-sample 16 128 32 |& tee ./$output/$app-16-iter-${i}.out
-  flux run --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 /bin/bash ./launch.sh flux-sample 32 256 32 |& tee ./$output/$app-32-iter-${i}.out
+  flux run --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 /bin/bash ./launch.sh flux-sample 4 32 32
+done
+
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  flux run --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 /bin/bash ./launch.sh flux-sample 8 64 32
+done
+
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  flux run --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 /bin/bash ./launch.sh flux-sample 16 128 32
 done
 
 # When they are done:

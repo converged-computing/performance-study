@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: performance-study-gpu-16
+  name: performance-study-gpu
   region: us-east-1
   version: "1.27"
 
@@ -20,11 +20,15 @@ managedNodeGroups:
       k8s.io/cluster-autoscaler/performance-study: "owned"
       k8s.io/cluster-autoscaler/enabled: "true"
       k8s.amazonaws.com/accelerator: "nvidia-tesla-v100"
-    minSize: 16
+    minSize: 8
     maxSize: 16
     efaEnabled: true
-    placement:
-      groupName: performance-study
+# We could only get 11 nodes, had to disable this
+#    placement:
+#      groupName: performance-study
+    capacityReservation:
+      capacityReservationTarget:
+        capacityReservationID: "cr-0aa42ac2cf4ae9155"
     labels: { "flux-operator": "true" }
     ssh:
       allow: true

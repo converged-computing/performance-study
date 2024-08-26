@@ -4,6 +4,10 @@ FROM ghcr.io/converged-computing/azurehpc:flux-slim-nogpu
 #  docker build -t ghcr.io/converged-computing/metric-nek5000:azure-hpc .
 #  docker push ghcr.io/converged-computing/metric-nek5000:azure-hpc
 
+# Build command
+#  docker build -t ghcr.io/converged-computing/metric-nek5000:azure-hpc-amd .
+#  docker push ghcr.io/converged-computing/metric-nek5000:azure-hpc-amd
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV UCX_NET_DEVICES=mlx5_0:1
 ENV UCX_TLS=ib

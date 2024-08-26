@@ -226,7 +226,7 @@ singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:roc
 
 # Testing these (c2d build does not segfault)
 singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-int64-c2d
-# singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
 
 # Install openmpi on host (same as in containers)
 # apt-get update && \
