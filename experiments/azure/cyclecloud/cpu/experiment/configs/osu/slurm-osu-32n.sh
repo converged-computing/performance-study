@@ -2,14 +2,18 @@
 
 #SBATCH --job-name=osu-32n
 #SBATCH --nodes=32
-#SBATCH --time=0:10:00
+#SBATCH --time=0:20:00
 #SBATCH --exclusive
+
+. /etc/profile.d/modules.sh
+module unload mpi
+module load mpi/hpcx-pmix-2.18
 
 echo "Start time:" $( date +%s )
 nodes=32
 
 # At most 28 combinations, 8 nodes 2 at a time
-hosts=$( mpirun -N ${nodes} --map-by ppr:1:node hostname | shuf -n 8 | tr '\n' ' ' )
+hosts=$( srun hostname | shuf -n 8 | tr '\n' ' ' )
 list=${hosts}
 
 dequeue_from_list() {
@@ -21,24 +25,23 @@ for i in $hosts; do
   dequeue_from_list $list
   for j in $list; do
     echo "Point-to-point pairwise experiments for nodes" ${i} ${j}
-    time -p mpirun -N 2 --map-by ppr:1:node \
-      --host ${i},${j} \
-      /shared/bin/singularity exec /shared/containers/metric-osu-cpu_libfabric-zen4.sif \
-        /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency
-    time -p mpirun -N 2 --map-by ppr:1:node \
-      --host ${i},${j} \
-      /shared/bin/singularity exec /shared/containers/metric-osu-cpu_libfabric-zen4.sif \
-        /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw
+    time -p mpirun -N 2 --map-by ppr:1:node -x UCX_POSIX_USE_PROC_LINK=n --host ${i},${j} \
+      /shared/bin/singularity exec \
+      --env UCX_TLS=ud,shm,rc --env UCX_UNIFIED_MODE=y --env UCX_NET_DEVICES=mlx5_ib0:1 --env OPAL_PREFIX= \
+      /shared/containers/metric-osu-cpu_azure-hpc.sif /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency
+    time -p mpirun -N 2 --map-by ppr:1:node -x UCX_POSIX_USE_PROC_LINK=n --host ${i},${j} \
+      /shared/bin/singularity exec \
+      --env UCX_TLS=ud,shm,rc --env UCX_UNIFIED_MODE=y --env UCX_NET_DEVICES=mlx5_ib0:1 --env OPAL_PREFIX= \
+      /shared/containers/metric-osu-cpu_azure-hpc.sif /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw
   done
 done
 
-iter=0
-for i in {1..5}; do
-  echo "Allreduce iteration" ${iter}
-  time -p mpirun -N ${nodes} --map-by ppr:96:node \
-      /shared/bin/singularity exec /shared/containers/metric-osu-cpu_libfabric-zen4.sif \
-        /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
-  iter=$((iter+1))
+for i in $( seq 1 5 ); do
+  echo "Allreduce iteration" ${i}
+  time -p mpirun -N ${nodes} --map-by ppr:96:node -x UCX_POSIX_USE_PROC_LINK=n \
+      /shared/bin/singularity exec \
+      --env UCX_TLS=ud,shm,rc --env UCX_UNIFIED_MODE=y --env UCX_NET_DEVICES=mlx5_ib0:1 --env OPAL_PREFIX= \
+      /shared/containers/metric-osu-cpu_azure-hpc.sif /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
 done
 
 echo "End time:" $( date +%s )

@@ -5,7 +5,7 @@
 See the main [README.md](../) for setting up the cluster. The configuration file is here.
 You will need to:
 
-1. Create the cluster with Azure web interface
+1. Create the cluster with Azure web interface (plan at least 6 hours)
 2. ssh in
 3. Install Singularity and Go
 4. Pull all containers
@@ -16,8 +16,7 @@ You will need to:
 
 ### 1. Setup
 
-```
-```
+The CycleCloud setup requires creating a dedicated web server. This is accomplished by navigating a byzantine web GUI with thousands of manually specified RBACs and IAM permission options. There is a magic switch that is supposed to configure the identity management, but only seems to do so when Azure engineers are watching. Storage configuration is its own circle of hell, and is region dependent.
 
 SSH into the head node:
 ```bash
@@ -36,17 +35,17 @@ mkdir -p /shared/containers
 cd /shared/containers
 
 # This is the newer build with spack
-singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-reax && \
-singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3 && \
-singularity pull docker://ghcr.io/converged-computing/metric-laghos:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-minife:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/metric-mixbench:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/mt-gemm:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:azure-hpc && \
-singularity pull docker://ghcr.io/converged-computing/metric-stream:azure-hpc && \
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-reax || true &&  \
+singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-laghos:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-minife:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-mixbench:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/mt-gemm:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-stream:azure-hpc || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-nek5000:azure-hpc
 ```
 

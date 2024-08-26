@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=quicksilver-2n
 #SBATCH --nodes=2
-#SBATCH --time=0:10:00
+#SBATCH --time=0:20:00
 #SBATCH --exclusive
 
 . /etc/profile.d/modules.sh

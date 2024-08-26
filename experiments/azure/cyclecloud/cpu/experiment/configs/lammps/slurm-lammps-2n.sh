@@ -2,13 +2,16 @@
 
 #SBATCH --job-name=lammps-2n
 #SBATCH --nodes=2
-#SBATCH --time=0:10:00
+#SBATCH --time=0:20:00
 #SBATCH --exclusive
 
+. /etc/profile.d/modules.sh
+module unload mpi
+module load mpi/hpcx-pmix-2.18
+
 echo "Start time:" $( date +%s )
-/usr/bin/time -p mpirun -N 2 --map-by ppr:96:node \
-	/shared/bin/singularity exec --pwd /code /shared/containers/metric-lammps-cpu_zen4.sif \
-	lmp -k on -sf kk -pk kokkos newton on neigh half \
-	-in in.snap.test -var snapdir 2J8_W.SNAP \ 
-	-v x 128 -v y 128 -v z 128 -var nsteps 20000
+/usr/bin/time -p mpirun -N 2 --map-by ppr:96:node -x UCX_POSIX_USE_PROC_LINK=n \
+	/shared/bin/singularity exec --pwd /code --env UCX_TLS=ud,shm,rc --env UCX_UNIFIED_MODE=y --env UCX_NET_DEVICES=mlx5_ib0:1 --env OPAL_PREFIX= \
+    /shared/containers/metric-lammps-cpu_azure-hpc-reax.sif \
+	lmp -v x 16 -v y 16 -v z 8 -in ./in.reaxff.hns -nocite
 echo "End time:" $( date +%s )
