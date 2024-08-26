@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=nekrs-256n
 #SBATCH --nodes=256
-#SBATCH --time=0:10:00
+#SBATCH --time=0:20:00
 #SBATCH --exclusive
 
 echo "Start time:" $( date +%s )
