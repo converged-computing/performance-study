@@ -1,0 +1,22 @@
+flux-job: task(s) exited with exit code 1
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 1, "exclusive": true, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["sudo", "singularity", "exec", "/opt/containers/metric-single-node_cpu-zen4.sif", "/bin/bash", "/entrypoint.sh"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1024, "as": -1, "rss": -1, "nproc": 1803560}}}, "constraints": {"hostlist": ["flux-025"]}}, "user": {"study_id": "-node-0025"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724650586.2826548,"name":"init"}
+{"timestamp":1724650586.2833672,"name":"starting"}
+{"timestamp":1724650586.4689326,"name":"shell.init","context":{"service":"1356918789-shell-f4cfqFuGT","leader-rank":24,"size":1}}
+{"timestamp":1724650586.4718268,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,1,1,1]]}}}
+{"timestamp":1724650586.4877777,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":3591,"wait_status":256,"signaled":0,"exitcode":1}}
+{"timestamp":1724650586.4918933,"name":"complete","context":{"status":256}}
+{"timestamp":1724650586.4919086,"name":"done"}
+

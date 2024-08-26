@@ -7,7 +7,7 @@ variable "cluster_storage" {
 variable "family" {
     description = "The source image x86 prefix to be used by the compute node(s)"
     type        = string
-    default     = "flux-framework"
+    default     = "global"
 }
 
 variable "compute_node_specs" {

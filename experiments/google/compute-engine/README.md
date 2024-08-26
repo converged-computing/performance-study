@@ -1,6 +1,18 @@
 # "Bare Metal" on Google Cloud Compute Engine
 
-This is a backup for HPC Toolkit to run a performance study with Flux on Google Cloud.
+This is a setup akin to Cluster Toolkit (using Terraform) to run a performance study with Flux on Google Cloud.
+It is close to the cluster toolkit setup with a few optimizations. Note that You'll need these commands to share
+the image we have in our project (or build from [build-images](build-images).
+
+```bash
+# Give permission to the other project to see your image
+gcloud projects add-iam-policy-binding [source-project] --member serviceAccount:[target-project-id]-compute@developer.gserviceaccount.com --role roles/compute.imageUser
+
+# Create an image from it!
+gcloud compute instances create flux-singularity-rocky-2 --image-project [source-project] --image flux-singularity-rocky-8-2 --project converged-computing --machine-type c2d-standard-112 
+```
+
+After that, you'll need to save the image to the `flux-framework` family in your new project. I usually call it flux-singularity-rocky-N.
 
 ## Usage
 
@@ -30,4 +42,5 @@ This means you'll want to create a c2d-standard-112 instance in the UI, run the 
 ### Deploy with Terraform
 
 You can build images under [build-images](build-images) and then use the modules
-provided [base](base) via [tf](tf). 
+provided [base](base) via [tf](tf).  Note that each experiment directory has equivalent terraform
+directories with the sizes defined.

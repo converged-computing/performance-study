@@ -7,7 +7,7 @@ compute_node_specs = [
     gpu_type     = null
     gpu_count    = 0
     compact      = false
-    instances    = 2
+    instances    = 32
     properties   = []
     boot_script  = <<BOOT_SCRIPT
 #!/bin/sh
@@ -41,8 +41,8 @@ mkdir -p /var/lib/flux
 mkdir -p /usr/etc/flux/system/conf.d
 
 # --cores=IDS Assign cores with IDS to each rank in R, so we  assign 0-(N-1) to each host
-echo "flux R encode --hosts=flux-[001-002]"
-flux R encode --hosts=flux-[001-002] --local > /usr/etc/flux/system/R
+echo "flux R encode --hosts=flux-[001-032]"
+flux R encode --hosts=flux-[001-032] --local > /usr/etc/flux/system/R
 printf "\n📦 Resources\n"
 cat /usr/etc/flux/system/R
 
@@ -71,7 +71,7 @@ default_port = 8050
 default_bind = "tcp://eth0:%p"
 default_connect = "tcp://%h:%p"
 
-hosts = [{host="flux-[001-002]"}]
+hosts = [{host="flux-[001-032]"}]
 
 # Speed up detection of crashed network peers (system default is around 20m)
 [tbon]

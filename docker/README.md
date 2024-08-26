@@ -89,9 +89,6 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 
 ### Google Cloud
 
-
-
-
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
 | ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 | Google | no |[Dockerfile](docker/google/cpu/amg2023/Dockerfile) |  |

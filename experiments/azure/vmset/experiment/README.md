@@ -1,13 +1,6 @@
 # "Bare Metal" on Azure with a VM Scale Set
 
-- [ ] kripke missing params for most
-- We are going to be redundantly saving results (they are saved to same results directory, pushed to different artifacts)
-- AMG does not use spack (just heads up - the important thing is that it runs)
-- miniFe has no problem with larger size (640) and other clouds don't either, should we be constraining clouds because lassen/dane can't do it?
-- miniFE outputs result files with quite a bit more metadata, I found them and am going to save to our artifacts
-
-TODO: Try this in the cloud shell. With the UI, the placement group never works.
-
+Note that in the cloud UI, you can't select a placement group. Here is the command line variant.
 ```bash
 az vmss create \
   --orchestration-mode Uniform \
@@ -228,8 +221,16 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### LAMMPS
 
 ```bash
+# Pull new container and share with other workers
+flux exec -x 0 sudo mkdir -p /mnt/tmp 
+flux exec -x 0 sudo chown ubuntu /mnt/tmp 
+flux exec --dir=/home/ubuntu/containers -x 0 singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-reax
+
+time flux run -o cpu-affinity=per-task -N2 -n 192 singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 --pwd /code /home/ubuntu/containers/metric-lammps-cpu_azure-hpc-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+
 # 0 seconds wall time, 12 seconds real (hookup)
-time flux run -o cpu-affinity=per-task -N2 -n 192 singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 --pwd /code /home/ubuntu/containers/metric-lammps-cpu_azure-hpc.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 
+# previous run
+time flux run -o cpu-affinity=per-task -N2 -n 192 singularity exec --sharens --env UCX_NET_DEVICES=mlx5_ib0:1 --pwd /code /home/ubuntu/containers/metric-lammps-cpu_azure-hpc.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 
 ```
 
 ```console

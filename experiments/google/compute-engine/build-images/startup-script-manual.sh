@@ -53,7 +53,8 @@ sudo dnf install -y \
     openmpi.x86_64 \
     openmpi-devel.x86_64 \
     gcsfuse \
-    jq
+    jq \
+    wget
 
 # IMPORTANT: the flux user/group must match!
 # useradd -M -r -s /bin/false -c "flux-framework identity" flux
@@ -67,7 +68,6 @@ sudo useradd -u 1004 -g 1004 -M -r -s /bin/false -c "flux-framework identity" fl
 
 sudo dnf install -y grubby 
 sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=1"
-
 
 sudo chown -R $USER /usr/share
 cd /usr/share
@@ -112,7 +112,7 @@ sudo cmake --build build/ --target install
 
 # Flux sched
 cd /usr/share
-wget https://github.com/flux-framework/flux-sched/releases/download/v0.36.1/flux-sched-0.33.0.tar.gz
+wget https://github.com/flux-framework/flux-sched/releases/download/v0.33.0/flux-sched-0.33.0.tar.gz
 tar -xzvf flux-sched-0.33.0.tar.gz
 cd flux-sched-0.33.0
 sudo ln $(which python3) /usr/bin/python
@@ -167,6 +167,8 @@ sudo mv ./convert_munge_key.py /etc/flux/manager/convert_munge_key.py
 echo "/usr/etc/flux/imp *(rw,no_subtree_check,no_root_squash)" >> ./exports
 echo "/usr/etc/flux/security *(rw,no_subtree_check,no_root_squash)" >> ./exports
 echo "/usr/etc/flux/system *(rw,no_subtree_check,no_root_squash)" >> ./exports
+echo "/var/nfs/home *(rw,no_subtree_check,no_root_squash)" >> ./exports
+
 sudo mv ./exports /etc/exports
 
 sudo systemctl enable nfs-server
@@ -194,14 +196,17 @@ export VERSION="1.1.0" && \
     sudo mv oras-install/oras /usr/local/bin/ && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
 
-
 # flux start
 # time flux run -o cpu-affinity=per-task -N1 -n 96 singularity exec --env UCX_NET_DEVICES=mlx5_ib0:1 --pwd /code /home/ubuntu/containers/metric-lammps-cpu_azure-hpc.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 32 -v y 32 -v z 32 -var nsteps 1000
 
 # --bind /usr/lib64/openmpi/lib/libmpi.so:/usr/local/lib/libmpi.so
 
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
-singularity pull docker://ghcr.io/converged-computing/metric-amg:rocky-8
+# singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
+# singularity pull docker://ghcr.io/converged-computing/metric-amg:rocky-8
+
+cd /opt/containers
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky8-cpu-int64-zen3
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4-reax
 
 # These sets both work (maybe)
 singularity pull docker://ghcr.io/converged-computing/metric-laghos:cpu-zen4
@@ -224,18 +229,18 @@ singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-
 # singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
 
 # Install openmpi on host (same as in containers)
-apt-get update && \
-    apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
-        openssh-client openssh-server \
-        dnsutils telnet strace git g++ \
-        unzip bzip2
+# apt-get update && \
+#    apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \
+#        openssh-client openssh-server \
+#        dnsutils telnet strace git g++ \
+#        unzip bzip2
 
 cd /tmp
 wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --prefix=/usr/local && \
-    make -j4 && sudo make install && sudo ldconfig
+    make -j40 && sudo make install && sudo ldconfig
     
 # Create machine image on the command line
 # gcloud beta compute machine-images create flux-singularity-rocky-8 --project=llnl-flux --description=Rocky\ 8\ \(HPC\ series\)\ of\ VM\ on\ c2d-standard-112\ \(56\ physical\ cores\)\ with\ Singularity\ installed,\ oras,\ and\ application\ containers\ pulled\ for\ the\ performance\ study. --source-instance=flux-builder --source-instance-zone=us-central1-f --storage-location=us
