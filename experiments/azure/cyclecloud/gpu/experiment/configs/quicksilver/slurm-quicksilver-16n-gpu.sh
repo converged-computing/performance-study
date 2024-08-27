@@ -6,6 +6,7 @@
 #SBATCH --exclusive
 
 . /etc/profile.d/modules.sh
+module unload mpi
 ml mpi/hpcx-pmix-2.18
 #ml cuda/11.8.0 #xl/2023.06.28-cuda-11.8.0-gcc-11.2.1
 
