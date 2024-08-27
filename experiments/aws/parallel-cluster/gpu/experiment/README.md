@@ -2,7 +2,7 @@
 
 > GPU Edition
 
-- TODO: what kind of volume do we want (currently have gp2)
+- TODO: what kind of volume do we want (currently have gp3)
 - TODO: all the container URIs need to be updated here
 
 ## Experiment
@@ -11,18 +11,21 @@
 
 ```bash
 cd /shared/containers
-time singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu
-time singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
-time singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric
-time singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu
-time singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:libfabric
-time singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu
-time singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu
-time singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu
-time singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu
-time singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric
-time singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric
-time singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu && \
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim && \
+singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-gpu && \
+singularity pull docker://ghcr.io/converged-computing/metric-magma:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-gpu && \
+singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric && \
+singularity pull ghcr.io/converged-computing/multi-gpu-models:libfabric && \
+singularity pull ghcr.io/converged-computing/pytorch-resnet-experiment:libfabric-gpu && \
+singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-osu-gpu:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-gpu:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric
 ```
 
 ### 1. Setup

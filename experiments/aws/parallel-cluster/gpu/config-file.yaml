@@ -1,67 +1,47 @@
-# hpc6a only in this region
 Region: us-east-1
 Image:
   Os: ubuntu2204
-  CustomAmi: ami-0f468aafaa37bccb4
+  CustomAmi: "ami-0a1224a2d53383dcf"
 HeadNode:
-  InstanceType: c5.large
+  InstanceType: c6a.2xlarge
   Networking:
-    SubnetId: subnet-077e49695466c795a
+    SubnetId: subnet-0b311efe07d941be6
   Ssh:
-    KeyName: ed-the-dinosaur
+    KeyName: ldrd-aws-east1
   LocalStorage:
     RootVolume:
       Size: 100
   Iam:
     AdditionalIamPolicies:
-      - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
-      - Policy: arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
-      # ADD TOPOLOGY THING
-      
+    - Policy: arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
 Scheduling:
   Scheduler: slurm
-  ScalingStrategy: all-or-nothing
+  ScalingStrategy: all-or-nothing 
   SlurmQueues:
   - Name: queue1
     ComputeResources:
-    - Name: gpu
-      Instances:
-      - InstanceType: p3dn.24xlarge
+    - Name: p3dn24xlarge
+      InstanceType: p3dn.24xlarge
+      CapacityReservationTarget:
+        CapacityReservationId: "cr-0aa42ac2cf4ae9155"
       MinCount: 0
-      MaxCount: 1    
+      MaxCount: 2
       Efa:
         Enabled: true
+    Networking:
+      SubnetIds:
+      - subnet-0b311efe07d941be6
+      PlacementGroup:
+        Enabled: false
     ComputeSettings:
       LocalStorage:
         RootVolume:
           Size: 100
-    Networking:
-      SubnetIds:
-      - subnet-077e49695466c795a
-      PlacementGroup:
-        Enabled: true
-        Id: performance-study
-
-# When I enable this, some of the nodes will fail provisioning and roll back
-#    CustomActions:
-#        OnNodeConfigured:
-#          Script: >-
-#                        https://gist.githubusercontent.com/vsoch/445b720c4a6c49a1bc1535acfec79cea/raw/edf45fbb8137c0c0b95726a82fc5540b1b399c88/install.sh
-# I don't think we actually need this either...
 SharedStorage:
-- MountDir: /shared
+- MountDir: /shared      
   Name: ebs
   StorageType: Ebs
   EbsSettings:
-    # Might be better to use gp3 for experiments?
-    VolumeType: gp2
-    Size: 100
-
-# I'm not starting with this - I don't think we need it
-#    - MountDir: /scratch 
-#      Name: fsx
-#      StorageType: FsxLustre
-#      FsxLustreSettings:
-#        StorageCapacity: 1200
-#        DeploymentType: SCRATCH_2
-#        ImportPath: s3:<PATH-TO-IMPORT-FILES>
+    VolumeType: gp3
+    Size: 400
+    DeletionPolicy: Delete
