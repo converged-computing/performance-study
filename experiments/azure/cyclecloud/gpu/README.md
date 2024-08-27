@@ -94,7 +94,11 @@ oras login ghcr.io --username vsoch
 srun --time=00:04 -N 2 slurm-single-node-benchmarks.sh
 rm -rf test_file*
 cd ../../data/single-node-benchmarks
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-single-node-benchmarks single-node-benchmarks
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-single-node-benchmarks single-node-benchmarks
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### AMG2023
@@ -106,7 +110,11 @@ All the following examples are for 32 nodes. Mutatis mutandis for other sizes.
 cd configs/amg2023/
 for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
 cd ../../data/amg2023
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-amg2023 amg2023
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-amg2023 amg2023
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 
@@ -116,7 +124,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/kripke/
 for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-32n.sh; done
 cd ../../data/kripke
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-kripke kripke
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-kripke kripke
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 
@@ -126,7 +138,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/laghos/
 for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-32n.sh; done
 cd ../../data/laghos
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-laghos laghos
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-laghos laghos
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### LAMMPS
@@ -135,7 +151,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/lammps/
 for i in {1..5}; do sbatch --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-32n.sh; done
 cd ../../data/lammps
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-lammps lammps
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-lammps lammps
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### MiniFE
@@ -144,7 +164,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/minife/
 for i in {1..5}; do sbatch --output=../../data/minife/%x-%j-iter-${i}.out --error=../../data/minife/%x-%j-iter-${i}.err slurm-minife-32n.sh; done
 cd ../../data/minife
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-minife minife
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-minife minife
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 Don't forget to save the MiniFE yaml output files that generate in the PWD.
@@ -158,7 +182,11 @@ for i in {1..5}; do
     sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/%x-%j-iter-${i}.err slurm-mixbench-1n.sh
   done
 done
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-mixbench mixbench
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-mixbench mixbench
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### Mt-Gemm
@@ -167,7 +195,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/mt-gemm/
 for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-32n.sh; done
 cd ../../data/mt-gemm
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-mt-gemm mt-gemm
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-mt-gemm mt-gemm
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### Nek5000
@@ -178,7 +210,11 @@ cd /shared/nekrs/
 oras pull ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
 for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-32n.sh; done
 cd ../../data/nekrs
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-nekrs nekrs
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-nekrs nekrs
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### OSU
@@ -187,7 +223,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/osu/
 sbatch --output=../../data/osu/%x-%j-iter-${i}.out --error=../../data/osu/%x-%j-iter-${i}.err slurm-osu-32n.sh
 cd ../../data/osu
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-osu osu
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-osu osu
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### Quicksilver
@@ -196,7 +236,11 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/quicksilver/
 for i in {1..5}; do sbatch --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-32n.sh; done
 cd ../../data/quicksilver
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-quicksilver quicksilver
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-quicksilver quicksilver
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
 #### Stream
@@ -208,6 +252,10 @@ for i in {1..5}; do
     sbatch --nodelist=${node} --output=../../data/stream/${node}-%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-1n.sh
   done
 done
+<<<<<<< HEAD
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-stream stream
+=======
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-stream stream
+>>>>>>> 5fd4465f (cyclecloud: add initial README for GPUs)
 ```
 
