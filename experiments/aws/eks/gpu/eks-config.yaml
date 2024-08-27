@@ -33,3 +33,20 @@ managedNodeGroups:
     ssh:
       allow: true
       publicKeyPath: ~/.ssh/id_eks.pub
+Build:
+  # https://docs.aws.amazon.com/parallelcluster/latest/ug/Build-v3.html#yaml-build-image-Build-SubnetId
+  InstanceType: p3dn.24xlarge
+  # Note that I did  pcluster list-official-images --region us-east-1
+  # aws-parallelcluster-3.10.1-ubuntu-2204-lts-hvm-x86_64-202407041740 2024-07-04T17-43-29.481Z
+  ParentImage: ami-0fbb05a471fddd45f
+  Imds:
+    ImdsSupport: v2.0
+DevSettings:
+  Cookbook:
+    # https://github.com/aws/aws-parallelcluster/issues/6230
+    # https://github.com/aws/aws-parallelcluster-cookbook/pull/2615
+    # This shows also for OpenRM
+    # https://www.nvidia.com/download/driverResults.aspx/203692/en-us/
+    # 525.105.17
+    ExtraChefAttributes: |
+      {"cluster": {"nvidia": {"enabled": true, "driver_version": "535.161.08", "kernel_open": "false" }}}
