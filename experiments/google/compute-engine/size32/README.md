@@ -64,29 +64,29 @@ mkdir -p $output
 
 #### Single Node Benchmark
 
-We are going to run this via flux, running the job across nodes (and then when they are complete, getting the logs from flux).
+Need to pull an updated container
+
+```bash
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile
+```
+
 Here is a modified entrypoint:
 
 ```console
 oras login ghcr.io --username vsoch
-app=single-node
-nodes=32
+export app=single-node
+output=./results/$app
+mkdir -p $output
 
-for node in $(seq 2 9); do
-  flux submit -N1 --requires="hosts:flux-00${node}" --setattr=user.study_id=$app-node-00${node} singularity exec /opt/containers/metric-single-node_cpu-zen4.sif /bin/bash /entrypoint.sh
+for node in $(seq 1 9); do
+  flux submit -N1 --requires="hosts:flux-00${node}" --setattr=user.study_id=$app-node-00${node} singularity exec /home/sochat1_llnl_gov/metric-single-node_cpu-zen4-tmpfile.sif /bin/bash /entrypoint.sh
 done 
 for node in $(seq 10 32); do
-  flux submit -N1 --requires="hosts:flux-0${node}" --setattr=user.study_id=$app-node-00${node} singularity exec /opt/containers/metric-single-node_cpu-zen4.sif /bin/bash /entrypoint.sh
-done 
+  flux submit -N1 --requires="hosts:flux-0${node}" --setattr=user.study_id=$app-node-00${node} singularity exec /home/sochat1_llnl_gov/metric-single-node_cpu-zen4-tmpfile.sif /bin/bash /entrypoint.sh
+done
 
 ./save.sh $output
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-32-$app $output
-```
-
-Clean up test files (note this won't work here)
-
-```bash
-flux exec -r all /bin/bash -c "rm -rf /opt/containers/test_file*"
 ```
 
 #### AMG2023
@@ -181,33 +181,6 @@ done
 
 # When they are done:
 ./save.sh $output
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-32-$app $output
-```
-
-#### LAMMPS
-
-**Don't use this one, doesn't scale right**
-
-```bash
-# 3 seconds wall time almost instant
-time flux run -o cpu-affinity=per-task -N2 -n 112 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-```
-
-```console
-oras login ghcr.io --username vsoch
-app=lammps
-
-for i in $(seq 1 5); do     
-  echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -N32 -n 3072 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-  time flux run --setattr=user.study_id=$app-256-iter-$i -o cpu-affinity=per-task -N228 -n 24576 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8.sif lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
-done
-
-# When they are done:
-./save.sh $output
-
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-32-$app $output
 ```
 
@@ -364,14 +337,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 ```
 
 #### Quicksilver
-
-Can't test - keeping both containers hope it works!
-
-```bash
-flux run --env OMP_NUM_THREADS=3 -N2 -n 64 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-quicksilver-cpu_rocky-8.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 10485760
-```
-
-That seemed to start working (the matrix started getting printed), but I didn't want to wait for it to finish.
 
 ```console
 export app=quicksilver

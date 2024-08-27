@@ -1,0 +1,198 @@
+
+   _  __       _         _
+  | |/ /      (_)       | |
+  | ' /  _ __  _  _ __  | | __ ___
+  |  <  | '__|| || '_ \ | |/ // _ \ 
+  | . \ | |   | || |_) ||   <|  __/
+  |_|\_\|_|   |_|| .__/ |_|\_\\___|
+                 | |
+                 |_|        Version 1.2.5-dev
+
+LLNL-CODE-775068
+
+Copyright (c) 2014-23, Lawrence Livermore National Security, LLC
+
+Kripke is released under the BSD 3-Clause License, please see the
+LICENSE file for the full license
+
+This work was produced under the auspices of the U.S. Department of
+Energy by Lawrence Livermore National Laboratory under Contract
+DE-AC52-07NA27344.
+
+Author: Adam J. Kunen <kunen1@llnl.gov>
+
+Compilation Options:
+  Architecture:           CUDA
+  Compiler:               /usr/bin/g++
+  Compiler Flags:         "-I$(CUDA_INSTALL_PATH)/include    "
+  Linker Flags:           " -L$(CUDA_INSTALL_PATH)/lib64 -lnvidia-ml -ldl -lstdc++ -pthread "
+  CHAI Enabled:           Yes
+  CUDA Enabled:           Yes
+    NVCC:                 /usr/local/cuda/bin/nvcc
+    NVCC Flags:           "-restrict -gencode=arch=compute_70,code=sm_70 -I$(CUDA_INSTALL_PATH)/include -O3 --expt-extended-lambda -Xcompiler -std=c++14"
+  MPI Enabled:            Yes
+  OpenMP Enabled:         No
+  Caliper Enabled:        No
+
+Input Parameters
+================
+
+  Problem Size:
+    Zones:                 128 x 128 x 128  (2097152 total)
+    Groups:                64
+    Legendre Order:        8
+    Quadrature Set:        Dummy S2 with 8 points
+
+  Physical Properties:
+    Total X-Sec:           sigt=[0.100000, 0.000100, 0.100000]
+    Scattering X-Sec:      sigs=[0.050000, 0.000050, 0.050000]
+
+  Solver Options:
+    Number iterations:     50
+
+  MPI Decomposition Options:
+    Total MPI tasks:       64
+    Spatial decomp:        4 x 4 x 4 MPI tasks
+    Block solve method:    Sweep
+
+  Per-Task Options:
+    DirSets/Directions:    8 sets, 1 directions/set
+    GroupSet/Groups:       16 sets, 4 groups/set
+    Zone Sets:             1 x 1 x 1
+    Architecture:          CUDA
+    Data Layout:           GDZ
+
+Generating Problem
+==================
+
+  Decomposition Space:   Procs:      Subdomains (local/global):
+  ---------------------  ----------  --------------------------
+  (P) Energy:            1           16 / 16
+  (Q) Direction:         1           8 / 8
+  (R) Space:             64          1 / 64
+  (Rx,Ry,Rz) R in XYZ:   4x4x4       1x1x1 / 4x4x4
+  (PQR) TOTAL:           64          128 / 8192
+
+  Material Volumes=[8.252449e+03, 1.221333e+05, 2.749614e+06]
+
+  Memory breakdown of Field variables:
+  Field Variable            Num Elements    Megabytes
+  --------------            ------------    ---------
+  data/sigs                       110592        0.844
+  dx                                 128        0.001
+  dy                                 128        0.001
+  dz                                 128        0.001
+  ell                                648        0.005
+  ell_plus                           648        0.005
+  i_plane                        8388608       64.000
+  j_plane                        8388608       64.000
+  k_plane                        8388608       64.000
+  mixelem_to_fraction            2117576       16.156
+  phi                        10871635968    82944.000
+  phi_out                    10871635968    82944.000
+  psi                         1073741824     8192.000
+  quadrature/w                         8        0.000
+  quadrature/xcos                      8        0.000
+  quadrature/ycos                      8        0.000
+  quadrature/zcos                      8        0.000
+  rhs                         1073741824     8192.000
+  sigt_zonal                   134217728     1024.000
+  volume                         2097152       16.000
+  --------                  ------------    ---------
+  TOTAL                      24054466168   183521.013
+
+  Generation Complete!
+
+Steady State Solve
+==================
+
+  iter 0: particle count=7.510969e+07, change=1.000000e+00
+  iter 1: particle count=1.122239e+08, change=3.307157e-01
+  iter 2: particle count=1.305449e+08, change=1.403427e-01
+  iter 3: particle count=1.395743e+08, change=6.469194e-02
+  iter 4: particle count=1.440158e+08, change=3.084071e-02
+  iter 5: particle count=1.461959e+08, change=1.491211e-02
+  iter 6: particle count=1.472635e+08, change=7.249681e-03
+  iter 7: particle count=1.477851e+08, change=3.529532e-03
+  iter 8: particle count=1.480394e+08, change=1.717640e-03
+  iter 9: particle count=1.481631e+08, change=8.348681e-04
+  iter 10: particle count=1.482232e+08, change=4.051797e-04
+  iter 11: particle count=1.482523e+08, change=1.963361e-04
+  iter 12: particle count=1.482664e+08, change=9.499526e-05
+  iter 13: particle count=1.482732e+08, change=4.589858e-05
+  iter 14: particle count=1.482764e+08, change=2.214851e-05
+  iter 15: particle count=1.482780e+08, change=1.067553e-05
+  iter 16: particle count=1.482788e+08, change=5.140235e-06
+  iter 17: particle count=1.482792e+08, change=2.472687e-06
+  iter 18: particle count=1.482793e+08, change=1.188469e-06
+  iter 19: particle count=1.482794e+08, change=5.707877e-07
+  iter 20: particle count=1.482795e+08, change=2.739432e-07
+  iter 21: particle count=1.482795e+08, change=1.313935e-07
+  iter 22: particle count=1.482795e+08, change=6.298527e-08
+  iter 23: particle count=1.482795e+08, change=3.017713e-08
+  iter 24: particle count=1.482795e+08, change=1.445141e-08
+  iter 25: particle count=1.482795e+08, change=6.917568e-09
+  iter 26: particle count=1.482795e+08, change=3.309959e-09
+  iter 27: particle count=1.482795e+08, change=1.583188e-09
+  iter 28: particle count=1.482795e+08, change=7.569975e-10
+  iter 29: particle count=1.482795e+08, change=3.618424e-10
+  iter 30: particle count=1.482795e+08, change=1.729101e-10
+  iter 31: particle count=1.482795e+08, change=8.260345e-11
+  iter 32: particle count=1.482795e+08, change=3.945304e-11
+  iter 33: particle count=1.482795e+08, change=1.883856e-11
+  iter 34: particle count=1.482795e+08, change=8.994592e-12
+  iter 35: particle count=1.482795e+08, change=4.292490e-12
+  iter 36: particle count=1.482795e+08, change=2.046656e-12
+  iter 37: particle count=1.482795e+08, change=9.780051e-13
+  iter 38: particle count=1.482795e+08, change=4.664920e-13
+  iter 39: particle count=1.482795e+08, change=2.218902e-13
+  iter 40: particle count=1.482795e+08, change=1.069253e-13
+  iter 41: particle count=1.482795e+08, change=5.044786e-14
+  iter 42: particle count=1.482795e+08, change=2.492245e-14
+  iter 43: particle count=1.482795e+08, change=1.085332e-14
+  iter 44: particle count=1.482795e+08, change=5.225675e-15
+  iter 45: particle count=1.482795e+08, change=2.411850e-15
+  iter 46: particle count=1.482795e+08, change=1.004937e-15
+  iter 47: particle count=1.482795e+08, change=1.406912e-15
+  iter 48: particle count=1.482795e+08, change=0.000000e+00
+  iter 49: particle count=1.482795e+08, change=0.000000e+00
+  Solver terminated
+
+Timers
+======
+
+  Timer                    Count       Seconds
+  ----------------  ------------  ------------
+  Generate                     1       0.71023
+  LPlusTimes                  50      10.38424
+  LTimes                      50      18.43429
+  Population                  50       0.24543
+  Scattering                  50      30.73662
+  Solve                        1     123.03615
+  Source                      50       0.01509
+  SweepSolver                 50       6.27884
+  SweepSubdomain            6400       2.62296
+
+TIMER_NAMES:Generate,LPlusTimes,LTimes,Population,Scattering,Solve,Source,SweepSolver,SweepSubdomain
+TIMER_DATA:0.710231,10.384243,18.434289,0.245434,30.736618,123.036154,0.015093,6.278837,2.622961
+
+Figures of Merit
+================
+
+  Throughput:         4.363522e+08 [unknowns/(second/iteration)]
+  Grind time :        2.291727e-09 [(seconds/iteration)/unknowns]
+  Sweep efficiency :  41.77463 [100.0 * SweepSubdomain time / SweepSolver time]
+  Number of unknowns: 1073741824
+
+END
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "exclusive": true, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["kripke", "--arch", "CUDA", "--layout", "GDZ", "--dset", "8", "--zones", "128,128,128", "--gset", "16", "--groups", "64", "--niter", "50", "--legendre", "8", "--quad", "8", "--procs", "4,4,4"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/Kripke", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "gpu-affinity": "per-task"}}}, "user": {"study_id": "kripke-8gpu-8-iter-5"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724705289.2626185,"name":"init"}
+{"timestamp":1724705289.2633619,"name":"starting"}
+{"timestamp":1724705289.2757261,"name":"shell.init","context":{"service":"0-shell-f8ZUzJvgX","leader-rank":0,"size":8}}
+{"timestamp":1724705289.2862687,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,8,1]]}}}
+{"timestamp":1724705414.8647492,"name":"shell.task-exit","context":{"localid":7,"rank":7,"state":"Exited","pid":2320,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724705415.4001732,"name":"complete","context":{"status":0}}
+{"timestamp":1724705415.4002035,"name":"done"}
+

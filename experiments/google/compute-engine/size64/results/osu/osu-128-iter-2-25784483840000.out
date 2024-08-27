@@ -1,0 +1,33 @@
+
+# OSU MPI Allreduce Latency Test v5.8
+# Size       Avg Latency(us)
+4                     463.15
+8                     459.08
+16                    467.52
+32                    496.37
+64                    504.15
+128                   508.94
+256                   508.58
+512                   643.42
+1024                  514.84
+2048                 1057.02
+4096                 1117.27
+8192                 1323.85
+16384                1745.94
+32768                1817.65
+65536                1887.41
+131072               2025.39
+262144               2393.52
+524288               3203.37
+1048576              4469.98
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 64, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "/opt/containers/metric-osu-cpu_rocky-8.sif", "/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "osu-128-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724730526.6989813,"name":"init"}
+{"timestamp":1724730526.6999612,"name":"starting"}
+{"timestamp":1724730526.7219374,"name":"shell.init","context":{"service":"1356918789-shell-fCgKFYShu","leader-rank":0,"size":64}}
+{"timestamp":1724730526.8652475,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,64,56,1]]}}}
+{"timestamp":1724730564.8623583,"name":"shell.task-exit","context":{"localid":6,"rank":2134,"state":"Exited","pid":72884,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724730565.0796049,"name":"complete","context":{"status":0}}
+{"timestamp":1724730565.0796547,"name":"done"}
+

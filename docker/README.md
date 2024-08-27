@@ -115,6 +115,7 @@ Note that Azure is different in that we use amg instead of amg2023. The base ima
 | ghcr.io/converged-computing/metric-stream:cpu-zen4            | Google | no |[Dockerfile](docker/google/cpu/stream/Dockerfile) | |
 | ghcr.io/converged-computing/metric-stream:rocky-8             | Google | no |[Dockerfile](docker/google/cpu/stream/Dockerfile.rocky) | Rocky Linux 8 |
 | ghcr.io/converged-computing/metric-mixbench:cpu               | Google | no |[Dockerfile](docker/google/cpu/mixbench)| |
+| ghcr.io/converged-computing/metric-nek5000:cpu                | Google | no |[Dockerfile](docker/google/cpu/nek5000)| |
 
 For the above, Rocky Linux 8 are generally for the Terraform setup, and the others for GKE.
 
