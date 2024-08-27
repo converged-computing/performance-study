@@ -256,8 +256,10 @@ output=./results/$app
 mkdir -p $output
 for i in $(seq 2 5); do
   echo "Running iteration $i"
-  time flux run --exclusive --env OMP_NUM_THREADS=1 --cores-per-task 1 -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 6144 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+  time flux run --exclusive --env OMP_NUM_THREADS=1 --cores-per-task 1 -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 7168 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 done
+
+# 64, 128, 256 should only change N and n , so -N 64 -n 3584, -N 128 -n 7168, -N 256 -n 14336
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)

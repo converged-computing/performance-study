@@ -260,6 +260,8 @@ for i in $(seq 1 5); do
   time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 done
 
+64, 128, 256 should only change N and n , so -N 64 -n 3584, -N 128 -n 7168, -N 256 -n 14336
+
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do

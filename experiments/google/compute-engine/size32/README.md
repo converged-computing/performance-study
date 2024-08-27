@@ -118,9 +118,13 @@ export app=amg2023
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1024 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash /home/sochat1_llnl_gov/run_amg.sh amg -n 256 256 128 -P 16 8 8 -problem 2
+  time flux run --env OMP_NUM_THREADS=2 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-128-iter-$i -N 128 -n 3584 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash /home/sochat1_llnl_gov/run_amg.sh amg -n 256 256 128 -P 16 14 16 -problem 2
+
+# TODO NEEDS REDO
+  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 896 -o cpu-affinity=per-task amg -n 256 256 128 -P 7 8 16 -problem 2
+
 done
 
 # When they are done:

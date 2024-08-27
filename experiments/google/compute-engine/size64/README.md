@@ -112,6 +112,11 @@ mkdir -p $output
 for i in $(seq 2 5); do     
   echo "Running iteration $i"
   time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 16 16 8 -problem 2
+
+TODO NEEDS REDO
+  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 1792 -o cpu-affinity=per-task amg -n 256 256 128 -P 8 14 16 -problem 2
+
+
 done
 
 # When they are done:
@@ -165,12 +170,15 @@ export app=lammps-reax
 export output=results/$app
 mkdir -p $output
 
+# Lammps data needs to be copied from first container
+singularity  shell /opt/containers/metric-lammps-cpu_zen4-reax.sif
+cp -R /code /home/sochat1_llnl_gov/lammps-data
+exit
+cd /home/sochat1_llnl_gov/lammps-data
+
 for i in $(seq 2 5); do
   echo "Running iteration $i"
-
-  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 6144 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-  time flux run --setattr=user.study_id=$app-32-iter-$i --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task -N32 -n 1792 singularity exec /opt/containers/metric-lammps-cpu_rocky-8.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 3584 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done
 
 # When they are done:
