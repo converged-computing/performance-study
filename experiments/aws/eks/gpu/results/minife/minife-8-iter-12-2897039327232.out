@@ -1,0 +1,31 @@
+ OMP_NUM_THREADS=2
+      creating/filling mesh...0.0175259s, total time: 0.0175269
+generating matrix structure...0.039993s, total time: 0.0575199
+         assembling FE data...0.00406408s, total time: 0.061584
+      imposing Dirichlet BC...0.00060606s, total time: 0.0621901
+      imposing Dirichlet BC...1.90735e-06s, total time: 0.062192
+making matrix indices local...0.0212018s, total time: 0.0833938
+Starting CG solver ... 
+Initial Residual = 231.002
+Iteration = 20   Residual = 0.0628438
+Iteration = 40   Residual = 0.143347
+Iteration = 60   Residual = 0.00983047
+Iteration = 80   Residual = 0.0179636
+Iteration = 100   Residual = 0.000326135
+Iteration = 120   Residual = 3.92123e-05
+Iteration = 140   Residual = 1.84649e-05
+Iteration = 160   Residual = 3.11771e-05
+Iteration = 180   Residual = 1.48002e-05
+Iteration = 200   Residual = 1.11558e-07
+Final Resid Norm: 1.11558e-07
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["miniFE.x", "nx=230", "ny=230", "nz=230", "num_devices=8", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/minife", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "minife-8-iter-12"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724703246.9637437,"name":"init"}
+{"timestamp":1724703246.9646115,"name":"starting"}
+{"timestamp":1724703246.9775138,"name":"shell.init","context":{"service":"0-shell-f2K6pSoeo","leader-rank":0,"size":8}}
+{"timestamp":1724703246.9913397,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,8,1]]}}}
+{"timestamp":1724703249.949424,"name":"shell.task-exit","context":{"localid":1,"rank":33,"state":"Exited","pid":850,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724703250.3258939,"name":"complete","context":{"status":0}}
+{"timestamp":1724703250.3259201,"name":"done"}
+

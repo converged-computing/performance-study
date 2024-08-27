@@ -15,41 +15,18 @@ This study will test HPC application performance across three clouds. The reposi
 
 This is a checklist for the setups we have tested and timed:
 
-### Tested
-
-Tested means we have verified that things run on a small set of resources (e.g., 2 nodes). We can proceed to timing when all issues have been addressed for each.
-
-#### HPC in a Box Options
+#### Experiments
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
 - [ ] Google Cloud HPC Toolkit GPU (date)
-- [ ] Google Cloud Compute Engine CPU (date)
-  - [x] size 32
-  - [ ] size 64
+- [ ] Google Cloud Compute Engine CPU
+  - [x] size 32 (done 8/26/2024)
+  - [x] size 64 (done 8/26/2024)
   - [ ] size 128
   - [ ] size 256
 - [ ] AWS GPU Parallel Cluster (date)
 - [ ] AWS CPU Parallel Cluster (date)
-
-#### Bare Metal Options
-
-- [x] [Microsoft Azure VM Set (CPU) (8/18/2024)](experiments/azure/vmset/cpu)
-- [x] [Google Cloud Compute Engine CPU (8/19/2024)](experiments/google/compute-engine/cpu)
-- [x] [AWS CPU EC2 CPU (8/17/2024)](experiments/aws/ec2/cpu)
-- [ ] Microsoft Azure VM Set (GPU) (8/18/2024)
-- [ ] Google Cloud Compute Engine GPU (date)
-- [ ] AWS GPU EC2 GPU (date)
-
-- [x] [Microsoft Azure AKS CPU (8/16/2024)](experiments/azure/aks/cpu)
-- [x] [Google Cloud GKE CPU (8/19/2024)](experiments/google/eks/cpu)
-- [x] [AWS CPU EKS (8/16/2024)](experiments/aws/eks/cpu)
-- [ ] Microsoft Azure AKS GPU (date)
-- [ ] Google Cloud GKE GPU (date)
-- [ ] AWS GPU EKS (8/19/2024)]
-
-#### Experiments
-
 - [ ] Microsoft Azure AKS CPU
   - [x] size 32 (done 8/24/2024)
   - [x] size 64 (done 8/24/2024)
@@ -68,6 +45,9 @@ Tested means we have verified that things run on a small set of resources (e.g.,
 - [ ] Microsoft Azure AKS GPU
 - [ ] Google Cloud GKE GPU
 - [ ] AWS GPU EKS
+  - [x] size 4 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
+  - [x] size 8 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
+  - [ ] size 16 allocation not possible
 
 For the above, the Azure setups are problematic - the Infiniband does not seem to be effectively combining across many nodes.
 

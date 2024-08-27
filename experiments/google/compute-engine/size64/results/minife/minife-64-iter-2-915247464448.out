@@ -1,0 +1,34 @@
+MiniFE Mini-App, OpenMP Peer Implementation
+Creating OpenMP Thread Pool...
+Counted: 7168 threads.
+Running MiniFE Mini-App...
+      creating/filling mesh...0.029464s, total time: 0.029464
+generating matrix structure...0.016089s, total time: 0.045553
+         assembling FE data...0.00532198s, total time: 0.0508749
+      imposing Dirichlet BC...0.000764847s, total time: 0.0516398
+      imposing Dirichlet BC...7.79629e-05s, total time: 0.0517178
+making matrix indices local...0.0427151s, total time: 0.0944328
+Starting CG solver ... 
+Initial Residual = 231.002
+Iteration = 20   Residual = 0.0621003
+Iteration = 40   Residual = 0.0263323
+Iteration = 60   Residual = 0.0152388
+Iteration = 80   Residual = 0.0100166
+Iteration = 100   Residual = 0.00703646
+Iteration = 120   Residual = 0.00511048
+Iteration = 140   Residual = 0.00372772
+Iteration = 160   Residual = 0.00266606
+Iteration = 180   Residual = 0.00188192
+Iteration = 200   Residual = 0.00132271
+Final Resid Norm: 0.00132271
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 64, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--env", "OMPI_MCA_btl_vader_single_copy_mechanism=none", "/opt/containers/metric-minife_rocky-8.sif", "miniFE.x", "nx=230", "ny=230", "nz=230", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "minife-64-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724728111.4283957,"name":"init"}
+{"timestamp":1724728111.4290552,"name":"starting"}
+{"timestamp":1724728111.4518087,"name":"shell.init","context":{"service":"1356918789-shell-fR3SHVSP","leader-rank":0,"size":64}}
+{"timestamp":1724728111.5971417,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,64,56,1]]}}}
+{"timestamp":1724728119.2028482,"name":"shell.task-exit","context":{"localid":36,"rank":204,"state":"Exited","pid":43164,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724728119.4284616,"name":"complete","context":{"status":0}}
+{"timestamp":1724728119.4285004,"name":"done"}
+

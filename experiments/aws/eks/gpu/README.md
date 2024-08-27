@@ -1,7 +1,6 @@
 # Performance Experiments on EKS (Kubernetes)
 
-For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down to be 16,8,4 from 32,16,8.
-Each has 8 GPU.
+For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down to be 16,8,4 from 32,16,8. Each has 8 GPU.
 
 > V100 nodes 
 
@@ -291,26 +290,35 @@ kubectl delete -f ./crd/laghos.yaml
 
 ### LAMMPS-REAX
 
+**This is not working**
+
+
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-lammps-reax-$(date +%s).json
 kubectl apply -f ./crd/lammps-reax.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
-
 ```console
 oras login ghcr.io --username vsoch
 app=lammps-reax
 output=./results/$app
 mkdir -p $output
 
-# Try this
-time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 1 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+# Make sure cuda on path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 
-time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+# Try this
+--env FI_EFA_USE_DEVICE_RDMA=1 --env FI_EFA_RUNT_SIZE=0
+
+time flux run --env FI_EFA_USE_DEVICE_RDMA=1 --env FI_EFA_RUNT_SIZE=0 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp_gpu -k on g 1 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+
+# THIS ALMOST WORKS NEED FLAG THAT IS MISSING
+time flux run -ompi=pmix --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task  -N4 -n 32 -g 1 lmp_gpu -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+
+NOT USING CUDA
 
 time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 
@@ -774,6 +782,8 @@ kubectl delete -f ./crd/osu.yaml
 
 ### Quicksilver
 
+**NOT DONE YET**
+
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-quicksilver-$(date +%s).json
 kubectl apply -f ./crd/quicksilver.yaml
@@ -791,20 +801,16 @@ output=./results/$app
 mkdir -p $output
 
 i=1
-flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --cores-per-task 3 --exclusive --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
+flux run --env OMP_NUM_THREADS=8 --cores-per-task=8 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N4 -n 4 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
 
 # Size 4
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
-    flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --cores-per-task 3 --exclusive --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
+    flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
+    flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600
 done
 
-# Size 8
-for i in $(seq 1 2); do     
-    echo "Running iteration $i"
-    flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --cores-per-task 3 --exclusive --env OMP_NUM_THREADS=3 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600
-done
-
+# DID NOT RUN BELOW HERE
 # Size 16
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
@@ -842,6 +848,8 @@ kubectl delete -f ./crd/quicksilver.yaml
 
 ### Resnet
 
+**Did not work**
+
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-single-node-$(date +%s).json
 kubectl apply -f ./crd/resnet.yaml
@@ -856,8 +864,13 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 oras login ghcr.io --username vsoch
 app=resnet
 output=./results/$app
-
 mkdir -p $output
+i=1
+flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N 4 -g 1 /bin/bash ./launch.sh flux-sample 4 32 32
+
+# This is what works on Google
+flux run -N 2 --gpus-per-node 4 /bin/bash ./launch.sh flux-sample 2 4 16
+
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
   flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 /bin/bash ./launch.sh flux-sample 4 32 32
@@ -910,9 +923,9 @@ app=stream
 output=./results/$app
 
 mkdir -p $output
-for i in $(seq 1 5); do     
+for i in $(seq 1 15); do     
   echo "Running iteration $i"
-  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream  |& tee ./$output/$app-1-iter-${i}.out
+  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream 
 done
 
 # When they are done:
@@ -939,4 +952,18 @@ kubectl delete -f ./crd/stream.yaml
 
 ```bash
 eksctl delete cluster --config-file ./eks-config.yaml
+```
+
+
+## Results
+
+
+```console
+for tag in $(oras repo tags ghcr.io/converged-computing/metrics-operator-experiments/performance)
+  do
+    if [[ $tag == *"eks-gpu-8"* ]]; then
+       echo $tag
+       oras pull ghcr.io/converged-computing/metrics-operator-experiments/performance:$tag
+    fi
+  done
 ```
