@@ -7,6 +7,7 @@
 
 . /etc/profile.d/modules.sh
 ml mpi/hpcx-pmix-2.18
+module unload mpi
 #xl/2023.06.28-cuda-11.8.0-gcc-11.2.1
 
 echo "Start time:" $( date +%s )
