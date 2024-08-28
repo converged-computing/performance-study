@@ -36,7 +36,7 @@ cd /shared/containers
 
 # This is the newer build with spack
 singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc-reax || true &&  \
-singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-laghos:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu || true && \
