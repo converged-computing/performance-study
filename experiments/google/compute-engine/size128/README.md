@@ -123,7 +123,7 @@ export app=kripke
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --env OMPI_MCA_btl_vader_single_copy_mechanism=none --cores-per-task 1 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 7168 singularity exec /opt/containers/metric-kripke-cpu_rocky-8.sif kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 32,14,16
 done
@@ -155,6 +155,12 @@ done
 
 # 64, 128, 256 should only change N and n , so -N 64 -n 3584, -N 128 -n 7168, -N 256 -n 14336
 
+(Same OMP_NUM_THREADS=7 -cores-per-task=7 for all):
+64: -N 64 -n 512
+128: -N 128 -n 1024 (edited) 
+
+   time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive -o cpu-affinity=per-task --setattr=user.study_id=$app-256-iter-$i -N256 -n 2048 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+
 ./save.sh $output
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-128-$app $output
 ```
@@ -172,7 +178,7 @@ cp -R /code /home/sochat1_llnl_gov/lammps-data
 exit
 cd /home/sochat1_llnl_gov/lammps-data
 
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 7168 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec /opt/containers/metric-lammps-cpu_rocky-8.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done
@@ -189,7 +195,7 @@ export app=minife
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
     time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 7168 -o cpu-affinity=per-task singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-minife_rocky-8.sif miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 done
 
@@ -285,7 +291,7 @@ mkdir -p $output
 
 ./flux-run-combinations.sh 128 $app
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-128-iter-$i -N128 -n 7168 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-osu-cpu_rocky-8.sif /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce 
 done
@@ -302,7 +308,7 @@ export app=quicksilver
 export output=results/$app
 mkdir -p $output
     
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
     echo "Running iteration $i"
     time flux run --env OMPI_MCA_btl_vader_single_copy_mechanism=none --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive --setattr=user.study_id=$app-128-iter-$i -N128 -n 1024  singularity exec /opt/containers/metric-quicksilver-cpu_rocky-8.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp  -X 128 -Y 128 -Z 64  -x 128 -y 128 -z 64  -I 16 -J 8  -K 8  -n 335544320
 done
@@ -319,10 +325,14 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 export app=stream
 export output=results/$app
 mkdir -p $output
+nodes=127
 
-for i in $(seq 1 5); do     
+mkdir -p $output
+for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-1-iter-$i --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe 
+  for node in $(seq 1 $nodes); do
+    flux submit --requires="hosts:flux-sample-$node" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task stream_c.exe
+  done
 done
 
 # When they are done:

@@ -54,12 +54,10 @@ flux alloc -N <total-nodes>
 flux alloc -N 64
 ```
 
+And you need to login to oras once:
+
 ```bash
-# This output directory is used across experiments
-sudo chown -R $USER /opt/containers/
-flux exec -x 0 /bin/bash -c "sudo chown -R sochat1_llnl_gov /opt/containers"
-export output=/opt/containers/results
-mkdir -p $output
+oras login ghcr.io --username vsoch
 ```
 
 #### Single Node Benchmark
@@ -73,7 +71,6 @@ singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen
 Here is a modified entrypoint:
 
 ```console
-oras login ghcr.io --username vsoch
 export app=single-node
 output=./results/$app
 mkdir -p $output
@@ -109,14 +106,9 @@ export app=amg2023
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=3 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-64-iter-$i -N 64 -n 2048 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 16 16 8 -problem 2
-
-TODO NEEDS REDO
-  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 1792 -o cpu-affinity=per-task amg -n 256 256 128 -P 8 14 16 -problem 2
-
-
+  time flux run --env OMP_NUM_THREADS=2 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-64-iter-$i -N 64 -n 1792 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash ~/run_amg.sh amg -n 256 256 128 -P 8 14 16 -problem 2
 done
 
 # When they are done:
@@ -131,7 +123,7 @@ export app=kripke
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --env OMPI_MCA_btl_vader_single_copy_mechanism=none --cores-per-task 1 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-64-iter-$i -N 64 -n 3584 singularity exec /opt/containers/metric-kripke-cpu_rocky-8.sif kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 16,14,16
 done
@@ -142,13 +134,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### Laghos
 
-Testing:
-
-```bash
-# 3m 42 seconds
-time flux run -o cpu-affinity=per-task -N2 -n 112 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
-```
-
 ```console
 export app=laghos
 export output=results/$app
@@ -158,6 +143,12 @@ for i in $(seq 1 1); do
   echo "Running iteration $i" 
   time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-64-iter-$i -N64 -n 3584 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 done
+
+(Same OMP_NUM_THREADS=7 -cores-per-task=7 for all):
+64: -N 64 -n 512
+128: -N 128 -n 1024 (edited) 
+
+   time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive -o cpu-affinity=per-task --setattr=user.study_id=$app-256-iter-$i -N256 -n 2048 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 
 ./save.sh $output
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-64-$app $output
@@ -176,7 +167,7 @@ cp -R /code /home/sochat1_llnl_gov/lammps-data
 exit
 cd /home/sochat1_llnl_gov/lammps-data
 
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-64-iter-$i -o cpu-affinity=per-task -N64 -n 3584 --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec --pwd /code /opt/containers/metric-lammps-cpu_rocky-8-reax.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done
@@ -200,7 +191,7 @@ export app=minife
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-64-iter-$i -N64 -n 3584 -o cpu-affinity=per-task singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-minife_rocky-8.sif miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 done
@@ -220,7 +211,7 @@ export app=mixbench
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-$size-iter-$i -l -N2 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-mixbench_cpu.sif mixbench-cpu 32
 done
@@ -232,19 +223,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 ```
 
 #### Mt-Gemm
-
-Testing:
-
-```bash
-time flux run -N1 -o cpu-affinity=per-task --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec /opt/containers/mt-gemm_rocky-8.sif /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
-```
-```console
-Performance= 784.96 GFlop/s, Time= 2.548 msec, Size= 2000000000 Ops
-
-real	0m13.146s
-user	0m0.067s
-sys	0m0.012s
-```
 
 ```console
 export app=mt-gemm
@@ -310,7 +288,7 @@ mkdir -p $output
 
 ./flux-run-combinations.sh 64 $app
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-128-iter-$i -N64 -n 3584 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-osu-cpu_rocky-8.sif /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce 
 done

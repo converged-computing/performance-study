@@ -43,23 +43,22 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
 done
 ```
 ```bash
+# Results and save script to home!
 mkdir -p ./results
 chmod +x ./save.sh
 ```
 
-We need to be instance owner.
+For each experiment, we need to be instance owner. This also cleans up `flux jobs -a` so you get a clean slate.
 
 ```bash
 flux alloc -N <total-nodes>
 flux alloc -N 32
 ```
 
+You'll need to login to oras just once:
+
 ```bash
-# This output directory is used across experiments
-sudo chown -R $USER /opt/containers/
-flux exec -x 0 /bin/bash -c "sudo chown -R sochat1_llnl_gov /opt/containers"
-export output=/opt/containers/results
-mkdir -p $output
+oras login ghcr.io --username vsoch
 ```
 
 #### Single Node Benchmark
@@ -73,7 +72,6 @@ singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen
 Here is a modified entrypoint:
 
 ```console
-oras login ghcr.io --username vsoch
 export app=single-node
 output=./results/$app
 mkdir -p $output
@@ -100,31 +98,18 @@ This one requires sourcing spack, so we need to write a little wrapper for it.
 $@
 ```
 ```bash
+# No need to share the file - the filesystem is shared
 chmod +x run_amg.sh
-flux archive create --name runamgsh -C /home/sochat1_llnl_gov run_amg.sh
-flux exec -x 0 flux archive extract --name runamgsh -C /home/sochat1_llnl_gov
-```
-
-Test size run:
-
-```bash
-# 3 seconds
-time flux run --env OMP_NUM_THREADS=3 -N 2 -n 8 -o cpu-affinity=per-task singularity exec ~/metric-amg2023_spack-slim-cpu.sif /bin/bash ~/run_amg.sh amg -n 32 32 32 -P 2 2 2 -problem 2
 ```
 
 ```console
-oras login ghcr.io --username vsoch
 export app=amg2023
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 1 5); do     
+for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --env OMP_NUM_THREADS=2 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-128-iter-$i -N 128 -n 3584 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash /home/sochat1_llnl_gov/run_amg.sh amg -n 256 256 128 -P 16 14 16 -problem 2
-
-# TODO NEEDS REDO
-  time flux run --env OMP_NUM_THREADS=2 --setattr=user.study_id=$app-32-iter-$i -N 32 -n 896 -o cpu-affinity=per-task amg -n 256 256 128 -P 7 8 16 -problem 2
-
+  time flux run --env OMP_NUM_THREADS=2 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-32-iter-$i -N 32 -n 896 -o cpu-affinity=per-task singularity exec /opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif /bin/bash /home/sochat1_llnl_gov/run_amg.sh amg -n 256 256 128 -P 7 8 16 -problem 2
 done
 
 # When they are done:
@@ -139,7 +124,7 @@ export app=kripke
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   flux submit --env OMP_NUM_THREADS=1 --env OMPI_MCA_btl_vader_single_copy_mechanism=none --setattr=user.study_id=$app-32-iter-$i -N 32 -n 1792 singularity exec /opt/containers/metric-kripke-cpu_rocky-8.sif kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 8,14,16
 done
@@ -150,23 +135,16 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### Laghos
 
-Testing:
-
-```bash
-# 3m 42 seconds
-time flux run -o cpu-affinity=per-task -N2 -n 112 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 10 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
-```
-
 ```console
-export app=laghos
+export app=laghos-7-threads
 export output=results/$app
 mkdir -p $output
 
+# Killed at 17 minutes - would go until 50 minutes
 for i in $(seq 1 1); do
   echo "Running iteration $i" 
-  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+  time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive -o cpu-affinity=per-task --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 done
-
 ./save.sh $output
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-32-$app $output
 ```
@@ -178,7 +156,13 @@ export app=lammps-reax
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do
+# Lammps data needs to be copied from first container
+singularity  shell /opt/containers/metric-lammps-cpu_zen4-reax.sif
+cp -R /code /home/sochat1_llnl_gov/lammps-data
+exit
+cd /home/sochat1_llnl_gov/lammps-data
+
+for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task -N32 -n 1792 singularity exec /opt/containers/metric-lammps-cpu_rocky-8.sif /usr/bin/lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done
@@ -198,7 +182,6 @@ time flux run -N2 -o cpu-affinity=per-task singularity exec --env OMPI_MCA_btl_v
 ```
 
 ```console
-oras login ghcr.io --username vsoch
 export app=minife
 export output=results/$app
 mkdir -p $output
@@ -206,7 +189,7 @@ mkdir -p $output
 i=1
 time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 -o cpu-affinity=per-task singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-minife_rocky-8.sif miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 -o cpu-affinity=per-task singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-minife_rocky-8.sif miniFE.x nx=230 ny=230 nz=230 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 done
@@ -226,14 +209,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-Testing:
-
-```bash
-time flux run -l -N1 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-mixbench_cpu.sif mixbench-cpu 64
-```
-
 ```console
-oras login ghcr.io --username vsoch
 export app=mixbench
 export output=results/$app
 mkdir -p $output
@@ -251,26 +227,12 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### Mt-Gemm
 
-Testing:
-
-```bash
-time flux run -N1 -o cpu-affinity=per-task --env OMPI_MCA_btl_vader_single_copy_mechanism=none singularity exec /opt/containers/mt-gemm_rocky-8.sif /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi
-```
 ```console
-Performance= 784.96 GFlop/s, Time= 2.548 msec, Size= 2000000000 Ops
-
-real	0m13.146s
-user	0m0.067s
-sys	0m0.012s
-```
-
-```console
-oras login ghcr.io --username vsoch
 export app=mt-gemm
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec  /opt/containers/mt-gemm_rocky-8.sif /opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi  
 done
@@ -323,14 +285,13 @@ done
 And then run as follows.
 
 ```console
-oras login ghcr.io --username vsoch
 export app=osu
 export output=results/$app
 mkdir -p $output
 
 ./flux-run-combinations.sh 32 $app
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   time flux run --setattr=user.study_id=$app-32-iter-$i -N32 -n 1792 --env OMPI_MCA_btl_vader_single_copy_mechanism=none -o cpu-affinity=per-task singularity exec /opt/containers/metric-osu-cpu_rocky-8.sif /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
 done
@@ -347,7 +308,7 @@ export app=quicksilver
 export output=results/$app
 mkdir -p $output
     
-for i in $(seq 2 5); do
+for i in $(seq 1 5); do
     echo "Running iteration $i"
     time flux run --cores-per-task=7 --exclusive --env OMP_NUM_THREADS=7 --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 singularity exec /opt/containers/metric-quicksilver-cpu_rocky-8.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 64  -x 64  -y 64  -z 64  -I 8  -J 8  -K 4  -n 83886080
 done
@@ -360,21 +321,20 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### Stream
 
-Testing:
-
-```bash
-time flux run -N1 -n 56 -o cpu-affinity=per-task singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-stream_rocky-8.sif stream_c.exe
-```
-
 ```console
-oras login ghcr.io --username vsoch
 export app=stream
 export output=results/$app
 mkdir -p $output
 
-for i in $(seq 1 5); do     
+mkdir -p $output
+for i in $(seq 1 5); do
   echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-1-iter-$i --env OMPI_MCA_btl_vader_single_copy_mechanism=none -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe 
+  for node in $(seq 1 9); do
+    flux submit --env OMPI_MCA_btl_vader_single_copy_mechanism=none --exclusive  --requires="hosts:flux-00${node}" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe
+  done
+  for node in $(seq 10 32); do
+    flux submit --env OMPI_MCA_btl_vader_single_copy_mechanism=none --exclusive --requires="hosts:flux-0${node}" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe
+  done
 done
 
 # When they are done:

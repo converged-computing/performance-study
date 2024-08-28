@@ -24,8 +24,11 @@ managedNodeGroups:
     maxSize: 16
     efaEnabled: true
 # We could only get 11 nodes, had to disable this
+# We also needed to custom compile eksctl to comment out these lines
+# https://github.com/eksctl-io/eksctl/blob/fc24e94034492faeda18c43e17fade077c2ff090/pkg/cfn/builder/managed_launch_template.go#L80-L87
+# It assumes efa needs a placement group (and likely it does)
 #    placement:
-#      groupName: performance-study
+#      groupName: null
     capacityReservation:
       capacityReservationTarget:
         capacityReservationID: "cr-0aa42ac2cf4ae9155"
