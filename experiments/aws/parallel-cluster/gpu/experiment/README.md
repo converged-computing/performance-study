@@ -115,25 +115,7 @@ for jobid in $()
   done
 ```
 
-From Alan sill to save jobs (needs to be tested):
-
-```
-For the first, you might be able to use the “--extra=<string>” flag for salloc or srun. (Disclaimer: I’ve never used this.)
-For the second, you can use sacct
-sacct -u (user) -S (start datetime) --json | jq -r .jobs.job_id
-```
-
-
 #### AMG2023
-
-Create the minicluster and shell in.
-
-```bash
-time singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu
-```
-
-Pull time: 48 seconds.
-Since this container requires sourcing spack, we need to write a bash script to run on the host.
 
 ```bash
 #!/bin/bash
