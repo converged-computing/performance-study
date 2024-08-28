@@ -326,7 +326,6 @@ export app=stream
 export output=results/$app
 mkdir -p $output
 
-mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i"
   for node in $(seq 1 9); do

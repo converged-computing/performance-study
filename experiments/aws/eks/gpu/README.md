@@ -620,10 +620,12 @@ done
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
-kubectl delete -f ./crd/mt-gem.yaml
+kubectl delete -f ./crd/mt-gemm.yaml
 ```
 
 ### Multi GPU Models
+
+**DOES NOT RUN** segmentation fault
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-multi-gpu-models-$(date +%s).json
@@ -783,14 +785,15 @@ kubectl delete -f ./crd/osu.yaml
 
 ### Quicksilver
 
-**NOT DONE YET**
+**only done at size 16, cancelled at 17 minutes**
+
+Runs were way too slow...
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-quicksilver-$(date +%s).json
 kubectl apply -f ./crd/quicksilver.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
@@ -801,9 +804,6 @@ app=quicksilver
 output=./results/$app
 mkdir -p $output
 
-i=1
-flux run --env OMP_NUM_THREADS=8 --cores-per-task=8 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N4 -n 4 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
-
 # Size 4
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
@@ -811,11 +811,10 @@ for i in $(seq 1 2); do
     flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600
 done
 
-# DID NOT RUN BELOW HERE
 # Size 16
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
-    flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200 |& tee ./$output/$app-16-iter-${i}.out
+    flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200
 done
 
 # When they are done:
@@ -842,7 +841,6 @@ flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile
 # Coral 2 example
 flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem2/Coral2_P2.inp
 ```
-
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
 ```
@@ -902,7 +900,6 @@ done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
-
 ```bash
 kubectl delete -f ./crd/resnet.yaml
 ```
@@ -922,11 +919,15 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 oras login ghcr.io --username vsoch
 app=stream
 output=./results/$app
-
 mkdir -p $output
-for i in $(seq 1 15); do     
-  echo "Running iteration $i"
-  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream 
+nodes=15
+
+for i in $(seq 1 15); do
+  for node in $(seq 1 $nodes)
+    do
+     echo "Running iteration $i"
+     flux submit --requires="hosts:flux-sample-$node" --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-node-$node-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream 
+  done
 done
 
 # When they are done:
