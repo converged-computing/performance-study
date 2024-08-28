@@ -1,0 +1,99 @@
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         744.5951      0.00134375   0.00134301   0.00134492
+Scale:        745.2566      0.00134358   0.00134182   0.00134516
+Add:          748.8937      0.00200548   0.00200295   0.00200796
+Triad:        747.8255      0.00200688   0.00200582   0.00200891
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         733.6547      0.00136446   0.00136304   0.00136590
+Scale:        733.6547      0.00136446   0.00136304   0.00136518
+Add:          759.1042      0.00197716   0.00197601   0.00197816
+Triad:        759.5625      0.00197640   0.00197482   0.00197721
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         733.6547      0.00136412   0.00136304   0.00136518
+Scale:        733.1418      0.00136449   0.00136399   0.00136590
+Add:          758.7381      0.00197792   0.00197697   0.00197911
+Triad:        759.5625      0.00197593   0.00197482   0.00197697
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         733.7831      0.00136396   0.00136280   0.00136590
+Scale:        733.1418      0.00136458   0.00136399   0.00136518
+Add:          758.7381      0.00197788   0.00197697   0.00197911
+Triad:        759.5625      0.00197594   0.00197482   0.00197697
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         733.7831      0.00136367   0.00136280   0.00136495
+Scale:        733.7831      0.00136379   0.00136280   0.00136518
+Add:          759.1042      0.00197793   0.00197601   0.00198483
+Triad:        759.5625      0.00197582   0.00197482   0.00197721
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         744.5951      0.00134407   0.00134301   0.00134516
+Scale:        745.1242      0.00134354   0.00134206   0.00134516
+Add:          748.8937      0.00200538   0.00200295   0.00200701
+Triad:        748.1812      0.00200627   0.00200486   0.00200820
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         733.7831      0.00136358   0.00136280   0.00136614
+Scale:        733.7831      0.00136417   0.00136280   0.00136614
+Add:          759.1958      0.00197719   0.00197577   0.00197911
+Triad:        759.9295      0.00203200   0.00197387   0.00304198
+ STREAM Benchmark implementation in CUDA
+ Array size (double precision) = 536.87 MB
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:         745.1242      0.00134333   0.00134206   0.00134516
+Scale:        745.2566      0.00134339   0.00134182   0.00134397
+Add:          748.4483      0.00200593   0.00200415   0.00200915
+Triad:        748.1812      0.00200634   0.00200486   0.00200796
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 1, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["stream"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/stream", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "gpu-affinity": "per-task", "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-10"]}}, "user": {"study_id": "stream-1-node-10-iter-6"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724812169.1047444,"name":"init"}
+{"timestamp":1724812169.1057222,"name":"starting"}
+{"timestamp":1724812169.1191945,"name":"shell.init","context":{"service":"0-shell-f2SYNFkQX","leader-rank":10,"size":1}}
+{"timestamp":1724812169.1341312,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,1,8,1]]}}}
+{"timestamp":1724812170.3553138,"name":"shell.task-exit","context":{"localid":7,"rank":7,"state":"Exited","pid":206,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724812170.674726,"name":"complete","context":{"status":0}}
+{"timestamp":1724812170.6747558,"name":"done"}
+

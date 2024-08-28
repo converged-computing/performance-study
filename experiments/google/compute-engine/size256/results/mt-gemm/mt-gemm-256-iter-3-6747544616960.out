@@ -1,0 +1,12 @@
+Performance= 452.65 GFlop/s, Time= 4.418 msec, Size= 2000000000 Ops
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 256, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "/opt/containers/mt-gemm_rocky-8.sif", "/opt/dense_linear_algebra/gemm/mpi/build/1_dense_gemm_mpi"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "mt-gemm-256-iter-3"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724802899.3913021,"name":"init"}
+{"timestamp":1724802899.3920391,"name":"starting"}
+{"timestamp":1724802899.4291515,"name":"shell.init","context":{"service":"1356918789-shell-f44FJQthV","leader-rank":0,"size":256}}
+{"timestamp":1724802899.5769916,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,256,56,1]]}}}
+{"timestamp":1724802963.2537558,"name":"shell.task-exit","context":{"localid":40,"rank":2448,"state":"Exited","pid":65301,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724802964.0076871,"name":"complete","context":{"status":0}}
+{"timestamp":1724802964.007797,"name":"done"}
+

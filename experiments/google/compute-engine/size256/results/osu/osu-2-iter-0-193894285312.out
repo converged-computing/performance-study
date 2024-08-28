@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      31.76
+1                      31.35
+2                      31.37
+4                      31.65
+8                      31.67
+16                     31.69
+32                     34.80
+64                     34.89
+128                    34.90
+256                    35.55
+512                    36.07
+1024                   37.02
+2048                   43.38
+4096                   47.53
+8192                   56.41
+16384                  74.75
+32768                 102.00
+65536                 251.42
+131072                272.19
+262144                369.76
+524288                535.18
+1048576              1016.59
+2097152              2129.24
+4194304              4417.51
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "/opt/containers/metric-osu-cpu_rocky-8.sif", "/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-083,flux-067"]}}, "user": {"study_id": "osu-2-iter-0"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724798504.7576115,"name":"init"}
+{"timestamp":1724798504.7581322,"name":"starting"}
+{"timestamp":1724798504.7729003,"name":"shell.init","context":{"service":"1356918789-shell-f66QmtrB","leader-rank":66,"size":2}}
+{"timestamp":1724798504.7755938,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724798535.1056859,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":29010,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724798535.1293831,"name":"complete","context":{"status":0}}
+{"timestamp":1724798535.1294131,"name":"done"}
+

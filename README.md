@@ -19,20 +19,21 @@ This is a checklist for the setups we have tested and timed:
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
-- [ ] Google Cloud HPC Toolkit GPU (date)
-- [ ] Google Cloud Compute Engine CPU
+- [ ] Google Compute Engine GPU (date)
+- [x] Google Cloud Compute Engine CPU
   - [x] size 32 (done 8/26/2024)
   - [x] size 64 (done 8/26/2024)
-  - [ ] size 128
-  - [ ] size 256
+  - [x] size 128 (done 8/27/2024)
+  - [x] size 256 (done 8/27/2024)
 - [ ] AWS GPU Parallel Cluster (date)
+   - Not going to do, cannot build image
 - [ ] AWS CPU Parallel Cluster (date)
 - [ ] Microsoft Azure AKS CPU
   - [x] size 32 (done 8/24/2024)
   - [x] size 64 (done 8/24/2024)
   - [ ] size 128
   - [ ] size 256
-- [ ] Google Cloud GKE CPU
+- [x] Google Cloud GKE CPU
   - [x] size 32 (done 8/21/2024)
   - [x] size 64 (done 8/22/2024)
   - [x] size 128 (done 8/23/2024)
@@ -44,10 +45,10 @@ This is a checklist for the setups we have tested and timed:
   - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting))
 - [ ] Microsoft Azure AKS GPU
 - [ ] Google Cloud GKE GPU
-- [ ] AWS GPU EKS
+- [x] AWS GPU EKS
   - [x] size 4 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
   - [x] size 8 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
-  - [ ] size 16 allocation not possible
+  - [x] size 16 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
 
 For the above, the Azure setups are problematic - the Infiniband does not seem to be effectively combining across many nodes.
 
