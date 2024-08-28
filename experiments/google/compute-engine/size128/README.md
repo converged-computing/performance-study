@@ -51,10 +51,6 @@ We need to be instance owner.
 flux alloc -N <total-nodes>
 flux alloc -N 128
 ```
-```bash
-export output=/home/sochat1_llnl_gov/results
-mkdir -p $output
-```
 
 #### Single Node Benchmark
 
@@ -134,32 +130,15 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### Laghos
 
-**NOT RUN YET**
-
-The below has bad topology:
-
-```
-***Cannot bisect a graph with 0 vertices!
-	***You are trying to partition a graph into too many parts!
-```
-
 ```console
-export app=laghos
+export app=laghos-7-threads
 export output=results/$app
 mkdir -p $output
 
 for i in $(seq 1 1); do
   echo "Running iteration $i" 
-  time flux run -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 7168 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
+  time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 -o cpu-affinity=per-task --setattr=user.study_id=$app-128-iter-$i -N128 -n 1024 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 done
-
-# 64, 128, 256 should only change N and n , so -N 64 -n 3584, -N 128 -n 7168, -N 256 -n 14336
-
-(Same OMP_NUM_THREADS=7 -cores-per-task=7 for all):
-64: -N 64 -n 512
-128: -N 128 -n 1024 (edited) 
-
-   time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive -o cpu-affinity=per-task --setattr=user.study_id=$app-256-iter-$i -N256 -n 2048 singularity exec --env OMPI_MCA_btl_vader_single_copy_mechanism=none /opt/containers/metric-laghos_rocky-8.sif /opt/laghos/laghos -pa -p 1 -tf 0.6 -pt 311 -m /opt/laghos/data/cube_311_hex.mesh --ode-solver 7 --max-steps 400 --cg-tol 0 -cgm 50 -ok 3 -ot 2 -rs 4 -rp 2 --fom
 
 ./save.sh $output
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-cpu-128-$app $output
@@ -325,13 +304,17 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 export app=stream
 export output=results/$app
 mkdir -p $output
-nodes=127
 
-mkdir -p $output
 for i in $(seq 1 5); do
   echo "Running iteration $i"
-  for node in $(seq 1 $nodes); do
-    flux submit --requires="hosts:flux-sample-$node" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task stream_c.exe
+  for node in $(seq 1 9); do
+    flux submit --env OMPI_MCA_btl_vader_single_copy_mechanism=none --exclusive  --requires="hosts:flux-00${node}" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe
+  done
+  for node in $(seq 10 99); do
+    flux submit --env OMPI_MCA_btl_vader_single_copy_mechanism=none --exclusive --requires="hosts:flux-0${node}" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe
+  done
+  for node in $(seq 100 128); do
+    flux submit --env OMPI_MCA_btl_vader_single_copy_mechanism=none --exclusive --requires="hosts:flux-${node}" --setattr=user.study_id=$app-1-iter-$i-node-$node -N1 -n 56 -o cpu-affinity=per-task singularity exec /opt/containers/metric-stream_rocky-8.sif stream_c.exe
   done
 done
 

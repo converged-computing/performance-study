@@ -945,7 +945,6 @@ done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
-
 ```bash
 kubectl delete -f ./crd/stream.yaml
 ```
