@@ -1,0 +1,4 @@
+3.760s: job.exception type=cancel severity=0 interrupted by ctrl-C
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 64, "exclusive": true, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["lmp", "-k", "on", "-sf", "kk", "-pk", "kokkos", "newton", "on", "neigh", "half", "-in", "in.snap.test", "-var", "snapdir", "2J8_W.SNAP", "-v", "x", "128", "-v", "y", "128", "-v", "z", "128", "-var", "nsteps", "20000"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/code", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "lammps-64-iter-1"}}, "version": 1}
+START OF EVENTLOG

@@ -303,38 +303,25 @@ app=lammps-reax
 output=./results/$app
 mkdir -p $output
 
-# Make sure cuda on path
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
-
-# Try this
---env FI_EFA_USE_DEVICE_RDMA=1 --env FI_EFA_RUNT_SIZE=0
-
-time flux run --env FI_EFA_USE_DEVICE_RDMA=1 --env FI_EFA_RUNT_SIZE=0 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp_gpu -k on g 1 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-# THIS ALMOST WORKS NEED FLAG THAT IS MISSING
-time flux run -ompi=pmix --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task  -N4 -n 32 -g 1 lmp_gpu -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-NOT USING CUDA
-
-time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
 # Size 4
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 32 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done 
 
 # Size 8
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N8 -n 64 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 32 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+done
 
 # Size 16
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N16 -n 128 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 32 -v z 32 -in in.reaxff.hns -nocite
+  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done
 
 # When they are done:
@@ -680,7 +667,7 @@ kubectl delete -f ./crd/multi-gpu-models.yaml
 
 ### OSU
 
-**NOT DONE YET**
+Note: we're running host to host (`H H`) buffer tests since the device-device tests are segfaulting, and the capacity reservation extends across datacenters.
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-osu-$(date +%s).json
@@ -691,7 +678,7 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-Write this script to the filesystem:
+Write `flux-run-combinations.sh` to the filesystem:
 
 ```bash
 #/bin/bash
@@ -713,20 +700,22 @@ for i in $hosts; do
   dequeue_from_list $list
   for j in $list; do
     echo "${i} ${j}"
-    time flux run -N 2 -n 2 \
+    time flux run -N 2 -n 2 -g 1 \
       --setattr=user.study_id=$app-2-iter-$iter \
-      --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
       --requires="hosts:${i},${j}" \
-      -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda D D
-    time flux run -N 2 -n 2 \
+      --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+      --env CUDA_VISIBLE_DEVICES=0 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+      --requires="hosts:${i},${j}" \
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda H H
+    time flux run -N 2 -n 2 -g 1 \
       --setattr=user.study_id=$app-2-iter-$iter \
-      --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
       --requires="hosts:${i},${j}" \
-      -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw -d cuda D D
+      --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+      --env CUDA_VISIBLE_DEVICES=0 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+      --requires="hosts:${i},${j}" \
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw -d cuda H H
     iter=$((iter+1))
-done
+  done
 done
 ```
 
@@ -736,32 +725,33 @@ And then run as follows.
 oras login ghcr.io --username vsoch
 app=osu
 output=./results/$app
-mkdir -p $output
+mkdir -p $output/size-${size}
+size=4
 
-./flux-run-combinations.sh 8 $app
-
-time flux run -N 2 -n 2 -g 1 \
-      --env CUDA_VISIBLE_DEVICES=0 \
-      -o gpu-affinity=per-task \
-      -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda D D
+./flux-run-combinations.sh ${size} $app
 
 # 4 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+  --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
 
 # 8 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+  --setattr=user.study_id=$app-4-iter-$i -N 8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
 
 # 16 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+  --setattr=user.study_id=$app-4-iter-$i -N 16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
 
 # When they are done:

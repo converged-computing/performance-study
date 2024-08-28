@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       1.45
+2                       3.14
+4                       6.19
+8                      12.02
+16                     25.99
+32                     48.58
+64                     96.66
+128                   185.29
+256                   350.36
+512                   600.24
+1024                 1069.50
+2048                 2155.82
+4096                 2826.94
+8192                 4190.84
+16384                5014.10
+32768                5887.33
+65536                6188.44
+131072               6491.20
+262144               6504.31
+524288               6170.09
+1048576              4957.63
+2097152              4617.16
+4194304              5203.25
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-6,flux-sample-43"]}}, "user": {"study_id": "osu-placement-2-iter-20"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724876242.8214228,"name":"init"}
+{"timestamp":1724876242.8225815,"name":"starting"}
+{"timestamp":1724876242.841186,"name":"shell.init","context":{"service":"0-shell-fxFkaWt7","leader-rank":6,"size":2}}
+{"timestamp":1724876242.8442369,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724876245.997793,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":121,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724876246.0044234,"name":"complete","context":{"status":0}}
+{"timestamp":1724876246.0044632,"name":"done"}
+

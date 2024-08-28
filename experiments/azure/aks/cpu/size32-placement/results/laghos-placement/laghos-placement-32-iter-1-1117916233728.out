@@ -1,0 +1,125 @@
+1466.758s: job.exception type=cancel severity=0 interrupted by ctrl-C
+1467.319s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) exited with exit code 143
+
+       __                __                 
+      / /   ____  ____  / /_  ____  _____   
+     / /   / __ `/ __ `/ __ \/ __ \/ ___/ 
+    / /___/ /_/ / /_/ / / / / /_/ (__  )    
+   /_____/\__,_/\__, /_/ /_/\____/____/  
+               /____/                       
+
+Options used:
+   --dimension 3
+   --mesh ./data/cube_311_hex.mesh
+   --refine-serial 4
+   --refine-parallel 2
+   --cartesian-partitioning ''
+   --problem 1
+   --order-kinematic 3
+   --order-thermo 2
+   --order-intrule -1
+   --ode-solver 7
+   --t-final 0.6
+   --cfl 0.5
+   --cg-tol 0
+   --ftz-tol 0
+   --cg-max-steps 50
+   --max-steps 400
+   --partial-assembly
+   --no-impose-viscosity
+   --no-visualization
+   --visualization-steps 5
+   --no-visit
+   --no-print
+   --outputfilename results/Laghos
+   --partition 311
+   --device cpu
+   --no-checks
+   --no-mem
+   --fom
+   --no-gpu-aware-mpi
+   --dev 0
+Device configuration: cpu
+Memory configuration: host-std
+Number of zones in the serial mesh: 12288
+Non-Cartesian partitioning through METIS will be used.
+Mesh::GeneratePartitioning(...): edgecut = 25513
+Mesh::GeneratePartitioning(...): METIS returned 414 empty parts! Applying a simple fix ...
+Zones min/max: 192 384
+Number of kinematic (position, velocity) dofs: 64478019
+Number of specific internal energy dofs: 21233664
+Repeating step 3
+step     5,	t = 0.0000,	dt = 0.000000,	|e| = 2.9273016842e+06
+Repeating step 6
+step    10,	t = 0.0000,	dt = 0.000000,	|e| = 2.7548731952e+06
+step    15,	t = 0.0000,	dt = 0.000000,	|e| = 2.6005931958e+06
+step    20,	t = 0.0000,	dt = 0.000000,	|e| = 2.4668403355e+06
+step    25,	t = 0.0000,	dt = 0.000000,	|e| = 2.3476774766e+06
+Repeating step 30
+step    30,	t = 0.0000,	dt = 0.000000,	|e| = 2.2468136043e+06
+Repeating step 34
+step    35,	t = 0.0000,	dt = 0.000000,	|e| = 2.1718745027e+06
+step    40,	t = 0.0000,	dt = 0.000000,	|e| = 2.1039332192e+06
+step    45,	t = 0.0000,	dt = 0.000000,	|e| = 2.0393897885e+06
+Repeating step 47
+step    50,	t = 0.0000,	dt = 0.000000,	|e| = 1.9857614817e+06
+step    55,	t = 0.0000,	dt = 0.000000,	|e| = 1.9320038994e+06
+step    60,	t = 0.0000,	dt = 0.000000,	|e| = 1.8768113505e+06
+step    65,	t = 0.0000,	dt = 0.000000,	|e| = 1.8219683824e+06
+Repeating step 66
+step    70,	t = 0.0000,	dt = 0.000000,	|e| = 1.7779709708e+06
+step    75,	t = 0.0000,	dt = 0.000000,	|e| = 1.7338233987e+06
+step    80,	t = 0.0000,	dt = 0.000000,	|e| = 1.6920199936e+06
+step    85,	t = 0.0000,	dt = 0.000000,	|e| = 1.6530371402e+06
+step    90,	t = 0.0000,	dt = 0.000000,	|e| = 1.6151886020e+06
+step    95,	t = 0.0000,	dt = 0.000000,	|e| = 1.5785624388e+06
+step   100,	t = 0.0000,	dt = 0.000000,	|e| = 1.5432598746e+06
+step   105,	t = 0.0000,	dt = 0.000000,	|e| = 1.5090999595e+06
+step   110,	t = 0.0000,	dt = 0.000000,	|e| = 1.4760127221e+06
+Repeating step 111
+Repeating step 113
+Repeating step 115
+step   115,	t = 0.0000,	dt = 0.000000,	|e| = 1.4512693420e+06
+Repeating step 118
+step   120,	t = 0.0000,	dt = 0.000000,	|e| = 1.4328956042e+06
+step   125,	t = 0.0000,	dt = 0.000000,	|e| = 1.4163076927e+06
+step   130,	t = 0.0000,	dt = 0.000000,	|e| = 1.4004632065e+06
+step   135,	t = 0.0000,	dt = 0.000000,	|e| = 1.3853049273e+06
+Repeating step 136
+step   140,	t = 0.0000,	dt = 0.000000,	|e| = 1.3729219355e+06
+step   145,	t = 0.0000,	dt = 0.000000,	|e| = 1.3609733585e+06
+step   150,	t = 0.0000,	dt = 0.000000,	|e| = 1.3494328531e+06
+step   155,	t = 0.0000,	dt = 0.000000,	|e| = 1.3382693799e+06
+step   160,	t = 0.0000,	dt = 0.000000,	|e| = 1.3274620287e+06
+step   165,	t = 0.0000,	dt = 0.000000,	|e| = 1.3169971344e+06
+step   170,	t = 0.0000,	dt = 0.000000,	|e| = 1.3068436355e+06
+step   175,	t = 0.0000,	dt = 0.000000,	|e| = 1.2969825072e+06
+step   180,	t = 0.0000,	dt = 0.000000,	|e| = 1.2871634945e+06
+step   185,	t = 0.0000,	dt = 0.000000,	|e| = 1.2773843215e+06
+step   190,	t = 0.0000,	dt = 0.000000,	|e| = 1.2676377808e+06
+step   195,	t = 0.0000,	dt = 0.000000,	|e| = 1.2578781850e+06
+step   200,	t = 0.0000,	dt = 0.000000,	|e| = 1.2480667203e+06
+step   205,	t = 0.0000,	dt = 0.000000,	|e| = 1.2382492789e+06
+step   210,	t = 0.0000,	dt = 0.000000,	|e| = 1.2283819581e+06
+step   215,	t = 0.0000,	dt = 0.000000,	|e| = 1.2185384275e+06
+step   220,	t = 0.0000,	dt = 0.000000,	|e| = 1.2087546367e+06
+step   225,	t = 0.0000,	dt = 0.000000,	|e| = 1.1989928292e+06
+step   230,	t = 0.0000,	dt = 0.000000,	|e| = 1.1892564612e+06
+step   235,	t = 0.0000,	dt = 0.000000,	|e| = 1.1795470815e+06
+step   240,	t = 0.0000,	dt = 0.000000,	|e| = 1.1698715166e+06
+step   245,	t = 0.0000,	dt = 0.000000,	|e| = 1.1602331211e+06
+step   250,	t = 0.0000,	dt = 0.000000,	|e| = 1.1506396346e+06
+step   255,	t = 0.0000,	dt = 0.000000,	|e| = 1.1411311725e+06
+step   260,	t = 0.0000,	dt = 0.000000,	|e| = 1.1318925238e+06
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/laghos/laghos", "-pa", "-p", "1", "-tf", "0.6", "-pt", "311", "-m", "./data/cube_311_hex.mesh", "--ode-solver", "7", "--max-steps", "400", "--cg-tol", "0", "-cgm", "50", "-ok", "3", "-ot", "2", "-rs", "4", "-rp", "2", "--fom"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/laghos", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "laghos-placement-32-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724871315.1898234,"name":"init"}
+{"timestamp":1724871315.1905594,"name":"starting"}
+{"timestamp":1724871315.2171676,"name":"shell.init","context":{"service":"0-shell-fWNDRufu","leader-rank":0,"size":32}}
+{"timestamp":1724871315.6014707,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,96,1]]}}}
+{"timestamp":1724872782.3954465,"name":"shell.task-exit","context":{"localid":32,"rank":3008,"state":"Exited","pid":124,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1724872782.7492676,"name":"complete","context":{"status":36608}}
+{"timestamp":1724872782.7493136,"name":"done"}
+

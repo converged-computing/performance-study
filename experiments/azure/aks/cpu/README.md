@@ -116,7 +116,6 @@ kubectl exec -it flux-sample-0-xxx bash
 Next, choose a cluster size in one of the experiment folders.
 
 
-
 ### 2. Applications
 
 #### Single Node Benchmark

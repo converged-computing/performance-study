@@ -1,0 +1,34 @@
+MiniFE Mini-App, OpenMP Peer Implementation
+Creating OpenMP Thread Pool...
+Counted: 6144 threads.
+Running MiniFE Mini-App...
+      creating/filling mesh...0.057755s, total time: 0.057755
+generating matrix structure...0.012562s, total time: 0.070317
+         assembling FE data...0.00446701s, total time: 0.074784
+      imposing Dirichlet BC...0.000631094s, total time: 0.0754151
+      imposing Dirichlet BC...4.91142e-05s, total time: 0.0754642
+making matrix indices local...1.05836s, total time: 1.13382
+Starting CG solver ... 
+Initial Residual = 231.002
+Iteration = 20   Residual = 0.105018
+Iteration = 40   Residual = 0.0885116
+Iteration = 60   Residual = 0.0894825
+Iteration = 80   Residual = 0.0756298
+Iteration = 100   Residual = 0.0403742
+Iteration = 120   Residual = 0.0165024
+Iteration = 140   Residual = 0.00681647
+Iteration = 160   Residual = 0.00332889
+Iteration = 180   Residual = 0.00202529
+Iteration = 200   Residual = 0.0013673
+Final Resid Norm: 0.0013673
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 64, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["miniFE.x", "nx=230", "ny=230", "nz=230", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/minife", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "minife-placement-64-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724882569.6596618,"name":"init"}
+{"timestamp":1724882569.6606414,"name":"starting"}
+{"timestamp":1724882569.7284033,"name":"shell.init","context":{"service":"0-shell-fN63pWvK","leader-rank":0,"size":64}}
+{"timestamp":1724882570.1101871,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,64,96,1]]}}}
+{"timestamp":1724882668.1933932,"name":"shell.task-exit","context":{"localid":27,"rank":4347,"state":"Exited","pid":115,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724882668.6444309,"name":"complete","context":{"status":0}}
+{"timestamp":1724882668.6444905,"name":"done"}
+

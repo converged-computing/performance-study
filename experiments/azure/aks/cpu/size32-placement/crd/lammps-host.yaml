@@ -1,0 +1,61 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 32
+  interactive: true
+
+  pod:
+    hostNetwork: true
+
+  # This disables installing flux via the view
+  flux:
+    mainHost: aks-userpool-11003557-vmss000000
+    hostlist: aks-userpool-11003557-vmss00000[0-1]
+    brokerConfig: |
+      [access]
+      allow-guest-user = true
+      allow-root-owner = true
+      # Point to resource definition generated with flux-R(1).
+      [resource]
+      path = "/mnt/flux/view/etc/flux/system/R"
+      [bootstrap]
+      curve_cert = "/mnt/flux/view/curve/curve.cert"
+      default_port = 8050
+      default_bind = "tcp://eth0:%p"
+      default_connect = "tcp://%h:%p"
+      hosts = [
+      { host="aks-userpool-11003557-vmss00000[0-1]"},
+      ]		
+      [archive]
+      dbpath = "/mnt/flux/view/var/lib/flux/job-archive.sqlite"
+      period = "1m"
+      busytimeout = "50s"
+      [sched-fluxion-qmanager]
+      queue-policy = "fcfs"
+
+    container:
+      disable: true
+
+# ./openmpi-5.0.5/bin/mpirun
+# ./hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin/mpirun
+# ./hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/ompi/bin/mpirun
+# ./mvapich2-2.3.7-1/bin/mpirun
+# ./intel/oneapi/mpi/2021.13/bin/mpirun
+
+  containers:
+  - image: ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc
+    commands:
+      pre: echo "ulimit -l unlimited" >> /root/.bashrc
+    environment:
+      UCX_TLS: "ib"
+      UCX_UNIFIED_MODE: "y"
+    securityContext:
+      privileged: true
+      addCapabilities: ["*"]
+    resources:
+      limits:
+        mellanox.com/shared_hca_rdma: 1
+      requests:
+        mellanox.com/shared_hca_rdma: 1

@@ -29,8 +29,8 @@ This is a checklist for the setups we have tested and timed:
    - Not going to do, cannot build image
 - [ ] AWS CPU Parallel Cluster (date)
 - [ ] Microsoft Azure AKS CPU
-  - [x] size 32 (done 8/24/2024)
-  - [x] size 64 (done 8/24/2024)
+  - [x] size 32 (done 8/24/2024), redone with placement (8/28/2024)
+  - [x] size 64 (done 8/24/2024), redone with placement (8/28/2024)
   - [ ] size 128
   - [ ] size 256
 - [x] Google Cloud GKE CPU
@@ -46,9 +46,9 @@ This is a checklist for the setups we have tested and timed:
 - [ ] Microsoft Azure AKS GPU
 - [ ] Google Cloud GKE GPU
 - [x] AWS GPU EKS
-  - [x] size 4 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
-  - [x] size 8 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
-  - [x] size 16 (partial done 8/26/2024, missing lammps, osu, resnet, quicksilver, laghos) did not work
+  - [x] size 4 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
+  - [x] size 8 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
+  - [x] size 16 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
 
 For the above, the Azure setups are problematic - the Infiniband does not seem to be effectively combining across many nodes.
 
