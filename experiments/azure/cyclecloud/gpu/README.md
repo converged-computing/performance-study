@@ -210,4 +210,3 @@ for i in {1..5}; do
 done
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-stream stream
 ```
-
