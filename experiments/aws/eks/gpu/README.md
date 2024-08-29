@@ -725,7 +725,7 @@ And then run as follows.
 oras login ghcr.io --username vsoch
 app=osu
 output=./results/$app
-mkdir -p $output/size-${size}
+mkdir -p $output/
 size=4
 
 ./flux-run-combinations.sh ${size} $app

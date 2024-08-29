@@ -20,8 +20,8 @@ singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:libfabri
 singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric && \
 singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-gpu && \
 singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric && \
-singularity pull ghcr.io/converged-computing/multi-gpu-models:libfabric && \
-singularity pull ghcr.io/converged-computing/pytorch-resnet-experiment:libfabric-gpu && \
+singularity pull docker://ghcr.io/converged-computing/multi-gpu-models:libfabric && \
+singularity pull docker://ghcr.io/converged-computing/pytorch-resnet-experiment:libfabric-gpu && \
 singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric && \
 singularity pull docker://ghcr.io/converged-computing/metric-osu-gpu:libfabric && \
 singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-gpu:libfabric && \
