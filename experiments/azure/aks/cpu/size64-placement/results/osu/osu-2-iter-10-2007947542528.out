@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                       9.40
+1                       6.87
+2                      12.60
+4                      19.40
+8                      13.72
+16                      4.33
+32                      2.08
+64                      2.26
+128                     3.34
+256                     6.73
+512                     9.00
+1024                   13.42
+2048                   14.94
+4096                   12.03
+8192                   19.13
+16384                  61.95
+32768                  75.45
+65536                 111.16
+131072                107.68
+262144                196.77
+524288                122.53
+1048576               244.29
+2097152               486.83
+4194304               456.69
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-27,flux-sample-5"]}}, "user": {"study_id": "osu-2-iter-10"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724544917.0933132,"name":"init"}
+{"timestamp":1724544917.0943487,"name":"starting"}
+{"timestamp":1724544917.1393914,"name":"shell.init","context":{"service":"0-shell-fukET1Z1","leader-rank":5,"size":2}}
+{"timestamp":1724544917.142663,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724544924.5576806,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":78,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724544924.5490592,"name":"complete","context":{"status":0}}
+{"timestamp":1724544924.5490847,"name":"done"}
+

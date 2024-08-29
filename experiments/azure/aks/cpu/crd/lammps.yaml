@@ -3,7 +3,7 @@ kind: MiniCluster
 metadata:
   name: flux-sample
 spec:
-  size: 2
+  size: 4
   interactive: true
 
   # This disables installing flux via the view
@@ -19,7 +19,7 @@ spec:
 # https://github.com/open-mpi/ompi/blob/605f6fbc19e7a6add59f563855de8076f17964e6/docs/tuning-apps/networking/ib-and-roce.rst#L44
   containers:
     # This is ucx compiled --without-cuda
-  - image: ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-vanilla
+  - image: ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-reax
     commands:
       pre: echo "ulimit -l unlimited" >> /root/.bashrc
     environment:

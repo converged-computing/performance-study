@@ -4,7 +4,6 @@ For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down
 
 > V100 nodes 
 
-We attempted asking for 16, and were only able to get 11. We had to start our cluster with 8 nodes and then try to update later.
 
 ## 1. Setup
 
@@ -37,7 +36,7 @@ kubectl apply -f ./flux-operator.yaml
 ```
 
 ```
-kubectl get nodes -o json > nodes-8.json
+kubectl get nodes -o json > nodes-16.json
 ```
 
 ## 2. Design
@@ -74,17 +73,17 @@ We want to run four separate jobs, across each node. Write this into a batch fil
 
 ```console
 oras login ghcr.io --username vsoch
-export app=single-node
+export app=single-node-16
 export output=./results/$app
 mkdir -p $output
 
 # This is the number of nodes -1
-nodes=7
+nodes=15
 for node in $(seq 0 $nodes); do
   flux submit --requires="hosts:flux-sample-$node" -N 1 --setattr=user.study_id=$app-node-$node /bin/bash /entrypoint.sh
 done 
 
-# When they are done:
+# When they are done
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
   do
     # Get the job study id
@@ -97,7 +96,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```
 kubectl delete -f crd/single-node.yaml
@@ -122,7 +121,7 @@ Here is an example loop through sizes and iterations.
 
 ```console
 oras login ghcr.io --username vsoch
-export app=amg2023-8gpu
+export app=amg2023-16
 export output=./results/$app
 mkdir -p $output
 
@@ -138,11 +137,10 @@ for i in $(seq 1 15); do
   flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 8 4 2 -problem 2 
 done
 
-NOT RUN BELOW HERE.
 # Size 16
 for i in $(seq 1 15); do     
   echo "Running iteration $i"
-  flux submit --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 16 4 2 -problem 2
+  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 16 4 2 -problem 2
 done
 
 apt-get update && apt-get install -y jq
@@ -160,7 +158,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/amg2023.yaml
@@ -173,13 +171,12 @@ kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-k
 kubectl apply -f ./crd/kripke.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 ```console
 oras login ghcr.io --username vsoch
-export app=kripke-8gpu
+export app=kripke-16
 export output=./results/$app
 mkdir -p $output
 
@@ -195,11 +192,10 @@ for i in $(seq 1 5); do
   time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --cores-per-task 1 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,4,4
 done
 
-# NOT RUN BELOW HERE
 # Size 16
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --cores-per-task 1 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4
+  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --cores-per-task 1 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o gpu-affinity=per-task kripke --arch CUDA --layout GDZ --dset 8 --zones 128,128,128 --gset 16 --groups 64 --niter 50 --legendre 8 --quad 8 --procs 4,8,4
 done
 
 # When they are done:
@@ -215,7 +211,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/kripke.yaml
@@ -275,7 +271,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 
 Look for:
@@ -307,38 +303,25 @@ app=lammps-reax
 output=./results/$app
 mkdir -p $output
 
-# Make sure cuda on path
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
-
-# Try this
---env FI_EFA_USE_DEVICE_RDMA=1 --env FI_EFA_RUNT_SIZE=0
-
-time flux run --env FI_EFA_USE_DEVICE_RDMA=1 --env FI_EFA_RUNT_SIZE=0 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp_gpu -k on g 1 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-# THIS ALMOST WORKS NEED FLAG THAT IS MISSING
-time flux run -ompi=pmix --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task  -N4 -n 32 -g 1 lmp_gpu -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-NOT USING CUDA
-
-time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
-time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
-
 # Size 4
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N4 -n 32 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 32 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done 
 
 # Size 8
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N8 -n 64 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000 
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 32 -v z 32 -in in.reaxff.hns -nocite
+  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
+done
 
 # Size 16
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task -N16 -n 128 -g 1 lmp -k on g 4 -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 1000
+  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 32 -v z 32 -in in.reaxff.hns -nocite
+  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 -o cpu-affinity=per-task --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 lmp -k on g 8 -sf kk -pk kokkos cuda/aware off newton on neigh half -in in.reaxff.hns -v x 64 -v y 64 -v z 32 -in in.reaxff.hns -nocite
 done
 
 # When they are done:
@@ -354,7 +337,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/lammps.yaml
@@ -414,7 +397,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 
 ```bash
@@ -422,8 +405,6 @@ kubectl delete -f ./crd/lammps.yaml
 ```
 
 ### Magma
-
-> With or without mnist data?
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-magma-$(date +%s).json
@@ -436,14 +417,23 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 ```console
 oras login ghcr.io --username vsoch
-export app=magma-8gpu
+export app=magma-16
 output=./results/$app
 mkdir -p $output
+nodes=15
 
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm
-  time flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-vbatched-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched --ngpu 1
+    for node in $(seq 0 $nodes); do
+      flux submit --requires="hosts:flux-sample-$node" --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm
+  done
+done
+
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+    for node in $(seq 0 $nodes); do
+    flux submit --requires="hosts:flux-sample-$node" --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-vbatched-node-$node-iter-$i -N1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched --ngpu 1
+  done
 done
 
 # When they are done:
@@ -459,7 +449,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/magma.yaml
@@ -478,7 +468,7 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 ```console
 oras login ghcr.io --username vsoch
-app=minife-8gpu
+app=minife-16
 output=./results/$app
 mkdir -p $output
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
@@ -495,7 +485,6 @@ for i in $(seq 1 15); do
   flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task miniFE.x nx=230 ny=230 nz=230 num_devices=8 use_locking=1 elem_group_size=10 use_elem_mat_fields=300 verify_solution=0
 done
 
-# NOT DONE BELOW HERE
 # Size 16
 for i in $(seq 1 5); do
   echo "Running iteration $i"
@@ -515,7 +504,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 
 ```bash
@@ -535,12 +524,12 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 
 ```console
 oras login ghcr.io --username vsoch
-export app=mixbench-8gpu
+export app=mixbench-16
 export output=./results/$app
 mkdir -p $output
 
 # One less than actual
-nodes=7
+nodes=15
 
 for i in $(seq 1 5); do     
     echo "Running iteration $i"
@@ -562,7 +551,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/mixbench.yaml
@@ -596,11 +585,10 @@ for i in $(seq 1 5); do
   flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100
 done
 
-# NOT DONE BELOW HERE
 # 16 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100 |& tee ./$output/$app-16-iter-${i}.out
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100
 done
 
 # When they are done:
@@ -616,13 +604,15 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
-kubectl delete -f ./crd/mt-gem.yaml
+kubectl delete -f ./crd/mt-gemm.yaml
 ```
 
 ### Multi GPU Models
+
+**DOES NOT RUN** segmentation fault
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-multi-gpu-models-$(date +%s).json
@@ -669,7 +659,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/multi-gpu-models.yaml
@@ -677,7 +667,7 @@ kubectl delete -f ./crd/multi-gpu-models.yaml
 
 ### OSU
 
-**NOT DONE YET**
+Note: we're running host to host (`H H`) buffer tests since the device-device tests are segfaulting, and the capacity reservation extends across datacenters.
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-osu-$(date +%s).json
@@ -688,7 +678,7 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-Write this script to the filesystem:
+Write `flux-run-combinations.sh` to the filesystem:
 
 ```bash
 #/bin/bash
@@ -710,20 +700,22 @@ for i in $hosts; do
   dequeue_from_list $list
   for j in $list; do
     echo "${i} ${j}"
-    time flux run -N 2 -n 2 \
+    time flux run -N 2 -n 2 -g 1 \
       --setattr=user.study_id=$app-2-iter-$iter \
-      --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
       --requires="hosts:${i},${j}" \
-      -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda D D
-    time flux run -N 2 -n 2 \
+      --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+      --env CUDA_VISIBLE_DEVICES=0 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+      --requires="hosts:${i},${j}" \
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda H H
+    time flux run -N 2 -n 2 -g 1 \
       --setattr=user.study_id=$app-2-iter-$iter \
-      --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
       --requires="hosts:${i},${j}" \
-      -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw -d cuda D D
+      --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+      --env CUDA_VISIBLE_DEVICES=0 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+      --requires="hosts:${i},${j}" \
+      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw -d cuda H H
     iter=$((iter+1))
-done
+  done
 done
 ```
 
@@ -733,32 +725,33 @@ And then run as follows.
 oras login ghcr.io --username vsoch
 app=osu
 output=./results/$app
-mkdir -p $output
+mkdir -p $output/
+size=4
 
-./flux-run-combinations.sh 8 $app
-
-time flux run -N 2 -n 2 -g 1 \
-      --env CUDA_VISIBLE_DEVICES=0 \
-      -o gpu-affinity=per-task \
-      -o cpu-affinity=per-task \
-      /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda D D
+./flux-run-combinations.sh ${size} $app
 
 # 4 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+  --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
 
 # 8 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+  --setattr=user.study_id=$app-4-iter-$i -N 8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
 
 # 16 Nodes
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
-  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D
+  flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --env OMPI_MCA_btl=tcp,self --env FI_EFA_FORK_SAFE=1 --env FI_PROVIDER=efa \
+  --setattr=user.study_id=$app-4-iter-$i -N 16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
+  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
 
 # When they are done:
@@ -774,7 +767,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 ```bash
 kubectl delete -f ./crd/osu.yaml
@@ -782,14 +775,15 @@ kubectl delete -f ./crd/osu.yaml
 
 ### Quicksilver
 
-**NOT DONE YET**
+**only done at size 16, cancelled at 17 minutes**
+
+Runs were way too slow...
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-quicksilver-$(date +%s).json
 kubectl apply -f ./crd/quicksilver.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
-
 ```bash
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
@@ -800,9 +794,6 @@ app=quicksilver
 output=./results/$app
 mkdir -p $output
 
-i=1
-flux run --env OMP_NUM_THREADS=8 --cores-per-task=8 --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N4 -n 4 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
-
 # Size 4
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
@@ -810,11 +801,10 @@ for i in $(seq 1 2); do
     flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600
 done
 
-# DID NOT RUN BELOW HERE
 # Size 16
 for i in $(seq 1 2); do     
     echo "Running iteration $i"
-    flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200 |& tee ./$output/$app-16-iter-${i}.out
+    flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200
 done
 
 # When they are done:
@@ -830,7 +820,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
 
 Both options:
@@ -841,7 +831,6 @@ flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile
 # Coral 2 example
 flux run --setattr=user.study_id=$app-$size-iter-$i -N2 -n 8 -g 1 qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem2/Coral2_P2.inp
 ```
-
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
 ```
@@ -899,9 +888,8 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
-
 ```bash
 kubectl delete -f ./crd/resnet.yaml
 ```
@@ -921,11 +909,15 @@ flux proxy local:///mnt/flux/view/run/flux/local bash
 oras login ghcr.io --username vsoch
 app=stream
 output=./results/$app
-
 mkdir -p $output
-for i in $(seq 1 15); do     
-  echo "Running iteration $i"
-  flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream 
+nodes=15
+
+for i in $(seq 1 15); do
+  for node in $(seq 1 $nodes)
+    do
+     echo "Running iteration $i"
+     flux submit --requires="hosts:flux-sample-$node" --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-node-$node-iter-$i -N1 -n 8 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task stream 
+  done
 done
 
 # When they are done:
@@ -941,9 +933,8 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-8-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-gpu-16-$app $output
 ```
-
 ```bash
 kubectl delete -f ./crd/stream.yaml
 ```
@@ -954,14 +945,13 @@ kubectl delete -f ./crd/stream.yaml
 eksctl delete cluster --config-file ./eks-config.yaml
 ```
 
-
 ## Results
 
 
 ```console
 for tag in $(oras repo tags ghcr.io/converged-computing/metrics-operator-experiments/performance)
   do
-    if [[ $tag == *"eks-gpu-8"* ]]; then
+    if [[ $tag == *"eks-gpu-16"* ]]; then
        echo $tag
        oras pull ghcr.io/converged-computing/metrics-operator-experiments/performance:$tag
     fi

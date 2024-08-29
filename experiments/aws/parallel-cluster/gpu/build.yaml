@@ -3,7 +3,10 @@ Build:
   InstanceType: p3dn.24xlarge
   # Note that I did  pcluster list-official-images --region us-east-1
   # aws-parallelcluster-3.10.1-ubuntu-2204-lts-hvm-x86_64-202407041740 2024-07-04T17-43-29.481Z
-  ParentImage: ami-0fbb05a471fddd45f
+  ParentImage: ami-0a0e5d9c7acc336f1
+  SubnetId: subnet-0c2de394ed3a050f4
+  UpdateOsPackages:
+    Enabled: true
   Imds:
     ImdsSupport: v2.0
 DevSettings:

@@ -1,0 +1,59 @@
+Running with these driver parameters:
+  Problem ID    = 2
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.000020 seconds
+  Laplacian_7pt:
+    (Nx, Ny, Nz) = (1792, 2048, 2048)
+    (Px, Py, Pz) = (7, 8, 16)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 3.694209 seconds
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.157957 seconds
+=============================================
+Problem 2: AMG Setup Time:
+=============================================
+PCG Setup:
+  wall clock time = 55.740315 seconds
+
+FOM_Setup: nnz_AP / Setup Phase Time: 1.627302e+09
+
+=============================================
+Problem 2: AMG-PCG Solve Time:
+=============================================
+PCG Solve:
+  wall clock time = 67.741586 seconds
+
+Iterations = 32
+Final Relative Residual Norm = 7.215925e-09
+
+
+FOM_Solve: nnz_AP * iterations / Solve Phase Time: 1.339005e+09
+
+
+
+Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 3.502646e+08
+
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 28, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "/opt/containers/metric-amg2023_rocky8-cpu-int64-zen3.sif", "/bin/bash", "/home/sochat1_llnl_gov/run_amg.sh", "amg", "-n", "256", "256", "128", "-P", "7", "8", "16", "-problem", "2"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "-32-iter-5"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724789351.1079249,"name":"init"}
+{"timestamp":1724789351.1085484,"name":"starting"}
+{"timestamp":1724789351.1270275,"name":"shell.init","context":{"service":"1356918789-shell-f6HgVzAPy","leader-rank":0,"size":32}}
+{"timestamp":1724789351.1830535,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,28,1]]}}}
+{"timestamp":1724789480.4156036,"name":"shell.task-exit","context":{"localid":19,"rank":383,"state":"Exited","pid":9166,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724789480.521946,"name":"complete","context":{"status":0}}
+{"timestamp":1724789480.5219698,"name":"done"}
+

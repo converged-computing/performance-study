@@ -1,0 +1,38 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 64
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+# https://github.com/open-mpi/ompi/blob/605f6fbc19e7a6add59f563855de8076f17964e6/docs/tuning-apps/networking/ib-and-roce.rst#L44
+  containers:
+    # This is ucx compiled --without-cuda
+  - image: ghcr.io/converged-computing/metric-lammps-cpu:azure-hpc-reax
+    volumes:
+      # Ensure /dev/shm does not limit efa
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
+    commands:
+      pre: echo "ulimit -l unlimited" >> /root/.bashrc
+    environment:
+      # export UCX_LOG_LEVEL=info
+      # export OMPI_MCA_opal_common_ucx_opal_mem_hooks=1
+      # export OMPI_MCA_pml_ucx_verbose=100
+      OMPI_MCA_btl: "^openib"
+      UCX_TLS: "ib"
+      UCX_UNIFIED_MODE: "y"
+    securityContext:
+      privileged: true
+    resources:
+      limits:
+        mellanox.com/shared_hca_rdma: 1
+      requests:
+        mellanox.com/shared_hca_rdma: 1

@@ -9,13 +9,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib:/usr/local/cuda/lib64
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin:/usr/local/cuda/bin
 ENV CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+ENV CUDA_HOME=/usr/local/cuda
 
 WORKDIR /opt
 ENV MAKE_CXX_FLAG="MPICXX=mpic++"
 
 # Install hypre
 RUN apt-get install -y libc6-dev && \
-    export hypre_options="--disable-fortran --without-fei" && \
+    export hypre_options="--with-cuda --with-gpu-arch='70' --disable-fortran" && \
     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz && \
     tar -xzf v2.28.0.tar.gz && \
     mv hypre-2.28.0 hypre && \
@@ -29,7 +30,7 @@ RUN wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.
     mv metis-4.0.3 metis-4.0 && \
     make -C metis-4.0/Lib CC=mpicc OPTFLAGS="-Wno-error=implicit-function-declaration -O2"
 
-ENV MFEM_BUILD="pcuda -j CUDA_ARCH=sm_70"
+ENV MFEM_BUILD="pcuda -j CUDA_ARCH=sm_70 -j MFEM_USE_CUDA=YES"
 RUN wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz && \
     tar -xzvf v4.7.tar.gz && \
     mv mfem-4.7 /opt/mfem && \

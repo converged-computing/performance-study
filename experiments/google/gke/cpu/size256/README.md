@@ -599,7 +599,7 @@ export app=quicksilver
 output=./results/$app
 mkdir -p $output
 
-for i in $(seq 1 2); do     
+for i in $(seq 2 3); do     
     time flux run --env OMP_NUM_THREADS=7 --cores-per-task=7 --exclusive --setattr=user.study_id=$app-256-iter-$i -N256 -n 2048  qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 128 -Y 128 -Z 128 -x 128 -y 128 -z 128 -I 16 -J 16 -K 8  -n 671088640    
 done
 

@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       0.94
+2                       1.65
+4                       3.34
+8                       6.52
+16                     13.24
+32                     26.61
+64                     52.01
+128                   106.07
+256                   210.67
+512                   404.09
+1024                  849.01
+2048                 1516.08
+4096                 1090.31
+8192                 2900.73
+16384                2651.93
+32768                4388.99
+65536                5458.20
+131072               5762.38
+262144               5916.72
+524288               6826.91
+1048576              6972.08
+2097152              4859.88
+4194304              4721.49
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-0,flux-sample-7"]}}, "user": {"study_id": "-2-iter-10"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724527707.3853724,"name":"init"}
+{"timestamp":1724527707.3868554,"name":"starting"}
+{"timestamp":1724527707.4034309,"name":"shell.init","context":{"service":"0-shell-f3YNwt6mV","leader-rank":0,"size":2}}
+{"timestamp":1724527707.4059429,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724527710.4665787,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":757,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724527710.4767702,"name":"complete","context":{"status":0}}
+{"timestamp":1724527710.4767976,"name":"done"}
+

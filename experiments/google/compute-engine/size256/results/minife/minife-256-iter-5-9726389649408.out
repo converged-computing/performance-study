@@ -1,0 +1,35 @@
+MiniFE Mini-App, OpenMP Peer Implementation
+Creating OpenMP Thread Pool...
+Counted: 28672 threads.
+Running MiniFE Mini-App...
+      creating/filling mesh...0.0422661s, total time: 0.0422661
+generating matrix structure...0.00658107s, total time: 0.0488472
+         assembling FE data...0.00155807s, total time: 0.0504053
+      imposing Dirichlet BC...0.000197887s, total time: 0.0506032
+      imposing Dirichlet BC...1.81198e-05s, total time: 0.0506213
+making matrix indices local...0.0447099s, total time: 0.0953312
+Starting CG solver ... 
+Initial Residual = 231.002
+Iteration = 20   Residual = 0.0534103
+Iteration = 40   Residual = 0.0242711
+Iteration = 60   Residual = 0.0146489
+Iteration = 80   Residual = 0.0227807
+Iteration = 100   Residual = 0.00688912
+Iteration = 120   Residual = 0.00501707
+Iteration = 140   Residual = 0.00365772
+Iteration = 160   Residual = 0.00282784
+Iteration = 180   Residual = 0.00180771
+Iteration = 200   Residual = 0.0012696
+Final Resid Norm: 0.0012696
+flux-job: stdin not accepted by job
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 256, "with": [{"type": "slot", "count": 56, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--env", "OMPI_MCA_btl_vader_single_copy_mechanism=none", "/opt/containers/metric-minife_rocky-8.sif", "miniFE.x", "nx=230", "ny=230", "nz=230", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "minife-256-iter-5"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724802023.6871805,"name":"init"}
+{"timestamp":1724802023.6878576,"name":"starting"}
+{"timestamp":1724802023.7249162,"name":"shell.init","context":{"service":"1356918789-shell-f5QVkkKSf","leader-rank":0,"size":256}}
+{"timestamp":1724802023.8745224,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,256,56,1]]}}}
+{"timestamp":1724802085.6525791,"name":"shell.task-exit","context":{"localid":43,"rank":939,"state":"Exited","pid":57697,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724802086.3769302,"name":"complete","context":{"status":0}}
+{"timestamp":1724802086.3769908,"name":"done"}
+

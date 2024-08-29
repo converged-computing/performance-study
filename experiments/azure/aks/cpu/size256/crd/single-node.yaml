@@ -1,0 +1,20 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 256
+  flux:
+    container:
+      disable: true
+  interactive: true
+  containers:
+  - image: ghcr.io/converged-computing/metric-single-node:cpu
+    commands:
+      pre: echo "ulimit -l unlimited" >> /root/.bashrc
+    environment:
+      OMPI_MCA_btl: "^openib"
+      UCX_TLS: "ib"
+      UCX_UNIFIED_MODE: "y"
+    securityContext:
+      privileged: true

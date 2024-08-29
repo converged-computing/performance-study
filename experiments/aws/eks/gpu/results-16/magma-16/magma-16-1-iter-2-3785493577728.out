@@ -1,0 +1,195 @@
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Compiled with CUDA support for 3.0
+% Wed Aug 28 00:07:02 2024
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+
+% Wed Aug 28 00:07:02 2024
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+
+
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% transA = No transpose, transB = No transpose
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+
+%========================================================================================================
+% transA = No transpose, transB = No transpose
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+ 1088  1088  1088   1859.84 (   1.38)    1475.32 (   1.75)     ---   (  ---  )    2.12e-17        ---    ok
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+% Compiled with CUDA support for 3.0
+%========================================================================================================
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+ 1088  1088  1088   1963.26 (   1.31)    1543.40 (   1.67)     ---   (  ---  )    2.12e-17        ---    ok
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Wed Aug 28 00:07:02 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+
+% transA = No transpose, transB = No transpose
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+%========================================================================================================
+ 1088  1088  1088   1972.22 (   1.31)    1527.69 (   1.69)     ---   (  ---  )    2.12e-17        ---    ok
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Wed Aug 28 00:07:02 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+
+% transA = No transpose, transB = No transpose
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+%========================================================================================================
+ 1088  1088  1088   1978.36 (   1.30)    1460.17 (   1.76)     ---   (  ---  )    2.12e-17        ---    ok
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Wed Aug 28 00:07:02 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% Compiled with CUDA support for 3.0
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% transA = No transpose, transB = No transpose
+% Wed Aug 28 00:07:02 2024
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+%========================================================================================================
+
+ 1088  1088  1088   2026.60 (   1.27)    1509.12 (   1.71)     ---   (  ---  )    2.12e-17        ---    ok
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+
+% transA = No transpose, transB = No transpose
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+%========================================================================================================
+ 1088  1088  1088   2013.76 (   1.28)    1494.10 (   1.72)     ---   (  ---  )    2.12e-17        ---    ok
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Wed Aug 28 00:07:02 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+
+% transA = No transpose, transB = No transpose
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+%========================================================================================================
+ 1088  1088  1088   2037.68 (   1.26)    1555.40 (   1.66)     ---   (  ---  )    2.12e-17        ---    ok
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12040, driver 12040. OpenMP threads 2. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Wed Aug 28 00:07:03 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm [options] [-h|--help]
+
+% If running lapack (option --lapack), MAGMA and cuBLAS error are both computed
+% relative to CPU BLAS result. Else, MAGMA error is computed relative to cuBLAS result.
+
+% transA = No transpose, transB = No transpose
+%   M     N     K   MAGMA Gflop/s (ms)  cuBLAS Gflop/s (ms)   CPU Gflop/s (ms)  MAGMA error  cuBLAS error
+%========================================================================================================
+ 1088  1088  1088   1999.96 (   1.29)    1494.10 (   1.72)     ---   (  ---  )    2.12e-17        ---    ok
+ 2112  2112  2112   5996.84 (   3.14)    6459.04 (   2.92)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   5987.29 (   3.15)    6395.27 (   2.95)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   5943.61 (   3.17)    6541.91 (   2.88)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   6031.16 (   3.12)    6524.09 (   2.89)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   6071.94 (   3.10)    6510.65 (   2.89)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   6023.81 (   3.13)    6468.02 (   2.91)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   6097.71 (   3.09)    6566.92 (   2.87)     ---   (  ---  )    2.04e-17        ---    ok
+ 2112  2112  2112   6071.94 (   3.10)    6555.48 (   2.87)     ---   (  ---  )    2.04e-17        ---    ok
+ 3136  3136  3136   5933.24 (  10.40)    7106.91 (   8.68)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   6000.81 (  10.28)    7129.24 (   8.65)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   5937.32 (  10.39)    7134.94 (   8.65)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   5986.78 (  10.30)    7153.29 (   8.62)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   6035.39 (  10.22)    7134.15 (   8.65)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   5994.27 (  10.29)    7148.34 (   8.63)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   6040.18 (  10.21)    7158.23 (   8.62)     ---   (  ---  )    2.21e-17        ---    ok
+ 3136  3136  3136   6007.22 (  10.27)    7149.73 (   8.63)     ---   (  ---  )    2.21e-17        ---    ok
+ 4160  4160  4160   6042.33 (  23.83)    7266.70 (  19.81)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6115.70 (  23.54)    7292.06 (  19.75)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6056.57 (  23.77)    7283.27 (  19.77)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6027.92 (  23.89)    7253.87 (  19.85)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6133.15 (  23.48)    7283.62 (  19.77)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6142.07 (  23.44)    7292.86 (  19.74)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6095.76 (  23.62)    7251.70 (  19.86)     ---   (  ---  )    1.09e-18        ---    ok
+ 4160  4160  4160   6107.72 (  23.57)    7297.26 (  19.73)     ---   (  ---  )    1.09e-18        ---    ok
+ 5184  5184  5184   6048.07 (  46.07)    7575.12 (  36.78)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6073.91 (  45.87)    7581.70 (  36.75)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6144.23 (  45.35)    7602.17 (  36.65)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6148.01 (  45.32)    7605.09 (  36.64)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6058.45 (  45.99)    7600.74 (  36.66)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6121.80 (  45.51)    7599.90 (  36.66)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6125.04 (  45.49)    7601.77 (  36.65)     ---   (  ---  )    7.87e-19        ---    ok
+ 5184  5184  5184   6162.73 (  45.21)    7598.07 (  36.67)     ---   (  ---  )    7.87e-19        ---    ok
+ 6208  6208  6208   5867.60 (  81.55)    7538.70 (  63.47)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   5930.15 (  80.69)    7573.77 (  63.18)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   6058.32 (  78.98)    7600.85 (  62.95)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   6038.82 (  79.24)    7625.80 (  62.75)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   5924.78 (  80.76)    7483.15 (  63.94)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   6041.47 (  79.20)    7588.92 (  63.05)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   6030.58 (  79.35)    7582.41 (  63.11)     ---   (  ---  )    6.01e-19        ---    ok
+ 6208  6208  6208   6005.98 (  79.67)    7595.90 (  62.99)     ---   (  ---  )    6.01e-19        ---    ok
+ 7232  7232  7232   5619.47 ( 134.62)    7239.30 ( 104.50)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5893.72 ( 128.36)    7403.02 ( 102.19)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5780.67 ( 130.87)    7335.91 ( 103.12)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5904.94 ( 128.11)    7424.17 ( 101.90)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5660.30 ( 133.65)    7266.64 ( 104.10)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5824.60 ( 129.88)    7405.58 ( 102.15)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5841.84 ( 129.50)    7432.78 ( 101.78)     ---   (  ---  )    9.52e-19        ---    ok
+ 7232  7232  7232   5833.45 ( 129.68)    7409.78 ( 102.09)     ---   (  ---  )    9.52e-19        ---    ok
+ 8256  8256  8256   5508.73 ( 204.31)    7086.13 ( 158.83)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5823.34 ( 193.27)    7392.58 ( 152.25)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5655.78 ( 199.00)    7212.88 ( 156.04)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5798.77 ( 194.09)    7409.72 ( 151.89)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5575.95 ( 201.85)    7106.13 ( 158.38)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5702.46 ( 197.37)    7299.85 ( 154.18)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5742.20 ( 196.00)    7319.27 ( 153.77)     ---   (  ---  )    7.83e-19        ---    ok
+ 8256  8256  8256   5727.62 ( 196.50)    7320.74 ( 153.74)     ---   (  ---  )    7.83e-19        ---    ok
+ 9280  9280  9280   5462.10 ( 292.63)    7046.26 ( 226.84)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5782.31 ( 276.42)    7368.63 ( 216.91)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5611.50 ( 284.84)    7187.22 ( 222.39)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5765.41 ( 277.23)    7376.92 ( 216.67)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5494.50 ( 290.90)    7082.28 ( 225.68)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5696.74 ( 280.57)    7319.86 ( 218.36)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5668.47 ( 281.97)    7294.80 ( 219.11)     ---   (  ---  )    6.58e-19        ---    ok
+ 9280  9280  9280   5650.34 ( 282.88)    7287.82 ( 219.32)     ---   (  ---  )    6.58e-19        ---    ok
+10304 10304 10304   5434.52 ( 402.61)    7030.13 ( 311.23)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5751.95 ( 380.39)    7367.40 ( 296.98)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5589.78 ( 391.43)    7167.05 ( 305.29)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5750.45 ( 380.49)    7370.13 ( 296.87)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5477.29 ( 399.47)    7046.43 ( 310.51)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5674.47 ( 385.59)    7298.20 ( 299.80)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5637.26 ( 388.13)    7272.88 ( 300.84)     ---   (  ---  )    5.63e-19        ---    ok
+10304 10304 10304   5611.77 ( 389.90)    7281.40 ( 300.49)     ---   (  ---  )    5.63e-19        ---    ok
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 1, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/magma/magma-2.8.0/build/testing/testing_dgemm"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/magma/magma-2.8.0/example", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-15"]}}, "user": {"study_id": "magma-16-1-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724803622.2765107,"name":"init"}
+{"timestamp":1724803622.2775538,"name":"starting"}
+{"timestamp":1724803622.2894769,"name":"shell.init","context":{"service":"0-shell-f2iSS753V","leader-rank":15,"size":1}}
+{"timestamp":1724803622.300885,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,1,8,1]]}}}
+{"timestamp":1724803668.0941248,"name":"shell.task-exit","context":{"localid":2,"rank":2,"state":"Exited","pid":105,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724803668.5734367,"name":"complete","context":{"status":0}}
+{"timestamp":1724803668.5734541,"name":"done"}
+

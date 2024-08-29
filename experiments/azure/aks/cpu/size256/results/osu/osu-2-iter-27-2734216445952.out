@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      13.39
+1                      15.89
+2                      13.18
+4                      10.53
+8                       6.88
+16                      8.30
+32                      9.48
+64                      7.50
+128                     8.42
+256                     9.01
+512                    10.57
+1024                   11.74
+2048                   12.51
+4096                   11.52
+8192                   13.53
+16384                  16.29
+32768                  18.34
+65536                  24.91
+131072                 35.75
+262144                 63.90
+524288                 94.98
+1048576               144.22
+2097152               226.68
+4194304               312.16
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-18,flux-sample-176"]}}, "user": {"study_id": "osu-2-iter-27"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724957278.6395619,"name":"init"}
+{"timestamp":1724957278.6411998,"name":"starting"}
+{"timestamp":1724957278.6501784,"name":"shell.init","context":{"service":"0-shell-f2EpkLyiF","leader-rank":18,"size":2}}
+{"timestamp":1724957278.6581833,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724957284.5259969,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":126,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724957284.5668349,"name":"complete","context":{"status":0}}
+{"timestamp":1724957284.5668762,"name":"done"}
+
