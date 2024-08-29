@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       2.28
+2                       4.62
+4                       9.02
+8                      18.32
+16                     37.00
+32                     73.84
+64                    140.82
+128                   278.81
+256                   535.75
+512                  1026.73
+1024                 1932.73
+2048                 3505.08
+4096                 5154.83
+8192                 6904.91
+16384                6675.51
+32768                7353.16
+65536                7759.24
+131072               7999.11
+262144               8113.78
+524288               8177.59
+1048576              9552.90
+2097152             10774.65
+4194304              8776.30
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-158,flux-sample-121"]}}, "user": {"study_id": "osu-2-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724957335.0019245,"name":"init"}
+{"timestamp":1724957335.0036817,"name":"starting"}
+{"timestamp":1724957335.0331895,"name":"shell.init","context":{"service":"0-shell-f2ffQ55f5","leader-rank":121,"size":2}}
+{"timestamp":1724957335.037981,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724957337.0162556,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":93,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724957337.0254266,"name":"complete","context":{"status":0}}
+{"timestamp":1724957337.0254481,"name":"done"}
+

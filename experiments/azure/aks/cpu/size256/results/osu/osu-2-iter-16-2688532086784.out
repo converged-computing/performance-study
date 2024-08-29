@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       0.58
+2                       1.14
+4                       2.48
+8                       5.40
+16                     11.41
+32                     19.55
+64                     32.41
+128                    66.94
+256                   152.67
+512                   731.73
+1024                  664.94
+2048                 1143.85
+4096                 1536.02
+8192                 2348.63
+16384                3234.75
+32768                4400.03
+65536                5722.66
+131072               5980.01
+262144               6048.07
+524288               6116.84
+1048576              5557.21
+2097152              5695.32
+4194304              7001.16
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-213,flux-sample-18"]}}, "user": {"study_id": "osu-2-iter-16"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724957275.9174252,"name":"init"}
+{"timestamp":1724957275.9188714,"name":"starting"}
+{"timestamp":1724957275.9190211,"name":"shell.init","context":{"service":"0-shell-f2Dd9NhMH","leader-rank":18,"size":2}}
+{"timestamp":1724957275.923475,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724957278.5903792,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":121,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724957278.632937,"name":"complete","context":{"status":0}}
+{"timestamp":1724957278.6329679,"name":"done"}
+
