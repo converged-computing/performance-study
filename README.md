@@ -71,7 +71,7 @@ This is a checklist for the setups we have tested and timed:
 - [x] AWS GPU EKS
   - [x] size 4 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
   - [x] size 8 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
-  - [x] size 16 (done 8/26/2024, milroy lammps/osu 8/27/2024)
+  - [x] size 16 (done vsoch, milroy lammps/osu 8/27/2024)
 - [ ] Google Cloud GKE GPU
   - [ ] size 4 (vsoch TBA 8/29/2024)
   - [ ] size 8 (vsoch TBA 8/29/2024)
