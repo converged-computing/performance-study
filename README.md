@@ -29,19 +29,22 @@ This is a checklist for the setups we have tested and timed:
   - [ ] size 64 (TBA)
   - [ ] size 128 (TBA)
   - [ ] size 256 (TBA)
-- [ ] AWS GPU Parallel Cluster (date)
-   - Not going to do, cannot build image
+- [ ] AWS GPU Parallel Cluster
+  - [ ] size 32 (not going to do, could not build image)
+  - [ ] size 64 (not going to do, could not build image)
+  - [ ] size 128 (not going to do, could not build image)
+  - [ ] size 256 (not going to do, could not build image)
 - [ ] AWS CPU Parallel Cluster (date)
   - [ ] size 32 (TBA)
   - [ ] size 64 (TBA)
   - [ ] size 128 (TBA)
   - [ ] size 256 (TBA)
-- [x] Google Cloud Compute Engine CPU
+- [x] Google Cloud Compute Engine CPU (redone several times due to app configurations)
   - [x] size 32 (vsoch done 8/26/2024)
   - [x] size 64 (vsoch done 8/26/2024)
   - [x] size 128 (vsoch done 8/27/2024)
   - [x] size 256 (vsoch done 8/27/2024)
-- [ ] Google Compute Engine GPU (TBA 8/26/2024)
+- [ ] Google Compute Engine GPU
   - New VM and automation needed with Terraform 
   - [ ] size 4 (vsoch TBA 8/31/2024)
   - [ ] size 8 (vsoch TBA 8/31/2024)
@@ -66,9 +69,9 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 128 (vsoch done 8/22/2024) 
   - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting) but unlikely, flagging as done)
 - [x] AWS GPU EKS
-  - [x] size 4 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
-  - [x] size 8 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
-  - [x] size 16 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
+  - [x] size 4 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
+  - [x] size 8 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
+  - [x] size 16 (done 8/26/2024, milroy lammps/osu 8/27/2024)
 - [ ] Google Cloud GKE GPU
   - [ ] size 4 (vsoch TBA 8/29/2024)
   - [ ] size 8 (vsoch TBA 8/29/2024)
