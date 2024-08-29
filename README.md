@@ -60,11 +60,11 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 64 (vsoch done 8/22/2024)
   - [x] size 128 (vsoch done 8/23/2024)
   - [x] size 256 (vsoch done 8/23/2024)
-- [ ] AWS CPU EKS
+- [x] AWS CPU EKS
   - [x] size 32 (vsoch done 8/21/2024-8/22/2024)
   - [x] size 64  (vsoch done 8/22/2024) 
   - [x] size 128 (vsoch done 8/22/2024) 
-  - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting) but unlikely)
+  - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting) but unlikely, flagging as done)
 - [x] AWS GPU EKS
   - [x] size 4 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
   - [x] size 8 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
