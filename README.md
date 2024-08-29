@@ -53,11 +53,11 @@ This is a checklist for the setups we have tested and timed:
 
 ### Kubernetes
 
-- [ ] Microsoft Azure AKS CPU
+- [x] Microsoft Azure AKS CPU
   - [x] size 32 (vsoch done 8/24/2024), redone with placement (vsoch 8/28/2024)
   - [x] size 64 (vsoch done 8/24/2024), redone with placement (vsoch 8/28/2024)
   - [x] size 128 (vsoch done 8/28/2024)
-  - [ ] size 256 (vsoch TBA 8/29/2024)
+  - [x] size 256 (vsoch TBA 8/29/2024)
 - [x] Google Cloud GKE CPU
   - [x] size 32 (vsoch done 8/21/2024)
   - [x] size 64 (vsoch done 8/22/2024)
