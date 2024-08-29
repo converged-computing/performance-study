@@ -7,7 +7,7 @@ HeadNode:
   Networking:
     SubnetId: subnet-09ccdd58760a98c34
   Ssh:
-    KeyName: milroy1-ldrd-east2-ed2
+    KeyName: ldrd-aws-east2
   LocalStorage:
     RootVolume:
       Size: 50
@@ -24,13 +24,13 @@ Scheduling:
       Instances:
       - InstanceType: hpc6a.48xlarge
       MinCount: 0
-      MaxCount: 32
+      MaxCount: 64
       Efa:
         Enabled: true
     Networking:
       PlacementGroup:
         Enabled: true
-        Id: performance-study-parallelcluster
+        Id: pcluster-east2-64
       SubnetIds:
       - subnet-09ccdd58760a98c34
     ComputeSettings:
@@ -46,5 +46,5 @@ SharedStorage:
     Size: 400
     DeletionPolicy: Delete
 Tags:
-  - Key: pclster-name
-    Value: test-cluster
+  - Key: pcluster-name
+    Value: cluster-64

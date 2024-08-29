@@ -13,7 +13,7 @@ docker build -t cowpie .
 We need to build a custom GPU image (takes a little over an hour):
 
 ```bash
-pcluster build-image --image-configuration image-config.yaml --image-id performance-study-p3dn-gpu-image --region us-east-1 --suppress-validators=ALL --rollback-on-failure true
+pcluster build-image --image-configuration build.yaml --image-id pcluster-gpu-u2204-base --region us-east-1 --suppress-validators type:InstanceTypeBaseAMICompatibleValidator --rollback-on-failure true
 ```
 
 Get the status (it takes a long time, geez):
