@@ -1,0 +1,205 @@
+{
+  "aadProfile": null,
+  "addonProfiles": null,
+  "agentPoolProfiles": [
+    {
+      "availabilityZones": null,
+      "capacityReservationGroupId": null,
+      "count": 128,
+      "creationData": null,
+      "currentOrchestratorVersion": "1.29.7",
+      "enableAutoScaling": false,
+      "enableEncryptionAtHost": false,
+      "enableFips": false,
+      "enableNodePublicIp": true,
+      "enableUltraSsd": false,
+      "gpuInstanceProfile": null,
+      "hostGroupId": null,
+      "kubeletConfig": null,
+      "kubeletDiskType": "OS",
+      "linuxOsConfig": null,
+      "maxCount": null,
+      "maxPods": 30,
+      "minCount": null,
+      "mode": "System",
+      "name": "nodepool1",
+      "networkProfile": null,
+      "nodeImageVersion": "AKSUbuntu-2204gen2containerd-202408.12.0",
+      "nodeLabels": null,
+      "nodePublicIpPrefixId": null,
+      "nodeTaints": null,
+      "orchestratorVersion": "1.29",
+      "osDiskSizeGb": 128,
+      "osDiskType": "Ephemeral",
+      "osSku": "Ubuntu",
+      "osType": "Linux",
+      "podSubnetId": null,
+      "powerState": {
+        "code": "Running"
+      },
+      "provisioningState": "Succeeded",
+      "proximityPlacementGroupId": "/subscriptions/c87dfbe8-b453-4fc9-a779-7687a14b87eb/resourceGroups/flux-usernetes/providers/Microsoft.Compute/proximityPlacementGroups/performance-study",
+      "scaleDownMode": null,
+      "scaleSetEvictionPolicy": null,
+      "scaleSetPriority": null,
+      "spotMaxPrice": null,
+      "tags": null,
+      "type": "VirtualMachineScaleSets",
+      "upgradeSettings": {
+        "drainTimeoutInMinutes": null,
+        "maxSurge": "10%",
+        "nodeSoakDurationInMinutes": null
+      },
+      "vmSize": "standard_hb120-96rs_v3",
+      "windowsProfile": null,
+      "workloadRuntime": null
+    }
+  ],
+  "apiServerAccessProfile": null,
+  "autoScalerProfile": null,
+  "autoUpgradeProfile": {
+    "nodeOsUpgradeChannel": "NodeImage",
+    "upgradeChannel": null
+  },
+  "azureMonitorProfile": null,
+  "azurePortalFqdn": "performanc-flux-usernetes-c87dfb-yldmyzwn.portal.hcp.southcentralus.azmk8s.io",
+  "currentKubernetesVersion": "1.29.7",
+  "disableLocalAccounts": false,
+  "diskEncryptionSetId": null,
+  "dnsPrefix": "performanc-flux-usernetes-c87dfb",
+  "enablePodSecurityPolicy": null,
+  "enableRbac": true,
+  "extendedLocation": null,
+  "fqdn": "performanc-flux-usernetes-c87dfb-yldmyzwn.hcp.southcentralus.azmk8s.io",
+  "fqdnSubdomain": null,
+  "httpProxyConfig": null,
+  "id": "/subscriptions/c87dfbe8-b453-4fc9-a779-7687a14b87eb/resourcegroups/flux-usernetes/providers/Microsoft.ContainerService/managedClusters/performance-study-128",
+  "identity": {
+    "delegatedResources": null,
+    "principalId": "1710cb95-8340-4670-a335-ccc39a0f044f",
+    "tenantId": "a722dec9-ae4e-4ae3-9d75-fd66e2680a63",
+    "type": "SystemAssigned",
+    "userAssignedIdentities": null
+  },
+  "identityProfile": {
+    "kubeletidentity": {
+      "clientId": "3c29aef5-0eb3-46a6-b51d-caa89d875a49",
+      "objectId": "637c4a93-70e4-414f-8434-279e4f297bdd",
+      "resourceId": "/subscriptions/c87dfbe8-b453-4fc9-a779-7687a14b87eb/resourcegroups/MC_flux-usernetes_performance-study-128_southcentralus/providers/Microsoft.ManagedIdentity/userAssignedIdentities/performance-study-128-agentpool"
+    }
+  },
+  "ingressProfile": null,
+  "kubernetesVersion": "1.29",
+  "linuxProfile": {
+    "adminUsername": "azureuser",
+    "ssh": {
+      "publicKeys": [
+        {
+          "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDa1Iz4YZFtMMCRiT6TR8RhwVKXfKECejzrLAolvx4Gy3lulXLXqi837nhx2nU5JB0HL+jWaDhGXAD0Yb6Ki1kQL3gxp4TD5XbDV0OGrO5Ar94yVqnxUS0u79bQB19huASbGegue3bWblYxTHjEeiqEbXtp5oizbHt2T+1j/g9eq5bkCRznOcunBqOD3Q/WGTkjlKvIuWRFwa9qrX9b5b5MO5lv3GfAgpwR5auR0rJhsxMyUROg8IGzm6z9wCZLEFr7Zy7DFwbuDgBqE6x6PM4X6M/UZWUV3bB/gax3OsjrrX7s3KUR/bzNmUUaSi2eUXOGjxQDFQ+7YgU84NYJL76/"
+        }
+      ]
+    }
+  },
+  "location": "southcentralus",
+  "maxAgentPools": 100,
+  "metricsProfile": {
+    "costAnalysis": {
+      "enabled": false
+    }
+  },
+  "name": "performance-study-128",
+  "networkProfile": {
+    "dnsServiceIp": "10.0.0.10",
+    "ipFamilies": [
+      "IPv4"
+    ],
+    "loadBalancerProfile": {
+      "allocatedOutboundPorts": null,
+      "backendPoolType": "nodeIPConfiguration",
+      "effectiveOutboundIPs": [
+        {
+          "id": "/subscriptions/c87dfbe8-b453-4fc9-a779-7687a14b87eb/resourceGroups/MC_flux-usernetes_performance-study-128_southcentralus/providers/Microsoft.Network/publicIPAddresses/2f15fb9a-f1a2-464d-b91b-6ca55542375f",
+          "resourceGroup": "MC_flux-usernetes_performance-study-128_southcentralus"
+        }
+      ],
+      "enableMultipleStandardLoadBalancers": null,
+      "idleTimeoutInMinutes": null,
+      "managedOutboundIPs": {
+        "count": 1,
+        "countIpv6": null
+      },
+      "outboundIPs": null,
+      "outboundIpPrefixes": null
+    },
+    "loadBalancerSku": "standard",
+    "natGatewayProfile": null,
+    "networkDataplane": "azure",
+    "networkMode": null,
+    "networkPlugin": "azure",
+    "networkPluginMode": null,
+    "networkPolicy": "none",
+    "outboundType": "loadBalancer",
+    "podCidr": null,
+    "podCidrs": null,
+    "serviceCidr": "10.0.0.0/16",
+    "serviceCidrs": [
+      "10.0.0.0/16"
+    ]
+  },
+  "nodeResourceGroup": "MC_flux-usernetes_performance-study-128_southcentralus",
+  "oidcIssuerProfile": {
+    "enabled": false,
+    "issuerUrl": null
+  },
+  "podIdentityProfile": null,
+  "powerState": {
+    "code": "Running"
+  },
+  "privateFqdn": null,
+  "privateLinkResources": null,
+  "provisioningState": "Succeeded",
+  "publicNetworkAccess": null,
+  "resourceGroup": "flux-usernetes",
+  "resourceUid": "66cfcc7508d36d00017ef45b",
+  "securityProfile": {
+    "azureKeyVaultKms": null,
+    "defender": null,
+    "imageCleaner": null,
+    "workloadIdentity": null
+  },
+  "serviceMeshProfile": null,
+  "servicePrincipalProfile": {
+    "clientId": "msi"
+  },
+  "sku": {
+    "name": "Base",
+    "tier": "Free"
+  },
+  "storageProfile": {
+    "blobCsiDriver": null,
+    "diskCsiDriver": {
+      "enabled": true
+    },
+    "fileCsiDriver": {
+      "enabled": true
+    },
+    "snapshotController": {
+      "enabled": true
+    }
+  },
+  "supportPlan": "KubernetesOfficial",
+  "systemData": null,
+  "type": "Microsoft.ContainerService/ManagedClusters",
+  "upgradeSettings": null,
+  "windowsProfile": {
+    "adminPassword": null,
+    "adminUsername": "azureuser",
+    "enableCsiProxy": true,
+    "gmsaProfile": null,
+    "licenseType": null
+  },
+  "workloadAutoScalerProfile": {
+    "keda": null,
+    "verticalPodAutoscaler": null
+  }
+}

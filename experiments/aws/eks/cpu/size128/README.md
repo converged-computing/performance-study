@@ -430,48 +430,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:e
 kubectl delete -f ./crd/lammps-reax.yaml --wait
 ```
 
-#### LAMMPS
-
-**We did not wind up using this problem - does not scale correctly**
-
-```bash
-kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-lammps-$(date +%s).json
-kubectl apply -f ./crd/lammps.yaml
-time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
-```
-```bash
-flux proxy local:///mnt/flux/view/run/flux/local bash
-```
-```console
-oras login ghcr.io --username vsoch
-export app=lammps
-output=./results/$app
-export FI_EFA_FORK_SAFE=1
-mkdir -p $output
-
-for i in $(seq 1 5); do
-  echo "Running iteration $i"
-  time flux run --setattr=user.study_id=$app-128-iter-$i -o cpu-affinity=per-task -N128 -n 12288 lmp -k on -sf kk -pk kokkos newton on neigh half -in in.snap.test -var snapdir 2J8_W.SNAP -v x 128 -v y 128 -v z 128 -var nsteps 20000
-done
-
-for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
-  do
-    # Get the job study id
-    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")
-    echo "Parsing jobid ${jobid} and study id ${study_id}"
-    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
-    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
-    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
-    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
-    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
-done
-
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:eks-cpu-128-$app $output
-```
-```bash
-# 22 minutes
-kubectl delete -f ./crd/lammps.yaml --wait
-```
 
 #### AMG2023
 

@@ -19,20 +19,19 @@ This is a checklist for the setups we have tested and timed:
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
 - [ ] Microsoft Azure CycleCloud GPU (date)
-- [ ] Google Compute Engine GPU (date)
+- [ ] AWS CPU Parallel Cluster (date)
 - [x] Google Cloud Compute Engine CPU
   - [x] size 32 (done 8/26/2024)
   - [x] size 64 (done 8/26/2024)
   - [x] size 128 (done 8/27/2024)
   - [x] size 256 (done 8/27/2024)
-- [ ] AWS GPU Parallel Cluster (date)
+- [x] AWS GPU Parallel Cluster (date)
    - Not going to do, cannot build image
-- [ ] AWS CPU Parallel Cluster (date)
 - [ ] Microsoft Azure AKS CPU
   - [x] size 32 (done 8/24/2024), redone with placement (8/28/2024)
   - [x] size 64 (done 8/24/2024), redone with placement (8/28/2024)
-  - [ ] size 128
-  - [ ] size 256
+  - [ ] size 128 (done 8/24/2024)
+  - [ ] size 256 (TBA 8/25/2024)
 - [x] Google Cloud GKE CPU
   - [x] size 32 (done 8/21/2024)
   - [x] size 64 (done 8/22/2024)
@@ -44,7 +43,16 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 128 (done 8/22/2024) 
   - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting))
 - [ ] Microsoft Azure AKS GPU
+ - [ ] size 4 (TBA 8/30/2024)
+ - [ ] size 8 (TBA 8/30/2024)
+ - [ ] size 16 (TBA 8/30/2024)
+ - [ ] size 32 (TBA 8/30/2024)
 - [ ] Google Cloud GKE GPU
+ - [ ] size 4 (TBA 8/29/2024)
+ - [ ] size 8 (TBA 8/29/2024)
+ - [ ] size 16 (TBA 8/29/2024)
+ - [ ] size 32 (TBA 8/29/2024)
+- [ ] Google Compute Engine GPU (TBA 8/26/2024)
 - [x] AWS GPU EKS
   - [x] size 4 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
   - [x] size 8 (partial done 8/26/2024, missing resnet, quicksilver, laghos) did not work
