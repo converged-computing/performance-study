@@ -4,6 +4,7 @@
 
 - Create time: 11am Mountain
 - Deletion time: Scaled to 64 at 1:50pm
+- Deletion of 64 size at 4:30pm
 
 ```bash
 # Note I did this in the web interface before, so it's not necessary again.

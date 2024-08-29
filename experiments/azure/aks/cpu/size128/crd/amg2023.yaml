@@ -1,0 +1,35 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 128
+  interactive: true
+  flux:
+    container:
+      disable: true
+  containers:
+  - image: ghcr.io/converged-computing/metric-amg2023:azure-hpc-cpu-int64-zen3
+    commands:
+      init: |
+        # For some reason this build environment is borked, but this fixes it
+        export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/local/go/bin
+      pre: |
+        echo "ulimit -l unlimited" >> /root/.bashrc
+        export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/local/go/bin
+        . /etc/profile.d/z10_spack_environment.sh
+        echo "Regenerated resources"
+        flux R encode --hosts=${hosts} --local > ${viewroot}/etc/flux/system/R
+        cat ${viewroot}/etc/flux/system/R
+    environment:
+      OMPI_MCA_btl: "^openib"
+      UCX_TLS: "ib"
+      UCX_UNIFIED_MODE: "y"
+    securityContext:
+      privileged: true
+      addCapabilities: ["*"]
+    resources:
+      limits:
+        mellanox.com/shared_hca_rdma: 1
+      requests:
+        mellanox.com/shared_hca_rdma: 1
