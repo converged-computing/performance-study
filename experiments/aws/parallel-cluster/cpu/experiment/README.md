@@ -99,7 +99,7 @@ singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4
 singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu-zen4 || true &&
-singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
+singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu
 ```
 
 Sanity check efa is there.
@@ -155,6 +155,7 @@ export FI_PROVIDER=efa
 cd configs/amg2023/
 for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
 cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > amg2023/topology-size-32-amg2023.json
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-amg2023 amg2023
 ```
 
@@ -166,6 +167,7 @@ cd configs/kripke/
 for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-32n.sh; done
 aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge --filters Name=tag-key,Values=cluster-tag-value > topology-size-32-kripke.json
 cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > kripke/topology-size-32-kripke.json
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-kripke kripke
 ```
 
@@ -175,6 +177,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/laghos/
 for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-32n.sh; done
 cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > laghos/topology-size-32-laghos.json
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-laghos laghos
 ```
 
@@ -183,8 +186,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/lammps/
 for i in {1..5}; do sbatch --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-32n.sh; done
-cd ../../data/lammps
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-lammps lammps
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > lammps/topology-size-32-lammps.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-lammps-reax lammps
 ```
 
 #### MiniFE
@@ -192,8 +196,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/minife/
 for i in {1..5}; do sbatch --output=../../data/minife/%x-%j-iter-${i}.out --error=../../data/minife/%x-%j-iter-${i}.err slurm-minife-32n.sh; done
-cd ../../data/minife
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-minife minife
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > minife/topology-size-32-minife.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-minife minife
 ```
 
 Don't forget to save the MiniFE yaml output files that generate in the PWD.
@@ -207,7 +212,9 @@ for i in {1..5}; do
     sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/%x-%j-iter-${i}.err slurm-mixbench-1n.sh
   done
 done
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-mixbench mixbench
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > mixbench/topology-size-32-mixbench.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-mixbench mixbench
 ```
 
 #### Mt-Gemm
@@ -215,8 +222,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/mt-gemm/
 for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-32n.sh; done
-cd ../../data/mt-gemm
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-mt-gemm mt-gemm
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > mt-gemm/topology-size-32-mt-gemm.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-mt-gemm mt-gemm
 ```
 
 #### Nek5000
@@ -226,8 +234,9 @@ mkdir /shared/nekrs
 cd /shared/nekrs/
 oras pull ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
 for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-32n.sh; done
-cd ../../data/nekrs
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-nekrs nekrs
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > nekrs/topology-size-32-nekrs.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-nekrs nekrs
 ```
 
 #### OSU
@@ -235,8 +244,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/osu/
 sbatch --output=../../data/osu/%x-%j-iter-${i}.out --error=../../data/osu/%x-%j-iter-${i}.err slurm-osu-32n.sh
-cd ../../data/osu
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-osu osu
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > osu/topology-size-32-osu.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-osu osu
 ```
 
 #### Quicksilver
@@ -244,8 +254,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/quicksilver/
 for i in {1..5}; do sbatch --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-32n.sh; done
-cd ../../data/quicksilver
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-quicksilver quicksilver
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > quicksilver/topology-size-32-quicksilver.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-quicksilver quicksilver
 ```
 
 #### Stream
@@ -257,6 +268,8 @@ for i in {1..5}; do
     sbatch --nodelist=${node} --output=../../data/stream/${node}-%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-1n.sh
   done
 done
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-stream stream
+cd ../../data/
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge > stream/topology-size-32-stream.json
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-stream stream
 ```
 
