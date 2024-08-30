@@ -16,6 +16,4 @@ export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
     /shared/containers/metric-quicksilver-gpu_azure-hpc-gpu-ubuntu2204.sif qs \
     --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp \
     -X 32  -Y 32  -Z 16  -x 32  -y 32  -z 16  -I 4  -J 2  -K 2  -n 26214400
-    #-X 32  -Y 32  -Z 16  -x 32  -y 32  -z 16  -I 4  -J 2  -K 2  -n 655360
-    #-X 32  -Y 16  -Z 16  -x 32  -y 16  -z 16  -I 2  -J 2  -K 2  -n 327680
 echo "End time:" $( date +%s )
