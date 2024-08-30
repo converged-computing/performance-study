@@ -4,7 +4,6 @@ For this study we only got 16 p2dn.24xlarge nodes, so we had to adjust size down
 
 > V100 nodes 
 
-
 ## 1. Setup
 
 Make sure you have aws-iam-authenticator installed first! If you don't you can update your credentials as follows:
