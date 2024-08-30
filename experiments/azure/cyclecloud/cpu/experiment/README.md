@@ -165,7 +165,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 cd configs/mt-gemm/
 for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-32n.sh; done
 cd ../../data/mt-gemm
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-mt-gemm mt-gemm
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32-node-mt-gemm mt-gemm
 ```
 
 #### Nek5000
@@ -176,7 +176,7 @@ cd /shared/nekrs/
 oras pull ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
 for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-32n.sh; done
 cd ../../data/nekrs
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32node-nekrs nekrs
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-32-node-nekrs nekrs
 ```
 
 #### OSU
