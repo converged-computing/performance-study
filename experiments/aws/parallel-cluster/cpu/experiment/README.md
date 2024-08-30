@@ -135,9 +135,10 @@ Batch script:
 
 ```console
 oras login ghcr.io --username vsoch
+cd configs/single-node-benchmarks
 srun --time=00:04 -N 2 slurm-single-node-benchmarks.sh
 rm -rf test_file*
-cd ../../data/single-node-benchmarks
+cd ../../data
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-single-node-benchmarks single-node-benchmarks
 ```
 
