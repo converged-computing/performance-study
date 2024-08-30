@@ -139,8 +139,10 @@ cd configs/single-node-benchmarks
 srun --time=00:04 -N 2 slurm-single-node-benchmarks.sh
 rm -rf test_file*
 cd ../../data
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-single-node-benchmarks single-node-benchmarks
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-single-node-benchmarks single-node-benchmarks
 ```
+
+Notes on ParallelCluster: Slurm adds the correct number of nodes much faster than CycleCloud. Cancelling a 2 node interactive allocation followed by a 32-job submission results in immedate creation of 30 `hpc6a.48xlarge` instances. On CycleCloud this behavior sometimes results in 15 minute Slurm confusion where multiple nodes are idling.
 
 #### AMG2023
 
@@ -148,8 +150,8 @@ All the following examples are for 32 nodes. Mutatis mutandis for other sizes.
 
 ```bash
 # May want to try these env variables in the job scripts:
-#export FI_EFA_FORK_SAFE=1
-#export FI_PROVIDER=efa
+export FI_EFA_FORK_SAFE=1
+export FI_PROVIDER=efa
 cd configs/amg2023/
 for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
 cd ../../data/amg2023
