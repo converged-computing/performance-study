@@ -1,0 +1,37 @@
+# OSU MPI Latency Test v5.8
+# Size          Latency (us)
+0                      35.22
+1                      38.43
+2                      41.84
+4                      47.88
+8                      49.21
+16                     43.08
+32                     39.47
+64                     38.83
+128                    41.50
+256                    40.89
+512                    39.88
+1024                   39.54
+2048                   40.49
+4096                   44.42
+8192                   51.65
+16384                  58.29
+32768                  78.95
+65536                 188.22
+131072                222.48
+262144                303.58
+524288                424.30
+1048576               752.02
+2097152              1516.82
+4194304              2751.53
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "gpu-affinity": "per-task", "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-15,flux-sample-1"]}}, "user": {"study_id": "osu-2-iter-19"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725034404.5293398,"name":"init"}
+{"timestamp":1725034404.5307767,"name":"starting"}
+{"timestamp":1725034404.5596516,"name":"shell.init","context":{"service":"0-shell-feEginBq","leader-rank":15,"size":2}}
+{"timestamp":1725034404.5643463,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1725034431.3518529,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":96,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725034431.3568807,"name":"complete","context":{"status":0}}
+{"timestamp":1725034431.3569052,"name":"done"}
+

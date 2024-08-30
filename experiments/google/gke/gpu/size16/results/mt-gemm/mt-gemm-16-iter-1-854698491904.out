@@ -1,0 +1,28 @@
+Matrix size input by command line: 16384
+Repeat multiply 100 times.
+Alpha =    1.000000
+Beta  =    1.000000
+Allocating Matrices...
+Allocation complete, populating with values...
+Performing multiplication...
+Calculating matrix check...
+
+===============================================================
+Final Sum is:         16384.010000
+ -> Solution check PASSED successfully.
+Memory for Matrices:  6144.000000 MB
+Multiply time:        112.831558 seconds
+GFLOP/s rate:         997950.399468 GF/s
+===============================================================
+
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 16, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/gem/mt-dgemm.x", "16384", "100"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/gem", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "mt-gemm-16-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725035967.7575397,"name":"init"}
+{"timestamp":1725035967.7585695,"name":"starting"}
+{"timestamp":1725035967.7815628,"name":"shell.init","context":{"service":"0-shell-fPTBnBPu","leader-rank":0,"size":16}}
+{"timestamp":1725035967.8063078,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,16,8,1]]}}}
+{"timestamp":1725036094.2969611,"name":"shell.task-exit","context":{"localid":1,"rank":113,"state":"Exited","pid":71,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725036094.7086744,"name":"complete","context":{"status":0}}
+{"timestamp":1725036094.7087054,"name":"done"}
+

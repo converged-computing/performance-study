@@ -1,0 +1,28 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 16
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+  containers:
+  - image: ghcr.io/converged-computing/mt-gemm:latest
+    commands:
+      pre: |
+        echo "Regenerated resources"
+        flux R encode --hosts=${hosts} --cores=0-15 --gpu=0-7 > ${viewroot}/etc/flux/system/R
+        cat ${viewroot}/etc/flux/system/R
+        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+    volumes:
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
+    resources:
+      limits:
+        nvidia.com/gpu: "8"

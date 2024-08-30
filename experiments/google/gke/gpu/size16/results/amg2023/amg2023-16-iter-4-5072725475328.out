@@ -1,0 +1,59 @@
+Running with these driver parameters:
+  Problem ID    = 2
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.000018 seconds
+  Laplacian_7pt:
+    (Nx, Ny, Nz) = (4096, 1024, 256)
+    (Px, Py, Pz) = (16, 4, 2)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 4.484676 seconds
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.209239 seconds
+=============================================
+Problem 2: AMG Setup Time:
+=============================================
+PCG Setup:
+  wall clock time = 51.564270 seconds
+
+FOM_Setup: nnz_AP / Setup Phase Time: 2.514252e+08
+
+=============================================
+Problem 2: AMG-PCG Solve Time:
+=============================================
+PCG Solve:
+  wall clock time = 25.986993 seconds
+
+Iterations = 22
+Final Relative Residual Norm = 4.519260e-09
+
+
+FOM_Solve: nnz_AP * iterations / Solve Phase Time: 4.988864e+08
+
+
+
+Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 1.000929e+08
+
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 16, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["amg", "-n", "256", "256", "128", "-P", "16", "4", "2", "-problem", "2"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "gpu-affinity": "per-task", "cpu-affinity": "per-task"}}}, "user": {"study_id": "amg2023-16-iter-4"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725031414.6301615,"name":"init"}
+{"timestamp":1725031414.6311355,"name":"starting"}
+{"timestamp":1725031414.6529889,"name":"shell.init","context":{"service":"0-shell-f3JFcP1iP","leader-rank":0,"size":16}}
+{"timestamp":1725031414.6716728,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,16,8,1]]}}}
+{"timestamp":1725031499.0996375,"name":"shell.task-exit","context":{"localid":7,"rank":103,"state":"Exited","pid":132,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725031499.173341,"name":"complete","context":{"status":0}}
+{"timestamp":1725031499.1733727,"name":"done"}
+
