@@ -20,8 +20,8 @@ This is a checklist for the setups we have tested and timed:
 ### "Bare Metal"
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
-  - [x] size 32 (abhik done 6 apps 8/28/2024)
-  - [x] size 64 (abhik done 6 apps 8/28/2024)
+  - [ ] size 32 (abhik done 6 apps 8/28/2024, rest TBA)
+  - [ ] size 64 (abhik done 6 apps 8/28/2024, rest TBA)
   - [ ] size 128 (TBA)
   - [ ] size 256 (TBA)
 - [ ] Microsoft Azure CycleCloud GPU (date)
@@ -73,10 +73,10 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 8 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
   - [x] size 16 (done vsoch, milroy lammps/osu 8/27/2024)
 - [ ] Google Cloud GKE GPU
-  - [ ] size 4 (vsoch TBA 8/29/2024)
+  - [x] size 4 (vsoch TBA 8/29/2024)
   - [x] size 8 (vsoch TBA 8/29/2024)
-  - [ ] size 16 (vsoch TBA 8/29/2024)
-  - [ ] size 32 (vsoch TBA 8/29/2024)
+  - [ ] size 16 (vsoch TBA 8/30/2024)
+  - [ ] size 32 (vsoch TBA 8/30/2024)
 - [ ] Microsoft Azure AKS GPU
   - [ ] size 4 (vsoch TBA 8/30/2024)
   - [ ] size 8 (vsoch TBA 8/30/2024)

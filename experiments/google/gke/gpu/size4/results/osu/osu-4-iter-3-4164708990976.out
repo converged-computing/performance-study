@@ -1,0 +1,129 @@
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+
+# OSU MPI-CUDA Allreduce Latency Test v5.8
+# Size       Avg Latency(us)
+4                     148.34
+8                     146.69
+16                    147.78
+32                    147.40
+64                    147.89
+128                   253.02
+256                   250.66
+512                   252.43
+1024                  262.48
+2048                  286.76
+4096                  294.68
+8192                  317.22
+16384                 348.85
+32768                 398.12
+65536                 479.10
+131072                647.88
+262144               1013.53
+524288               1726.45
+1048576              3521.65
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 4, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "osu-4-iter-3"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725003972.4666836,"name":"init"}
+{"timestamp":1725003972.4677362,"name":"starting"}
+{"timestamp":1725003972.4867692,"name":"shell.init","context":{"service":"0-shell-f2tQC5Bjd","leader-rank":0,"size":4}}
+{"timestamp":1725003972.5110779,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,4,8,1]]}}}
+{"timestamp":1725003982.6832657,"name":"shell.task-exit","context":{"localid":6,"rank":14,"state":"Exited","pid":133,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725003983.0785182,"name":"complete","context":{"status":0}}
+{"timestamp":1725003983.078541,"name":"done"}
+
