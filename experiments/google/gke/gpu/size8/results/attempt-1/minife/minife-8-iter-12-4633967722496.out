@@ -1,0 +1,156 @@
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+A system call failed during sm BTL initialization that should
+not have.  It is likely that your MPI job will now either abort or
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+experience performance degradation.
+
+
+  System call: open(2)
+  System call: open(2)
+  Error:       No such file or directory (errno 2)
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+A system call failed during sm BTL initialization that should
+not have.  It is likely that your MPI job will now either abort or
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+experience performance degradation.
+
+
+  System call: open(2)
+  System call: open(2)
+  Error:       No such file or directory (errno 2)
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-2
+  System call: unlink(2) /tmp/ompi.flux-sample-2.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-2
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-2:00578] WARNING: common_sm_module_unlink failed.
+[flux-sample-2:00578] WARNING: common_sm_module_unlink failed.
+[flux-sample-2:00578] WARNING: /tmp/ompi.flux-sample-2.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-2 unlink failed.
+[flux-sample-2:00578] WARNING: /tmp/ompi.flux-sample-2.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-2 unlink failed.
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+not have.  It is likely that your MPI job will now either abort or
+--------------------------------------------------------------------------
+experience performance degradation.
+A system call failed during sm BTL initialization that should
+
+not have.  It is likely that your MPI job will now either abort or
+  System call: open(2)
+experience performance degradation.
+  Error:       No such file or directory (errno 2)
+
+--------------------------------------------------------------------------
+  System call: open(2)
+--------------------------------------------------------------------------
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+A system call failed during sm BTL initialization that should
+not have.  It is likely that your MPI job will now either abort or
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+experience performance degradation.
+
+
+  System call: open(2)
+  System call: open(2)
+  Error:       No such file or directory (errno 2)
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+A system call failed during sm BTL initialization that should
+not have.  It is likely that your MPI job will now either abort or
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+experience performance degradation.
+
+
+  System call: open(2)
+  System call: open(2)
+  Error:       No such file or directory (errno 2)
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+A system call failed during sm BTL initialization that should
+not have.  It is likely that your MPI job will now either abort or
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+experience performance degradation.
+
+
+  System call: open(2)
+  System call: open(2)
+  Error:       No such file or directory (errno 2)
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+A system call failed during sm BTL initialization that should
+--------------------------------------------------------------------------
+not have.  It is likely that your MPI job will now either abort or
+A system call failed during sm BTL initialization that should
+experience performance degradation.
+not have.  It is likely that your MPI job will now either abort or
+
+experience performance degradation.
+  System call: open(2)
+
+  Error:       No such file or directory (errno 2)
+  System call: open(2)
+--------------------------------------------------------------------------
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+ OMP_NUM_THREADS=1
+      creating/filling mesh...0.054991s, total time: 0.054991
+generating matrix structure...0.0966561s, total time: 0.151647
+         assembling FE data...0.0139818s, total time: 0.165629
+      imposing Dirichlet BC...0.001894s, total time: 0.167523
+      imposing Dirichlet BC...1.90735e-06s, total time: 0.167525
+making matrix indices local...0.0239129s, total time: 0.191438
+Starting CG solver ... 
+Initial Residual = 231.002
+Iteration = 20   Residual = 0.0683715
+Iteration = 40   Residual = 0.169463
+Iteration = 60   Residual = 0.0111999
+Iteration = 80   Residual = 0.00543262
+Iteration = 100   Residual = 0.00248273
+Iteration = 120   Residual = 0.00119688
+Iteration = 140   Residual = 0.000542169
+Iteration = 160   Residual = 0.000261301
+Iteration = 180   Residual = 0.00011787
+Iteration = 200   Residual = 0.000140004
+Final Resid Norm: 0.000140004
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 2, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["miniFE.x", "nx=230", "ny=230", "nz=230", "num_devices=8", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/minife", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "minife-8-iter-12"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724744815.5700119,"name":"init"}
+{"timestamp":1724744815.5727093,"name":"starting"}
+{"timestamp":1724744815.5889661,"name":"shell.init","context":{"service":"0-shell-f36j8rqtT","leader-rank":0,"size":8}}
+{"timestamp":1724744815.5940924,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,2,1]]}}}
+{"timestamp":1724744819.5927491,"name":"shell.task-exit","context":{"localid":0,"rank":4,"state":"Exited","pid":578,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724744819.7688246,"name":"complete","context":{"status":0}}
+{"timestamp":1724744819.768868,"name":"done"}
+

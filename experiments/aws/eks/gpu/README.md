@@ -286,9 +286,6 @@ kubectl delete -f ./crd/laghos.yaml
 
 ### LAMMPS-REAX
 
-**This is not working**
-
-
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-lammps-reax-$(date +%s).json
 kubectl apply -f ./crd/lammps-reax.yaml

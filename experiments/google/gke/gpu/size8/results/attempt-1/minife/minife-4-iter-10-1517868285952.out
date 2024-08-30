@@ -1,0 +1,31 @@
+ OMP_NUM_THREADS=1
+      creating/filling mesh...0.0507019s, total time: 0.0507019
+generating matrix structure...0.0967872s, total time: 0.147489
+         assembling FE data...0.013401s, total time: 0.16089
+      imposing Dirichlet BC...0.00174093s, total time: 0.162631
+      imposing Dirichlet BC...1.90735e-06s, total time: 0.162633
+making matrix indices local...0.030472s, total time: 0.193105
+Starting CG solver ... 
+Initial Residual = 231.002
+Iteration = 20   Residual = 0.0677138
+Iteration = 40   Residual = 0.0747738
+Iteration = 60   Residual = 0.014063
+Iteration = 80   Residual = 0.0183645
+Iteration = 100   Residual = 0.00248277
+Iteration = 120   Residual = 0.00486703
+Iteration = 140   Residual = 0.000542169
+Iteration = 160   Residual = 0.000245289
+Iteration = 180   Residual = 0.000737707
+Iteration = 200   Residual = 1.09299e-05
+Final Resid Norm: 1.09299e-05
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 4, "with": [{"type": "slot", "count": 4, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["miniFE.x", "nx=230", "ny=230", "nz=230", "num_devices=8", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/minife", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "minife-4-iter-10"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724744603.333194,"name":"init"}
+{"timestamp":1724744603.334219,"name":"starting"}
+{"timestamp":1724744603.3509073,"name":"shell.init","context":{"service":"0-shell-fgsZpigF","leader-rank":0,"size":4}}
+{"timestamp":1724744603.3603604,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,4,4,1]]}}}
+{"timestamp":1724744607.0612946,"name":"shell.task-exit","context":{"localid":3,"rank":15,"state":"Exited","pid":154,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724744607.2824333,"name":"complete","context":{"status":0}}
+{"timestamp":1724744607.2824674,"name":"done"}
+

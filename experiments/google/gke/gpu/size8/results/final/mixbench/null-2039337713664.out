@@ -1,0 +1,26 @@
+0.050s: job.exception type=exec severity=0 task 16 (host flux-sample-2): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.050s: job.exception type=exec severity=0 task 40 (host flux-sample-5): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.051s: job.exception type=exec severity=0 task 8 (host flux-sample-1): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.051s: job.exception type=exec severity=0 task 0 (host flux-sample-0): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.051s: job.exception type=exec severity=0 task 48 (host flux-sample-6): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.052s: job.exception type=exec severity=0 task 56 (host flux-sample-7): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.052s: job.exception type=exec severity=0 task 24 (host flux-sample-3): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.052s: job.exception type=exec severity=0 task 32 (host flux-sample-4): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+flux-job: task(s) exited with exit code 127
+0.049s: flux-shell[2]: FATAL: task 16 (host flux-sample-2): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.049s: flux-shell[5]: FATAL: task 40 (host flux-sample-5): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.049s: flux-shell[4]: FATAL: task 32 (host flux-sample-4): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.049s: flux-shell[3]: FATAL: task 24 (host flux-sample-3): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.049s: flux-shell[1]: FATAL: task 8 (host flux-sample-1): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.049s: flux-shell[6]: FATAL: task 48 (host flux-sample-6): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.049s: flux-shell[7]: FATAL: task 56 (host flux-sample-7): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+0.050s: flux-shell[0]: FATAL: task 0 (host flux-sample-0): start failed: /opt/mixbench/mixbench-cuda/wrapper: No such file or directory
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/mixbench/mixbench-cuda/wrapper", "32"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724986976.7774906,"name":"init"}
+{"timestamp":1724986976.7785175,"name":"starting"}
+{"timestamp":1724986976.7970488,"name":"shell.init","context":{"service":"0-shell-fva4HqpB","leader-rank":0,"size":8}}
+{"timestamp":1724986976.8042703,"name":"complete","context":{"status":32512}}
+{"timestamp":1724986976.804287,"name":"done"}
+

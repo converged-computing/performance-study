@@ -74,7 +74,7 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 16 (done vsoch, milroy lammps/osu 8/27/2024)
 - [ ] Google Cloud GKE GPU
   - [ ] size 4 (vsoch TBA 8/29/2024)
-  - [ ] size 8 (vsoch TBA 8/29/2024)
+  - [x] size 8 (vsoch TBA 8/29/2024)
   - [ ] size 16 (vsoch TBA 8/29/2024)
   - [ ] size 32 (vsoch TBA 8/29/2024)
 - [ ] Microsoft Azure AKS GPU

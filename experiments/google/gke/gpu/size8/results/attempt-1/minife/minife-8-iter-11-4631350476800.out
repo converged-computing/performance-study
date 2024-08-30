@@ -1,0 +1,298 @@
+68.649s: job.exception type=exec severity=0 rank 14 exited and exit-timeout=30s has expired
+flux-job: task(s) exited with exit code 139
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-0
+  System call: unlink(2) /tmp/ompi.flux-sample-0.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-0
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-0:00703] WARNING: common_sm_module_unlink failed.
+[flux-sample-0:00703] WARNING: common_sm_module_unlink failed.
+[flux-sample-0:00703] WARNING: /tmp/ompi.flux-sample-0.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-0 unlink failed.
+[flux-sample-0:00703] WARNING: /tmp/ompi.flux-sample-0.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-0 unlink failed.
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-1
+  System call: unlink(2) /tmp/ompi.flux-sample-1.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-1
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-1:00576] WARNING: common_sm_module_unlink failed.
+[flux-sample-1:00576] WARNING: common_sm_module_unlink failed.
+[flux-sample-1:00576] WARNING: /tmp/ompi.flux-sample-1.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-1 unlink failed.
+[flux-sample-1:00576] WARNING: /tmp/ompi.flux-sample-1.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-1 unlink failed.
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-4
+  System call: unlink(2) /tmp/ompi.flux-sample-4.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-4
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-4:00539] WARNING: common_sm_module_unlink failed.
+[flux-sample-4:00539] WARNING: common_sm_module_unlink failed.
+[flux-sample-4:00539] WARNING: /tmp/ompi.flux-sample-4.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-4 unlink failed.
+[flux-sample-4:00539] WARNING: /tmp/ompi.flux-sample-4.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-4 unlink failed.
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-3
+  System call: unlink(2) /tmp/ompi.flux-sample-3.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-3
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-3:00576] WARNING: common_sm_module_unlink failed.
+[flux-sample-3:00576] WARNING: common_sm_module_unlink failed.
+[flux-sample-3:00576] WARNING: /tmp/ompi.flux-sample-3.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-3 unlink failed.
+[flux-sample-3:00576] WARNING: /tmp/ompi.flux-sample-3.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-3 unlink failed.
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-6
+  System call: unlink(2) /tmp/ompi.flux-sample-6.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-6
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-6:00540] WARNING: common_sm_module_unlink failed.
+[flux-sample-6:00540] WARNING: common_sm_module_unlink failed.
+[flux-sample-6:00540] WARNING: /tmp/ompi.flux-sample-6.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-6 unlink failed.
+[flux-sample-6:00540] WARNING: /tmp/ompi.flux-sample-6.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-6 unlink failed.
+--------------------------------------------------------------------------
+A system call failed during shared memory initialization that should
+not have.  It is likely that your MPI job will now either abort or
+experience performance degradation.
+
+  Local host:  flux-sample-7
+  System call: unlink(2) /tmp/ompi.flux-sample-7.0/jf.0/0/shared_mem_cuda_btl_module.flux-sample-7
+  Error:       No such file or directory (errno 2)
+--------------------------------------------------------------------------
+[flux-sample-7:00540] WARNING: common_sm_module_unlink failed.
+[flux-sample-7:00540] WARNING: common_sm_module_unlink failed.
+[flux-sample-7:00540] WARNING: /tmp/ompi.flux-sample-7.0/jf.0/0/shared_mem_cuda_pool_rndv.flux-sample-7 unlink failed.
+[flux-sample-7:00540] WARNING: /tmp/ompi.flux-sample-7.0/jf.0/0/shared_mem_cuda_btl_rndv.flux-sample-7 unlink failed.
+[flux-sample-0:00704] *** Process received signal ***
+[flux-sample-0:00704] Signal: Segmentation fault (11)
+[flux-sample-0:00704] Signal code: Address not mapped (1)
+[flux-sample-0:00704] Failing at address: 0x7c820c223c8c
+[flux-sample-0:00704] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x791111bed520]
+[flux-sample-0:00704] [ 1] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x791108180981]
+[flux-sample-0:00704] [ 2] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x791111b22104]
+[flux-sample-0:00704] [ 3] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x791112527545]
+[flux-sample-0:00704] [ 4] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x79111257bf0a]
+[flux-sample-0:00704] [ 5] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x791101583840]
+[flux-sample-0:00704] [ 6] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x79111253ed00]
+[flux-sample-0:00704] [ 7] miniFE.x(+0x380a0)[0x57e2d92910a0]
+[flux-sample-0:00704] [ 8] miniFE.x(+0x10690)[0x57e2d9269690]
+[flux-sample-0:00704] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x791111bd4d90]
+[flux-sample-0:00704] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x791111bd4e40]
+[flux-sample-0:00704] [11] miniFE.x(+0x10e45)[0x57e2d9269e45]
+[flux-sample-0:00704] *** End of error message ***
+[flux-sample-2:00577] *** Process received signal ***
+[flux-sample-2:00577] Signal: Segmentation fault (11)
+[flux-sample-2:00577] Signal code: Address not mapped (1)
+[flux-sample-6:00540] *** Process received signal ***
+[flux-sample-6:00541] *** Process received signal ***
+[flux-sample-2:00577] Failing at address: 0x7bd6e05488cc
+[flux-sample-6:00541] Signal: Segmentation fault (11)
+[flux-sample-6:00541] Signal code: Address not mapped (1)
+[flux-sample-2:00576] *** Process received signal ***
+[flux-sample-6:00541] Failing at address: 0x7a4f6c43e34c
+[flux-sample-6:00541] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7bc0dabed520]
+[flux-sample-2:00576] Signal: Segmentation fault (11)
+[flux-sample-6:00541] [ 1] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7bc0d0877981]
+[flux-sample-0:00703] *** Process received signal ***
+[flux-sample-6:00541] [ 2] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7bc0daa63104]
+[flux-sample-0:00703] Signal: Segmentation fault (11)
+[flux-sample-0:00703] Signal code: Address not mapped (1)
+[flux-sample-0:00703] Failing at address: 0x7d55b0222b00
+[flux-sample-2:00576] Signal code: Address not mapped (1)
+[flux-sample-6:00541] [ 3] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7bc0db41a545]
+[flux-sample-0:00703] [ 0] [flux-sample-6:00541] [ 4] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x7bc0db46ef0a]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x79db585cd520]
+[flux-sample-2:00576] Failing at address: 0x78b8a05475cc
+[flux-sample-6:00541] [ 5] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7bc0d047c840]
+[flux-sample-0:00703] [ 1] [flux-sample-2:00576] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7f8379bed520]
+/usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_sendi+0x1b2)[0x79db3e200f12]
+[flux-sample-6:00541] [ 6] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7bc0db431d00]
+[flux-sample-0:00703] [ 2] /usr/local/pancakes/lib/openmpi/mca_pml_ob1.so(+0xc489)[0x79db3de3e489]
+[flux-sample-6:00541] [ 7] miniFE.x(+0x380a0)[0x5ba04ff220a0]
+[flux-sample-0:00703] [ 3] [flux-sample-2:00576] [ 1] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7f8370027981]
+/usr/local/pancakes/lib/openmpi/mca_pml_ob1.so(mca_pml_ob1_isend+0x3f9)[0x79db3de3f039]
+[flux-sample-6:00541] [ 8] miniFE.x(+0x10690)[0x5ba04fefa690]
+[flux-sample-0:00703] [ 4] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x14b)[0x79db58dfda6b]
+[flux-sample-0:00703] [ 5] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x79db3de07840]
+[flux-sample-0:00703] [flux-sample-2:00576] [ 2] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7f8379a63104]
+[flux-sample-6:00541] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7bc0dabd4d90]
+[ 6] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x79db58dc0d00]
+[flux-sample-0:00703] [flux-sample-6:00541] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7bc0dabd4e40]
+[ 7] miniFE.x(+0x380a0)[0x59959dcf90a0]
+[flux-sample-2:00576] [ 3] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7f837a3d5545]
+[flux-sample-0:00703] [flux-sample-6:00541] [11] miniFE.x(+0x10e45)[0x5ba04fefae45]
+[flux-sample-1:00576] *** Process received signal ***
+[ 8] miniFE.x(+0x10690)[0x59959dcd1690]
+[flux-sample-0:00703] [flux-sample-1:00576] Signal: Segmentation fault (11)
+[ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x79db585b4d90]
+[flux-sample-6:00541] *** End of error message ***
+[flux-sample-1:00576] Signal code: Address not mapped (1)
+[flux-sample-0:00703] [10] [flux-sample-2:00576] [ 4] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x65e)[0x7f837a429f7e]
+[flux-sample-1:00576] Failing at address: 0x796130430fcc
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x79db585b4e40]
+[flux-sample-0:00703] [flux-sample-2:00576] [ 5] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7f8343434840]
+[flux-sample-1:00576] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7ee03e7ed520]
+[11] miniFE.x(+0x10e45)[0x59959dcd1e45]
+[flux-sample-0:00703] *** End of error message ***
+[flux-sample-6:00540] Signal: Segmentation fault (11)
+[flux-sample-1:00576] [ 1] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7ee0344e5981]
+[flux-sample-2:00576] [ 6] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7f837a3ecd00]
+[flux-sample-6:00540] Signal code: Address not mapped (1)
+[flux-sample-1:00576] [ 2] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7ee03e722104]
+[flux-sample-6:00540] Failing at address: 0x7ce28043b04c
+[flux-sample-1:00576] [ 3] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7ee03f089545]
+[flux-sample-1:00576] [ 4] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x7ee03f0ddf0a]
+[flux-sample-1:00576] [ 5] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7ee0340ea840]
+[flux-sample-2:00576] [ 7] miniFE.x(+0x380a0)[0x5c4c05aa30a0]
+[flux-sample-6:00540] [flux-sample-1:00576] [ 6] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7ee03f0a0d00]
+[ 0] [flux-sample-1:00576] [ 7] miniFE.x(+0x380a0)[0x5a22f0b4a0a0]
+[flux-sample-2:00576] [ 8] miniFE.x(+0x10690)[0x5c4c05a7b690]
+[flux-sample-1:00576] [ 8] miniFE.x(+0x10690)[0x5a22f0b22690]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7de335ded520]
+[flux-sample-1:00576] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7ee03e7d4d90]
+[flux-sample-2:00576] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7f8379bd4d90]
+[flux-sample-1:00576] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7ee03e7d4e40]
+[flux-sample-6:00540] [flux-sample-1:00576] [11] miniFE.x(+0x10e45)[0x5a22f0b22e45]
+[flux-sample-2:00576] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f8379bd4e40]
+[flux-sample-1:00576] *** End of error message ***
+[ 1] [flux-sample-1:00577] *** Process received signal ***
+[flux-sample-1:00577] Signal: Segmentation fault (11)
+/usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7de32c347981]
+[flux-sample-2:00576] [11] miniFE.x(+0x10e45)[0x5c4c05a7be45]
+[flux-sample-1:00577] Signal code: Address not mapped (1)
+[flux-sample-1:00577] Failing at address: 0x7ee38443228c
+[flux-sample-6:00540] [flux-sample-1:00577] [flux-sample-2:00576] *** End of error message ***
+[ 0] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x79b1039ed520]
+/usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7de335d22104]
+[flux-sample-1:00577] [ 1] [flux-sample-6:00540] [flux-sample-3:00576] *** Process received signal ***
+/usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x79b0f9725981]
+[flux-sample-3:00576] Signal: Segmentation fault (11)
+[flux-sample-1:00577] [ 3] [flux-sample-5:00541] *** Process received signal ***
+[flux-sample-3:00576] Signal code: Address not mapped (1)
+[ 2] [flux-sample-3:00576] Failing at address: 0x7d0c8c4450cc
+[flux-sample-2:00577] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x79b103922104]
+/usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7de3366ea545]
+[flux-sample-5:00540] *** Process received signal ***
+[flux-sample-3:00576] [ 0] [flux-sample-1:00577] [ 0] [ 3] [flux-sample-6:00540] [flux-sample-5:00540] Signal: Segmentation fault (11)
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7fb54e5ed520]
+/usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x79b1042ca545]
+[flux-sample-5:00540] Signal code: Address not mapped (1)
+[flux-sample-3:00576] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7bb0233ed520]
+[flux-sample-1:00577] [ 1] [ 4] [ 4] [flux-sample-5:00540] Failing at address: 0x7ca37843d04c
+/usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7fb544265981]
+/usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x79b10431ef0a]
+/usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x65e)[0x7de33673ef7e]
+[flux-sample-5:00540] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7faa89fed520]
+[flux-sample-3:00576] [flux-sample-2:00577] [flux-sample-1:00577] [flux-sample-5:00540] [ 1] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7faa8048f981]
+[ 2] [ 5] [flux-sample-6:00540] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7fb54e463104]
+/usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x79b0f932a840]
+[flux-sample-5:00540] [ 2] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7faa89e63104]
+[flux-sample-3:00576] [ 1] [flux-sample-1:00577] [ 5] [flux-sample-5:00540] [ 3] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7faa8a837545]
+[ 3] [ 6] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7fb54ee09545]
+/usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x79b1042e1d00]
+/usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7de325746840]
+[flux-sample-5:00540] [ 4] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x7faa8a88bf0a]
+[flux-sample-3:00576] [flux-sample-1:00577] [flux-sample-7:00540] *** Process received signal ***
+[flux-sample-5:00540] [ 5] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7faa80094840]
+[ 4] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7bb0190f2981]
+[ 7] [flux-sample-7:00540] Signal: Segmentation fault (11)
+/usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x7fb54ee5df0a]
+[flux-sample-2:00577] miniFE.x(+0x380a0)[0x59cb63db80a0]
+[flux-sample-7:00540] Signal code: Address not mapped (1)
+[flux-sample-6:00540] [flux-sample-5:00540] [ 6] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7faa8a84ed00]
+[flux-sample-3:00576] [flux-sample-1:00577] [flux-sample-7:00540] Failing at address: 0x7f988843b2cc
+[flux-sample-5:00540] [ 7] miniFE.x(+0x380a0)[0x5b0979d690a0]
+[ 5] [ 8] [flux-sample-7:00540] [ 6] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7fb541e63840]
+miniFE.x(+0x10690)[0x59cb63d90690]
+[ 0] [flux-sample-5:00540] [ 8] miniFE.x(+0x10690)[0x5b0979d41690]
+[flux-sample-3:00576] [ 2] [flux-sample-1:00577] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x78cfe6bed520]
+/usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7de336701d00]
+[flux-sample-5:00540] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7faa89fd4d90]
+[ 6] [ 9] [flux-sample-7:00540] [flux-sample-6:00540] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7fb54ee20d00]
+/usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7bb023322104]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x79b1039d4d90]
+[ 1] [flux-sample-5:00540] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7faa89fd4e40]
+[flux-sample-3:00576] [flux-sample-1:00577] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x78cfdc872981]
+[ 7] [flux-sample-5:00540] [11] miniFE.x(+0x10e45)[0x5b0979d41e45]
+[ 7] [10] [flux-sample-7:00540] [flux-sample-5:00540] *** End of error message ***
+miniFE.x(+0x380a0)[0x5bb0a4abc0a0]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x79b1039d4e40]
+[ 2] [flux-sample-5:00541] Signal: Segmentation fault (11)
+[flux-sample-3:00576] [flux-sample-2:00577] [flux-sample-1:00577] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x78cfe6a63104]
+miniFE.x(+0x380a0)[0x5659dbd420a0]
+[flux-sample-5:00541] Signal code: Address not mapped (1)
+[ 8] [11] [flux-sample-7:00540] [flux-sample-5:00541] Failing at address: 0x7d5a7c44834c
+miniFE.x(+0x10690)[0x5bb0a4a94690]
+miniFE.x(+0x10e45)[0x59cb63d90e45]
+[ 3] [flux-sample-6:00540] [flux-sample-5:00541] [flux-sample-3:00576] [ 3] [flux-sample-1:00577] *** End of error message ***
+/usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x78cfe7418545]
+[ 8] [ 0] [ 9] [flux-sample-7:00540] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7b25b1fed520]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7fb54e5d4d90]
+/usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7bb023c99545]
+[ 4] [flux-sample-5:00541] [flux-sample-3:00576] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x78cfe746cf0a]
+miniFE.x(+0x10690)[0x5659dbd1a690]
+[ 1] [10] [flux-sample-7:00540] [flux-sample-6:00540] /usr/local/pancakes/lib/openmpi/mca_btl_smcuda.so(mca_btl_smcuda_component_progress+0x101)[0x7b25a8585981]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7fb54e5d4e40]
+[flux-sample-2:00577] [ 5] [flux-sample-5:00541] [flux-sample-3:00576] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x78cfdc477840]
+[ 9] [ 2] [11] [flux-sample-7:00540] /usr/local/pancakes/lib/libopen-pal.so.40(opal_progress+0x34)[0x7b25b1f22104]
+miniFE.x(+0x10e45)[0x5bb0a4a94e45]
+[ 4] [ 6] [flux-sample-5:00541] [flux-sample-3:00576] *** End of error message ***
+/usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x78cfe742fd00]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7de335dd4d90]
+[ 3] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x7bb023cedf0a]
+[flux-sample-7:00540] /usr/local/pancakes/lib/libmpi.so.40(ompi_request_default_wait+0x55)[0x7b25b292e545]
+[ 7] [flux-sample-6:00540] [flux-sample-5:00541] miniFE.x(+0x380a0)[0x5689a05000a0]
+[ 4] [flux-sample-7:00540] [10] /usr/local/pancakes/lib/libmpi.so.40(ompi_coll_base_bcast_intra_generic+0x5ea)[0x7b25b2982f0a]
+[ 8] [flux-sample-5:00541] [flux-sample-2:00577] miniFE.x(+0x10690)[0x5689a04d8690]
+[ 5] [flux-sample-7:00540] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7de335dd4e40]
+/usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7b25a818a840]
+[ 9] [flux-sample-6:00540] [flux-sample-5:00541] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x78cfe6bd4d90]
+[ 6] [ 5] [flux-sample-7:00540] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7b25b2945d00]
+[10] [11] [flux-sample-5:00541] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x78cfe6bd4e40]
+[ 7] /usr/local/pancakes/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_bcast_intra_dec_fixed+0x40)[0x7bb018cf7840]
+[flux-sample-7:00540] miniFE.x(+0x10e45)[0x5659dbd1ae45]
+miniFE.x(+0x380a0)[0x5af28596d0a0]
+[11] [flux-sample-6:00540] *** End of error message ***
+[flux-sample-5:00541] miniFE.x(+0x10e45)[0x5689a04d8e45]
+[ 8] [flux-sample-2:00577] [flux-sample-7:00540] *** End of error message ***
+miniFE.x(+0x10690)[0x5af285945690]
+[ 6] [flux-sample-5:00541] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7b25b1fd4d90]
+[flux-sample-5:00541] [10] /usr/local/pancakes/lib/libmpi.so.40(MPI_Bcast+0x120)[0x7bb023cb0d00]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7b25b1fd4e40]
+[flux-sample-5:00541] [flux-sample-2:00577] [11] miniFE.x(+0x10e45)[0x5af285945e45]
+[flux-sample-5:00541] *** End of error message ***
+[ 7] miniFE.x(+0x380a0)[0x5a4a61d6c0a0]
+[flux-sample-2:00577] [ 8] miniFE.x(+0x10690)[0x5a4a61d44690]
+[flux-sample-2:00577] [ 9] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7bb0233d4d90]
+[flux-sample-2:00577] [10] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7bb0233d4e40]
+[flux-sample-2:00577] [11] miniFE.x(+0x10e45)[0x5a4a61d44e45]
+[flux-sample-2:00577] *** End of error message ***
+[flux-sample-4:00539] 1 more process has sent help message help-opal-shmem-mmap.txt / sys call fail
+[flux-sample-4:00539] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+68.647s: flux-shell[0]: FATAL: doom: rank 14 exited and exit-timeout=30s has expired
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 2, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["miniFE.x", "nx=230", "ny=230", "nz=230", "num_devices=8", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/minife", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "minife-8-iter-11"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724744815.5659661,"name":"init"}
+{"timestamp":1724744815.5673611,"name":"starting"}
+{"timestamp":1724744815.5857351,"name":"shell.init","context":{"service":"0-shell-f36f9amvf","leader-rank":0,"size":8}}
+{"timestamp":1724744815.5911126,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,2,1]]}}}
+{"timestamp":1724744820.00298,"name":"shell.task-exit","context":{"localid":0,"rank":14,"state":"Exited","pid":540,"wait_status":139,"signaled":11,"exitcode":139}}
+{"timestamp":1724744855.1486104,"name":"complete","context":{"status":35584}}
+{"timestamp":1724744855.1486425,"name":"done"}
+

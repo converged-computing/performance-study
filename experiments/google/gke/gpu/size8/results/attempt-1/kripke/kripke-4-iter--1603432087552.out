@@ -1,0 +1,155 @@
+0.348s: job.exception type=exec severity=0 MPI_Abort: N/A
+0.348s: job.exception type=exec severity=0 MPI_Abort: N/A
+0.349s: job.exception type=exec severity=0 MPI_Abort: N/A
+flux-job: task(s) exited with exit code 143
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 3 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 2 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 1 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+with errorcode 1.
+with errorcode 1.
+with errorcode 1.
+
+
+
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 7 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 6 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 5 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 4 in communicator MPI_COMM_WORLD
+with errorcode 1.
+with errorcode 1.
+with errorcode 1.
+with errorcode 1.
+
+
+
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+--------------------------------------------------------------------------
+You may or may not see output from other processes, depending on
+--------------------------------------------------------------------------
+You may or may not see output from other processes, depending on
+--------------------------------------------------------------------------
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 11 in communicator MPI_COMM_WORLD
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 9 in communicator MPI_COMM_WORLD
+MPI_ABORT was invoked on rank 8 in communicator MPI_COMM_WORLD
+with errorcode 1.
+MPI_ABORT was invoked on rank 10 in communicator MPI_COMM_WORLD
+with errorcode 1.
+with errorcode 1.
+
+with errorcode 1.
+
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+--------------------------------------------------------------------------
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+--------------------------------------------------------------------------
+You may or may not see output from other processes, depending on
+MPI_ABORT was invoked on rank 15 in communicator MPI_COMM_WORLD
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+MPI_ABORT was invoked on rank 14 in communicator MPI_COMM_WORLD
+You may or may not see output from other processes, depending on
+MPI_ABORT was invoked on rank 13 in communicator MPI_COMM_WORLD
+You may or may not see output from other processes, depending on
+MPI_ABORT was invoked on rank 12 in communicator MPI_COMM_WORLD
+exactly when Open MPI kills them.
+with errorcode 1.
+You may or may not see output from other processes, depending on
+with errorcode 1.
+exactly when Open MPI kills them.
+with errorcode 1.
+exactly when Open MPI kills them.
+with errorcode 1.
+--------------------------------------------------------------------------
+
+exactly when Open MPI kills them.
+
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+
+--------------------------------------------------------------------------
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+[flux-sample-4:00071] UNSUPPORTED TYPE 0
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+Assertion Failed: Number of MPI ranks must match decomposition, expected 32 ranks
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 4, "exclusive": true, "with": [{"type": "slot", "count": 4, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["kripke", "--arch", "CUDA", "--layout", "GDZ", "--dset", "8", "--zones", "128,128,128", "--gset", "16", "--groups", "64", "--niter", "50", "--legendre", "8", "--quad", "8", "--procs", "4,2,4"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/Kripke", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "gpu-affinity": "per-task"}}}, "user": {"study_id": "kripke-4-iter-"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724734732.1107752,"name":"init"}
+{"timestamp":1724734732.1117876,"name":"starting"}
+{"timestamp":1724734732.1303701,"name":"shell.init","context":{"service":"0-shell-fj7voZts","leader-rank":4,"size":4}}
+{"timestamp":1724734732.1390333,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,4,4,1]]}}}
+{"timestamp":1724734732.4324775,"name":"shell.task-exit","context":{"localid":0,"rank":4,"state":"Exited","pid":70,"wait_status":256,"signaled":0,"exitcode":1}}
+{"timestamp":1724734732.4418957,"name":"complete","context":{"status":36608}}
+{"timestamp":1724734732.4419274,"name":"done"}
+
