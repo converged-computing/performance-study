@@ -7,8 +7,7 @@
 
 echo "Start time:" $( date +%s )
 /usr/bin/time -p mpirun -N 128 --map-by ppr:96:node \
-	/shared/bin/singularity exec --pwd /code /shared/containers/metric-lammps-cpu_zen4.sif \
-	lmp -k on -sf kk -pk kokkos newton on neigh half \
-	-in in.snap.test -var snapdir 2J8_W.SNAP \ 
-	-v x 128 -v y 128 -v z 128 -var nsteps 20000
+        /shared/bin/singularity exec --pwd /code \
+        /shared/containers/metric-lammps-cpu_zen4-reax.sif \
+        lmp -v x 64 -v y 64 -v z 32 -in in.reaxff.hns
 echo "End time:" $( date +%s )

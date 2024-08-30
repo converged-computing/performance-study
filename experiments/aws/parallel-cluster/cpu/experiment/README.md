@@ -88,17 +88,17 @@ mkdir -p /shared/containers
 cd /shared/containers
 
 # This is the newer build with spack
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 && \
-singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile && \
-singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu && \
-singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 && \
-singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu-zen4 &&
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-laghos:libfabric-cpu-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:libfabric-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-minife:libfabric-cpu-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4-reax || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-mixbench:libfabric-cpu || true && \
+singularity pull docker://ghcr.io/converged-computing/mt-gemm:libfabric-cpu-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:libfabric-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:libfabric-zen4 || true && \
+singularity pull docker://ghcr.io/converged-computing/metric-stream:libfabric-cpu-zen4 || true &&
 singularity pull docker://ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
 ```
 
@@ -154,8 +154,8 @@ export FI_EFA_FORK_SAFE=1
 export FI_PROVIDER=efa
 cd configs/amg2023/
 for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
-cd ../../data/amg2023
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-amg2023 amg2023
+cd ../../data/
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-amg2023 amg2023
 ```
 
 
@@ -164,8 +164,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/kripke/
 for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-32n.sh; done
-cd ../../data/kripke
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-kripke kripke
+aws ec2 describe-instance-topology --region us-east-2 --filters Name=instance-type,Values=hpc6a.48xlarge --filters Name=tag-key,Values=cluster-tag-value > topology-size-32-kripke.json
+cd ../../data/
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-kripke kripke
 ```
 
 #### Laghos
@@ -173,8 +174,8 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 cd configs/laghos/
 for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-32n.sh; done
-cd ../../data/laghos
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32node-laghos laghos
+cd ../../data/
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aws-parallelcluster-cpu-32-node-laghos laghos
 ```
 
 #### LAMMPS
