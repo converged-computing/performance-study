@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#SBATCH --job-name=osu-2n
-#SBATCH --nodes=2
+#SBATCH --job-name=osu-32n
+#SBATCH --nodes=32
 #SBATCH --time=0:30:00
 #SBATCH --exclusive
 
@@ -10,7 +10,7 @@ module unload mpi
 ml mpi/hpcx-pmix-2.18
 
 echo "Start time:" $( date +%s )
-nodes=2
+nodes=32
 
 # At most 28 combinations, 8 nodes 2 at a time
 hosts=$( srun hostname | shuf -n 8 | tr '\n' ' ' )
