@@ -78,8 +78,8 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 16 (vsoch 8/30/2024)
   - [x] size 32 (vsoch TBA 8/30/2024)
 - [ ] Microsoft Azure AKS GPU
-  - [ ] size 4 (vsoch TBA 8/30/2024)
-  - [ ] size 8 (vsoch TBA 8/30/2024)
+  - [x] size 4 (vsoch TBA 8/30/2024)
+  - [x] size 8 (vsoch TBA 8/30/2024)
   - [ ] size 16 (vsoch TBA 8/30/2024)
   - [ ] size 32 (vsoch TBA 8/30/2024)
 

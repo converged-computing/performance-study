@@ -76,7 +76,7 @@ sudo mkdir -p /usr/local/pancakes && \
     tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     ./configure --with-cuda --prefix=/usr/local/pancakes && \
-    make && make install
+    make && sudo make install
 
 # These will need to be added to user's home
 # PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -125,7 +125,7 @@ sudo make install
 # Flux sched (uses cmake now)
 # cmake 3.26.5 is installed
 
-# catch 2?
+# catch 22?
 git clone https://github.com/catchorg/Catch2.git /tmp/catch
 cd /tmp/catch
 cmake -Bbuild -H. -DBUILD_TESTING=OFF
@@ -202,10 +202,8 @@ sudo dnf install -y ${APPTAINER_RPM}
 # IMPORTANT: if you don't create the disk large, you can  come back later
 # to resize (disks in the UI) and then attach, pull, and save a new template
 # version
-cd /tmp
-sudo rm -rf singularity-ce-4.0.1 singularity-ce*.tar.gz
 
-# Pull containers
+# Pull containers, assume user 1000 will use future terraform deploy
 sudo mkdir -p /opt/containers
 sudo chown -R 1000 /opt/containers
 
@@ -226,28 +224,18 @@ export VERSION="1.1.0" && \
 # singularity pull docker://ghcr.io/converged-computing/metric-amg:rocky-8
 
 cd /opt/containers
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky8-cpu-int64-zen3
-singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:zen4-reax
-
-# These sets both work (maybe)
-singularity pull docker://ghcr.io/converged-computing/metric-laghos:cpu-zen4
-singularity pull docker://ghcr.io/converged-computing/metric-laghos:rocky-8
-singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:zen4
-singularity pull docker://ghcr.io/converged-computing/metric-kripke-cpu:rocky-8
-singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4 
-singularity pull docker://ghcr.io/converged-computing/metric-stream:cpu-zen4
-singularity pull docker://ghcr.io/converged-computing/metric-stream:rocky-8
-# Mixbench doesn't work for the rocky build (illegal instruction)
-singularity pull docker://ghcr.io/converged-computing/metric-mixbench:cpu
-singularity pull docker://ghcr.io/converged-computing/metric-lammps-cpu:rocky-8
-singularity pull docker://ghcr.io/converged-computing/metric-minife:rocky-8
-singularity pull docker://ghcr.io/converged-computing/mt-gemm:rocky-8
-singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:rocky-8
-singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:rocky-8
-
-# Testing these (c2d build does not segfault)
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-int64-c2d
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
+singularity pull docker://ghcr.io/converged-computing/metric-mixbench:latest && \
+singularity pull docker://ghcr.io/converged-computing/metric-magma:mnist && \
+singularity pull docker://ghcr.io/converged-computing/metric-osu-gpu:latest && \
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 && \
+singularity pull docker://ghcr.io/converged-computing/metric-minife:latest && \
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax && \
+singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:kokkos-reax && \
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu && \
+singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-gpu:latest && \
+singularity pull docker://ghcr.io/converged-computing/mt-gemm:latest && \
+singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:latest && \
+singularity pull docker://ghcr.io/converged-computing/metric-stream:latest
 
 # Install openmpi on host (same as in containers)
 # apt-get update && \
@@ -256,12 +244,5 @@ singularity pull docker://ghcr.io/converged-computing/metric-amg2023:rocky-8
 #        dnsutils telnet strace git g++ \
 #        unzip bzip2
 
-cd /tmp
-wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
-    tar -xzvf openmpi-4.1.2.tar.gz && \
-    cd openmpi-4.1.2 && \
-    ./configure --prefix=/usr/local && \
-    make -j40 && sudo make install && sudo ldconfig
-    
 # Create machine image on the command line
 # gcloud beta compute machine-images create flux-singularity-rocky-8 --project=llnl-flux --description=Rocky\ 8\ \(HPC\ series\)\ of\ VM\ on\ c2d-standard-112\ \(56\ physical\ cores\)\ with\ Singularity\ installed,\ oras,\ and\ application\ containers\ pulled\ for\ the\ performance\ study. --source-instance=flux-builder --source-instance-zone=us-central1-f --storage-location=us
