@@ -10,7 +10,7 @@ module unload mpi
 ml mpi/hpcx-pmix-2.18
 
 echo "Start time:" $( date +%s )
-nodes=16
+nodes=32
 
 # At most 28 combinations, 8 nodes 2 at a time
 hosts=$( srun hostname | shuf -n 8 | tr '\n' ' ' )
