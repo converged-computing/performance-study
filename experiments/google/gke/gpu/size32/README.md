@@ -382,11 +382,6 @@ cd /opt/mixbench/mixbench-cuda
 flux exec -r all make
 cd -
 
-# One less than actual
-nodes=15
-
-# Also try (do this first if it works)
-
 # Note this was tagged 16, but run with 32
 for i in $(seq 1 5); do     
     echo "Running iteration $i"

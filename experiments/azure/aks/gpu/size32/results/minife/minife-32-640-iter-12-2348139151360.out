@@ -1,0 +1,31 @@
+ OMP_NUM_THREADS=1
+      creating/filling mesh...0.046556s, total time: 0.046556
+generating matrix structure...0.148671s, total time: 0.195227
+         assembling FE data...0.0157671s, total time: 0.210994
+      imposing Dirichlet BC...0.00229096s, total time: 0.213285
+      imposing Dirichlet BC...1.90735e-06s, total time: 0.213287
+making matrix indices local...0.039233s, total time: 0.25252
+Starting CG solver ... 
+Initial Residual = 641.001
+Iteration = 20   Residual = 0.0767151
+Iteration = 40   Residual = 0.0921308
+Iteration = 60   Residual = 0.090828
+Iteration = 80   Residual = 0.139844
+Iteration = 100   Residual = 0.0539674
+Iteration = 120   Residual = 0.00192887
+Iteration = 140   Residual = 0.00122061
+Iteration = 160   Residual = 0.000534336
+Iteration = 180   Residual = 0.00029439
+Iteration = 200   Residual = 0.000429323
+Final Resid Norm: 0.000429323
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["miniFE.x", "nx=640", "ny=640", "nz=640", "num_devices=8", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/minife", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "minife-32-640-iter-12"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725114361.6125965,"name":"init"}
+{"timestamp":1725114361.6135051,"name":"starting"}
+{"timestamp":1725114361.6386635,"name":"shell.init","context":{"service":"0-shell-f24gY1vm5","leader-rank":0,"size":32}}
+{"timestamp":1725114361.6630328,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,8,1]]}}}
+{"timestamp":1725114364.951462,"name":"shell.task-exit","context":{"localid":5,"rank":101,"state":"Exited","pid":1350,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725114365.2751892,"name":"complete","context":{"status":0}}
+{"timestamp":1725114365.2752192,"name":"done"}
+

@@ -20,8 +20,8 @@ This is a checklist for the setups we have tested and timed:
 ### "Bare Metal"
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
-  - [ ] size 32 (abhik done 6 apps 8/28/2024, rest TBA)
-  - [ ] size 64 (abhik done 6 apps 8/28/2024, rest TBA)
+  - [x] size 32 (abhik done 6 apps 8/28/2024, milroy 8/30/2024)
+  - [x] size 64 (abhik done 6 apps 8/28/2024, milroy 8/30/2024)
   - [ ] size 128 (TBA)
   - [ ] size 256 (TBA)
 - [ ] Microsoft Azure CycleCloud GPU (date)
@@ -72,16 +72,18 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 4 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
   - [x] size 8 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
   - [x] size 16 (done vsoch, milroy lammps/osu 8/27/2024)
+  - size 32 not possible, could not get more than 16 nodes from AWS
 - [x] Google Cloud GKE GPU
-  - [x] size 4 (vsoch TBA 8/29/2024)
-  - [x] size 8 (vsoch TBA 8/29/2024)
-  - [x] size 16 (vsoch 8/30/2024)
-  - [x] size 32 (vsoch TBA 8/30/2024)
-- [ ] Microsoft Azure AKS GPU
-  - [x] size 4 (vsoch TBA 8/30/2024)
-  - [x] size 8 (vsoch TBA 8/30/2024)
-  - [x] size 16 (vsoch TBA 8/30/2024)
-  - [ ] size 32 (vsoch TBA 8/30/2024)
+  - [x] size 4 (done vsoch 8/29/2024)
+  - [x] size 8 (done vsoch TBA 8/29/2024)
+  - [x] size 16 (done vsoch 8/30/2024)
+  - [x] size 32 (done vsoch 8/30/2024)
+   - milroy figured out installing latest drivers - key to success here!
+- [x] Microsoft Azure AKS GPU
+  - [x] size 4 (done vsoch 8/31/2024)
+  - [x] size 8 (done vsoch 8/31/2024)
+  - [x] size 16 (done vsoch 8/31/2024)
+  - [x] size 32 (done vsoch 8/31/2024)
 
 ## License
 

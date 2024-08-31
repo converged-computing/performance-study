@@ -1,0 +1,95 @@
+LAMMPS (17 Apr 2024 - Development - a8687b5)
+KOKKOS mode with Kokkos version 4.3.1 is enabled (src/KOKKOS/kokkos.cpp:72)
+  will use up to 8 GPU(s) per node
+WARNING: Turning off GPU-aware MPI since it is not detected, use '-pk kokkos gpu/aware on' to override (src/KOKKOS/kokkos.cpp:291)
+  using 1 OpenMP thread(s) per MPI task
+Reading data file ...
+  triclinic box = (0 0 0) to (22.326 11.1412 13.778966) with tilt (0 -5.02603 0)
+  8 by 4 by 8 MPI processor grid
+  reading atoms ...
+  304 atoms
+  reading velocities ...
+  304 velocities
+  read_data CPU = 0.023 seconds
+Replication is creating a 64x64x32 = 131072 times larger system...
+  triclinic box = (0 0 0) to (1428.864 713.0368 440.92691) with tilt (0 -160.83296 0)
+  8 by 8 by 4 MPI processor grid
+  bounding box image = (0 -1 -1) to (0 1 1)
+  bounding box extra memory = 0.03 MB
+  average # of replicas added to proc = 835.00 out of 131072 (0.64%)
+  39845888 atoms
+  replicate CPU = 0.112 seconds
+Neighbor list info ...
+  update: every = 20 steps, delay = 0 steps, check = no
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 11
+  ghost atom cutoff = 11
+  binsize = 11, bins = 145 65 41
+  2 neighbor lists, perpetual/occasional/extra = 2 0 0
+  (1) pair reaxff/kk, perpetual
+      attributes: half, newton off, ghost, kokkos_device
+      pair build: half/bin/newtoff/ghost/kk/device
+      stencil: full/ghost/bin/3d
+      bin: kk/device
+  (2) fix qeq/reax/kk, perpetual
+      attributes: full, newton off, kokkos_device
+      pair build: full/bin/kk/device
+      stencil: full/bin/3d
+      bin: kk/device
+Setting up Verlet run ...
+  Unit style    : real
+  Current step  : 0
+  Time step     : 0.1
+Per MPI rank memory allocation (min/avg/max) = 1866 | 1866 | 1873 Mbytes
+   Step          Temp          PotEng         Press          E_vdwl         E_coul         Volume    
+         0   300           -113.27833      439.02038     -111.57687     -1.7014647      4.4923072e+08
+        10   300.76708     -113.28045      807.30083     -111.57901     -1.7014362      4.4923072e+08
+        20   302.42351     -113.28524      1696.9779     -111.58392     -1.7013253      4.4923072e+08
+        30   302.57589     -113.28557      4297.9691     -111.58447     -1.7010962      4.4923072e+08
+        40   300.62224     -113.27967      6393.3583     -111.5789      -1.7007689      4.4923072e+08
+        50   297.41891     -113.27008      6471.1601     -111.56968     -1.7004026      4.4923072e+08
+        60   294.72953     -113.26202      6185.5701     -111.56199     -1.7000321      4.4923072e+08
+        70   294.6668      -113.26179      6831.1813     -111.56213     -1.6996547      4.4923072e+08
+        80   297.78808     -113.27107      8233.8768     -111.5718      -1.699276       4.4923072e+08
+        90   301.67958     -113.28267      9372.0348     -111.58373     -1.6989386      4.4923072e+08
+       100   302.56512     -113.28525      10370.576     -111.58656     -1.698695       4.4923072e+08
+Loop time of 16.8298 on 256 procs for 100 steps with 39845888 atoms
+
+Performance: 0.051 ns/day, 467.495 hours/ns, 5.942 timesteps/s, 236.758 Matom-step/s
+98.1% CPU use with 256 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 2.457      | 2.6007     | 2.6689     |   3.3 | 15.45
+Neigh   | 0.179      | 0.30589    | 0.39002    |  10.4 |  1.82
+Comm    | 1.248      | 1.4372     | 1.685      |  10.2 |  8.54
+Output  | 0.0053102  | 0.036495   | 0.047191   |   3.8 |  0.22
+Modify  | 12.078     | 12.388     | 12.629     |   3.7 | 73.60
+Other   |            | 0.06193    |            |       |  0.37
+
+Nlocal:         155648 ave      155688 max      155612 min
+Histogram: 2 17 25 53 56 43 23 19 9 9
+Nghost:         106807 ave      106862 max      106747 min
+Histogram: 9 10 15 26 48 57 45 25 14 7
+Neighs:    4.22133e+07 ave  4.2224e+07 max 4.22041e+07 min
+Histogram: 3 20 25 59 57 34 16 25 11 6
+FullNghs:  7.63742e+07 ave 7.63937e+07 max 7.63564e+07 min
+Histogram: 4 16 27 54 58 35 19 24 13 6
+
+Total # of neighbors = 1.9551784e+10
+Ave neighs/atom = 490.68511
+Neighbor list builds = 5
+Dangerous builds not checked
+Total wall time: 0:00:20
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["lmp", "-k", "on", "g", "8", "-sf", "kk", "-pk", "kokkos", "cuda/aware", "off", "newton", "on", "neigh", "half", "-in", "in.reaxff.hns", "-v", "x", "64", "-v", "y", "64", "-v", "z", "32", "-in", "in.reaxff.hns", "-nocite"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/code/lammps/examples/reaxff/HNS", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "lammps-reax-32-iter-4"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725114666.8404887,"name":"init"}
+{"timestamp":1725114666.8413413,"name":"starting"}
+{"timestamp":1725114666.867379,"name":"shell.init","context":{"service":"0-shell-f2JmBrKDy","leader-rank":0,"size":32}}
+{"timestamp":1725114666.8966634,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,8,1]]}}}
+{"timestamp":1725114688.9049041,"name":"shell.task-exit","context":{"localid":5,"rank":229,"state":"Exited","pid":416,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725114689.2535717,"name":"complete","context":{"status":0}}
+{"timestamp":1725114689.2535985,"name":"done"}
+

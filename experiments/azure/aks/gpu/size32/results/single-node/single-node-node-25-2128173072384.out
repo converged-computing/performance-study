@@ -1,0 +1,2431 @@
+0.072s: flux-shell[0]: ERROR: cpu-affinity: affinity: core1 not in topology
+0.072s: flux-shell[0]:  WARN: cpu-affinity: unable to get cpuset for cores 0-39. Disabling affinity
+====== hostname
+flux-sample-25
+====== dmidecode
+# dmidecode 3.3
+Getting SMBIOS data from sysfs.
+SMBIOS 3.1.0 present.
+Table at 0x3FF82000.
+
+Handle 0x0000, DMI type 0, 26 bytes
+BIOS Information
+	Vendor: Microsoft Corporation
+	Version: Hyper-V UEFI Release v4.1
+	Release Date: 03/08/2024
+	ROM Size: 64 kB
+	Characteristics:
+		BIOS characteristics not supported
+		ACPI is supported
+		Targeted content distribution is supported
+		UEFI is supported
+		System is a virtual machine
+	BIOS Revision: 4.1
+
+Handle 0x0001, DMI type 1, 27 bytes
+System Information
+	Manufacturer: Microsoft Corporation
+	Product Name: Virtual Machine
+	Version: Hyper-V UEFI Release v4.1
+	Serial Number: 0000-0005-8193-2794-4596-9981-65
+	UUID: 50c267ee-f935-4815-9060-a1e1e03cd779
+	Wake-up Type: Power Switch
+	SKU Number: None
+	Family: Virtual Machine
+
+Handle 0x0002, DMI type 3, 24 bytes
+Chassis Information
+	Manufacturer: Microsoft Corporation
+	Type: Desktop
+	Lock: Not Present
+	Version: Hyper-V UEFI Release v4.1
+	Serial Number: 4492-3395-9124-2354-8315-9473-59
+	Asset Tag: 7783-7084-3265-9085-8269-3286-77
+	Boot-up State: Safe
+	Power Supply State: Safe
+	Thermal State: Safe
+	Security Status: Unknown
+	OEM Information: 0x00000000
+	Height: Unspecified
+	Number Of Power Cords: Unspecified
+	Contained Elements: 0
+	SKU Number: Virtual Machine
+
+Handle 0x0003, DMI type 2, 17 bytes
+Base Board Information
+	Manufacturer: Microsoft Corporation
+	Product Name: Virtual Machine
+	Version: Hyper-V UEFI Release v4.1
+	Serial Number: 0000-0010-4034-9313-0727-6430-01
+	Asset Tag: None
+	Features:
+		Board is a hosting board
+	Location In Chassis: Virtual Machine
+	Chassis Handle: 0x0002
+	Type: Motherboard
+	Contained Object Handles: 0
+
+Handle 0x0004, DMI type 4, 48 bytes
+Processor Information
+	Socket Designation: None
+	Type: Central Processor
+	Family: Xeon
+	Manufacturer: Intel
+	ID: 00 00 00 00 00 00 00 00
+	Signature: Type 0, Family 0, Model 0, Stepping 0
+	Flags: None
+	Version: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz
+	Voltage: 0.0 V
+	External Clock: 100 MHz
+	Max Speed: 2300 MHz
+	Current Speed: 2300 MHz
+	Status: Populated, Enabled
+	Upgrade: None
+	L1 Cache Handle: Not Provided
+	L2 Cache Handle: Not Provided
+	L3 Cache Handle: Not Provided
+	Serial Number: None
+	Asset Tag: None
+	Part Number: None
+	Core Count: 2
+	Core Enabled: 2
+	Thread Count: 2
+	Characteristics:
+		64-bit capable
+		Multi-Core
+		Hardware Thread
+		Execute Protection
+		Enhanced Virtualization
+		Power/Performance Control
+
+Handle 0x0005, DMI type 11, 5 bytes
+OEM Strings
+	String 1: [MS_VM_CERT/SHA1/9b80ca0d5dd061ec9da4e494f4c3fd1196270c22]
+	String 2: 00000000000000000000000000000000
+	String 3: To be filled by OEM
+
+Handle 0x0006, DMI type 16, 23 bytes
+Physical Memory Array
+	Location: System Board Or Motherboard
+	Use: System Memory
+	Error Correction Type: None
+	Maximum Capacity: 0 bytes
+	Error Information Handle: Not Provided
+	Number Of Devices: 2
+
+Handle 0x0007, DMI type 17, 92 bytes
+Memory Device
+	Array Handle: 0x0006
+	Error Information Handle: Not Provided
+	Total Width: Unknown
+	Data Width: Unknown
+	Size: 1 GB
+	Form Factor: Unknown
+	Set: None
+	Locator: M0001
+	Bank Locator: None
+	Type: Unknown
+	Type Detail: Unknown
+	Speed: Unknown
+	Manufacturer: Microsoft Corporation
+	Serial Number: None
+	Asset Tag: None
+	Part Number: None
+	Rank: Unknown
+	Configured Memory Speed: Unknown
+	Minimum Voltage: Unknown
+	Maximum Voltage: Unknown
+	Configured Voltage: Unknown
+	Memory Technology: <OUT OF SPEC>
+	Memory Operating Mode Capability: None
+	Firmware Version: Not Specified
+	Module Manufacturer ID: Unknown
+	Module Product ID: Unknown
+	Memory Subsystem Controller Manufacturer ID: Unknown
+	Memory Subsystem Controller Product ID: Unknown
+	Non-Volatile Size: None
+	Volatile Size: None
+	Cache Size: None
+	Logical Size: None
+
+Handle 0x0008, DMI type 19, 31 bytes
+Memory Array Mapped Address
+	Starting Address: 0x00000000000
+	Ending Address: 0x000400003FF
+	Range Size: 1 GB
+	Physical Array Handle: 0x0006
+	Partition Width: 0
+
+Handle 0x0009, DMI type 20, 35 bytes
+Memory Device Mapped Address
+	Starting Address: 0x00000000000
+	Ending Address: 0x000400003FF
+	Range Size: 1 GB
+	Physical Device Handle: 0x0007
+	Memory Array Mapped Address Handle: 0x0008
+	Partition Row Position: Unknown
+
+Handle 0x000A, DMI type 17, 92 bytes
+Memory Device
+	Array Handle: 0x0006
+	Error Information Handle: Not Provided
+	Total Width: Unknown
+	Data Width: Unknown
+	Size: 7 GB
+	Form Factor: Unknown
+	Set: None
+	Locator: M0002
+	Bank Locator: None
+	Type: Unknown
+	Type Detail: Unknown
+	Speed: Unknown
+	Manufacturer: Microsoft Corporation
+	Serial Number: None
+	Asset Tag: None
+	Part Number: None
+	Rank: Unknown
+	Configured Memory Speed: Unknown
+	Minimum Voltage: Unknown
+	Maximum Voltage: Unknown
+	Configured Voltage: Unknown
+	Memory Technology: <OUT OF SPEC>
+	Memory Operating Mode Capability: None
+	Firmware Version: Not Specified
+	Module Manufacturer ID: Unknown
+	Module Product ID: Unknown
+	Memory Subsystem Controller Manufacturer ID: Unknown
+	Memory Subsystem Controller Product ID: Unknown
+	Non-Volatile Size: None
+	Volatile Size: None
+	Cache Size: None
+	Logical Size: None
+
+Handle 0x000B, DMI type 19, 31 bytes
+Memory Array Mapped Address
+	Starting Address: 0x00100000000
+	Ending Address: 0x002C00003FF
+	Range Size: 7 GB
+	Physical Array Handle: 0x0006
+	Partition Width: 0
+
+Handle 0x000C, DMI type 20, 35 bytes
+Memory Device Mapped Address
+	Starting Address: 0x00100000000
+	Ending Address: 0x002C00003FF
+	Range Size: 7 GB
+	Physical Device Handle: 0x000A
+	Memory Array Mapped Address Handle: 0x000B
+	Partition Row Position: Unknown
+
+Handle 0x000D, DMI type 32, 11 bytes
+System Boot Information
+	Status: No errors detected
+
+Handle 0xFEFF, DMI type 127, 4 bytes
+End Of Table
+
+
+====== hwloc-ls machine.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topology SYSTEM "hwloc2.dtd">
+<topology version="2.0">
+  <object type="Machine" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" allowed_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" allowed_nodeset="0x00000001" gp_index="1">
+    <info name="DMIProductName" value="Virtual Machine"/>
+    <info name="DMIProductVersion" value="Hyper-V UEFI Release v4.1"/>
+    <info name="DMIProductSerial" value="0000-0005-8193-2794-4596-9981-65"/>
+    <info name="DMIProductUUID" value="50c267ee-f935-4815-9060-a1e1e03cd779"/>
+    <info name="DMIBoardVendor" value="Microsoft Corporation"/>
+    <info name="DMIBoardName" value="Virtual Machine"/>
+    <info name="DMIBoardVersion" value="Hyper-V UEFI Release v4.1"/>
+    <info name="DMIBoardSerial" value="0000-0010-4034-9313-0727-6430-01"/>
+    <info name="DMIBoardAssetTag" value="None"/>
+    <info name="DMIChassisVendor" value="Microsoft Corporation"/>
+    <info name="DMIChassisType" value="3"/>
+    <info name="DMIChassisVersion" value="Hyper-V UEFI Release v4.1"/>
+    <info name="DMIChassisSerial" value="4492-3395-9124-2354-8315-9473-59"/>
+    <info name="DMIChassisAssetTag" value="7783-7084-3265-9085-8269-3286-77"/>
+    <info name="DMIBIOSVendor" value="Microsoft Corporation"/>
+    <info name="DMIBIOSVersion" value="Hyper-V UEFI Release v4.1"/>
+    <info name="DMIBIOSDate" value="03/08/2024"/>
+    <info name="DMISysVendor" value="Microsoft Corporation"/>
+    <info name="Backend" value="Linux"/>
+    <info name="LinuxCgroup" value="/kubepods.slice/kubepods-besteffort.slice/kubepods-besteffort-pod754d1573_51d5_4b70_9629_440abad8d4ca.slice/cri-containerd-e726"/>
+    <info name="OSName" value="Linux"/>
+    <info name="OSRelease" value="5.15.0-1070-azure"/>
+    <info name="OSVersion" value="#79-Ubuntu SMP Mon Jul 29 20:31:47 UTC 2024"/>
+    <info name="HostName" value="flux-sample-25"/>
+    <info name="Architecture" value="x86_64"/>
+    <info name="hwlocVersion" value="2.7.0"/>
+    <info name="ProcessName" value="hwloc-ls"/>
+    <object type="Package" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="3">
+      <info name="CPUVendor" value="GenuineIntel"/>
+      <info name="CPUFamilyNumber" value="6"/>
+      <info name="CPUModelNumber" value="79"/>
+      <info name="CPUModel" value="Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz"/>
+      <info name="CPUStepping" value="1"/>
+      <object type="NUMANode" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="10" local_memory="8324911104">
+        <page_type size="4096" count="2032449"/>
+        <page_type size="2097152" count="0"/>
+        <page_type size="1073741824" count="0"/>
+      </object>
+      <object type="L3Cache" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="8" cache_size="52428800" depth="3" cache_linesize="64" cache_associativity="20" cache_type="0">
+        <info name="Inclusive" value="1"/>
+        <object type="L2Cache" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="7" cache_size="262144" depth="2" cache_linesize="64" cache_associativity="8" cache_type="0">
+          <info name="Inclusive" value="0"/>
+          <object type="L1Cache" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="5" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="1">
+            <info name="Inclusive" value="0"/>
+            <object type="L1iCache" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="6" cache_size="32768" depth="1" cache_linesize="64" cache_associativity="8" cache_type="2">
+              <info name="Inclusive" value="0"/>
+              <object type="Core" os_index="0" cpuset="0x00000003" complete_cpuset="0x00000003" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="2">
+                <object type="PU" os_index="0" cpuset="0x00000001" complete_cpuset="0x00000001" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="4"/>
+                <object type="PU" os_index="1" cpuset="0x00000002" complete_cpuset="0x00000002" nodeset="0x00000001" complete_nodeset="0x00000001" gp_index="9"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object type="Bridge" gp_index="12" bridge_type="0-1" depth="0" bridge_pci="9dbd:[00-00]">
+      <object type="PCIDev" gp_index="11" pci_busid="9dbd:00:02.0" pci_type="0200 [15b3:1004] [15b3:61b0] 00" pci_link_speed="0.000000">
+        <info name="PCISlot" value="1"/>
+      </object>
+    </object>
+    <object type="OSDev" gp_index="13" name="sdb" osdev_type="0">
+      <info name="Size" value="16777216"/>
+      <info name="SectorSize" value="512"/>
+      <info name="LinuxDeviceID" value="8:16"/>
+    </object>
+    <object type="OSDev" gp_index="14" name="sr0" osdev_type="0">
+      <info name="Size" value="628"/>
+      <info name="SectorSize" value="2048"/>
+      <info name="LinuxDeviceID" value="11:0"/>
+    </object>
+    <object type="OSDev" gp_index="15" name="sda" osdev_type="0">
+      <info name="Size" value="134217728"/>
+      <info name="SectorSize" value="512"/>
+      <info name="LinuxDeviceID" value="8:0"/>
+    </object>
+  </object>
+  <support name="discovery.pu"/>
+  <support name="discovery.numa"/>
+  <support name="discovery.numa_memory"/>
+  <support name="discovery.disallowed_pu"/>
+  <support name="discovery.disallowed_numa"/>
+  <support name="cpubind.set_thisproc_cpubind"/>
+  <support name="cpubind.get_thisproc_cpubind"/>
+  <support name="cpubind.set_proc_cpubind"/>
+  <support name="cpubind.get_proc_cpubind"/>
+  <support name="cpubind.set_thisthread_cpubind"/>
+  <support name="cpubind.get_thisthread_cpubind"/>
+  <support name="cpubind.set_thread_cpubind"/>
+  <support name="cpubind.get_thread_cpubind"/>
+  <support name="cpubind.get_thisproc_last_cpu_location"/>
+  <support name="cpubind.get_proc_last_cpu_location"/>
+  <support name="cpubind.get_thisthread_last_cpu_location"/>
+  <support name="membind.set_thisthread_membind"/>
+  <support name="membind.get_thisthread_membind"/>
+  <support name="membind.set_area_membind"/>
+  <support name="membind.get_area_membind"/>
+  <support name="membind.alloc_membind"/>
+  <support name="membind.firsttouch_membind"/>
+  <support name="membind.bind_membind"/>
+  <support name="membind.interleave_membind"/>
+  <support name="membind.migrate_membind"/>
+  <support name="membind.get_area_memlocation"/>
+  <support name="custom.exported_support"/>
+</topology>
+
+====== lstopo --of svg > machine.svg
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="405pt" height="362pt" viewBox="0 0 405 362" version="1.1">
+<defs>
+<g>
+<symbol overflow="visible" id="glyph0-0">
+<path style="stroke:none;" d="M 0.5 1.765625 L 0.5 -7.046875 L 5.5 -7.046875 L 5.5 1.765625 Z M 1.0625 1.21875 L 4.9375 1.21875 L 4.9375 -6.484375 L 1.0625 -6.484375 Z M 1.0625 1.21875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-1">
+<path style="stroke:none;" d="M 0.984375 -7.296875 L 2.453125 -7.296875 L 4.3125 -2.328125 L 6.1875 -7.296875 L 7.65625 -7.296875 L 7.65625 0 L 6.6875 0 L 6.6875 -6.40625 L 4.8125 -1.40625 L 3.8125 -1.40625 L 1.9375 -6.40625 L 1.9375 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-2">
+<path style="stroke:none;" d="M 3.421875 -2.75 C 2.703125 -2.75 2.203125 -2.664062 1.921875 -2.5 C 1.640625 -2.332031 1.5 -2.050781 1.5 -1.65625 C 1.5 -1.332031 1.601562 -1.078125 1.8125 -0.890625 C 2.019531 -0.703125 2.304688 -0.609375 2.671875 -0.609375 C 3.171875 -0.609375 3.570312 -0.785156 3.875 -1.140625 C 4.175781 -1.492188 4.328125 -1.960938 4.328125 -2.546875 L 4.328125 -2.75 Z M 5.21875 -3.125 L 5.21875 0 L 4.328125 0 L 4.328125 -0.828125 C 4.117188 -0.492188 3.859375 -0.25 3.546875 -0.09375 C 3.242188 0.0625 2.875 0.140625 2.4375 0.140625 C 1.875 0.140625 1.425781 -0.015625 1.09375 -0.328125 C 0.757812 -0.640625 0.59375 -1.0625 0.59375 -1.59375 C 0.59375 -2.207031 0.800781 -2.671875 1.21875 -2.984375 C 1.632812 -3.296875 2.25 -3.453125 3.0625 -3.453125 L 4.328125 -3.453125 L 4.328125 -3.546875 C 4.328125 -3.953125 4.1875 -4.269531 3.90625 -4.5 C 3.632812 -4.726562 3.253906 -4.84375 2.765625 -4.84375 C 2.453125 -4.84375 2.144531 -4.800781 1.84375 -4.71875 C 1.550781 -4.644531 1.269531 -4.535156 1 -4.390625 L 1 -5.21875 C 1.332031 -5.34375 1.648438 -5.4375 1.953125 -5.5 C 2.265625 -5.5625 2.566406 -5.59375 2.859375 -5.59375 C 3.648438 -5.59375 4.238281 -5.390625 4.625 -4.984375 C 5.019531 -4.578125 5.21875 -3.957031 5.21875 -3.125 Z M 5.21875 -3.125 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-3">
+<path style="stroke:none;" d="M 4.875 -5.265625 L 4.875 -4.421875 C 4.625 -4.554688 4.367188 -4.660156 4.109375 -4.734375 C 3.859375 -4.804688 3.601562 -4.84375 3.34375 -4.84375 C 2.757812 -4.84375 2.304688 -4.65625 1.984375 -4.28125 C 1.660156 -3.914062 1.5 -3.398438 1.5 -2.734375 C 1.5 -2.066406 1.660156 -1.546875 1.984375 -1.171875 C 2.304688 -0.804688 2.757812 -0.625 3.34375 -0.625 C 3.601562 -0.625 3.859375 -0.65625 4.109375 -0.71875 C 4.367188 -0.789062 4.625 -0.898438 4.875 -1.046875 L 4.875 -0.203125 C 4.625 -0.0859375 4.363281 -0.00390625 4.09375 0.046875 C 3.832031 0.109375 3.550781 0.140625 3.25 0.140625 C 2.414062 0.140625 1.753906 -0.113281 1.265625 -0.625 C 0.785156 -1.144531 0.546875 -1.847656 0.546875 -2.734375 C 0.546875 -3.617188 0.789062 -4.316406 1.28125 -4.828125 C 1.769531 -5.335938 2.441406 -5.59375 3.296875 -5.59375 C 3.578125 -5.59375 3.847656 -5.566406 4.109375 -5.515625 C 4.367188 -5.460938 4.625 -5.378906 4.875 -5.265625 Z M 4.875 -5.265625 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-4">
+<path style="stroke:none;" d="M 5.484375 -3.296875 L 5.484375 0 L 4.59375 0 L 4.59375 -3.265625 C 4.59375 -3.785156 4.488281 -4.171875 4.28125 -4.421875 C 4.082031 -4.679688 3.78125 -4.8125 3.375 -4.8125 C 2.894531 -4.8125 2.515625 -4.65625 2.234375 -4.34375 C 1.953125 -4.039062 1.8125 -3.625 1.8125 -3.09375 L 1.8125 0 L 0.90625 0 L 0.90625 -7.59375 L 1.8125 -7.59375 L 1.8125 -4.625 C 2.03125 -4.945312 2.285156 -5.1875 2.578125 -5.34375 C 2.867188 -5.507812 3.203125 -5.59375 3.578125 -5.59375 C 4.203125 -5.59375 4.675781 -5.398438 5 -5.015625 C 5.320312 -4.628906 5.484375 -4.054688 5.484375 -3.296875 Z M 5.484375 -3.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-5">
+<path style="stroke:none;" d="M 0.9375 -5.46875 L 1.84375 -5.46875 L 1.84375 0 L 0.9375 0 Z M 0.9375 -7.59375 L 1.84375 -7.59375 L 1.84375 -6.453125 L 0.9375 -6.453125 Z M 0.9375 -7.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-6">
+<path style="stroke:none;" d="M 5.484375 -3.296875 L 5.484375 0 L 4.59375 0 L 4.59375 -3.265625 C 4.59375 -3.785156 4.488281 -4.171875 4.28125 -4.421875 C 4.082031 -4.679688 3.78125 -4.8125 3.375 -4.8125 C 2.894531 -4.8125 2.515625 -4.65625 2.234375 -4.34375 C 1.953125 -4.039062 1.8125 -3.625 1.8125 -3.09375 L 1.8125 0 L 0.90625 0 L 0.90625 -5.46875 L 1.8125 -5.46875 L 1.8125 -4.625 C 2.03125 -4.945312 2.285156 -5.1875 2.578125 -5.34375 C 2.867188 -5.507812 3.203125 -5.59375 3.578125 -5.59375 C 4.203125 -5.59375 4.675781 -5.398438 5 -5.015625 C 5.320312 -4.628906 5.484375 -4.054688 5.484375 -3.296875 Z M 5.484375 -3.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-7">
+<path style="stroke:none;" d="M 5.625 -2.953125 L 5.625 -2.515625 L 1.484375 -2.515625 C 1.523438 -1.898438 1.710938 -1.429688 2.046875 -1.109375 C 2.378906 -0.785156 2.84375 -0.625 3.4375 -0.625 C 3.78125 -0.625 4.113281 -0.664062 4.4375 -0.75 C 4.769531 -0.832031 5.09375 -0.957031 5.40625 -1.125 L 5.40625 -0.28125 C 5.082031 -0.144531 4.75 -0.0390625 4.40625 0.03125 C 4.070312 0.101562 3.734375 0.140625 3.390625 0.140625 C 2.515625 0.140625 1.820312 -0.109375 1.3125 -0.609375 C 0.800781 -1.117188 0.546875 -1.8125 0.546875 -2.6875 C 0.546875 -3.582031 0.785156 -4.289062 1.265625 -4.8125 C 1.753906 -5.332031 2.410156 -5.59375 3.234375 -5.59375 C 3.972656 -5.59375 4.554688 -5.359375 4.984375 -4.890625 C 5.410156 -4.421875 5.625 -3.773438 5.625 -2.953125 Z M 4.71875 -3.21875 C 4.71875 -3.707031 4.582031 -4.097656 4.3125 -4.390625 C 4.039062 -4.691406 3.6875 -4.84375 3.25 -4.84375 C 2.738281 -4.84375 2.332031 -4.695312 2.03125 -4.40625 C 1.738281 -4.125 1.566406 -3.726562 1.515625 -3.21875 Z M 4.71875 -3.21875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-8">
+<path style="stroke:none;" d=""/>
+</symbol>
+<symbol overflow="visible" id="glyph0-9">
+<path style="stroke:none;" d="M 3.09375 -7.59375 C 2.664062 -6.84375 2.34375 -6.097656 2.125 -5.359375 C 1.914062 -4.628906 1.8125 -3.890625 1.8125 -3.140625 C 1.8125 -2.390625 1.914062 -1.644531 2.125 -0.90625 C 2.34375 -0.164062 2.664062 0.570312 3.09375 1.3125 L 2.3125 1.3125 C 1.832031 0.550781 1.46875 -0.195312 1.21875 -0.9375 C 0.976562 -1.675781 0.859375 -2.410156 0.859375 -3.140625 C 0.859375 -3.867188 0.976562 -4.597656 1.21875 -5.328125 C 1.457031 -6.066406 1.820312 -6.820312 2.3125 -7.59375 Z M 3.09375 -7.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-10">
+<path style="stroke:none;" d="M 0.828125 -7.296875 L 5.515625 -7.296875 L 5.515625 -6.875 L 2.859375 0 L 1.828125 0 L 4.328125 -6.453125 L 0.828125 -6.453125 Z M 0.828125 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-11">
+<path style="stroke:none;" d="M 1.09375 -0.15625 L 1.09375 -1.046875 C 1.34375 -0.929688 1.59375 -0.84375 1.84375 -0.78125 C 2.101562 -0.71875 2.351562 -0.6875 2.59375 -0.6875 C 3.25 -0.6875 3.75 -0.90625 4.09375 -1.34375 C 4.4375 -1.78125 4.628906 -2.445312 4.671875 -3.34375 C 4.484375 -3.0625 4.242188 -2.84375 3.953125 -2.6875 C 3.671875 -2.539062 3.351562 -2.46875 3 -2.46875 C 2.269531 -2.46875 1.691406 -2.6875 1.265625 -3.125 C 0.835938 -3.570312 0.625 -4.175781 0.625 -4.9375 C 0.625 -5.6875 0.84375 -6.285156 1.28125 -6.734375 C 1.726562 -7.191406 2.320312 -7.421875 3.0625 -7.421875 C 3.90625 -7.421875 4.546875 -7.097656 4.984375 -6.453125 C 5.429688 -5.804688 5.65625 -4.867188 5.65625 -3.640625 C 5.65625 -2.492188 5.382812 -1.578125 4.84375 -0.890625 C 4.300781 -0.203125 3.566406 0.140625 2.640625 0.140625 C 2.390625 0.140625 2.140625 0.113281 1.890625 0.0625 C 1.640625 0.0195312 1.375 -0.0507812 1.09375 -0.15625 Z M 3.0625 -3.25 C 3.5 -3.25 3.847656 -3.398438 4.109375 -3.703125 C 4.367188 -4.003906 4.5 -4.414062 4.5 -4.9375 C 4.5 -5.46875 4.367188 -5.882812 4.109375 -6.1875 C 3.847656 -6.488281 3.5 -6.640625 3.0625 -6.640625 C 2.613281 -6.640625 2.257812 -6.488281 2 -6.1875 C 1.75 -5.882812 1.625 -5.46875 1.625 -4.9375 C 1.625 -4.414062 1.75 -4.003906 2 -3.703125 C 2.257812 -3.398438 2.613281 -3.25 3.0625 -3.25 Z M 3.0625 -3.25 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-12">
+<path style="stroke:none;" d="M 4.0625 -3.9375 C 4.53125 -3.832031 4.894531 -3.617188 5.15625 -3.296875 C 5.425781 -2.984375 5.5625 -2.59375 5.5625 -2.125 C 5.5625 -1.40625 5.3125 -0.847656 4.8125 -0.453125 C 4.320312 -0.0546875 3.617188 0.140625 2.703125 0.140625 C 2.398438 0.140625 2.085938 0.109375 1.765625 0.046875 C 1.441406 -0.015625 1.109375 -0.101562 0.765625 -0.21875 L 0.765625 -1.171875 C 1.035156 -1.015625 1.332031 -0.894531 1.65625 -0.8125 C 1.988281 -0.726562 2.332031 -0.6875 2.6875 -0.6875 C 3.300781 -0.6875 3.769531 -0.804688 4.09375 -1.046875 C 4.414062 -1.296875 4.578125 -1.65625 4.578125 -2.125 C 4.578125 -2.550781 4.425781 -2.882812 4.125 -3.125 C 3.820312 -3.363281 3.40625 -3.484375 2.875 -3.484375 L 2.015625 -3.484375 L 2.015625 -4.296875 L 2.90625 -4.296875 C 3.394531 -4.296875 3.765625 -4.394531 4.015625 -4.59375 C 4.273438 -4.789062 4.40625 -5.070312 4.40625 -5.4375 C 4.40625 -5.800781 4.269531 -6.082031 4 -6.28125 C 3.738281 -6.488281 3.363281 -6.59375 2.875 -6.59375 C 2.601562 -6.59375 2.3125 -6.5625 2 -6.5 C 1.6875 -6.445312 1.347656 -6.359375 0.984375 -6.234375 L 0.984375 -7.109375 C 1.359375 -7.210938 1.707031 -7.289062 2.03125 -7.34375 C 2.363281 -7.394531 2.671875 -7.421875 2.953125 -7.421875 C 3.703125 -7.421875 4.296875 -7.25 4.734375 -6.90625 C 5.171875 -6.570312 5.390625 -6.113281 5.390625 -5.53125 C 5.390625 -5.125 5.273438 -4.78125 5.046875 -4.5 C 4.816406 -4.226562 4.488281 -4.039062 4.0625 -3.9375 Z M 4.0625 -3.9375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-13">
+<path style="stroke:none;" d="M 1.96875 -3.484375 L 1.96875 -0.8125 L 3.546875 -0.8125 C 4.078125 -0.8125 4.46875 -0.921875 4.71875 -1.140625 C 4.976562 -1.359375 5.109375 -1.695312 5.109375 -2.15625 C 5.109375 -2.601562 4.976562 -2.9375 4.71875 -3.15625 C 4.46875 -3.375 4.078125 -3.484375 3.546875 -3.484375 Z M 1.96875 -6.484375 L 1.96875 -4.28125 L 3.421875 -4.28125 C 3.910156 -4.28125 4.269531 -4.367188 4.5 -4.546875 C 4.738281 -4.734375 4.859375 -5.007812 4.859375 -5.375 C 4.859375 -5.75 4.738281 -6.023438 4.5 -6.203125 C 4.269531 -6.390625 3.910156 -6.484375 3.421875 -6.484375 Z M 0.984375 -7.296875 L 3.5 -7.296875 C 4.25 -7.296875 4.828125 -7.140625 5.234375 -6.828125 C 5.640625 -6.515625 5.84375 -6.066406 5.84375 -5.484375 C 5.84375 -5.035156 5.738281 -4.679688 5.53125 -4.421875 C 5.320312 -4.160156 5.019531 -4 4.625 -3.9375 C 5.101562 -3.832031 5.476562 -3.613281 5.75 -3.28125 C 6.019531 -2.945312 6.15625 -2.535156 6.15625 -2.046875 C 6.15625 -1.390625 5.929688 -0.882812 5.484375 -0.53125 C 5.046875 -0.175781 4.414062 0 3.59375 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-14">
+<path style="stroke:none;" d="M 1.828125 -7.015625 L 1.828125 -5.46875 L 3.6875 -5.46875 L 3.6875 -4.765625 L 1.828125 -4.765625 L 1.828125 -1.796875 C 1.828125 -1.359375 1.890625 -1.070312 2.015625 -0.9375 C 2.140625 -0.8125 2.390625 -0.75 2.765625 -0.75 L 3.6875 -0.75 L 3.6875 0 L 2.765625 0 C 2.066406 0 1.582031 -0.128906 1.3125 -0.390625 C 1.050781 -0.648438 0.921875 -1.117188 0.921875 -1.796875 L 0.921875 -4.765625 L 0.265625 -4.765625 L 0.265625 -5.46875 L 0.921875 -5.46875 L 0.921875 -7.015625 Z M 1.828125 -7.015625 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-15">
+<path style="stroke:none;" d="M 3.0625 -4.84375 C 2.582031 -4.84375 2.203125 -4.65625 1.921875 -4.28125 C 1.640625 -3.90625 1.5 -3.390625 1.5 -2.734375 C 1.5 -2.078125 1.632812 -1.5625 1.90625 -1.1875 C 2.1875 -0.8125 2.570312 -0.625 3.0625 -0.625 C 3.539062 -0.625 3.921875 -0.8125 4.203125 -1.1875 C 4.484375 -1.5625 4.625 -2.078125 4.625 -2.734375 C 4.625 -3.378906 4.484375 -3.890625 4.203125 -4.265625 C 3.921875 -4.648438 3.539062 -4.84375 3.0625 -4.84375 Z M 3.0625 -5.59375 C 3.84375 -5.59375 4.457031 -5.335938 4.90625 -4.828125 C 5.351562 -4.328125 5.578125 -3.628906 5.578125 -2.734375 C 5.578125 -1.835938 5.351562 -1.132812 4.90625 -0.625 C 4.457031 -0.113281 3.84375 0.140625 3.0625 0.140625 C 2.28125 0.140625 1.664062 -0.113281 1.21875 -0.625 C 0.769531 -1.132812 0.546875 -1.835938 0.546875 -2.734375 C 0.546875 -3.628906 0.769531 -4.328125 1.21875 -4.828125 C 1.664062 -5.335938 2.28125 -5.59375 3.0625 -5.59375 Z M 3.0625 -5.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-16">
+<path style="stroke:none;" d="M 0.9375 -7.59375 L 1.84375 -7.59375 L 1.84375 0 L 0.9375 0 Z M 0.9375 -7.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-17">
+<path style="stroke:none;" d="M 0.796875 -7.59375 L 1.578125 -7.59375 C 2.066406 -6.820312 2.429688 -6.066406 2.671875 -5.328125 C 2.921875 -4.597656 3.046875 -3.867188 3.046875 -3.140625 C 3.046875 -2.410156 2.921875 -1.675781 2.671875 -0.9375 C 2.429688 -0.195312 2.066406 0.550781 1.578125 1.3125 L 0.796875 1.3125 C 1.234375 0.570312 1.554688 -0.164062 1.765625 -0.90625 C 1.984375 -1.644531 2.09375 -2.390625 2.09375 -3.140625 C 2.09375 -3.890625 1.984375 -4.628906 1.765625 -5.359375 C 1.554688 -6.097656 1.234375 -6.84375 0.796875 -7.59375 Z M 0.796875 -7.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-18">
+<path style="stroke:none;" d="M 1.96875 -6.484375 L 1.96875 -3.734375 L 3.203125 -3.734375 C 3.660156 -3.734375 4.015625 -3.851562 4.265625 -4.09375 C 4.523438 -4.332031 4.65625 -4.671875 4.65625 -5.109375 C 4.65625 -5.546875 4.523438 -5.882812 4.265625 -6.125 C 4.015625 -6.363281 3.660156 -6.484375 3.203125 -6.484375 Z M 0.984375 -7.296875 L 3.203125 -7.296875 C 4.023438 -7.296875 4.644531 -7.109375 5.0625 -6.734375 C 5.476562 -6.367188 5.6875 -5.828125 5.6875 -5.109375 C 5.6875 -4.390625 5.476562 -3.847656 5.0625 -3.484375 C 4.644531 -3.117188 4.023438 -2.9375 3.203125 -2.9375 L 1.96875 -2.9375 L 1.96875 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-19">
+<path style="stroke:none;" d="M 0.90625 -7.59375 L 1.8125 -7.59375 L 1.8125 -3.109375 L 4.5 -5.46875 L 5.640625 -5.46875 L 2.734375 -2.90625 L 5.765625 0 L 4.59375 0 L 1.8125 -2.671875 L 1.8125 0 L 0.90625 0 Z M 0.90625 -7.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-20">
+<path style="stroke:none;" d="M 4.546875 -2.796875 C 4.546875 -3.453125 4.410156 -3.957031 4.140625 -4.3125 C 3.867188 -4.664062 3.492188 -4.84375 3.015625 -4.84375 C 2.523438 -4.84375 2.144531 -4.664062 1.875 -4.3125 C 1.613281 -3.957031 1.484375 -3.453125 1.484375 -2.796875 C 1.484375 -2.148438 1.613281 -1.644531 1.875 -1.28125 C 2.144531 -0.925781 2.523438 -0.75 3.015625 -0.75 C 3.492188 -0.75 3.867188 -0.925781 4.140625 -1.28125 C 4.410156 -1.644531 4.546875 -2.148438 4.546875 -2.796875 Z M 5.4375 -0.671875 C 5.4375 0.253906 5.226562 0.941406 4.8125 1.390625 C 4.40625 1.847656 3.773438 2.078125 2.921875 2.078125 C 2.609375 2.078125 2.3125 2.050781 2.03125 2 C 1.75 1.957031 1.476562 1.890625 1.21875 1.796875 L 1.21875 0.921875 C 1.476562 1.066406 1.734375 1.171875 1.984375 1.234375 C 2.242188 1.304688 2.507812 1.34375 2.78125 1.34375 C 3.363281 1.34375 3.800781 1.1875 4.09375 0.875 C 4.394531 0.570312 4.546875 0.109375 4.546875 -0.515625 L 4.546875 -0.96875 C 4.359375 -0.644531 4.117188 -0.398438 3.828125 -0.234375 C 3.535156 -0.078125 3.1875 0 2.78125 0 C 2.113281 0 1.570312 -0.253906 1.15625 -0.765625 C 0.75 -1.273438 0.546875 -1.953125 0.546875 -2.796875 C 0.546875 -3.640625 0.75 -4.316406 1.15625 -4.828125 C 1.570312 -5.335938 2.113281 -5.59375 2.78125 -5.59375 C 3.1875 -5.59375 3.535156 -5.515625 3.828125 -5.359375 C 4.117188 -5.203125 4.359375 -4.960938 4.546875 -4.640625 L 4.546875 -5.46875 L 5.4375 -5.46875 Z M 5.4375 -0.671875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-21">
+<path style="stroke:none;" d="M 0.984375 -7.296875 L 1.96875 -7.296875 L 1.96875 -0.828125 L 5.515625 -0.828125 L 5.515625 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-22">
+<path style="stroke:none;" d="M 5.109375 -4.40625 L 3.6875 -4.40625 L 3.28125 -2.765625 L 4.71875 -2.765625 Z M 4.375 -7.171875 L 3.875 -5.15625 L 5.296875 -5.15625 L 5.8125 -7.171875 L 6.59375 -7.171875 L 6.09375 -5.15625 L 7.609375 -5.15625 L 7.609375 -4.40625 L 5.90625 -4.40625 L 5.5 -2.765625 L 7.046875 -2.765625 L 7.046875 -2.015625 L 5.3125 -2.015625 L 4.796875 0 L 4.015625 0 L 4.515625 -2.015625 L 3.09375 -2.015625 L 2.59375 0 L 1.796875 0 L 2.3125 -2.015625 L 0.765625 -2.015625 L 0.765625 -2.765625 L 2.484375 -2.765625 L 2.90625 -4.40625 L 1.328125 -4.40625 L 1.328125 -5.15625 L 3.09375 -5.15625 L 3.59375 -7.171875 Z M 4.375 -7.171875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-23">
+<path style="stroke:none;" d="M 3.171875 -6.640625 C 2.671875 -6.640625 2.289062 -6.390625 2.03125 -5.890625 C 1.78125 -5.390625 1.65625 -4.640625 1.65625 -3.640625 C 1.65625 -2.640625 1.78125 -1.890625 2.03125 -1.390625 C 2.289062 -0.890625 2.671875 -0.640625 3.171875 -0.640625 C 3.691406 -0.640625 4.078125 -0.890625 4.328125 -1.390625 C 4.585938 -1.890625 4.71875 -2.640625 4.71875 -3.640625 C 4.71875 -4.640625 4.585938 -5.390625 4.328125 -5.890625 C 4.078125 -6.390625 3.691406 -6.640625 3.171875 -6.640625 Z M 3.171875 -7.421875 C 3.992188 -7.421875 4.617188 -7.097656 5.046875 -6.453125 C 5.484375 -5.804688 5.703125 -4.867188 5.703125 -3.640625 C 5.703125 -2.410156 5.484375 -1.472656 5.046875 -0.828125 C 4.617188 -0.179688 3.992188 0.140625 3.171875 0.140625 C 2.359375 0.140625 1.734375 -0.179688 1.296875 -0.828125 C 0.867188 -1.472656 0.65625 -2.410156 0.65625 -3.640625 C 0.65625 -4.867188 0.867188 -5.804688 1.296875 -6.453125 C 1.734375 -7.097656 2.359375 -7.421875 3.171875 -7.421875 Z M 3.171875 -7.421875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-24">
+<path style="stroke:none;" d="M 1.078125 -7.296875 L 4.953125 -7.296875 L 4.953125 -6.453125 L 1.984375 -6.453125 L 1.984375 -4.671875 C 2.128906 -4.722656 2.269531 -4.757812 2.40625 -4.78125 C 2.550781 -4.800781 2.695312 -4.8125 2.84375 -4.8125 C 3.65625 -4.8125 4.296875 -4.585938 4.765625 -4.140625 C 5.242188 -3.703125 5.484375 -3.101562 5.484375 -2.34375 C 5.484375 -1.550781 5.238281 -0.9375 4.75 -0.5 C 4.269531 -0.0703125 3.582031 0.140625 2.6875 0.140625 C 2.382812 0.140625 2.070312 0.113281 1.75 0.0625 C 1.4375 0.0078125 1.109375 -0.0664062 0.765625 -0.171875 L 0.765625 -1.15625 C 1.066406 -1 1.375 -0.878906 1.6875 -0.796875 C 2 -0.722656 2.328125 -0.6875 2.671875 -0.6875 C 3.234375 -0.6875 3.675781 -0.832031 4 -1.125 C 4.332031 -1.425781 4.5 -1.832031 4.5 -2.34375 C 4.5 -2.84375 4.332031 -3.238281 4 -3.53125 C 3.675781 -3.832031 3.234375 -3.984375 2.671875 -3.984375 C 2.410156 -3.984375 2.144531 -3.953125 1.875 -3.890625 C 1.613281 -3.835938 1.347656 -3.75 1.078125 -3.625 Z M 1.078125 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-25">
+<path style="stroke:none;" d="M 1.921875 -0.828125 L 5.359375 -0.828125 L 5.359375 0 L 0.734375 0 L 0.734375 -0.828125 C 1.109375 -1.210938 1.617188 -1.734375 2.265625 -2.390625 C 2.910156 -3.046875 3.316406 -3.46875 3.484375 -3.65625 C 3.796875 -4.007812 4.015625 -4.304688 4.140625 -4.546875 C 4.265625 -4.796875 4.328125 -5.039062 4.328125 -5.28125 C 4.328125 -5.664062 4.191406 -5.976562 3.921875 -6.21875 C 3.648438 -6.46875 3.296875 -6.59375 2.859375 -6.59375 C 2.546875 -6.59375 2.21875 -6.535156 1.875 -6.421875 C 1.539062 -6.316406 1.175781 -6.15625 0.78125 -5.9375 L 0.78125 -6.9375 C 1.175781 -7.09375 1.546875 -7.210938 1.890625 -7.296875 C 2.234375 -7.378906 2.550781 -7.421875 2.84375 -7.421875 C 3.59375 -7.421875 4.191406 -7.234375 4.640625 -6.859375 C 5.097656 -6.484375 5.328125 -5.976562 5.328125 -5.34375 C 5.328125 -5.039062 5.269531 -4.753906 5.15625 -4.484375 C 5.039062 -4.222656 4.835938 -3.910156 4.546875 -3.546875 C 4.460938 -3.453125 4.203125 -3.175781 3.765625 -2.71875 C 3.328125 -2.269531 2.710938 -1.640625 1.921875 -0.828125 Z M 1.921875 -0.828125 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-26">
+<path style="stroke:none;" d="M 3.296875 -4.03125 C 2.859375 -4.03125 2.507812 -3.878906 2.25 -3.578125 C 1.988281 -3.273438 1.859375 -2.863281 1.859375 -2.34375 C 1.859375 -1.8125 1.988281 -1.394531 2.25 -1.09375 C 2.507812 -0.789062 2.859375 -0.640625 3.296875 -0.640625 C 3.742188 -0.640625 4.09375 -0.789062 4.34375 -1.09375 C 4.601562 -1.394531 4.734375 -1.8125 4.734375 -2.34375 C 4.734375 -2.863281 4.601562 -3.273438 4.34375 -3.578125 C 4.09375 -3.878906 3.742188 -4.03125 3.296875 -4.03125 Z M 5.265625 -7.125 L 5.265625 -6.234375 C 5.015625 -6.347656 4.757812 -6.4375 4.5 -6.5 C 4.25 -6.5625 4.003906 -6.59375 3.765625 -6.59375 C 3.109375 -6.59375 2.609375 -6.375 2.265625 -5.9375 C 1.921875 -5.5 1.726562 -4.832031 1.6875 -3.9375 C 1.875 -4.21875 2.113281 -4.429688 2.40625 -4.578125 C 2.695312 -4.734375 3.015625 -4.8125 3.359375 -4.8125 C 4.085938 -4.8125 4.664062 -4.585938 5.09375 -4.140625 C 5.519531 -3.703125 5.734375 -3.101562 5.734375 -2.34375 C 5.734375 -1.59375 5.507812 -0.988281 5.0625 -0.53125 C 4.625 -0.0820312 4.035156 0.140625 3.296875 0.140625 C 2.453125 0.140625 1.804688 -0.179688 1.359375 -0.828125 C 0.921875 -1.472656 0.703125 -2.410156 0.703125 -3.640625 C 0.703125 -4.785156 0.972656 -5.703125 1.515625 -6.390625 C 2.066406 -7.078125 2.800781 -7.421875 3.71875 -7.421875 C 3.96875 -7.421875 4.21875 -7.394531 4.46875 -7.34375 C 4.71875 -7.300781 4.984375 -7.226562 5.265625 -7.125 Z M 5.265625 -7.125 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-27">
+<path style="stroke:none;" d="M 0.984375 -7.296875 L 1.96875 -7.296875 L 1.96875 -4.203125 L 5.234375 -7.296875 L 6.515625 -7.296875 L 2.890625 -3.890625 L 6.765625 0 L 5.46875 0 L 1.96875 -3.515625 L 1.96875 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-28">
+<path style="stroke:none;" d="M 1.234375 -0.828125 L 2.859375 -0.828125 L 2.859375 -6.390625 L 1.09375 -6.046875 L 1.09375 -6.9375 L 2.84375 -7.296875 L 3.828125 -7.296875 L 3.828125 -0.828125 L 5.4375 -0.828125 L 5.4375 0 L 1.234375 0 Z M 1.234375 -0.828125 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-29">
+<path style="stroke:none;" d="M 4.546875 -4.640625 L 4.546875 -7.59375 L 5.4375 -7.59375 L 5.4375 0 L 4.546875 0 L 4.546875 -0.828125 C 4.359375 -0.492188 4.117188 -0.25 3.828125 -0.09375 C 3.535156 0.0625 3.1875 0.140625 2.78125 0.140625 C 2.125 0.140625 1.585938 -0.117188 1.171875 -0.640625 C 0.753906 -1.171875 0.546875 -1.867188 0.546875 -2.734375 C 0.546875 -3.585938 0.753906 -4.273438 1.171875 -4.796875 C 1.585938 -5.328125 2.125 -5.59375 2.78125 -5.59375 C 3.1875 -5.59375 3.535156 -5.515625 3.828125 -5.359375 C 4.117188 -5.203125 4.359375 -4.960938 4.546875 -4.640625 Z M 1.484375 -2.734375 C 1.484375 -2.066406 1.617188 -1.546875 1.890625 -1.171875 C 2.160156 -0.796875 2.535156 -0.609375 3.015625 -0.609375 C 3.484375 -0.609375 3.851562 -0.796875 4.125 -1.171875 C 4.40625 -1.546875 4.546875 -2.066406 4.546875 -2.734375 C 4.546875 -3.390625 4.40625 -3.90625 4.125 -4.28125 C 3.851562 -4.65625 3.484375 -4.84375 3.015625 -4.84375 C 2.535156 -4.84375 2.160156 -4.65625 1.890625 -4.28125 C 1.617188 -3.90625 1.484375 -3.390625 1.484375 -2.734375 Z M 1.484375 -2.734375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-30">
+<path style="stroke:none;" d="M 6.4375 -6.734375 L 6.4375 -5.6875 C 6.101562 -6 5.75 -6.226562 5.375 -6.375 C 5 -6.53125 4.601562 -6.609375 4.1875 -6.609375 C 3.351562 -6.609375 2.710938 -6.351562 2.265625 -5.84375 C 1.828125 -5.332031 1.609375 -4.597656 1.609375 -3.640625 C 1.609375 -2.679688 1.828125 -1.945312 2.265625 -1.4375 C 2.710938 -0.925781 3.351562 -0.671875 4.1875 -0.671875 C 4.601562 -0.671875 5 -0.742188 5.375 -0.890625 C 5.75 -1.046875 6.101562 -1.28125 6.4375 -1.59375 L 6.4375 -0.5625 C 6.09375 -0.320312 5.726562 -0.144531 5.34375 -0.03125 C 4.957031 0.0820312 4.550781 0.140625 4.125 0.140625 C 3.019531 0.140625 2.148438 -0.195312 1.515625 -0.875 C 0.878906 -1.550781 0.5625 -2.472656 0.5625 -3.640625 C 0.5625 -4.804688 0.878906 -5.726562 1.515625 -6.40625 C 2.148438 -7.082031 3.019531 -7.421875 4.125 -7.421875 C 4.5625 -7.421875 4.972656 -7.363281 5.359375 -7.25 C 5.742188 -7.132812 6.101562 -6.960938 6.4375 -6.734375 Z M 6.4375 -6.734375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-31">
+<path style="stroke:none;" d="M 4.109375 -4.625 C 4.003906 -4.6875 3.894531 -4.726562 3.78125 -4.75 C 3.664062 -4.78125 3.535156 -4.796875 3.390625 -4.796875 C 2.878906 -4.796875 2.488281 -4.628906 2.21875 -4.296875 C 1.945312 -3.972656 1.8125 -3.5 1.8125 -2.875 L 1.8125 0 L 0.90625 0 L 0.90625 -5.46875 L 1.8125 -5.46875 L 1.8125 -4.625 C 2 -4.957031 2.242188 -5.203125 2.546875 -5.359375 C 2.847656 -5.515625 3.21875 -5.59375 3.65625 -5.59375 C 3.71875 -5.59375 3.785156 -5.585938 3.859375 -5.578125 C 3.929688 -5.578125 4.015625 -5.566406 4.109375 -5.546875 Z M 4.109375 -4.625 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-32">
+<path style="stroke:none;" d="M 0.875 -7.296875 L 1.859375 -7.296875 L 1.859375 -2.859375 C 1.859375 -2.078125 2 -1.515625 2.28125 -1.171875 C 2.5625 -0.828125 3.019531 -0.65625 3.65625 -0.65625 C 4.289062 -0.65625 4.75 -0.828125 5.03125 -1.171875 C 5.3125 -1.515625 5.453125 -2.078125 5.453125 -2.859375 L 5.453125 -7.296875 L 6.453125 -7.296875 L 6.453125 -2.734375 C 6.453125 -1.785156 6.21875 -1.066406 5.75 -0.578125 C 5.28125 -0.0976562 4.582031 0.140625 3.65625 0.140625 C 2.738281 0.140625 2.046875 -0.0976562 1.578125 -0.578125 C 1.109375 -1.066406 0.875 -1.785156 0.875 -2.734375 Z M 0.875 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-33">
+<path style="stroke:none;" d="M 0.984375 -7.296875 L 2.3125 -7.296875 L 5.546875 -1.1875 L 5.546875 -7.296875 L 6.5 -7.296875 L 6.5 0 L 5.171875 0 L 1.9375 -6.09375 L 1.9375 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-34">
+<path style="stroke:none;" d="M 3.421875 -6.3125 L 2.078125 -2.6875 L 4.765625 -2.6875 Z M 2.859375 -7.296875 L 3.984375 -7.296875 L 6.765625 0 L 5.734375 0 L 5.0625 -1.875 L 1.78125 -1.875 L 1.125 0 L 0.078125 0 Z M 2.859375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-35">
+<path style="stroke:none;" d="M 0.984375 -7.296875 L 1.96875 -7.296875 L 1.96875 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-36">
+<path style="stroke:none;" d="M 4.875 -2.734375 C 4.875 -3.390625 4.734375 -3.90625 4.453125 -4.28125 C 4.179688 -4.65625 3.8125 -4.84375 3.34375 -4.84375 C 2.863281 -4.84375 2.488281 -4.65625 2.21875 -4.28125 C 1.945312 -3.90625 1.8125 -3.390625 1.8125 -2.734375 C 1.8125 -2.066406 1.945312 -1.546875 2.21875 -1.171875 C 2.488281 -0.796875 2.863281 -0.609375 3.34375 -0.609375 C 3.8125 -0.609375 4.179688 -0.796875 4.453125 -1.171875 C 4.734375 -1.546875 4.875 -2.066406 4.875 -2.734375 Z M 1.8125 -4.640625 C 2 -4.960938 2.234375 -5.203125 2.515625 -5.359375 C 2.804688 -5.515625 3.15625 -5.59375 3.5625 -5.59375 C 4.226562 -5.59375 4.765625 -5.328125 5.171875 -4.796875 C 5.585938 -4.273438 5.796875 -3.585938 5.796875 -2.734375 C 5.796875 -1.867188 5.585938 -1.171875 5.171875 -0.640625 C 4.765625 -0.117188 4.226562 0.140625 3.5625 0.140625 C 3.15625 0.140625 2.804688 0.0625 2.515625 -0.09375 C 2.234375 -0.25 2 -0.492188 1.8125 -0.828125 L 1.8125 0 L 0.90625 0 L 0.90625 -7.59375 L 1.8125 -7.59375 Z M 1.8125 -4.640625 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-37">
+<path style="stroke:none;" d="M 1.171875 -1.234375 L 2.203125 -1.234375 L 2.203125 0 L 1.171875 0 Z M 1.171875 -5.171875 L 2.203125 -5.171875 L 2.203125 -3.9375 L 1.171875 -3.9375 Z M 1.171875 -5.171875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-38">
+<path style="stroke:none;" d="M 1.0625 -1.234375 L 2.09375 -1.234375 L 2.09375 0 L 1.0625 0 Z M 1.0625 -1.234375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-39">
+<path style="stroke:none;" d="M 4.421875 -5.3125 L 4.421875 -4.453125 C 4.171875 -4.585938 3.910156 -4.6875 3.640625 -4.75 C 3.367188 -4.8125 3.082031 -4.84375 2.78125 -4.84375 C 2.34375 -4.84375 2.007812 -4.773438 1.78125 -4.640625 C 1.5625 -4.503906 1.453125 -4.300781 1.453125 -4.03125 C 1.453125 -3.820312 1.53125 -3.65625 1.6875 -3.53125 C 1.84375 -3.414062 2.164062 -3.304688 2.65625 -3.203125 L 2.953125 -3.125 C 3.597656 -2.988281 4.050781 -2.796875 4.3125 -2.546875 C 4.582031 -2.296875 4.71875 -1.953125 4.71875 -1.515625 C 4.71875 -1.003906 4.515625 -0.597656 4.109375 -0.296875 C 3.710938 -0.00390625 3.164062 0.140625 2.46875 0.140625 C 2.164062 0.140625 1.851562 0.109375 1.53125 0.046875 C 1.21875 -0.00390625 0.890625 -0.0859375 0.546875 -0.203125 L 0.546875 -1.125 C 0.878906 -0.957031 1.203125 -0.828125 1.515625 -0.734375 C 1.835938 -0.648438 2.160156 -0.609375 2.484375 -0.609375 C 2.898438 -0.609375 3.222656 -0.679688 3.453125 -0.828125 C 3.679688 -0.972656 3.796875 -1.175781 3.796875 -1.4375 C 3.796875 -1.6875 3.710938 -1.875 3.546875 -2 C 3.390625 -2.132812 3.03125 -2.257812 2.46875 -2.375 L 2.15625 -2.453125 C 1.601562 -2.566406 1.203125 -2.742188 0.953125 -2.984375 C 0.703125 -3.234375 0.578125 -3.566406 0.578125 -3.984375 C 0.578125 -4.503906 0.757812 -4.898438 1.125 -5.171875 C 1.488281 -5.453125 2.007812 -5.59375 2.6875 -5.59375 C 3.007812 -5.59375 3.316406 -5.566406 3.609375 -5.515625 C 3.910156 -5.472656 4.179688 -5.40625 4.421875 -5.3125 Z M 4.421875 -5.3125 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-40">
+<path style="stroke:none;" d="M 5.953125 -1.046875 L 5.953125 -3 L 4.34375 -3 L 4.34375 -3.8125 L 6.921875 -3.8125 L 6.921875 -0.671875 C 6.546875 -0.410156 6.128906 -0.207031 5.671875 -0.0625 C 5.210938 0.0703125 4.722656 0.140625 4.203125 0.140625 C 3.054688 0.140625 2.160156 -0.191406 1.515625 -0.859375 C 0.878906 -1.523438 0.5625 -2.453125 0.5625 -3.640625 C 0.5625 -4.828125 0.878906 -5.753906 1.515625 -6.421875 C 2.160156 -7.085938 3.054688 -7.421875 4.203125 -7.421875 C 4.671875 -7.421875 5.117188 -7.363281 5.546875 -7.25 C 5.984375 -7.132812 6.378906 -6.960938 6.734375 -6.734375 L 6.734375 -5.671875 C 6.367188 -5.984375 5.984375 -6.21875 5.578125 -6.375 C 5.171875 -6.53125 4.738281 -6.609375 4.28125 -6.609375 C 3.382812 -6.609375 2.710938 -6.359375 2.265625 -5.859375 C 1.828125 -5.367188 1.609375 -4.628906 1.609375 -3.640625 C 1.609375 -2.648438 1.828125 -1.90625 2.265625 -1.40625 C 2.710938 -0.914062 3.382812 -0.671875 4.28125 -0.671875 C 4.632812 -0.671875 4.945312 -0.695312 5.21875 -0.75 C 5.488281 -0.8125 5.734375 -0.910156 5.953125 -1.046875 Z M 5.953125 -1.046875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-41">
+<path style="stroke:none;" d="M 3.171875 -3.46875 C 2.703125 -3.46875 2.332031 -3.335938 2.0625 -3.078125 C 1.800781 -2.828125 1.671875 -2.484375 1.671875 -2.046875 C 1.671875 -1.609375 1.800781 -1.265625 2.0625 -1.015625 C 2.332031 -0.765625 2.703125 -0.640625 3.171875 -0.640625 C 3.640625 -0.640625 4.007812 -0.765625 4.28125 -1.015625 C 4.550781 -1.265625 4.6875 -1.609375 4.6875 -2.046875 C 4.6875 -2.484375 4.550781 -2.828125 4.28125 -3.078125 C 4.019531 -3.335938 3.648438 -3.46875 3.171875 -3.46875 Z M 2.1875 -3.875 C 1.769531 -3.976562 1.441406 -4.175781 1.203125 -4.46875 C 0.960938 -4.757812 0.84375 -5.113281 0.84375 -5.53125 C 0.84375 -6.113281 1.050781 -6.570312 1.46875 -6.90625 C 1.882812 -7.25 2.453125 -7.421875 3.171875 -7.421875 C 3.898438 -7.421875 4.472656 -7.25 4.890625 -6.90625 C 5.304688 -6.570312 5.515625 -6.113281 5.515625 -5.53125 C 5.515625 -5.113281 5.394531 -4.757812 5.15625 -4.46875 C 4.914062 -4.175781 4.585938 -3.976562 4.171875 -3.875 C 4.648438 -3.769531 5.019531 -3.554688 5.28125 -3.234375 C 5.539062 -2.910156 5.671875 -2.515625 5.671875 -2.046875 C 5.671875 -1.335938 5.457031 -0.796875 5.03125 -0.421875 C 4.601562 -0.046875 3.984375 0.140625 3.171875 0.140625 C 2.367188 0.140625 1.75 -0.046875 1.3125 -0.421875 C 0.882812 -0.796875 0.671875 -1.335938 0.671875 -2.046875 C 0.671875 -2.515625 0.804688 -2.910156 1.078125 -3.234375 C 1.347656 -3.554688 1.71875 -3.769531 2.1875 -3.875 Z M 1.828125 -5.4375 C 1.828125 -5.0625 1.945312 -4.765625 2.1875 -4.546875 C 2.425781 -4.335938 2.753906 -4.234375 3.171875 -4.234375 C 3.597656 -4.234375 3.929688 -4.335938 4.171875 -4.546875 C 4.410156 -4.765625 4.53125 -5.0625 4.53125 -5.4375 C 4.53125 -5.8125 4.410156 -6.101562 4.171875 -6.3125 C 3.929688 -6.53125 3.597656 -6.640625 3.171875 -6.640625 C 2.753906 -6.640625 2.425781 -6.53125 2.1875 -6.3125 C 1.945312 -6.101562 1.828125 -5.8125 1.828125 -5.4375 Z M 1.828125 -5.4375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-42">
+<path style="stroke:none;" d="M 0.984375 -7.296875 L 1.96875 -7.296875 L 1.96875 -4.296875 L 5.546875 -4.296875 L 5.546875 -7.296875 L 6.53125 -7.296875 L 6.53125 0 L 5.546875 0 L 5.546875 -3.46875 L 1.96875 -3.46875 L 1.96875 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-43">
+<path style="stroke:none;" d="M 3.71875 -7.59375 L 3.71875 -6.84375 L 2.859375 -6.84375 C 2.535156 -6.84375 2.3125 -6.773438 2.1875 -6.640625 C 2.0625 -6.515625 2 -6.285156 2 -5.953125 L 2 -5.46875 L 3.46875 -5.46875 L 3.46875 -4.765625 L 2 -4.765625 L 2 0 L 1.09375 0 L 1.09375 -4.765625 L 0.234375 -4.765625 L 0.234375 -5.46875 L 1.09375 -5.46875 L 1.09375 -5.84375 C 1.09375 -6.457031 1.234375 -6.898438 1.515625 -7.171875 C 1.796875 -7.453125 2.242188 -7.59375 2.859375 -7.59375 Z M 3.71875 -7.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-44">
+<path style="stroke:none;" d="M 0.84375 -2.15625 L 0.84375 -5.46875 L 1.75 -5.46875 L 1.75 -2.1875 C 1.75 -1.675781 1.847656 -1.289062 2.046875 -1.03125 C 2.253906 -0.769531 2.554688 -0.640625 2.953125 -0.640625 C 3.441406 -0.640625 3.828125 -0.789062 4.109375 -1.09375 C 4.390625 -1.40625 4.53125 -1.832031 4.53125 -2.375 L 4.53125 -5.46875 L 5.4375 -5.46875 L 5.4375 0 L 4.53125 0 L 4.53125 -0.84375 C 4.3125 -0.507812 4.054688 -0.257812 3.765625 -0.09375 C 3.484375 0.0625 3.148438 0.140625 2.765625 0.140625 C 2.140625 0.140625 1.660156 -0.0507812 1.328125 -0.4375 C 1.003906 -0.832031 0.84375 -1.40625 0.84375 -2.15625 Z M 3.109375 -5.59375 Z M 3.109375 -5.59375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-45">
+<path style="stroke:none;" d="M 5.484375 -5.46875 L 3.515625 -2.8125 L 5.59375 0 L 4.53125 0 L 2.9375 -2.15625 L 1.34375 0 L 0.28125 0 L 2.40625 -2.859375 L 0.46875 -5.46875 L 1.53125 -5.46875 L 2.984375 -3.515625 L 4.421875 -5.46875 Z M 5.484375 -5.46875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-46">
+<path style="stroke:none;" d="M 0.484375 -3.140625 L 3.125 -3.140625 L 3.125 -2.34375 L 0.484375 -2.34375 Z M 0.484375 -3.140625 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-47">
+<path style="stroke:none;" d="M 5.203125 -4.421875 C 5.421875 -4.828125 5.6875 -5.125 6 -5.3125 C 6.3125 -5.5 6.679688 -5.59375 7.109375 -5.59375 C 7.679688 -5.59375 8.117188 -5.394531 8.421875 -5 C 8.734375 -4.601562 8.890625 -4.035156 8.890625 -3.296875 L 8.890625 0 L 7.984375 0 L 7.984375 -3.265625 C 7.984375 -3.796875 7.890625 -4.1875 7.703125 -4.4375 C 7.523438 -4.6875 7.242188 -4.8125 6.859375 -4.8125 C 6.390625 -4.8125 6.019531 -4.65625 5.75 -4.34375 C 5.488281 -4.039062 5.359375 -3.625 5.359375 -3.09375 L 5.359375 0 L 4.453125 0 L 4.453125 -3.265625 C 4.453125 -3.796875 4.359375 -4.1875 4.171875 -4.4375 C 3.984375 -4.6875 3.695312 -4.8125 3.3125 -4.8125 C 2.851562 -4.8125 2.488281 -4.65625 2.21875 -4.34375 C 1.945312 -4.039062 1.8125 -3.625 1.8125 -3.09375 L 1.8125 0 L 0.90625 0 L 0.90625 -5.46875 L 1.8125 -5.46875 L 1.8125 -4.625 C 2.019531 -4.957031 2.265625 -5.203125 2.546875 -5.359375 C 2.835938 -5.515625 3.175781 -5.59375 3.5625 -5.59375 C 3.96875 -5.59375 4.304688 -5.492188 4.578125 -5.296875 C 4.859375 -5.097656 5.066406 -4.804688 5.203125 -4.421875 Z M 5.203125 -4.421875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-48">
+<path style="stroke:none;" d="M 1.8125 -0.828125 L 1.8125 2.078125 L 0.90625 2.078125 L 0.90625 -5.46875 L 1.8125 -5.46875 L 1.8125 -4.640625 C 2 -4.960938 2.234375 -5.203125 2.515625 -5.359375 C 2.804688 -5.515625 3.15625 -5.59375 3.5625 -5.59375 C 4.226562 -5.59375 4.765625 -5.328125 5.171875 -4.796875 C 5.585938 -4.273438 5.796875 -3.585938 5.796875 -2.734375 C 5.796875 -1.867188 5.585938 -1.171875 5.171875 -0.640625 C 4.765625 -0.117188 4.226562 0.140625 3.5625 0.140625 C 3.15625 0.140625 2.804688 0.0625 2.515625 -0.09375 C 2.234375 -0.25 2 -0.492188 1.8125 -0.828125 Z M 4.875 -2.734375 C 4.875 -3.390625 4.734375 -3.90625 4.453125 -4.28125 C 4.179688 -4.65625 3.8125 -4.84375 3.34375 -4.84375 C 2.863281 -4.84375 2.488281 -4.65625 2.21875 -4.28125 C 1.945312 -3.90625 1.8125 -3.390625 1.8125 -2.734375 C 1.8125 -2.066406 1.945312 -1.546875 2.21875 -1.171875 C 2.488281 -0.796875 2.863281 -0.609375 3.34375 -0.609375 C 3.8125 -0.609375 4.179688 -0.796875 4.453125 -1.171875 C 4.734375 -1.546875 4.875 -2.066406 4.875 -2.734375 Z M 4.875 -2.734375 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-49">
+<path style="stroke:none;" d="M 1.96875 -6.484375 L 1.96875 -0.8125 L 3.15625 -0.8125 C 4.164062 -0.8125 4.898438 -1.035156 5.359375 -1.484375 C 5.828125 -1.941406 6.0625 -2.664062 6.0625 -3.65625 C 6.0625 -4.632812 5.828125 -5.347656 5.359375 -5.796875 C 4.898438 -6.253906 4.164062 -6.484375 3.15625 -6.484375 Z M 0.984375 -7.296875 L 3.015625 -7.296875 C 4.421875 -7.296875 5.453125 -7 6.109375 -6.40625 C 6.773438 -5.820312 7.109375 -4.90625 7.109375 -3.65625 C 7.109375 -2.394531 6.773438 -1.46875 6.109375 -0.875 C 5.453125 -0.289062 4.421875 0 3.015625 0 L 0.984375 0 Z M 0.984375 -7.296875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-50">
+<path style="stroke:none;" d="M 5.359375 -7.046875 L 5.359375 -6.09375 C 4.984375 -6.269531 4.628906 -6.398438 4.296875 -6.484375 C 3.960938 -6.578125 3.640625 -6.625 3.328125 -6.625 C 2.796875 -6.625 2.382812 -6.519531 2.09375 -6.3125 C 1.800781 -6.101562 1.65625 -5.804688 1.65625 -5.421875 C 1.65625 -5.097656 1.75 -4.851562 1.9375 -4.6875 C 2.132812 -4.519531 2.503906 -4.390625 3.046875 -4.296875 L 3.640625 -4.171875 C 4.367188 -4.023438 4.910156 -3.773438 5.265625 -3.421875 C 5.617188 -3.078125 5.796875 -2.609375 5.796875 -2.015625 C 5.796875 -1.304688 5.554688 -0.769531 5.078125 -0.40625 C 4.609375 -0.0390625 3.914062 0.140625 3 0.140625 C 2.65625 0.140625 2.285156 0.0976562 1.890625 0.015625 C 1.503906 -0.0546875 1.101562 -0.171875 0.6875 -0.328125 L 0.6875 -1.34375 C 1.09375 -1.113281 1.484375 -0.941406 1.859375 -0.828125 C 2.242188 -0.710938 2.625 -0.65625 3 -0.65625 C 3.5625 -0.65625 3.992188 -0.765625 4.296875 -0.984375 C 4.609375 -1.210938 4.765625 -1.53125 4.765625 -1.9375 C 4.765625 -2.289062 4.65625 -2.566406 4.4375 -2.765625 C 4.21875 -2.972656 3.851562 -3.128906 3.34375 -3.234375 L 2.75 -3.34375 C 2.007812 -3.488281 1.472656 -3.71875 1.140625 -4.03125 C 0.816406 -4.34375 0.65625 -4.78125 0.65625 -5.34375 C 0.65625 -5.988281 0.878906 -6.492188 1.328125 -6.859375 C 1.785156 -7.234375 2.414062 -7.421875 3.21875 -7.421875 C 3.5625 -7.421875 3.910156 -7.390625 4.265625 -7.328125 C 4.617188 -7.265625 4.984375 -7.171875 5.359375 -7.046875 Z M 5.359375 -7.046875 "/>
+</symbol>
+<symbol overflow="visible" id="glyph0-51">
+<path style="stroke:none;" d="M 3.78125 -6.4375 L 1.296875 -2.546875 L 3.78125 -2.546875 Z M 3.515625 -7.296875 L 4.765625 -7.296875 L 4.765625 -2.546875 L 5.796875 -2.546875 L 5.796875 -1.71875 L 4.765625 -1.71875 L 4.765625 0 L 3.78125 0 L 3.78125 -1.71875 L 0.484375 -1.71875 L 0.484375 -2.671875 Z M 3.515625 -7.296875 "/>
+</symbol>
+</g>
+</defs>
+<g id="surface6">
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 0 L 405 0 L 405 324 L 0 324 Z M 0 0 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-1" x="7" y="17"/>
+  <use xlink:href="#glyph0-2" x="15.62793" y="17"/>
+  <use xlink:href="#glyph0-3" x="21.755859" y="17"/>
+  <use xlink:href="#glyph0-4" x="27.253906" y="17"/>
+  <use xlink:href="#glyph0-5" x="33.591797" y="17"/>
+  <use xlink:href="#glyph0-6" x="36.370117" y="17"/>
+  <use xlink:href="#glyph0-7" x="42.708008" y="17"/>
+  <use xlink:href="#glyph0-8" x="48.860352" y="17"/>
+  <use xlink:href="#glyph0-9" x="52.039062" y="17"/>
+  <use xlink:href="#glyph0-10" x="55.94043" y="17"/>
+  <use xlink:href="#glyph0-11" x="62.302734" y="17"/>
+  <use xlink:href="#glyph0-12" x="68.665039" y="17"/>
+  <use xlink:href="#glyph0-11" x="75.027344" y="17"/>
+  <use xlink:href="#glyph0-1" x="81.389648" y="17"/>
+  <use xlink:href="#glyph0-13" x="90.017578" y="17"/>
+  <use xlink:href="#glyph0-8" x="96.87793" y="17"/>
+  <use xlink:href="#glyph0-14" x="100.056641" y="17"/>
+  <use xlink:href="#glyph0-15" x="103.977539" y="17"/>
+  <use xlink:href="#glyph0-14" x="110.095703" y="17"/>
+  <use xlink:href="#glyph0-2" x="114.016602" y="17"/>
+  <use xlink:href="#glyph0-16" x="120.144531" y="17"/>
+  <use xlink:href="#glyph0-17" x="122.922852" y="17"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(82.352942%,90.588236%,64.313728%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 7 24 L 188 24 L 188 317 L 7 317 Z M 7 24 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-18" x="14" y="41"/>
+  <use xlink:href="#glyph0-2" x="20.030273" y="41"/>
+  <use xlink:href="#glyph0-3" x="26.158203" y="41"/>
+  <use xlink:href="#glyph0-19" x="31.65625" y="41"/>
+  <use xlink:href="#glyph0-2" x="37.447266" y="41"/>
+  <use xlink:href="#glyph0-20" x="43.575195" y="41"/>
+  <use xlink:href="#glyph0-7" x="49.922852" y="41"/>
+  <use xlink:href="#glyph0-8" x="56.075195" y="41"/>
+  <use xlink:href="#glyph0-21" x="59.253906" y="41"/>
+  <use xlink:href="#glyph0-22" x="64.825195" y="41"/>
+  <use xlink:href="#glyph0-23" x="73.204102" y="41"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 14 79 L 81 79 L 81 103 L 14 103 Z M 14 79 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-21" x="21" y="96"/>
+  <use xlink:href="#glyph0-12" x="26.571289" y="96"/>
+  <use xlink:href="#glyph0-8" x="32.933594" y="96"/>
+  <use xlink:href="#glyph0-9" x="36.112305" y="96"/>
+  <use xlink:href="#glyph0-24" x="40.013672" y="96"/>
+  <use xlink:href="#glyph0-23" x="46.375977" y="96"/>
+  <use xlink:href="#glyph0-1" x="52.738281" y="96"/>
+  <use xlink:href="#glyph0-13" x="61.366211" y="96"/>
+  <use xlink:href="#glyph0-17" x="68.226562" y="96"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 14 110 L 81 110 L 81 134 L 14 134 Z M 14 110 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-21" x="21" y="127"/>
+  <use xlink:href="#glyph0-25" x="26.571289" y="127"/>
+  <use xlink:href="#glyph0-8" x="32.933594" y="127"/>
+  <use xlink:href="#glyph0-9" x="36.112305" y="127"/>
+  <use xlink:href="#glyph0-25" x="40.013672" y="127"/>
+  <use xlink:href="#glyph0-24" x="46.375977" y="127"/>
+  <use xlink:href="#glyph0-26" x="52.738281" y="127"/>
+  <use xlink:href="#glyph0-27" x="59.100586" y="127"/>
+  <use xlink:href="#glyph0-13" x="65.658203" y="127"/>
+  <use xlink:href="#glyph0-17" x="72.518555" y="127"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 14 141 L 81 141 L 81 165 L 14 165 Z M 14 141 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-21" x="21" y="158"/>
+  <use xlink:href="#glyph0-28" x="26.571289" y="158"/>
+  <use xlink:href="#glyph0-29" x="32.933594" y="158"/>
+  <use xlink:href="#glyph0-8" x="39.28125" y="158"/>
+  <use xlink:href="#glyph0-9" x="42.459961" y="158"/>
+  <use xlink:href="#glyph0-12" x="46.361328" y="158"/>
+  <use xlink:href="#glyph0-25" x="52.723633" y="158"/>
+  <use xlink:href="#glyph0-27" x="59.085938" y="158"/>
+  <use xlink:href="#glyph0-13" x="65.643555" y="158"/>
+  <use xlink:href="#glyph0-17" x="72.503906" y="158"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 14 172 L 77 172 L 77 196 L 14 196 Z M 14 172 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-21" x="21" y="189"/>
+  <use xlink:href="#glyph0-28" x="26.571289" y="189"/>
+  <use xlink:href="#glyph0-5" x="32.933594" y="189"/>
+  <use xlink:href="#glyph0-8" x="35.711914" y="189"/>
+  <use xlink:href="#glyph0-9" x="38.890625" y="189"/>
+  <use xlink:href="#glyph0-12" x="42.791992" y="189"/>
+  <use xlink:href="#glyph0-25" x="49.154297" y="189"/>
+  <use xlink:href="#glyph0-27" x="55.516602" y="189"/>
+  <use xlink:href="#glyph0-13" x="62.074219" y="189"/>
+  <use xlink:href="#glyph0-17" x="68.93457" y="189"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(74.509805%,74.509805%,74.509805%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 14 203 L 77 203 L 77 310 L 14 310 Z M 14 203 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-30" x="21" y="220"/>
+  <use xlink:href="#glyph0-15" x="27.982422" y="220"/>
+  <use xlink:href="#glyph0-31" x="34.100586" y="220"/>
+  <use xlink:href="#glyph0-7" x="38.211914" y="220"/>
+  <use xlink:href="#glyph0-8" x="44.364258" y="220"/>
+  <use xlink:href="#glyph0-21" x="47.542969" y="220"/>
+  <use xlink:href="#glyph0-22" x="53.114258" y="220"/>
+  <use xlink:href="#glyph0-23" x="61.493164" y="220"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 21 227 L 70 227 L 70 265 L 21 265 Z M 21 227 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-18" x="28" y="244"/>
+  <use xlink:href="#glyph0-32" x="34.030273" y="244"/>
+  <use xlink:href="#glyph0-8" x="41.349609" y="244"/>
+  <use xlink:href="#glyph0-21" x="44.52832" y="244"/>
+  <use xlink:href="#glyph0-22" x="50.099609" y="244"/>
+  <use xlink:href="#glyph0-23" x="58.478516" y="244"/>
+</g>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-18" x="36" y="258"/>
+  <use xlink:href="#glyph0-22" x="42.030273" y="258"/>
+  <use xlink:href="#glyph0-23" x="50.40918" y="258"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 21 265 L 70 265 L 70 303 L 21 303 Z M 21 265 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-18" x="28" y="282"/>
+  <use xlink:href="#glyph0-32" x="34.030273" y="282"/>
+  <use xlink:href="#glyph0-8" x="41.349609" y="282"/>
+  <use xlink:href="#glyph0-21" x="44.52832" y="282"/>
+  <use xlink:href="#glyph0-22" x="50.099609" y="282"/>
+  <use xlink:href="#glyph0-28" x="58.478516" y="282"/>
+</g>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-18" x="36" y="296"/>
+  <use xlink:href="#glyph0-22" x="42.030273" y="296"/>
+  <use xlink:href="#glyph0-28" x="50.40918" y="296"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(93.725491%,87.450981%,87.058824%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 14 48 L 181 48 L 181 72 L 14 72 Z M 14 48 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-33" x="21" y="65"/>
+  <use xlink:href="#glyph0-32" x="28.480469" y="65"/>
+  <use xlink:href="#glyph0-1" x="35.799805" y="65"/>
+  <use xlink:href="#glyph0-34" x="44.427734" y="65"/>
+  <use xlink:href="#glyph0-33" x="51.268555" y="65"/>
+  <use xlink:href="#glyph0-15" x="58.749023" y="65"/>
+  <use xlink:href="#glyph0-29" x="64.867188" y="65"/>
+  <use xlink:href="#glyph0-7" x="71.214844" y="65"/>
+  <use xlink:href="#glyph0-8" x="77.367188" y="65"/>
+  <use xlink:href="#glyph0-21" x="80.545898" y="65"/>
+  <use xlink:href="#glyph0-22" x="86.117188" y="65"/>
+  <use xlink:href="#glyph0-23" x="94.496094" y="65"/>
+  <use xlink:href="#glyph0-8" x="100.858398" y="65"/>
+  <use xlink:href="#glyph0-18" x="104.037109" y="65"/>
+  <use xlink:href="#glyph0-22" x="110.067383" y="65"/>
+  <use xlink:href="#glyph0-23" x="118.446289" y="65"/>
+  <use xlink:href="#glyph0-8" x="124.808594" y="65"/>
+  <use xlink:href="#glyph0-9" x="127.987305" y="65"/>
+  <use xlink:href="#glyph0-10" x="131.888672" y="65"/>
+  <use xlink:href="#glyph0-11" x="138.250977" y="65"/>
+  <use xlink:href="#glyph0-12" x="144.613281" y="65"/>
+  <use xlink:href="#glyph0-11" x="150.975586" y="65"/>
+  <use xlink:href="#glyph0-1" x="157.337891" y="65"/>
+  <use xlink:href="#glyph0-13" x="165.96582" y="65"/>
+  <use xlink:href="#glyph0-17" x="172.826172" y="65"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 195 24 L 202 24 L 202 31 L 195 31 Z M 195 24 "/>
+<path style="fill:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 202 27 L 209 27 "/>
+<path style="fill:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 209 27 L 233 27 "/>
+<path style="fill:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 209 27 L 209 27 "/>
+<path style="fill-rule:nonzero;fill:rgb(74.509805%,82.352942%,58.431375%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 233 24 L 331 24 L 331 48 L 233 48 Z M 233 24 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-18" x="240" y="41"/>
+  <use xlink:href="#glyph0-30" x="246.030273" y="41"/>
+  <use xlink:href="#glyph0-35" x="253.012695" y="41"/>
+  <use xlink:href="#glyph0-8" x="255.961914" y="41"/>
+  <use xlink:href="#glyph0-11" x="259.140625" y="41"/>
+  <use xlink:href="#glyph0-29" x="265.50293" y="41"/>
+  <use xlink:href="#glyph0-36" x="271.850586" y="41"/>
+  <use xlink:href="#glyph0-29" x="278.198242" y="41"/>
+  <use xlink:href="#glyph0-37" x="284.545898" y="41"/>
+  <use xlink:href="#glyph0-23" x="287.915039" y="41"/>
+  <use xlink:href="#glyph0-23" x="294.277344" y="41"/>
+  <use xlink:href="#glyph0-37" x="300.639648" y="41"/>
+  <use xlink:href="#glyph0-23" x="304.008789" y="41"/>
+  <use xlink:href="#glyph0-25" x="310.371094" y="41"/>
+  <use xlink:href="#glyph0-38" x="316.733398" y="41"/>
+  <use xlink:href="#glyph0-23" x="319.912109" y="41"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(87.058824%,87.058824%,87.058824%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 338 24 L 398 24 L 398 62 L 338 62 Z M 338 24 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-13" x="345" y="41"/>
+  <use xlink:href="#glyph0-16" x="351.860352" y="41"/>
+  <use xlink:href="#glyph0-15" x="354.638672" y="41"/>
+  <use xlink:href="#glyph0-3" x="360.756836" y="41"/>
+  <use xlink:href="#glyph0-19" x="366.254883" y="41"/>
+  <use xlink:href="#glyph0-8" x="372.045898" y="41"/>
+  <use xlink:href="#glyph0-39" x="375.224609" y="41"/>
+  <use xlink:href="#glyph0-29" x="380.43457" y="41"/>
+  <use xlink:href="#glyph0-36" x="386.782227" y="41"/>
+</g>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-28" x="345" y="55"/>
+  <use xlink:href="#glyph0-26" x="351.362305" y="55"/>
+  <use xlink:href="#glyph0-8" x="357.724609" y="55"/>
+  <use xlink:href="#glyph0-40" x="360.90332" y="55"/>
+  <use xlink:href="#glyph0-13" x="368.652344" y="55"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(87.058824%,87.058824%,87.058824%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 195 69 L 253 69 L 253 107 L 195 107 Z M 195 69 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-13" x="202" y="86"/>
+  <use xlink:href="#glyph0-16" x="208.860352" y="86"/>
+  <use xlink:href="#glyph0-15" x="211.638672" y="86"/>
+  <use xlink:href="#glyph0-3" x="217.756836" y="86"/>
+  <use xlink:href="#glyph0-19" x="223.254883" y="86"/>
+  <use xlink:href="#glyph0-8" x="229.045898" y="86"/>
+  <use xlink:href="#glyph0-39" x="232.224609" y="86"/>
+  <use xlink:href="#glyph0-31" x="237.43457" y="86"/>
+  <use xlink:href="#glyph0-23" x="241.545898" y="86"/>
+</g>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-23" x="202" y="100"/>
+  <use xlink:href="#glyph0-8" x="208.362305" y="100"/>
+  <use xlink:href="#glyph0-1" x="211.541016" y="100"/>
+  <use xlink:href="#glyph0-13" x="220.168945" y="100"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(87.058824%,87.058824%,87.058824%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 260 69 L 320 69 L 320 107 L 260 107 Z M 260 69 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-13" x="267" y="86"/>
+  <use xlink:href="#glyph0-16" x="273.860352" y="86"/>
+  <use xlink:href="#glyph0-15" x="276.638672" y="86"/>
+  <use xlink:href="#glyph0-3" x="282.756836" y="86"/>
+  <use xlink:href="#glyph0-19" x="288.254883" y="86"/>
+  <use xlink:href="#glyph0-8" x="294.045898" y="86"/>
+  <use xlink:href="#glyph0-39" x="297.224609" y="86"/>
+  <use xlink:href="#glyph0-29" x="302.43457" y="86"/>
+  <use xlink:href="#glyph0-2" x="308.782227" y="86"/>
+</g>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-28" x="267" y="100"/>
+  <use xlink:href="#glyph0-25" x="273.362305" y="100"/>
+  <use xlink:href="#glyph0-41" x="279.724609" y="100"/>
+  <use xlink:href="#glyph0-8" x="286.086914" y="100"/>
+  <use xlink:href="#glyph0-40" x="289.265625" y="100"/>
+  <use xlink:href="#glyph0-13" x="297.014648" y="100"/>
+</g>
+<path style="fill-rule:nonzero;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 405 324 L 405 362 L 0 362 Z M 0 324 "/>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-42" x="7" y="341"/>
+  <use xlink:href="#glyph0-15" x="14.519531" y="341"/>
+  <use xlink:href="#glyph0-39" x="20.637695" y="341"/>
+  <use xlink:href="#glyph0-14" x="25.847656" y="341"/>
+  <use xlink:href="#glyph0-37" x="29.768555" y="341"/>
+  <use xlink:href="#glyph0-8" x="33.137695" y="341"/>
+  <use xlink:href="#glyph0-43" x="36.316406" y="341"/>
+  <use xlink:href="#glyph0-16" x="39.836914" y="341"/>
+  <use xlink:href="#glyph0-44" x="42.615234" y="341"/>
+  <use xlink:href="#glyph0-45" x="48.953125" y="341"/>
+  <use xlink:href="#glyph0-46" x="54.871094" y="341"/>
+  <use xlink:href="#glyph0-39" x="58.479492" y="341"/>
+  <use xlink:href="#glyph0-2" x="63.689453" y="341"/>
+  <use xlink:href="#glyph0-47" x="69.817383" y="341"/>
+  <use xlink:href="#glyph0-48" x="79.558594" y="341"/>
+  <use xlink:href="#glyph0-16" x="85.90625" y="341"/>
+  <use xlink:href="#glyph0-7" x="88.68457" y="341"/>
+  <use xlink:href="#glyph0-46" x="94.836914" y="341"/>
+  <use xlink:href="#glyph0-25" x="98.445312" y="341"/>
+  <use xlink:href="#glyph0-24" x="104.807617" y="341"/>
+</g>
+<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
+  <use xlink:href="#glyph0-49" x="7" y="355"/>
+  <use xlink:href="#glyph0-2" x="14.700195" y="355"/>
+  <use xlink:href="#glyph0-14" x="20.828125" y="355"/>
+  <use xlink:href="#glyph0-7" x="24.749023" y="355"/>
+  <use xlink:href="#glyph0-37" x="30.901367" y="355"/>
+  <use xlink:href="#glyph0-8" x="34.270508" y="355"/>
+  <use xlink:href="#glyph0-50" x="37.449219" y="355"/>
+  <use xlink:href="#glyph0-2" x="43.796875" y="355"/>
+  <use xlink:href="#glyph0-14" x="49.924805" y="355"/>
+  <use xlink:href="#glyph0-8" x="53.845703" y="355"/>
+  <use xlink:href="#glyph0-34" x="57.024414" y="355"/>
+  <use xlink:href="#glyph0-44" x="63.865234" y="355"/>
+  <use xlink:href="#glyph0-20" x="70.203125" y="355"/>
+  <use xlink:href="#glyph0-8" x="76.550781" y="355"/>
+  <use xlink:href="#glyph0-12" x="79.729492" y="355"/>
+  <use xlink:href="#glyph0-28" x="86.091797" y="355"/>
+  <use xlink:href="#glyph0-8" x="92.454102" y="355"/>
+  <use xlink:href="#glyph0-28" x="95.632812" y="355"/>
+  <use xlink:href="#glyph0-12" x="101.995117" y="355"/>
+  <use xlink:href="#glyph0-37" x="108.357422" y="355"/>
+  <use xlink:href="#glyph0-24" x="111.726562" y="355"/>
+  <use xlink:href="#glyph0-24" x="118.088867" y="355"/>
+  <use xlink:href="#glyph0-37" x="124.451172" y="355"/>
+  <use xlink:href="#glyph0-23" x="127.820312" y="355"/>
+  <use xlink:href="#glyph0-10" x="134.182617" y="355"/>
+  <use xlink:href="#glyph0-8" x="140.544922" y="355"/>
+  <use xlink:href="#glyph0-25" x="143.723633" y="355"/>
+  <use xlink:href="#glyph0-23" x="150.085938" y="355"/>
+  <use xlink:href="#glyph0-25" x="156.448242" y="355"/>
+  <use xlink:href="#glyph0-51" x="162.810547" y="355"/>
+</g>
+</g>
+</svg>
+
+====== sysbench cpu run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Prime numbers limit: 10000
+
+Initializing worker threads...
+
+Threads started!
+
+CPU speed:
+    events per second:   802.35
+
+General statistics:
+    total time:                          10.0009s
+    total number of events:              8026
+
+Latency (ms):
+         min:                                    0.95
+         avg:                                    1.25
+         max:                                   13.64
+         95th percentile:                        1.64
+         sum:                                 9992.61
+
+Threads fairness:
+    events (avg/stddev):           8026.0000/0.00
+    execution time (avg/stddev):   9.9926/0.00
+
+
+====== sysbench fileio run --file-test-mode=seqwr
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Extra file open flags: (none)
+128 files, 16MiB each
+2GiB total file size
+Block size 16KiB
+Periodic FSYNC enabled, calling fsync() each 100 requests.
+Calling fsync() at the end of test, Enabled.
+Using synchronous I/O mode
+Doing sequential write (creation) test
+Initializing worker threads...
+
+Threads started!
+
+
+File operations:
+    reads/s:                      0.00
+    writes/s:                     3931.50
+    fsyncs/s:                     5037.41
+
+Throughput:
+    read, MiB/s:                  0.00
+    written, MiB/s:               61.43
+
+General statistics:
+    total time:                          10.0194s
+    total number of events:              89755
+
+Latency (ms):
+         min:                                    0.01
+         avg:                                    0.11
+         max:                                   29.62
+         95th percentile:                        0.18
+         sum:                                 9924.45
+
+Threads fairness:
+    events (avg/stddev):           89755.0000/0.00
+    execution time (avg/stddev):   9.9245/0.00
+
+
+====== sysbench threads run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+
+General statistics:
+    total time:                          10.0006s
+    total number of events:              10882
+
+Latency (ms):
+         min:                                    0.67
+         avg:                                    0.92
+         max:                                   13.11
+         95th percentile:                        1.30
+         sum:                                 9991.24
+
+Threads fairness:
+    events (avg/stddev):           10882.0000/0.00
+    execution time (avg/stddev):   9.9912/0.00
+
+
+====== sysbench mutex run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+
+General statistics:
+    total time:                          0.2518s
+    total number of events:              1
+
+Latency (ms):
+         min:                                  251.64
+         avg:                                  251.64
+         max:                                  251.64
+         95th percentile:                      253.35
+         sum:                                  251.64
+
+Threads fairness:
+    events (avg/stddev):           1.0000/0.00
+    execution time (avg/stddev):   0.2516/0.00
+
+====== lscpu
+Architecture:                         x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        46 bits physical, 48 bits virtual
+Byte Order:                           Little Endian
+CPU(s):                               2
+On-line CPU(s) list:                  0,1
+Vendor ID:                            GenuineIntel
+Model name:                           Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz
+CPU family:                           6
+Model:                                79
+Thread(s) per core:                   2
+Core(s) per socket:                   1
+Socket(s):                            1
+Stepping:                             1
+BogoMIPS:                             4589.36
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti tpr_shadow vnmi ept vpid fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm rdseed adx smap xsaveopt md_clear
+Virtualization:                       VT-x
+Hypervisor vendor:                    Microsoft
+Virtualization type:                  full
+L1d cache:                            32 KiB (1 instance)
+L1i cache:                            32 KiB (1 instance)
+L2 cache:                             256 KiB (1 instance)
+L3 cache:                             50 MiB (1 instance)
+NUMA node(s):                         1
+NUMA node0 CPU(s):                    0,1
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          KVM: Mitigation: VMX disabled
+Vulnerability L1tf:                   Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable
+Vulnerability Mds:                    Mitigation; Clear CPU buffers; SMT Host state unknown
+Vulnerability Meltdown:               Mitigation; PTI
+Vulnerability Mmio stale data:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Not affected
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Vulnerable
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Mitigation; Clear CPU buffers; SMT Host state unknown
+====== cat /proc/cpuinfo
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 79
+model name	: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2294.684
+cache size	: 51200 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 20
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti tpr_shadow vnmi ept vpid fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm rdseed adx smap xsaveopt md_clear
+vmx flags	: vnmi invvpid tsc_offset vtpr ept vpid
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit mmio_stale_data bhi
+bogomips	: 4589.36
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 79
+model name	: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2294.684
+cache size	: 51200 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 1
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 20
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti tpr_shadow vnmi ept vpid fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm rdseed adx smap xsaveopt md_clear
+vmx flags	: vnmi invvpid tsc_offset vtpr ept vpid
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit mmio_stale_data bhi
+bogomips	: 4589.36
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+====== cpuid
+CPU 0:
+   vendor_id = "GenuineIntel"
+   version information (1/eax):
+      processor type  = primary processor (0)
+      family          = 0x6 (6)
+      model           = 0xf (15)
+      stepping id     = 0x1 (1)
+      extended family = 0x0 (0)
+      extended model  = 0x4 (4)
+      (family synth)  = 0x6 (6)
+      (model synth)   = 0x4f (79)
+      (simple synth)  = Intel Core (unknown type) (Broadwell-E / Broadwell-EX) {Haswell}, 14nm
+   miscellaneous (1/ebx):
+      process local APIC physical ID = 0x0 (0)
+      maximum IDs for CPUs in pkg    = 0x2 (2)
+      CLFLUSH line size              = 0x8 (8)
+      brand index                    = 0x0 (0)
+   brand id = 0x00 (0): unknown
+   feature information (1/edx):
+      x87 FPU on chip                        = true
+      VME: virtual-8086 mode enhancement     = true
+      DE: debugging extensions               = true
+      PSE: page size extensions              = true
+      TSC: time stamp counter                = true
+      RDMSR and WRMSR support                = true
+      PAE: physical address extensions       = true
+      MCE: machine check exception           = true
+      CMPXCHG8B inst.                        = true
+      APIC on chip                           = true
+      SYSENTER and SYSEXIT                   = true
+      MTRR: memory type range registers      = true
+      PTE global bit                         = true
+      MCA: machine check architecture        = true
+      CMOV: conditional move/compare instr   = true
+      PAT: page attribute table              = true
+      PSE-36: page size extension            = true
+      PSN: processor serial number           = false
+      CLFLUSH instruction                    = true
+      DS: debug store                        = false
+      ACPI: thermal monitor and clock ctrl   = false
+      MMX Technology                         = true
+      FXSAVE/FXRSTOR                         = true
+      SSE extensions                         = true
+      SSE2 extensions                        = true
+      SS: self snoop                         = true
+      hyper-threading / multi-core supported = true
+      TM: therm. monitor                     = false
+      IA64                                   = false
+      PBE: pending break event               = false
+   feature information (1/ecx):
+      PNI/SSE3: Prescott New Instructions     = true
+      PCLMULDQ instruction                    = true
+      DTES64: 64-bit debug store              = false
+      MONITOR/MWAIT                           = false
+      CPL-qualified debug store               = false
+      VMX: virtual machine extensions         = true
+      SMX: safer mode extensions              = false
+      Enhanced Intel SpeedStep Technology     = false
+      TM2: thermal monitor 2                  = false
+      SSSE3 extensions                        = true
+      context ID: adaptive or shared L1 data  = false
+      SDBG: IA32_DEBUG_INTERFACE              = false
+      FMA instruction                         = true
+      CMPXCHG16B instruction                  = true
+      xTPR disable                            = false
+      PDCM: perfmon and debug                 = false
+      PCID: process context identifiers       = true
+      DCA: direct cache access                = false
+      SSE4.1 extensions                       = true
+      SSE4.2 extensions                       = true
+      x2APIC: extended xAPIC support          = false
+      MOVBE instruction                       = true
+      POPCNT instruction                      = true
+      time stamp counter deadline             = false
+      AES instruction                         = true
+      XSAVE/XSTOR states                      = true
+      OS-enabled XSAVE/XSTOR                  = true
+      AVX: advanced vector extensions         = true
+      F16C half-precision convert instruction = true
+      RDRAND instruction                      = true
+      hypervisor guest status                 = true
+   cache and TLB information (2):
+      0x63: data TLB: 2M/4M pages, 4-way, 32 entries
+            data TLB: 1G pages, 4-way, 4 entries
+      0x03: data TLB: 4K pages, 4-way, 64 entries
+      0x76: instruction TLB: 2M/4M pages, fully, 8 entries
+      0xff: cache data is in CPUID leaf 4
+      0xb5: instruction TLB: 4K, 8-way, 64 entries
+      0xf0: 64 byte prefetching
+      0xc3: L2 TLB: 4K/2M pages, 6-way, 1536 entries
+   processor serial number = 0004-06F1-0000-0000-0000-0000
+   deterministic cache parameters (4):
+      --- cache 0 ---
+      cache type                         = data cache (1)
+      cache level                        = 0x1 (1)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x8 (8)
+      number of sets                     = 0x40 (64)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = false
+      complex cache indexing             = false
+      number of sets (s)                 = 64
+      (size synth)                       = 32768 (32 KB)
+      --- cache 1 ---
+      cache type                         = instruction cache (2)
+      cache level                        = 0x1 (1)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x8 (8)
+      number of sets                     = 0x40 (64)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = false
+      complex cache indexing             = false
+      number of sets (s)                 = 64
+      (size synth)                       = 32768 (32 KB)
+      --- cache 2 ---
+      cache type                         = unified cache (3)
+      cache level                        = 0x2 (2)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x8 (8)
+      number of sets                     = 0x200 (512)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = false
+      complex cache indexing             = false
+      number of sets (s)                 = 512
+      (size synth)                       = 262144 (256 KB)
+      --- cache 3 ---
+      cache type                         = unified cache (3)
+      cache level                        = 0x3 (3)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x14 (20)
+      number of sets                     = 0xa000 (40960)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = true
+      complex cache indexing             = false
+      number of sets (s)                 = 40960
+      (size synth)                       = 52428800 (50 MB)
+      --- cache 4 ---
+      cache type                         = no more caches (0)
+   MONITOR/MWAIT (5):
+      smallest monitor-line size (bytes)       = 0x0 (0)
+      largest monitor-line size (bytes)        = 0x0 (0)
+      enum of Monitor-MWAIT exts supported     = false
+      supports intrs as break-event for MWAIT  = false
+      number of C0 sub C-states using MWAIT    = 0x0 (0)
+      number of C1 sub C-states using MWAIT    = 0x0 (0)
+      number of C2 sub C-states using MWAIT    = 0x0 (0)
+      number of C3 sub C-states using MWAIT    = 0x0 (0)
+      number of C4 sub C-states using MWAIT    = 0x0 (0)
+      number of C5 sub C-states using MWAIT    = 0x0 (0)
+      number of C6 sub C-states using MWAIT    = 0x0 (0)
+      number of C7 sub C-states using MWAIT    = 0x0 (0)
+   Thermal and Power Management Features (6):
+      digital thermometer                     = false
+      Intel Turbo Boost Technology            = false
+      ARAT always running APIC timer          = false
+      PLN power limit notification            = false
+      ECMD extended clock modulation duty     = false
+      PTM package thermal management          = false
+      HWP base registers                      = false
+      HWP notification                        = false
+      HWP activity window                     = false
+      HWP energy performance preference       = false
+      HWP package level request               = false
+      HDC base registers                      = false
+      Intel Turbo Boost Max Technology 3.0    = false
+      HWP capabilities                        = false
+      HWP PECI override                       = false
+      flexible HWP                            = false
+      IA32_HWP_REQUEST MSR fast access mode   = false
+      HW_FEEDBACK MSRs supported              = false
+      ignoring idle logical processor HWP req = false
+      enhanced hardware feedback interface    = false
+      digital thermometer thresholds          = 0x0 (0)
+      hardware coordination feedback          = false
+      ACNT2 available                         = false
+      performance-energy bias capability      = false
+      number of enh hardware feedback classes = 0x0 (0)
+      performance capability reporting        = false
+      energy efficiency capability reporting  = false
+      size of feedback struct (4KB pages)     = 0x1 (1)
+      index of CPU's row in feedback struct   = 0x0 (0)
+   extended feature flags (7):
+      FSGSBASE instructions                    = true
+      IA32_TSC_ADJUST MSR supported            = false
+      SGX: Software Guard Extensions supported = false
+      BMI1 instructions                        = true
+      HLE hardware lock elision                = true
+      AVX2: advanced vector extensions 2       = true
+      FDP_EXCPTN_ONLY                          = false
+      SMEP supervisor mode exec protection     = true
+      BMI2 instructions                        = true
+      enhanced REP MOVSB/STOSB                 = true
+      INVPCID instruction                      = true
+      RTM: restricted transactional memory     = true
+      RDT-CMT/PQoS cache monitoring            = false
+      deprecated FPU CS/DS                     = true
+      MPX: intel memory protection extensions  = false
+      RDT-CAT/PQE cache allocation             = false
+      AVX512F: AVX-512 foundation instructions = false
+      AVX512DQ: double & quadword instructions = false
+      RDSEED instruction                       = true
+      ADX instructions                         = true
+      SMAP: supervisor mode access prevention  = true
+      AVX512IFMA: fused multiply add           = false
+      PCOMMIT instruction                      = false
+      CLFLUSHOPT instruction                   = false
+      CLWB instruction                         = false
+      Intel processor trace                    = false
+      AVX512PF: prefetch instructions          = false
+      AVX512ER: exponent & reciprocal instrs   = false
+      AVX512CD: conflict detection instrs      = false
+      SHA instructions                         = false
+      AVX512BW: byte & word instructions       = false
+      AVX512VL: vector length                  = false
+      PREFETCHWT1                              = false
+      AVX512VBMI: vector byte manipulation     = false
+      UMIP: user-mode instruction prevention   = false
+      PKU protection keys for user-mode        = false
+      OSPKE CR4.PKE and RDPKRU/WRPKRU          = false
+      WAITPKG instructions                     = false
+      AVX512_VBMI2: byte VPCOMPRESS, VPEXPAND  = false
+      CET_SS: CET shadow stack                 = false
+      GFNI: Galois Field New Instructions      = false
+      VAES instructions                        = false
+      VPCLMULQDQ instruction                   = false
+      AVX512_VNNI: neural network instructions = false
+      AVX512_BITALG: bit count/shiffle         = false
+      TME: Total Memory Encryption             = false
+      AVX512: VPOPCNTDQ instruction            = false
+      LA57: 57-bit addrs & 5-level paging      = false
+      BNDLDX/BNDSTX MAWAU value in 64-bit mode = 0x0 (0)
+      RDPID: read processor D supported        = false
+      KL: key locker                           = false
+      bus lock detection                       = false
+      CLDEMOTE supports cache line demote      = false
+      MOVDIRI instruction                      = false
+      MOVDIR64B instruction                    = false
+      ENQCMD instruction                       = false
+      SGX_LC: SGX launch config supported      = false
+      PKS: supervisor protection keys          = false
+      AVX512_4VNNIW: neural network instrs     = false
+      AVX512_4FMAPS: multiply acc single prec  = false
+      fast short REP MOV                       = false
+      UINTR: user interrupts                   = false
+      AVX512_VP2INTERSECT: intersect mask regs = false
+      SRBDS mitigation MSR available           = false
+      VERW MD_CLEAR microcode support          = true
+      RTM transaction always aborts            = false
+      TSX_FORCE_ABORT                          = false
+      SERIALIZE instruction                    = false
+      hybrid part                              = false
+      TSXLDTRK: TSX suspend load addr tracking = false
+      PCONFIG instruction                      = false
+      LBR: architectural last branch records   = false
+      CET_IBT: CET indirect branch tracking    = false
+      AMX-BF16: tile bfloat16 support          = false
+      AVX512_FP16: fp16 support                = false
+      AMX-TILE: tile architecture support      = false
+      AMX-INT8: tile 8-bit integer support     = false
+      IBRS/IBPB: indirect branch restrictions  = false
+      STIBP: 1 thr indirect branch predictor   = false
+      L1D_FLUSH: IA32_FLUSH_CMD MSR            = false
+      IA32_ARCH_CAPABILITIES MSR               = false
+      IA32_CORE_CAPABILITIES MSR               = false
+      SSBD: speculative store bypass disable   = false
+   Direct Cache Access Parameters (9):
+      PLATFORM_DCA_CAP MSR bits = 0
+   Architecture Performance Monitoring Features (0xa):
+      version ID                               = 0x0 (0)
+      number of counters per logical processor = 0x0 (0)
+      bit width of counter                     = 0x0 (0)
+      length of EBX bit vector                 = 0x0 (0)
+      core cycle event                         = not available
+      instruction retired event                = not available
+      reference cycles event                   = not available
+      last-level cache ref event               = not available
+      last-level cache miss event              = not available
+      branch inst retired event                = not available
+      branch mispred retired event             = not available
+      top-down slots event                     = not available
+      fixed counter  0 supported               = false
+      fixed counter  1 supported               = false
+      fixed counter  2 supported               = false
+      fixed counter  3 supported               = false
+      fixed counter  4 supported               = false
+      fixed counter  5 supported               = false
+      fixed counter  6 supported               = false
+      fixed counter  7 supported               = false
+      fixed counter  8 supported               = false
+      fixed counter  9 supported               = false
+      fixed counter 10 supported               = false
+      fixed counter 11 supported               = false
+      fixed counter 12 supported               = false
+      fixed counter 13 supported               = false
+      fixed counter 14 supported               = false
+      fixed counter 15 supported               = false
+      fixed counter 16 supported               = false
+      fixed counter 17 supported               = false
+      fixed counter 18 supported               = false
+      fixed counter 19 supported               = false
+      fixed counter 20 supported               = false
+      fixed counter 21 supported               = false
+      fixed counter 22 supported               = false
+      fixed counter 23 supported               = false
+      fixed counter 24 supported               = false
+      fixed counter 25 supported               = false
+      fixed counter 26 supported               = false
+      fixed counter 27 supported               = false
+      fixed counter 28 supported               = false
+      fixed counter 29 supported               = false
+      fixed counter 30 supported               = false
+      fixed counter 31 supported               = false
+      number of contiguous fixed counters      = 0x0 (0)
+      bit width of fixed counters              = 0x0 (0)
+      anythread deprecation                    = false
+   x2APIC features / processor topology (0xb):
+      extended APIC ID                      = 0
+      --- level 0 ---
+      level number                          = 0x0 (0)
+      level type                            = thread (1)
+      bit width of level                    = 0x1 (1)
+      number of logical processors at level = 0x2 (2)
+      --- level 1 ---
+      level number                          = 0x1 (1)
+      level type                            = core (2)
+      bit width of level                    = 0x1 (1)
+      number of logical processors at level = 0x2 (2)
+      --- level 2 ---
+      level number                          = 0x2 (2)
+      level type                            = invalid (0)
+      bit width of level                    = 0x0 (0)
+      number of logical processors at level = 0x0 (0)
+   XSAVE features (0xd/0):
+      XCR0 valid bit field mask               = 0x0000000000000007
+         XCR0 supported: x87 state            = true
+         XCR0 supported: SSE state            = true
+         XCR0 supported: AVX state            = true
+         XCR0 supported: MPX BNDREGS          = false
+         XCR0 supported: MPX BNDCSR           = false
+         XCR0 supported: AVX-512 opmask       = false
+         XCR0 supported: AVX-512 ZMM_Hi256    = false
+         XCR0 supported: AVX-512 Hi16_ZMM     = false
+         IA32_XSS supported: PT state         = false
+         XCR0 supported: PKRU state           = false
+         XCR0 supported: CET_U state          = false
+         XCR0 supported: CET_S state          = false
+         IA32_XSS supported: HDC state        = false
+         IA32_XSS supported: UINTR state      = false
+         LBR supported                        = false
+         IA32_XSS supported: HWP state        = false
+         XTILECFG supported                   = false
+         XTILEDATA supported                  = false
+      bytes required by fields in XCR0        = 0x00000340 (832)
+      bytes required by XSAVE/XRSTOR area     = 0x00000340 (832)
+   XSAVE features (0xd/1):
+      XSAVEOPT instruction                        = true
+      XSAVEC instruction                          = false
+      XGETBV instruction                          = false
+      XSAVES/XRSTORS instructions                 = false
+      XFD: extended feature disable supported     = false
+      SAVE area size in bytes                     = 0x00000000 (0)
+      IA32_XSS lower 32 bits valid bit field mask = 0x00000000
+      IA32_XSS upper 32 bits valid bit field mask = 0x00000000
+   AVX/YMM features (0xd/2):
+      AVX/YMM save state byte size             = 0x00000100 (256)
+      AVX/YMM save state byte offset           = 0x00000240 (576)
+      supported in IA32_XSS or XCR0            = XCR0 (user state)
+      64-byte alignment in compacted XSAVE     = false
+      XFD faulting supported                   = false
+   Quality of Service Monitoring Resource Type (0xf/0):
+      Maximum range of RMID = 0
+      supports L3 cache QoS monitoring = false
+   Resource Director Technology Allocation (0x10/0):
+      L3 cache allocation technology supported = false
+      L2 cache allocation technology supported = false
+      memory bandwidth allocation supported    = false
+   0x00000011 0x00: eax=0x00000000 ebx=0x00000000 ecx=0x00000000 edx=0x00000000
+   Software Guard Extensions (SGX) capability (0x12/0):
+      SGX1 supported                           = false
+      SGX2 supported                           = false
+      SGX ENCLV E*VIRTCHILD, ESETCONTEXT       = false
+      SGX ENCLS ETRACKC, ERDINFO, ELDBC, ELDUC = false
+      MISCSELECT.EXINFO supported: #PF & #GP   = false
+      MISCSELECT.CPINFO supported: #CP         = false
+      MaxEnclaveSize_Not64 (log2)              = 0x0 (0)
+      MaxEnclaveSize_64 (log2)                 = 0x0 (0)
+   SGX attributes: ECREATE SECS.ATTRIBUTES (0x12/1):
+      valid bit mask = 0x00000000000000000000000000000000
+      enclave initialized by EINIT           = false
+      enclave debugger read/write permission = false
+      enclave 64-bit mode                    = false
+      provisioning key available             = false
+      EINIT token key available              = false
+      CET attributes enabled                 = false
+      KSS key separation & sharing enabled   = false
+      XFRM: XSAVE feature request mask       = 0x0000000000000000
+         XCR0 supported: x87 state           = false
+         XCR0 supported: SSE state           = false
+         XCR0 supported: AVX state           = false
+         XCR0 supported: MPX BNDREGS         = false
+         XCR0 supported: MPX BNDCSR          = false
+         XCR0 supported: AVX-512 opmask      = false
+         XCR0 supported: AVX-512 ZMM_Hi256   = false
+         XCR0 supported: AVX-512 Hi16_ZMM    = false
+         IA32_XSS supported: PT state        = false
+         XCR0 supported: PKRU state          = false
+         XCR0 supported: CET_U state         = false
+         XCR0 supported: CET_S state         = false
+         IA32_XSS supported: HDC state       = false
+         IA32_XSS supported: UINTR state     = false
+         LBR supported                       = false
+         IA32_XSS supported: HWP state       = false
+         XTILECFG supported                  = false
+         XTILEDATA supported                 = false
+   SGX Enclave Page Cache (EPC) enumeration (0x12/0x2):
+      type = invalid
+   0x00000013 0x00: eax=0x00000000 ebx=0x00000000 ecx=0x00000000 edx=0x00000000
+   Intel Processor Trace (0x14):
+      IA32_RTIT_CR3_MATCH is accessible      = false
+      configurable PSB & cycle-accurate      = false
+      IP & TraceStop filtering; PT preserve  = false
+      MTC timing packet; suppress COFI-based = false
+      PTWRITE support                        = false
+      power event trace support              = false
+      PSB/PMI preservation support           = false
+      ToPA output scheme support             = false
+      ToPA can hold many output entries      = false
+      single-range output scheme support     = false
+      output to trace transport              = false
+      IP payloads have LIP values & CS       = false
+   hypervisor_id (0x40000000) = "Microsoft Hv"
+   hypervisor interface identification (0x40000001/eax):
+      version = "Hv#1"
+   hypervisor system identity (0x40000002):
+      build          = 20348
+      version        = 10.0
+      service pack   = 1
+      service branch = 0
+      service number = 1633
+   hypervisor feature identification (0x40000003/eax):
+      VP run time                      = true
+      partition reference counter      = true
+      basic synIC MSRs                 = true
+      synthetic timer MSRs             = true
+      APIC access MSRs                 = true
+      hypercall MSRs                   = true
+      access virtual process index MSR = true
+      virtual system reset MSR         = false
+      map/unmap statistics pages MSR   = false
+      reference TSC access             = true
+      guest idle state MSR             = true
+      TSC/APIC frequency MSRs          = true
+      guest debugging MSRs             = false
+      reenlightenment MSRs             = true
+      invariant TSC MSR                = false
+   hypervisor partition creation flags (0x40000003/ebx):
+      CreatePartitions         = false
+      AccessPartitionId        = false
+      AccessMemoryPool         = false
+      AdjustMessageBuffers     = false
+      PostMessages             = true
+      SignalEvents             = true
+      CreatePort               = false
+      ConnectPort              = false
+      AccessStats              = false
+      Debugging                = false
+      CPUManagement            = false
+      ConfigureProfiler        = false
+      AccessVSM                = true
+      AccessVpRegisters        = true
+      EnableExtendedHypercalls = true
+      StartVirtualProcessor    = true
+   hypervisor power management features (0x40000003/ecx):
+      maximum process power state = 0x2 (2)
+   hypervisor feature identification (0x40000003/edx):
+      MWAIT available                          = false
+      guest debugging support available        = true
+      performance monitor support available    = false
+      CPU dynamic partitioning events avail    = false
+      hypercall XMM input parameters available = true
+      virtual guest idle state available       = true
+      hypervisor sleep state available         = false
+      query NUMA distance available            = true
+      determine timer frequency available      = true
+      inject synthetic machine check available = true
+      guest crash MSRs available               = true
+      debug MSRs available                     = false
+      NPIEP available                          = true
+      disable hypervisor available             = false
+      extended gva ranges for flush virt addrs = true
+      hypercall XMM register return available  = true
+      sint polling mode available              = true
+      hypercall MSR lock available             = true
+      use direct synthetic timers              = true
+      VSM PAT register available               = false
+      VSM bndcfgs register available           = false
+      synthetic time unhalted timer available  = false
+      Intel LBR: last branch records supported = false
+   hypervisor recommendations (0x40000004/eax):
+      use hypercalls for AS switches        = false
+      use hypercalls for local TLB flushes  = false
+      use hypercalls for remote TLB flushes = true
+      use MSRs to access EOI, ICR, TPR      = false
+      use MSRs to initiate system RESET     = false
+      use relaxed timing                    = true
+      use DMA remapping                     = false
+      use interrupt remapping               = false
+      use x2APIC MSRs                       = false
+      deprecate AutoEOI                     = true
+      use SyntheticClusterIpi hypercall     = true
+      use ExProcessorMasks                  = true
+      hypervisor is nested with Hyper-V     = false
+      use INT for MBEC system calls         = true
+      use enlightened VMCS interface        = true
+      maximum number of spinlock retry attempts = 0xfff (4095)
+   hypervisor implementation limits (0x40000005):
+      maximum number of virtual processors                       = 0xf0 (240)
+      maximum number of logical processors                       = 0x400 (1024)
+      maximum number of physical interrupt vectors for remapping = 0x3a20 (14880)
+   hypervisor hardware features used (0x40000006/eax):
+      APIC overlay assist              = true
+      MSR bitmaps                      = true
+      performance counters             = true
+      second-level address translation = true
+      DMA remapping                    = false
+      interrupt remapping              = false
+      memory patrol scrubber           = false
+      DMA protection                   = false
+      HPET requested                   = false
+      synthetic timers are volatile    = false
+   hypervisor root partition enlightenments (0x40000007):
+      StartLogicalProcessor      = false
+      CreateRootvirtualProcessor = false
+      PerformanceCounterSync     = false
+      ProcessorPowerManagement   = false
+      MwaitIdleStates            = false
+      LogicalProcessorIdling     = false
+      RemapGuestUncached         = false
+   hypervisor shared virtual memory (0x40000008):
+      SvmSupported            = false
+      MaxPasidSpacePasidCount = 0x0 (0)
+   hypervisor nested hypervisor features (0x40000009):
+      AccessSynicRegs               = false
+      AccessIntrCtrlRegs            = false
+      AccessHypercallMsrs           = false
+      AccessVpIndex                 = false
+      AccessReenlightenmentControls = false
+      XmmRegistersForFastHypercallAvailable = false
+      FastHypercallOutputAvailable          = false
+      SintPoillingModeAvailable             = false
+   hypervisor nested virtualization features (0x4000000a):
+      enlightened VMCS version (low)          = 0x1 (1)
+      enlightened VMCS version (high)         = 0x1 (1)
+      direct virtual flush hypercalls support = true
+      HvFlushGuestPhysicalAddress* hypercalls = true
+      enlightened MSR bitmap support          = true
+      page fault combining virtual exceptions = false
+   hypervisor_id (0x40000100) = "\0\0\0\0\0\0\0\0\0\0\0\0"
+   extended feature flags (0x80000001/edx):
+      SYSCALL and SYSRET instructions        = true
+      execution disable                      = true
+      1-GB large page support                = true
+      RDTSCP                                 = true
+      64-bit extensions technology available = true
+   Intel feature flags (0x80000001/ecx):
+      LAHF/SAHF supported in 64-bit mode     = true
+      LZCNT advanced bit manipulation        = true
+      3DNow! PREFETCH/PREFETCHW instructions = true
+   brand = "Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz"
+   L1 TLB/cache information: 2M/4M pages & L1 TLB (0x80000005/eax):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = 0x0 (0)
+      data # entries            = 0x0 (0)
+      data associativity        = 0x0 (0)
+   L1 TLB/cache information: 4K pages & L1 TLB (0x80000005/ebx):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = 0x0 (0)
+      data # entries            = 0x0 (0)
+      data associativity        = 0x0 (0)
+   L1 data cache information (0x80000005/ecx):
+      line size (bytes) = 0x0 (0)
+      lines per tag     = 0x0 (0)
+      associativity     = 0x0 (0)
+      size (KB)         = 0x0 (0)
+   L1 instruction cache information (0x80000005/edx):
+      line size (bytes) = 0x0 (0)
+      lines per tag     = 0x0 (0)
+      associativity     = 0x0 (0)
+      size (KB)         = 0x0 (0)
+   L2 TLB/cache information: 2M/4M pages & L2 TLB (0x80000006/eax):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = L2 off (0)
+      data # entries            = 0x0 (0)
+      data associativity        = L2 off (0)
+   L2 TLB/cache information: 4K pages & L2 TLB (0x80000006/ebx):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = L2 off (0)
+      data # entries            = 0x0 (0)
+      data associativity        = L2 off (0)
+   L2 unified cache information (0x80000006/ecx):
+      line size (bytes) = 0x40 (64)
+      lines per tag     = 0x0 (0)
+      associativity     = 8-way (6)
+      size (KB)         = 0x100 (256)
+   L3 cache information (0x80000006/edx):
+      line size (bytes)     = 0x0 (0)
+      lines per tag         = 0x0 (0)
+      associativity         = L2 off (0)
+      size (in 512KB units) = 0x0 (0)
+   RAS Capability (0x80000007/ebx):
+      MCA overflow recovery support = false
+      SUCCOR support                = false
+      HWA: hardware assert support  = false
+      scalable MCA support          = false
+   Advanced Power Management Features (0x80000007/ecx):
+      CmpUnitPwrSampleTimeRatio = 0x0 (0)
+   Advanced Power Management Features (0x80000007/edx):
+      TS: temperature sensing diode           = false
+      FID: frequency ID control               = false
+      VID: voltage ID control                 = false
+      TTP: thermal trip                       = false
+      TM: thermal monitor                     = false
+      STC: software thermal control           = false
+      100 MHz multiplier control              = false
+      hardware P-State control                = false
+      TscInvariant                            = false
+      CPB: core performance boost             = false
+      read-only effective frequency interface = false
+      processor feedback interface            = false
+      APM power reporting                     = false
+      connected standby                       = false
+      RAPL: running average power limit       = false
+   Physical Address and Linear Address Size (0x80000008/eax):
+      maximum physical address bits         = 0x2e (46)
+      maximum linear (virtual) address bits = 0x30 (48)
+      maximum guest physical address bits   = 0x0 (0)
+   Extended Feature Extensions ID (0x80000008/ebx):
+      CLZERO instruction                       = false
+      instructions retired count support       = false
+      always save/restore error pointers       = false
+      INVLPGB instruction                      = false
+      RDPRU instruction                        = false
+      memory bandwidth enforcement             = false
+      MCOMMIT instruction                      = false
+      WBNOINVD instruction                     = false
+      IBPB: indirect branch prediction barrier = false
+      interruptible WBINVD, WBNOINVD           = false
+      IBRS: indirect branch restr speculation  = false
+      STIBP: 1 thr indirect branch predictor   = false
+      CPU prefers: IBRS always on              = false
+      CPU prefers: STIBP always on             = false
+      IBRS preferred over software solution    = false
+      IBRS provides same mode protection       = false
+      EFER[LMSLE] not supported                = false
+      INVLPGB supports TLB flush guest nested  = false
+      ppin processor id number supported       = false
+      SSBD: speculative store bypass disable   = false
+      virtualized SSBD                         = false
+      SSBD fixed in hardware                   = false
+      CPPC: collaborative processor perf ctrl  = false
+      PSFD: predictive store forward disable   = false
+      branch sampling feature support          = false
+   Size Identifiers (0x80000008/ecx):
+      number of CPU cores                 = 0x1 (1)
+      ApicIdCoreIdSize                    = 0x0 (0)
+      performance time-stamp counter size = 40 bits (0)
+   Feature Extended Size (0x80000008/edx):
+      max page count for INVLPGB instruction = 0x0 (0)
+      RDPRU instruction max input support    = 0x0 (0)
+   (multi-processing synth) = hyper-threaded (t=2)
+   (multi-processing method) = Intel leaf 0xb
+   (APIC widths synth): CORE_width=1 SMT_width=1
+   (APIC synth): PKG_ID=0 CORE_ID=0 SMT_ID=0
+   (uarch synth) = Intel Broadwell {Haswell}, 14nm
+   (synth) = Intel Xeon E5-1600 / E5-2600 / E5-4600 v4 (Broadwell-E) / E7-4800 / E7-8800 v4 (Broadwell-EX B0) {Haswell}, 14nm
+CPU 1:
+   vendor_id = "GenuineIntel"
+   version information (1/eax):
+      processor type  = primary processor (0)
+      family          = 0x6 (6)
+      model           = 0xf (15)
+      stepping id     = 0x1 (1)
+      extended family = 0x0 (0)
+      extended model  = 0x4 (4)
+      (family synth)  = 0x6 (6)
+      (model synth)   = 0x4f (79)
+      (simple synth)  = Intel Core (unknown type) (Broadwell-E / Broadwell-EX) {Haswell}, 14nm
+   miscellaneous (1/ebx):
+      process local APIC physical ID = 0x1 (1)
+      maximum IDs for CPUs in pkg    = 0x2 (2)
+      CLFLUSH line size              = 0x8 (8)
+      brand index                    = 0x0 (0)
+   brand id = 0x00 (0): unknown
+   feature information (1/edx):
+      x87 FPU on chip                        = true
+      VME: virtual-8086 mode enhancement     = true
+      DE: debugging extensions               = true
+      PSE: page size extensions              = true
+      TSC: time stamp counter                = true
+      RDMSR and WRMSR support                = true
+      PAE: physical address extensions       = true
+      MCE: machine check exception           = true
+      CMPXCHG8B inst.                        = true
+      APIC on chip                           = true
+      SYSENTER and SYSEXIT                   = true
+      MTRR: memory type range registers      = true
+      PTE global bit                         = true
+      MCA: machine check architecture        = true
+      CMOV: conditional move/compare instr   = true
+      PAT: page attribute table              = true
+      PSE-36: page size extension            = true
+      PSN: processor serial number           = false
+      CLFLUSH instruction                    = true
+      DS: debug store                        = false
+      ACPI: thermal monitor and clock ctrl   = false
+      MMX Technology                         = true
+      FXSAVE/FXRSTOR                         = true
+      SSE extensions                         = true
+      SSE2 extensions                        = true
+      SS: self snoop                         = true
+      hyper-threading / multi-core supported = true
+      TM: therm. monitor                     = false
+      IA64                                   = false
+      PBE: pending break event               = false
+   feature information (1/ecx):
+      PNI/SSE3: Prescott New Instructions     = true
+      PCLMULDQ instruction                    = true
+      DTES64: 64-bit debug store              = false
+      MONITOR/MWAIT                           = false
+      CPL-qualified debug store               = false
+      VMX: virtual machine extensions         = true
+      SMX: safer mode extensions              = false
+      Enhanced Intel SpeedStep Technology     = false
+      TM2: thermal monitor 2                  = false
+      SSSE3 extensions                        = true
+      context ID: adaptive or shared L1 data  = false
+      SDBG: IA32_DEBUG_INTERFACE              = false
+      FMA instruction                         = true
+      CMPXCHG16B instruction                  = true
+      xTPR disable                            = false
+      PDCM: perfmon and debug                 = false
+      PCID: process context identifiers       = true
+      DCA: direct cache access                = false
+      SSE4.1 extensions                       = true
+      SSE4.2 extensions                       = true
+      x2APIC: extended xAPIC support          = false
+      MOVBE instruction                       = true
+      POPCNT instruction                      = true
+      time stamp counter deadline             = false
+      AES instruction                         = true
+      XSAVE/XSTOR states                      = true
+      OS-enabled XSAVE/XSTOR                  = true
+      AVX: advanced vector extensions         = true
+      F16C half-precision convert instruction = true
+      RDRAND instruction                      = true
+      hypervisor guest status                 = true
+   cache and TLB information (2):
+      0x63: data TLB: 2M/4M pages, 4-way, 32 entries
+            data TLB: 1G pages, 4-way, 4 entries
+      0x03: data TLB: 4K pages, 4-way, 64 entries
+      0x76: instruction TLB: 2M/4M pages, fully, 8 entries
+      0xff: cache data is in CPUID leaf 4
+      0xb5: instruction TLB: 4K, 8-way, 64 entries
+      0xf0: 64 byte prefetching
+      0xc3: L2 TLB: 4K/2M pages, 6-way, 1536 entries
+   processor serial number = 0004-06F1-0000-0000-0000-0000
+   deterministic cache parameters (4):
+      --- cache 0 ---
+      cache type                         = data cache (1)
+      cache level                        = 0x1 (1)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x8 (8)
+      number of sets                     = 0x40 (64)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = false
+      complex cache indexing             = false
+      number of sets (s)                 = 64
+      (size synth)                       = 32768 (32 KB)
+      --- cache 1 ---
+      cache type                         = instruction cache (2)
+      cache level                        = 0x1 (1)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x8 (8)
+      number of sets                     = 0x40 (64)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = false
+      complex cache indexing             = false
+      number of sets (s)                 = 64
+      (size synth)                       = 32768 (32 KB)
+      --- cache 2 ---
+      cache type                         = unified cache (3)
+      cache level                        = 0x2 (2)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x8 (8)
+      number of sets                     = 0x200 (512)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = false
+      complex cache indexing             = false
+      number of sets (s)                 = 512
+      (size synth)                       = 262144 (256 KB)
+      --- cache 3 ---
+      cache type                         = unified cache (3)
+      cache level                        = 0x3 (3)
+      self-initializing cache level      = true
+      fully associative cache            = false
+      maximum IDs for CPUs sharing cache = 0x1 (1)
+      maximum IDs for cores in pkg       = 0x0 (0)
+      system coherency line size         = 0x40 (64)
+      physical line partitions           = 0x1 (1)
+      ways of associativity              = 0x14 (20)
+      number of sets                     = 0xa000 (40960)
+      WBINVD/INVD acts on lower caches   = false
+      inclusive to lower caches          = true
+      complex cache indexing             = false
+      number of sets (s)                 = 40960
+      (size synth)                       = 52428800 (50 MB)
+      --- cache 4 ---
+      cache type                         = no more caches (0)
+   MONITOR/MWAIT (5):
+      smallest monitor-line size (bytes)       = 0x0 (0)
+      largest monitor-line size (bytes)        = 0x0 (0)
+      enum of Monitor-MWAIT exts supported     = false
+      supports intrs as break-event for MWAIT  = false
+      number of C0 sub C-states using MWAIT    = 0x0 (0)
+      number of C1 sub C-states using MWAIT    = 0x0 (0)
+      number of C2 sub C-states using MWAIT    = 0x0 (0)
+      number of C3 sub C-states using MWAIT    = 0x0 (0)
+      number of C4 sub C-states using MWAIT    = 0x0 (0)
+      number of C5 sub C-states using MWAIT    = 0x0 (0)
+      number of C6 sub C-states using MWAIT    = 0x0 (0)
+      number of C7 sub C-states using MWAIT    = 0x0 (0)
+   Thermal and Power Management Features (6):
+      digital thermometer                     = false
+      Intel Turbo Boost Technology            = false
+      ARAT always running APIC timer          = false
+      PLN power limit notification            = false
+      ECMD extended clock modulation duty     = false
+      PTM package thermal management          = false
+      HWP base registers                      = false
+      HWP notification                        = false
+      HWP activity window                     = false
+      HWP energy performance preference       = false
+      HWP package level request               = false
+      HDC base registers                      = false
+      Intel Turbo Boost Max Technology 3.0    = false
+      HWP capabilities                        = false
+      HWP PECI override                       = false
+      flexible HWP                            = false
+      IA32_HWP_REQUEST MSR fast access mode   = false
+      HW_FEEDBACK MSRs supported              = false
+      ignoring idle logical processor HWP req = false
+      enhanced hardware feedback interface    = false
+      digital thermometer thresholds          = 0x0 (0)
+      hardware coordination feedback          = false
+      ACNT2 available                         = false
+      performance-energy bias capability      = false
+      number of enh hardware feedback classes = 0x0 (0)
+      performance capability reporting        = false
+      energy efficiency capability reporting  = false
+      size of feedback struct (4KB pages)     = 0x1 (1)
+      index of CPU's row in feedback struct   = 0x0 (0)
+   extended feature flags (7):
+      FSGSBASE instructions                    = true
+      IA32_TSC_ADJUST MSR supported            = false
+      SGX: Software Guard Extensions supported = false
+      BMI1 instructions                        = true
+      HLE hardware lock elision                = true
+      AVX2: advanced vector extensions 2       = true
+      FDP_EXCPTN_ONLY                          = false
+      SMEP supervisor mode exec protection     = true
+      BMI2 instructions                        = true
+      enhanced REP MOVSB/STOSB                 = true
+      INVPCID instruction                      = true
+      RTM: restricted transactional memory     = true
+      RDT-CMT/PQoS cache monitoring            = false
+      deprecated FPU CS/DS                     = true
+      MPX: intel memory protection extensions  = false
+      RDT-CAT/PQE cache allocation             = false
+      AVX512F: AVX-512 foundation instructions = false
+      AVX512DQ: double & quadword instructions = false
+      RDSEED instruction                       = true
+      ADX instructions                         = true
+      SMAP: supervisor mode access prevention  = true
+      AVX512IFMA: fused multiply add           = false
+      PCOMMIT instruction                      = false
+      CLFLUSHOPT instruction                   = false
+      CLWB instruction                         = false
+      Intel processor trace                    = false
+      AVX512PF: prefetch instructions          = false
+      AVX512ER: exponent & reciprocal instrs   = false
+      AVX512CD: conflict detection instrs      = false
+      SHA instructions                         = false
+      AVX512BW: byte & word instructions       = false
+      AVX512VL: vector length                  = false
+      PREFETCHWT1                              = false
+      AVX512VBMI: vector byte manipulation     = false
+      UMIP: user-mode instruction prevention   = false
+      PKU protection keys for user-mode        = false
+      OSPKE CR4.PKE and RDPKRU/WRPKRU          = false
+      WAITPKG instructions                     = false
+      AVX512_VBMI2: byte VPCOMPRESS, VPEXPAND  = false
+      CET_SS: CET shadow stack                 = false
+      GFNI: Galois Field New Instructions      = false
+      VAES instructions                        = false
+      VPCLMULQDQ instruction                   = false
+      AVX512_VNNI: neural network instructions = false
+      AVX512_BITALG: bit count/shiffle         = false
+      TME: Total Memory Encryption             = false
+      AVX512: VPOPCNTDQ instruction            = false
+      LA57: 57-bit addrs & 5-level paging      = false
+      BNDLDX/BNDSTX MAWAU value in 64-bit mode = 0x0 (0)
+      RDPID: read processor D supported        = false
+      KL: key locker                           = false
+      bus lock detection                       = false
+      CLDEMOTE supports cache line demote      = false
+      MOVDIRI instruction                      = false
+      MOVDIR64B instruction                    = false
+      ENQCMD instruction                       = false
+      SGX_LC: SGX launch config supported      = false
+      PKS: supervisor protection keys          = false
+      AVX512_4VNNIW: neural network instrs     = false
+      AVX512_4FMAPS: multiply acc single prec  = false
+      fast short REP MOV                       = false
+      UINTR: user interrupts                   = false
+      AVX512_VP2INTERSECT: intersect mask regs = false
+      SRBDS mitigation MSR available           = false
+      VERW MD_CLEAR microcode support          = true
+      RTM transaction always aborts            = false
+      TSX_FORCE_ABORT                          = false
+      SERIALIZE instruction                    = false
+      hybrid part                              = false
+      TSXLDTRK: TSX suspend load addr tracking = false
+      PCONFIG instruction                      = false
+      LBR: architectural last branch records   = false
+      CET_IBT: CET indirect branch tracking    = false
+      AMX-BF16: tile bfloat16 support          = false
+      AVX512_FP16: fp16 support                = false
+      AMX-TILE: tile architecture support      = false
+      AMX-INT8: tile 8-bit integer support     = false
+      IBRS/IBPB: indirect branch restrictions  = false
+      STIBP: 1 thr indirect branch predictor   = false
+      L1D_FLUSH: IA32_FLUSH_CMD MSR            = false
+      IA32_ARCH_CAPABILITIES MSR               = false
+      IA32_CORE_CAPABILITIES MSR               = false
+      SSBD: speculative store bypass disable   = false
+   Direct Cache Access Parameters (9):
+      PLATFORM_DCA_CAP MSR bits = 0
+   Architecture Performance Monitoring Features (0xa):
+      version ID                               = 0x0 (0)
+      number of counters per logical processor = 0x0 (0)
+      bit width of counter                     = 0x0 (0)
+      length of EBX bit vector                 = 0x0 (0)
+      core cycle event                         = not available
+      instruction retired event                = not available
+      reference cycles event                   = not available
+      last-level cache ref event               = not available
+      last-level cache miss event              = not available
+      branch inst retired event                = not available
+      branch mispred retired event             = not available
+      top-down slots event                     = not available
+      fixed counter  0 supported               = false
+      fixed counter  1 supported               = false
+      fixed counter  2 supported               = false
+      fixed counter  3 supported               = false
+      fixed counter  4 supported               = false
+      fixed counter  5 supported               = false
+      fixed counter  6 supported               = false
+      fixed counter  7 supported               = false
+      fixed counter  8 supported               = false
+      fixed counter  9 supported               = false
+      fixed counter 10 supported               = false
+      fixed counter 11 supported               = false
+      fixed counter 12 supported               = false
+      fixed counter 13 supported               = false
+      fixed counter 14 supported               = false
+      fixed counter 15 supported               = false
+      fixed counter 16 supported               = false
+      fixed counter 17 supported               = false
+      fixed counter 18 supported               = false
+      fixed counter 19 supported               = false
+      fixed counter 20 supported               = false
+      fixed counter 21 supported               = false
+      fixed counter 22 supported               = false
+      fixed counter 23 supported               = false
+      fixed counter 24 supported               = false
+      fixed counter 25 supported               = false
+      fixed counter 26 supported               = false
+      fixed counter 27 supported               = false
+      fixed counter 28 supported               = false
+      fixed counter 29 supported               = false
+      fixed counter 30 supported               = false
+      fixed counter 31 supported               = false
+      number of contiguous fixed counters      = 0x0 (0)
+      bit width of fixed counters              = 0x0 (0)
+      anythread deprecation                    = false
+   x2APIC features / processor topology (0xb):
+      extended APIC ID                      = 1
+      --- level 0 ---
+      level number                          = 0x0 (0)
+      level type                            = thread (1)
+      bit width of level                    = 0x1 (1)
+      number of logical processors at level = 0x2 (2)
+      --- level 1 ---
+      level number                          = 0x1 (1)
+      level type                            = core (2)
+      bit width of level                    = 0x1 (1)
+      number of logical processors at level = 0x2 (2)
+      --- level 2 ---
+      level number                          = 0x2 (2)
+      level type                            = invalid (0)
+      bit width of level                    = 0x0 (0)
+      number of logical processors at level = 0x0 (0)
+   XSAVE features (0xd/0):
+      XCR0 valid bit field mask               = 0x0000000000000007
+         XCR0 supported: x87 state            = true
+         XCR0 supported: SSE state            = true
+         XCR0 supported: AVX state            = true
+         XCR0 supported: MPX BNDREGS          = false
+         XCR0 supported: MPX BNDCSR           = false
+         XCR0 supported: AVX-512 opmask       = false
+         XCR0 supported: AVX-512 ZMM_Hi256    = false
+         XCR0 supported: AVX-512 Hi16_ZMM     = false
+         IA32_XSS supported: PT state         = false
+         XCR0 supported: PKRU state           = false
+         XCR0 supported: CET_U state          = false
+         XCR0 supported: CET_S state          = false
+         IA32_XSS supported: HDC state        = false
+         IA32_XSS supported: UINTR state      = false
+         LBR supported                        = false
+         IA32_XSS supported: HWP state        = false
+         XTILECFG supported                   = false
+         XTILEDATA supported                  = false
+      bytes required by fields in XCR0        = 0x00000340 (832)
+      bytes required by XSAVE/XRSTOR area     = 0x00000340 (832)
+   XSAVE features (0xd/1):
+      XSAVEOPT instruction                        = true
+      XSAVEC instruction                          = false
+      XGETBV instruction                          = false
+      XSAVES/XRSTORS instructions                 = false
+      XFD: extended feature disable supported     = false
+      SAVE area size in bytes                     = 0x00000000 (0)
+      IA32_XSS lower 32 bits valid bit field mask = 0x00000000
+      IA32_XSS upper 32 bits valid bit field mask = 0x00000000
+   AVX/YMM features (0xd/2):
+      AVX/YMM save state byte size             = 0x00000100 (256)
+      AVX/YMM save state byte offset           = 0x00000240 (576)
+      supported in IA32_XSS or XCR0            = XCR0 (user state)
+      64-byte alignment in compacted XSAVE     = false
+      XFD faulting supported                   = false
+   Quality of Service Monitoring Resource Type (0xf/0):
+      Maximum range of RMID = 0
+      supports L3 cache QoS monitoring = false
+   Resource Director Technology Allocation (0x10/0):
+      L3 cache allocation technology supported = false
+      L2 cache allocation technology supported = false
+      memory bandwidth allocation supported    = false
+   0x00000011 0x00: eax=0x00000000 ebx=0x00000000 ecx=0x00000000 edx=0x00000000
+   Software Guard Extensions (SGX) capability (0x12/0):
+      SGX1 supported                           = false
+      SGX2 supported                           = false
+      SGX ENCLV E*VIRTCHILD, ESETCONTEXT       = false
+      SGX ENCLS ETRACKC, ERDINFO, ELDBC, ELDUC = false
+      MISCSELECT.EXINFO supported: #PF & #GP   = false
+      MISCSELECT.CPINFO supported: #CP         = false
+      MaxEnclaveSize_Not64 (log2)              = 0x0 (0)
+      MaxEnclaveSize_64 (log2)                 = 0x0 (0)
+   SGX attributes: ECREATE SECS.ATTRIBUTES (0x12/1):
+      valid bit mask = 0x00000000000000000000000000000000
+      enclave initialized by EINIT           = false
+      enclave debugger read/write permission = false
+      enclave 64-bit mode                    = false
+      provisioning key available             = false
+      EINIT token key available              = false
+      CET attributes enabled                 = false
+      KSS key separation & sharing enabled   = false
+      XFRM: XSAVE feature request mask       = 0x0000000000000000
+         XCR0 supported: x87 state           = false
+         XCR0 supported: SSE state           = false
+         XCR0 supported: AVX state           = false
+         XCR0 supported: MPX BNDREGS         = false
+         XCR0 supported: MPX BNDCSR          = false
+         XCR0 supported: AVX-512 opmask      = false
+         XCR0 supported: AVX-512 ZMM_Hi256   = false
+         XCR0 supported: AVX-512 Hi16_ZMM    = false
+         IA32_XSS supported: PT state        = false
+         XCR0 supported: PKRU state          = false
+         XCR0 supported: CET_U state         = false
+         XCR0 supported: CET_S state         = false
+         IA32_XSS supported: HDC state       = false
+         IA32_XSS supported: UINTR state     = false
+         LBR supported                       = false
+         IA32_XSS supported: HWP state       = false
+         XTILECFG supported                  = false
+         XTILEDATA supported                 = false
+   SGX Enclave Page Cache (EPC) enumeration (0x12/0x2):
+      type = invalid
+   0x00000013 0x00: eax=0x00000000 ebx=0x00000000 ecx=0x00000000 edx=0x00000000
+   Intel Processor Trace (0x14):
+      IA32_RTIT_CR3_MATCH is accessible      = false
+      configurable PSB & cycle-accurate      = false
+      IP & TraceStop filtering; PT preserve  = false
+      MTC timing packet; suppress COFI-based = false
+      PTWRITE support                        = false
+      power event trace support              = false
+      PSB/PMI preservation support           = false
+      ToPA output scheme support             = false
+      ToPA can hold many output entries      = false
+      single-range output scheme support     = false
+      output to trace transport              = false
+      IP payloads have LIP values & CS       = false
+   hypervisor_id (0x40000000) = "Microsoft Hv"
+   hypervisor interface identification (0x40000001/eax):
+      version = "Hv#1"
+   hypervisor system identity (0x40000002):
+      build          = 20348
+      version        = 10.0
+      service pack   = 1
+      service branch = 0
+      service number = 1633
+   hypervisor feature identification (0x40000003/eax):
+      VP run time                      = true
+      partition reference counter      = true
+      basic synIC MSRs                 = true
+      synthetic timer MSRs             = true
+      APIC access MSRs                 = true
+      hypercall MSRs                   = true
+      access virtual process index MSR = true
+      virtual system reset MSR         = false
+      map/unmap statistics pages MSR   = false
+      reference TSC access             = true
+      guest idle state MSR             = true
+      TSC/APIC frequency MSRs          = true
+      guest debugging MSRs             = false
+      reenlightenment MSRs             = true
+      invariant TSC MSR                = false
+   hypervisor partition creation flags (0x40000003/ebx):
+      CreatePartitions         = false
+      AccessPartitionId        = false
+      AccessMemoryPool         = false
+      AdjustMessageBuffers     = false
+      PostMessages             = true
+      SignalEvents             = true
+      CreatePort               = false
+      ConnectPort              = false
+      AccessStats              = false
+      Debugging                = false
+      CPUManagement            = false
+      ConfigureProfiler        = false
+      AccessVSM                = true
+      AccessVpRegisters        = true
+      EnableExtendedHypercalls = true
+      StartVirtualProcessor    = true
+   hypervisor power management features (0x40000003/ecx):
+      maximum process power state = 0x2 (2)
+   hypervisor feature identification (0x40000003/edx):
+      MWAIT available                          = false
+      guest debugging support available        = true
+      performance monitor support available    = false
+      CPU dynamic partitioning events avail    = false
+      hypercall XMM input parameters available = true
+      virtual guest idle state available       = true
+      hypervisor sleep state available         = false
+      query NUMA distance available            = true
+      determine timer frequency available      = true
+      inject synthetic machine check available = true
+      guest crash MSRs available               = true
+      debug MSRs available                     = false
+      NPIEP available                          = true
+      disable hypervisor available             = false
+      extended gva ranges for flush virt addrs = true
+      hypercall XMM register return available  = true
+      sint polling mode available              = true
+      hypercall MSR lock available             = true
+      use direct synthetic timers              = true
+      VSM PAT register available               = false
+      VSM bndcfgs register available           = false
+      synthetic time unhalted timer available  = false
+      Intel LBR: last branch records supported = false
+   hypervisor recommendations (0x40000004/eax):
+      use hypercalls for AS switches        = false
+      use hypercalls for local TLB flushes  = false
+      use hypercalls for remote TLB flushes = true
+      use MSRs to access EOI, ICR, TPR      = false
+      use MSRs to initiate system RESET     = false
+      use relaxed timing                    = true
+      use DMA remapping                     = false
+      use interrupt remapping               = false
+      use x2APIC MSRs                       = false
+      deprecate AutoEOI                     = true
+      use SyntheticClusterIpi hypercall     = true
+      use ExProcessorMasks                  = true
+      hypervisor is nested with Hyper-V     = false
+      use INT for MBEC system calls         = true
+      use enlightened VMCS interface        = true
+      maximum number of spinlock retry attempts = 0xfff (4095)
+   hypervisor implementation limits (0x40000005):
+      maximum number of virtual processors                       = 0xf0 (240)
+      maximum number of logical processors                       = 0x400 (1024)
+      maximum number of physical interrupt vectors for remapping = 0x3a20 (14880)
+   hypervisor hardware features used (0x40000006/eax):
+      APIC overlay assist              = true
+      MSR bitmaps                      = true
+      performance counters             = true
+      second-level address translation = true
+      DMA remapping                    = false
+      interrupt remapping              = false
+      memory patrol scrubber           = false
+      DMA protection                   = false
+      HPET requested                   = false
+      synthetic timers are volatile    = false
+   hypervisor root partition enlightenments (0x40000007):
+      StartLogicalProcessor      = false
+      CreateRootvirtualProcessor = false
+      PerformanceCounterSync     = false
+      ProcessorPowerManagement   = false
+      MwaitIdleStates            = false
+      LogicalProcessorIdling     = false
+      RemapGuestUncached         = false
+   hypervisor shared virtual memory (0x40000008):
+      SvmSupported            = false
+      MaxPasidSpacePasidCount = 0x0 (0)
+   hypervisor nested hypervisor features (0x40000009):
+      AccessSynicRegs               = false
+      AccessIntrCtrlRegs            = false
+      AccessHypercallMsrs           = false
+      AccessVpIndex                 = false
+      AccessReenlightenmentControls = false
+      XmmRegistersForFastHypercallAvailable = false
+      FastHypercallOutputAvailable          = false
+      SintPoillingModeAvailable             = false
+   hypervisor nested virtualization features (0x4000000a):
+      enlightened VMCS version (low)          = 0x1 (1)
+      enlightened VMCS version (high)         = 0x1 (1)
+      direct virtual flush hypercalls support = true
+      HvFlushGuestPhysicalAddress* hypercalls = true
+      enlightened MSR bitmap support          = true
+      page fault combining virtual exceptions = false
+   hypervisor_id (0x40000100) = "\0\0\0\0\0\0\0\0\0\0\0\0"
+   extended feature flags (0x80000001/edx):
+      SYSCALL and SYSRET instructions        = true
+      execution disable                      = true
+      1-GB large page support                = true
+      RDTSCP                                 = true
+      64-bit extensions technology available = true
+   Intel feature flags (0x80000001/ecx):
+      LAHF/SAHF supported in 64-bit mode     = true
+      LZCNT advanced bit manipulation        = true
+      3DNow! PREFETCH/PREFETCHW instructions = true
+   brand = "Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz"
+   L1 TLB/cache information: 2M/4M pages & L1 TLB (0x80000005/eax):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = 0x0 (0)
+      data # entries            = 0x0 (0)
+      data associativity        = 0x0 (0)
+   L1 TLB/cache information: 4K pages & L1 TLB (0x80000005/ebx):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = 0x0 (0)
+      data # entries            = 0x0 (0)
+      data associativity        = 0x0 (0)
+   L1 data cache information (0x80000005/ecx):
+      line size (bytes) = 0x0 (0)
+      lines per tag     = 0x0 (0)
+      associativity     = 0x0 (0)
+      size (KB)         = 0x0 (0)
+   L1 instruction cache information (0x80000005/edx):
+      line size (bytes) = 0x0 (0)
+      lines per tag     = 0x0 (0)
+      associativity     = 0x0 (0)
+      size (KB)         = 0x0 (0)
+   L2 TLB/cache information: 2M/4M pages & L2 TLB (0x80000006/eax):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = L2 off (0)
+      data # entries            = 0x0 (0)
+      data associativity        = L2 off (0)
+   L2 TLB/cache information: 4K pages & L2 TLB (0x80000006/ebx):
+      instruction # entries     = 0x0 (0)
+      instruction associativity = L2 off (0)
+      data # entries            = 0x0 (0)
+      data associativity        = L2 off (0)
+   L2 unified cache information (0x80000006/ecx):
+      line size (bytes) = 0x40 (64)
+      lines per tag     = 0x0 (0)
+      associativity     = 8-way (6)
+      size (KB)         = 0x100 (256)
+   L3 cache information (0x80000006/edx):
+      line size (bytes)     = 0x0 (0)
+      lines per tag         = 0x0 (0)
+      associativity         = L2 off (0)
+      size (in 512KB units) = 0x0 (0)
+   RAS Capability (0x80000007/ebx):
+      MCA overflow recovery support = false
+      SUCCOR support                = false
+      HWA: hardware assert support  = false
+      scalable MCA support          = false
+   Advanced Power Management Features (0x80000007/ecx):
+      CmpUnitPwrSampleTimeRatio = 0x0 (0)
+   Advanced Power Management Features (0x80000007/edx):
+      TS: temperature sensing diode           = false
+      FID: frequency ID control               = false
+      VID: voltage ID control                 = false
+      TTP: thermal trip                       = false
+      TM: thermal monitor                     = false
+      STC: software thermal control           = false
+      100 MHz multiplier control              = false
+      hardware P-State control                = false
+      TscInvariant                            = false
+      CPB: core performance boost             = false
+      read-only effective frequency interface = false
+      processor feedback interface            = false
+      APM power reporting                     = false
+      connected standby                       = false
+      RAPL: running average power limit       = false
+   Physical Address and Linear Address Size (0x80000008/eax):
+      maximum physical address bits         = 0x2e (46)
+      maximum linear (virtual) address bits = 0x30 (48)
+      maximum guest physical address bits   = 0x0 (0)
+   Extended Feature Extensions ID (0x80000008/ebx):
+      CLZERO instruction                       = false
+      instructions retired count support       = false
+      always save/restore error pointers       = false
+      INVLPGB instruction                      = false
+      RDPRU instruction                        = false
+      memory bandwidth enforcement             = false
+      MCOMMIT instruction                      = false
+      WBNOINVD instruction                     = false
+      IBPB: indirect branch prediction barrier = false
+      interruptible WBINVD, WBNOINVD           = false
+      IBRS: indirect branch restr speculation  = false
+      STIBP: 1 thr indirect branch predictor   = false
+      CPU prefers: IBRS always on              = false
+      CPU prefers: STIBP always on             = false
+      IBRS preferred over software solution    = false
+      IBRS provides same mode protection       = false
+      EFER[LMSLE] not supported                = false
+      INVLPGB supports TLB flush guest nested  = false
+      ppin processor id number supported       = false
+      SSBD: speculative store bypass disable   = false
+      virtualized SSBD                         = false
+      SSBD fixed in hardware                   = false
+      CPPC: collaborative processor perf ctrl  = false
+      PSFD: predictive store forward disable   = false
+      branch sampling feature support          = false
+   Size Identifiers (0x80000008/ecx):
+      number of CPU cores                 = 0x1 (1)
+      ApicIdCoreIdSize                    = 0x0 (0)
+      performance time-stamp counter size = 40 bits (0)
+   Feature Extended Size (0x80000008/edx):
+      max page count for INVLPGB instruction = 0x0 (0)
+      RDPRU instruction max input support    = 0x0 (0)
+   (multi-processing synth) = hyper-threaded (t=2)
+   (multi-processing method) = Intel leaf 0xb
+   (APIC widths synth): CORE_width=1 SMT_width=1
+   (APIC synth): PKG_ID=0 CORE_ID=0 SMT_ID=1
+   (uarch synth) = Intel Broadwell {Haswell}, 14nm
+   (synth) = Intel Xeon E5-1600 / E5-2600 / E5-4600 v4 (Broadwell-E) / E7-4800 / E7-8800 v4 (Broadwell-EX B0) {Haswell}, 14nm
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 1, "exclusive": true, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/bin/bash", "/entrypoint.sh"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}, "constraints": {"hostlist": ["flux-sample-25"]}}, "user": {"study_id": "single-node-node-25"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725112507.6956804,"name":"init"}
+{"timestamp":1725112507.6965008,"name":"starting"}
+{"timestamp":1725112507.7373528,"name":"shell.init","context":{"service":"0-shell-fxuQNGz3","leader-rank":25,"size":1}}
+{"timestamp":1725112507.7423508,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,1,1,1]]}}}
+{"timestamp":1725112538.3451273,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":67,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725112538.3484368,"name":"complete","context":{"status":0}}
+{"timestamp":1725112538.3484647,"name":"done"}
+

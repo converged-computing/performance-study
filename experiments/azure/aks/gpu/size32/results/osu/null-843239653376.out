@@ -1,0 +1,43 @@
+flux-sample-0
+flux-sample-15
+flux-sample-16
+flux-sample-14
+flux-sample-10
+flux-sample-12
+flux-sample-13
+flux-sample-27
+flux-sample-2
+flux-sample-8
+flux-sample-28
+flux-sample-22
+flux-sample-24
+flux-sample-9
+flux-sample-5
+flux-sample-3
+flux-sample-26
+flux-sample-11
+flux-sample-4
+flux-sample-1
+flux-sample-30
+flux-sample-7
+flux-sample-6
+flux-sample-31
+flux-sample-21
+flux-sample-25
+flux-sample-19
+flux-sample-20
+flux-sample-17
+flux-sample-29
+flux-sample-23
+flux-sample-18
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "exclusive": true, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["hostname"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725115350.8267741,"name":"init"}
+{"timestamp":1725115350.8275604,"name":"starting"}
+{"timestamp":1725115350.8537273,"name":"shell.init","context":{"service":"0-shell-fP9jCdvP","leader-rank":0,"size":32}}
+{"timestamp":1725115350.8571377,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,1,1]]}}}
+{"timestamp":1725115350.858109,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":144,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725115350.8634691,"name":"complete","context":{"status":0}}
+{"timestamp":1725115350.8634875,"name":"done"}
+
