@@ -87,8 +87,10 @@ rm singularity-ce*.tar.gz
 
 Batch script:
 
+redo on 32, 64
+
 ```bash
-size=128
+size=64
 oras login ghcr.io --username vsoch
 srun --time=00:04 -N ${size} slurm-single-node-benchmarks.sh
 rm -rf test_file*
@@ -146,6 +148,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### MiniFE
 
 Minife only ran once successfully. Other runs only use 5% CPU and environment manipulation doesn't help.
+redo on 32, 64
 
 ```bash
 size=128
@@ -158,6 +161,8 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 Don't forget to save the MiniFE yaml output files that generate in the PWD.
 
 #### Mixbench
+
+redo on 32, 64
 
 ```bash
 size=128
@@ -196,6 +201,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### OSU
 OSU allreduce stopped working at iteration 4. UCX_TLS tested with all, ud,shm,rc, ib, and all three options have very different characteristics.
 
+redo on 32, 64
 ```bash
 size=128
 cd configs/osu/
@@ -215,6 +221,8 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```
 
 #### Stream
+
+Redo on 32, 64
 
 ```bash
 size=128
