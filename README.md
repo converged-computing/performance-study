@@ -20,9 +20,9 @@ This is a checklist for the setups we have tested and timed:
 ### "Bare Metal"
 
 - [ ] Microsoft Azure CycleCloud CPU (date)
-  - [x] size 32 (abhik done 6 apps 8/28/2024, milroy 8/30/2024)
-  - [x] size 64 (abhik done 6 apps 8/28/2024, milroy 8/30/2024)
-  - [ ] size 128 (TBA)
+  - [x] size 32 (abhik done 6 apps 8/28/2024, done milroy 8/30/2024)
+  - [x] size 64 (abhik done 6 apps 8/28/2024, done milroy 8/30/2024)
+  - [x] size 128 (done milroy 8/30/2024)
   - [ ] size 256 (TBA)
 - [ ] Microsoft Azure CycleCloud GPU (date)
   - [ ] size 32 (TBA)
