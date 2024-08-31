@@ -70,7 +70,7 @@ sudo git clone --depth 1 https://github.com/flux-framework/flux-security /opt/fl
     sudo chown -R $USER /opt/flux-security && \ 
     cd /opt/flux-security && \
     ./autogen.sh && \
-    ./configure --prefix=/usr --sysconfdir=/etc && \
+    PYTHON=/opt/conda/bin/python ./configure --prefix=/usr --sysconfdir=/etc && \
     make && sudo make install
 
 # The VMs will share the same munge key
@@ -88,7 +88,7 @@ sudo git clone https://github.com/flux-framework/flux-core /opt/flux-core && \
     sudo chown -R $USER /opt/flux-core && \ 
     cd /opt/flux-core && \
     ./autogen.sh && \
-    ./configure --prefix=/usr --sysconfdir=/etc --runstatedir=/home/flux/run --with-flux-security && \
+    PYTHON=/opt/conda/bin/python ./configure --prefix=/usr --sysconfdir=/etc --runstatedir=/home/flux/run --with-flux-security && \
     make clean && \
     make && sudo make install
 
@@ -97,12 +97,12 @@ sudo git clone https://github.com/flux-framework/flux-pmix /opt/flux-pmix && \
     sudo chown -R $USER /opt/flux-pmix && \ 
     cd /opt/flux-pmix && \
     ./autogen.sh && \
-    ./configure --prefix=/usr && \
+    PYTHON=/opt/conda/bin/python ./configure --prefix=/usr && \
     make && \
     sudo make install
 
 # Clean up as we go
-sudo rm -rf /opt/flux-pmix /opt/flux-core /opt/flux-security /opt/prrte/
+# sudo rm -rf /opt/flux-pmix /opt/flux-core /opt/flux-security /opt/prrte/
 
 # Flux sched (installing older version to avoid cmake deps)
 cd /opt
@@ -111,7 +111,7 @@ sudo tar -xzvf flux-sched-0.33.0.tar.gz
 sudo mv flux-sched-0.33.0  flux-sched
 sudo chown -R $USER /opt/flux-sched
 cd flux-sched
-./configure --prefix=/usr --sysconfdir=/etc
+PYTHON=/opt/conda/bin/python ./configure --prefix=/usr --sysconfdir=/etc
 make -j 8 && sudo make install && sudo ldconfig
 
 # sudo git clone https://github.com/flux-framework/flux-sched /opt/flux-sched && \
@@ -125,7 +125,7 @@ make -j 8 && sudo make install && sudo ldconfig
 #    echo "DONE flux build"
 
 cd /opt
-sudo rm -rf /opt/flux-sched
+# sudo rm -rf /opt/flux-sched
 
 # Flux curve.cert (this is also generated on create)   
 
@@ -188,7 +188,6 @@ cat /etc/default/grub | grep GRUB_CMDLINE_LINUX=
 sudo sed -i -e 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="systemd.unified_cgroup_hierarchy=1"/' /etc/default/grub
 sudo update-grub
 
-
 # A quick Python script for handling decoding
 # I don't think we are going to use this.
 cat << "PYTHON_DECODING_SCRIPT" > /tmp/convert_munge_key.py
@@ -215,6 +214,110 @@ echo "/var/nfs/home *(rw,no_subtree_check,no_root_squash)" >> /tmp/exports
 sudo mv /tmp/exports /etc/exports
 sudo apt-get install -y nfs-kernel-server
 sudo systemctl enable nfs-server
+
+# Other flux prep we do here instead of on init
+sudo mkdir -p /var/lib/flux
+sudo mkdir -p /usr/etc/flux/system/conf.d
+sudo chown -R flux /var/lib/flux
+
+echo "flux R encode --hosts=flux-[001-999]"
+flux R encode --hosts=flux-[001-999] --local > R
+sudo mv R /usr/etc/flux/system/R
+
+sudo mkdir -p /etc/flux/imp/conf.d/
+cat <<EOT >> ./imp.toml
+[exec]
+allowed-users = [ "flux", "root", "sochat1_llnl_gov" ]
+allowed-shells = [ "/usr/libexec/flux/flux-shell" ]
+EOT
+sudo mv ./imp.toml /etc/flux/imp/conf.d/imp.toml
+
+cat <<EOT >> /tmp/system.toml
+[exec]
+imp = "/usr/libexec/flux/flux-imp"
+
+[access]
+allow-guest-user = true
+allow-root-owner = true
+
+[bootstrap]
+curve_cert = "/etc/flux/system/curve.cert"
+
+default_port = 8050
+default_bind = "tcp://ens12:%p"
+default_connect = "tcp://%h:%p"
+
+hosts = [{host="flux-[001-999]"}]
+
+# Speed up detection of crashed network peers (system default is around 20m)
+[tbon]
+tcp_user_timeout = "2m"
+
+# Point to resource definition generated with flux-R(1).
+# Uncomment to exclude nodes (e.g. mgmt, login), from eligibility to run jobs.
+[resource]
+path = "/usr/etc/flux/system/R"
+
+# Remove inactive jobs from the KVS after one week.
+[job-manager]
+inactive-age-limit = "7d"
+EOT
+sudo mv /tmp/system.toml /usr/etc/flux/system/conf.d/system.toml
+
+sudo chmod u+s /usr/libexec/flux/flux-imp
+sudo chmod 4755 /usr/libexec/flux/flux-imp
+sudo chmod 0644 /etc/flux/imp/conf.d/imp.toml
+sudo chown -R flux:flux /usr/etc/flux/system/conf.d
+sudo chmod u=r,g=,o= /etc/flux/system/curve.cert
+sudo chown flux:flux /etc/flux/system/curve.cert
+
+sudo mkdir -p /run/flux
+sudo chown -R flux:flux /run/flux
+
+# Remove group and other read
+sudo chmod o-r /etc/flux/system/curve.cert
+sudo chmod g-r /etc/flux/system/curve.cert
+sudo chown -R flux /run/flux /var/lib/flux /etc/flux/system/curve.cert
+
+# Write service file
+# /usr/lib/systemd/system/flux.service
+
+# Add this to /etc/environment
+# export FLUX_URI=local:///run/flux/local
+
+cat << "FIRST_BOOT_UNIT" > ./flux.service
+[Unit]
+Description=Flux message broker
+Wants=munge.service
+
+[Service]
+Type=simple
+NotifyAccess=main
+TimeoutStopSec=90
+Environment="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib"
+Environment="PYTHONPATH=/opt/conda/lib/python3.10/site-packages/"
+KillMode=mixed
+ExecStart=/usr/bin/flux start --broker-opts --config /usr/etc/flux/system/conf.d -Stbon.fanout=256  -Srundir=/run/flux -Sbroker.rc2_none -Sstatedir=/var/lib/flux -Slocal-uri=local:///run/flux/local -Stbon.connect_timeout=5s -Stbon.zmqdebug=1  -Slog-stderr-level=7 -Slog-stderr-mode=local
+SyslogIdentifier=flux
+DefaultLimitMEMLOCK=infinity
+LimitMEMLOCK=infinity
+TasksMax=infinity
+LimitNPROC=infinity
+Restart=always
+RestartSec=5s
+RestartPreventExitStatus=42
+SuccessExitStatus=42
+User=flux
+Group=flux
+PermissionsStartOnly=true
+Delegate=yes
+
+[Install]
+WantedBy=multi-user.target
+FIRST_BOOT_UNIT
+
+sudo mv ./flux.service /usr/lib/systemd/system/flux.service
+sudo systemctl enable flux.service
 
 # IMPORTANT: if you don't create the disk large, you can  come back later
 # to resize (disks in the UI) and then attach, pull, and save a new template
