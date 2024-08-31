@@ -42,7 +42,7 @@ singularity pull docker://ghcr.io/converged-computing/metric-laghos:azure-hpc ||
 singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-minife:azure-hpc || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-mixbench:azure-hpc || true && \
-singularity pull docker://ghcr.io/converged-computing/mt-gemm:azure-hpc || true && \
+singularity pull docker://ghcr.io/converged-computing/mt-gemm:azure-hpc-1k || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-osu-cpu:azure-hpc || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-cpu:azure-hpc || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-stream:azure-hpc || true && \
@@ -88,10 +88,8 @@ rm singularity-ce*.tar.gz
 Batch script:
 
 ```bash
-oras login ghcr.io --username vsoch
-cd configs/single-node-benchmarks
-# Set this to the size cluster you're running
 size=128
+oras login ghcr.io --username vsoch
 srun --time=00:04 -N ${size} slurm-single-node-benchmarks.sh
 rm -rf test_file*
 cd ../../data/single-node-benchmarks
@@ -100,10 +98,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 
 #### AMG2023
 
-All the following examples are for 32 nodes. Mutatis mutandis for other sizes.
+All the following examples are for ${size} nodes. Mutatis mutandis for other sizes.
 
 ```bash
-# May want to try these env variables in the job scripts:
 size=128
 cd configs/amg2023/
 for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-${size}n.sh; done
@@ -115,6 +112,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### Kripke
 
 ```bash
+size=128
 cd configs/kripke/
 for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-${size}n.sh; done
 cd ../../data/kripke
@@ -125,6 +123,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### Laghos
 
 ```bash
+size=128
 cd configs/laghos/
 for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-${size}n.sh; done
 cd ../../data/laghos
@@ -133,16 +132,23 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 
 #### LAMMPS
 
+Note that the first LAMMPS run was only using about 5-6% CPU per process. I reset the environment and resubmitted the jobs and it runs much faster. I need to reset the environment every time to get LAMMPS to consume CPU as expected.
+UCX_TLS=all improves LAMMPS peformance by up to 2x.
+
 ```bash
+size=128
 cd configs/lammps/
-for i in {1..5}; do sbatch --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-${size}n.sh; done
+for i in {1..5}; do sbatch --nodelist=cluster-256-hpc-[129-256] --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-${size}n.sh; done
 cd ../../data/lammps
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-${size}-node-lammps lammps
 ```
 
 #### MiniFE
 
+Minife only ran once successfully. Other runs only use 5% CPU and environment manipulation doesn't help.
+
 ```bash
+size=128
 cd configs/minife/
 for i in {1..5}; do sbatch --output=../../data/minife/%x-%j-iter-${i}.out --error=../../data/minife/%x-%j-iter-${i}.err slurm-minife-${size}n.sh; done
 cd ../../data/minife
@@ -154,9 +160,10 @@ Don't forget to save the MiniFE yaml output files that generate in the PWD.
 #### Mixbench
 
 ```bash
+size=128
 cd configs/mixbench/
 for i in {1..5}; do 
-  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
+  for node in $( sinfo -N -r -l | tail -n +3 | head -n ${size} | awk '{print $1}' ); do 
     sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/%x-%j-iter-${i}.err slurm-mixbench-1n.sh
   done
 done
@@ -164,28 +171,33 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```
 
 #### Mt-Gemm
+SKIPPING FOR NOW
 
 ```bash
+size=128
 cd configs/mt-gemm/
-for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-${size}n.sh; done
+for i in {1..5}; do sbatch --nodelist=cluster-256-hpc-[129-256] --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-${size}n.sh; done
 cd ../../data/mt-gemm
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-${size}-node-mt-gemm mt-gemm
 ```
 
 #### Nek5000
-
+SKIPPING error on loop device at size > 64.
 ```bash
+size=128
 mkdir /shared/nekrs
 cd /shared/nekrs/
 oras pull ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
-for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-${size}n.sh; done
+for i in {1..5}; do sbatch --nodelist=cluster-256-hpc-[1-128] --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-${size}n.sh; done
 cd ../../data/nekrs
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-${size}-node-nekrs nekrs
 ```
 
 #### OSU
+OSU allreduce stopped working at iteration 4. UCX_TLS tested with all, ud,shm,rc, ib, and all three options have very different characteristics.
 
 ```bash
+size=128
 cd configs/osu/
 sbatch --output=../../data/osu/%x-%j-iter-${i}.out --error=../../data/osu/%x-%j-iter-${i}.err slurm-osu-${size}n.sh
 cd ../../data/osu
@@ -195,8 +207,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### Quicksilver
 
 ```bash
+size=128
 cd configs/quicksilver/
-for i in {1..5}; do sbatch --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-${size}n.sh; done
+for i in {1..5}; do sbatch --nodelist=cluster-256-hpc-[1-128] --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-${size}n.sh; done
 cd ../../data/quicksilver
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-cpu-${size}-node-quicksilver quicksilver
 ```
@@ -204,9 +217,10 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### Stream
 
 ```bash
+size=128
 cd configs/stream/
 for i in {1..5}; do 
-  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
+  for node in $( sinfo -N -r -l | tail -n +3 | head -n ${size} | awk '{print $1}' ); do 
     sbatch --nodelist=${node} --output=../../data/stream/${node}-%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-1n.sh
   done
 done
