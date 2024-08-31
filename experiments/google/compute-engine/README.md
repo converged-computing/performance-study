@@ -37,6 +37,7 @@ cd build-images/gpu
 
 For manual building, make sure to do:
 
+- c2d-standard-112
 - HPC VM instance type with Rocky 8
 - 200GB boot disk, check to keep
 
@@ -47,8 +48,10 @@ This means you'll want to create a c2d-standard-112 instance in the UI, run the 
 
 For manual building 
 
+- n1-standard-32
 - HPC VM instance type with Rocky 8
 - 200GB boot disk, check to keep
+- add 8 x v100 GPUs
 
 ### Deploy with Terraform
 
