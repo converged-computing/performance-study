@@ -634,7 +634,7 @@ kubectl delete -f ./crd/stream.yaml
 ## Clean up
 
 ```bash
-gcloud container clusters delete gpu-cluster-16 --region us-central1-a
+gcloud container clusters delete gpu-cluster-32 --region us-central1-a
 ```
 
 ## Results
