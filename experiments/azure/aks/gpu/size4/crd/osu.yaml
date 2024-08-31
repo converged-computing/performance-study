@@ -1,0 +1,39 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+spec:
+  size: 4
+  interactive: true
+
+  # This disables installing flux via the view
+  flux:
+    container:
+      disable: true
+
+  containers:
+  - image: ghcr.io/converged-computing/metric-osu-gpu:azure-hpc-gpu-ubuntu2204
+    commands:
+      pre: echo "ulimit -l unlimited" >> /root/.bashrc
+    volumes:
+      shared-memory:
+        emptyDir: true
+        emptyDirMedium: "memory"
+    environment:
+      # export UCX_LOG_LEVEL=info
+      # export OMPI_MCA_opal_common_ucx_opal_mem_hooks=1
+      # export OMPI_MCA_pml_ucx_verbose=100
+      UCX_NET_DEVICES: "mlx5_0:1"
+      OMPI_MCA_btl_openib_warn_no_device_params_found: "0"
+      OMPI_MCA_btl: "^openib"
+      UCX_TLS: "ib"
+      UCX_UNIFIED_MODE: "y"
+    securityContext:
+      privileged: true
+    resources:
+      limits:
+        mellanox.com/shared_hca_rdma: 1
+        nvidia.com/gpu: 8
+      requests:
+        mellanox.com/shared_hca_rdma: 1
+        nvidia.com/gpu: 8
