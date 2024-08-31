@@ -1,0 +1,242 @@
+Start time: 1725064764
+Running with these driver parameters:
+  Problem ID    = 2
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.000078 seconds
+  Laplacian_7pt:
+    (Nx, Ny, Nz) = (4096, 4096, 2048)
+    (Px, Py, Pz) = (16, 16, 16)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 1.606371 seconds
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.083965 seconds
+=============================================
+Problem 2: AMG Setup Time:
+=============================================
+PCG Setup:
+  wall clock time = 26.447373 seconds
+
+FOM_Setup: nnz_AP / Setup Phase Time: 1.568078e+10
+
+=============================================
+Problem 2: AMG-PCG Solve Time:
+=============================================
+PCG Solve:
+  wall clock time = 37.927262 seconds
+
+Iterations = 35
+Final Relative Residual Norm = 7.184571e-09
+
+
+FOM_Solve: nnz_AP * iterations / Solve Phase Time: 1.093449e+10
+
+
+
+Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 2.957412e+09
+
+[1725064859.431863] [cluster-256-hpc-129:11227:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2e8e3b8f) failed: No such file or directory
+[1725064859.431994] [cluster-256-hpc-129:11227:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_40dbd92a) failed: No such file or directory
+[1725064859.431859] [cluster-256-hpc-129:11212:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4d6327ce) failed: No such file or directory
+[1725064859.431989] [cluster-256-hpc-129:11212:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_675a29c4) failed: No such file or directory
+[1725064859.431842] [cluster-256-hpc-129:11198:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4c9e7b41) failed: No such file or directory
+[1725064859.431968] [cluster-256-hpc-129:11198:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2c290233) failed: No such file or directory
+[1725064859.431837] [cluster-256-hpc-129:11210:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_61b8b152) failed: No such file or directory
+[1725064859.431967] [cluster-256-hpc-129:11210:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_60d0fc17) failed: No such file or directory
+[1725064859.431863] [cluster-256-hpc-129:11214:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5cc0944) failed: No such file or directory
+[1725064859.431935] [cluster-256-hpc-129:11214:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_cbda7fc) failed: No such file or directory
+[1725064859.431857] [cluster-256-hpc-129:11213:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_19c0e31) failed: No such file or directory
+[1725064859.431973] [cluster-256-hpc-129:11213:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7e1f8e3b) failed: No such file or directory
+[1725064859.431867] [cluster-256-hpc-129:11228:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_13f39141) failed: No such file or directory
+[1725064859.431945] [cluster-256-hpc-129:11228:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_58dd1a5e) failed: No such file or directory
+[1725064859.431907] [cluster-256-hpc-129:11203:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_78177643) failed: No such file or directory
+[1725064859.432007] [cluster-256-hpc-129:11203:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2385f8c7) failed: No such file or directory
+[1725064859.431902] [cluster-256-hpc-129:11218:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_365951f2) failed: No such file or directory
+[1725064859.431999] [cluster-256-hpc-129:11218:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_153fa648) failed: No such file or directory
+[1725064859.431955] [cluster-256-hpc-129:11199:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_31f1d9a3) failed: No such file or directory
+[1725064859.432047] [cluster-256-hpc-129:11199:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_35c148e8) failed: No such file or directory
+[1725064859.431880] [cluster-256-hpc-129:11235:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1e97510d) failed: No such file or directory
+[1725064859.431997] [cluster-256-hpc-129:11235:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7b2c110c) failed: No such file or directory
+[1725064859.431960] [cluster-256-hpc-129:11224:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6e264f7) failed: No such file or directory
+[1725064859.432049] [cluster-256-hpc-129:11224:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7e5fb5b6) failed: No such file or directory
+[1725064859.431960] [cluster-256-hpc-129:11223:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_17f1efe) failed: No such file or directory
+[1725064859.432031] [cluster-256-hpc-129:11223:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2fb05de8) failed: No such file or directory
+[1725064859.431925] [cluster-256-hpc-129:11616:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4791e389) failed: No such file or directory
+[1725064859.432017] [cluster-256-hpc-129:11616:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_796bab4d) failed: No such file or directory
+[1725064859.431929] [cluster-256-hpc-129:11211:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_f4cc01) failed: No such file or directory
+[1725064859.432010] [cluster-256-hpc-129:11211:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2d9d358f) failed: No such file or directory
+[1725064859.431912] [cluster-256-hpc-129:11221:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6883b04b) failed: No such file or directory
+[1725064859.432004] [cluster-256-hpc-129:11221:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_aa4df9) failed: No such file or directory
+[1725064859.431941] [cluster-256-hpc-129:11201:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_758c5dab) failed: No such file or directory
+[1725064859.432022] [cluster-256-hpc-129:11201:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_38af500f) failed: No such file or directory
+[1725064859.431970] [cluster-256-hpc-129:11208:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1688faba) failed: No such file or directory
+[1725064859.432061] [cluster-256-hpc-129:11208:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3cb8e638) failed: No such file or directory
+[1725064859.431905] [cluster-256-hpc-129:11222:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6613c224) failed: No such file or directory
+[1725064859.432001] [cluster-256-hpc-129:11222:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_76e63fc0) failed: No such file or directory
+[1725064859.431962] [cluster-256-hpc-129:11200:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4211e086) failed: No such file or directory
+[1725064859.432033] [cluster-256-hpc-129:11200:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_72211dbd) failed: No such file or directory
+[1725064859.431952] [cluster-256-hpc-129:11209:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_415113ac) failed: No such file or directory
+[1725064859.432035] [cluster-256-hpc-129:11209:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6a4fb7ea) failed: No such file or directory
+[1725064859.431970] [cluster-256-hpc-129:11206:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2f265f35) failed: No such file or directory
+[1725064859.432037] [cluster-256-hpc-129:11206:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5ffd6e98) failed: No such file or directory
+[1725064859.431966] [cluster-256-hpc-129:11205:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_61e5536e) failed: No such file or directory
+[1725064859.432053] [cluster-256-hpc-129:11205:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2769da28) failed: No such file or directory
+[1725064859.431919] [cluster-256-hpc-129:11207:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3daa8585) failed: No such file or directory
+[1725064859.432009] [cluster-256-hpc-129:11207:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6c1a96ea) failed: No such file or directory
+[1725064859.431978] [cluster-256-hpc-129:11204:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_19aa2ebd) failed: No such file or directory
+[1725064859.432072] [cluster-256-hpc-129:11204:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3152aee7) failed: No such file or directory
+[1725064859.432001] [cluster-256-hpc-129:11216:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1eaf50ee) failed: No such file or directory
+[1725064859.432078] [cluster-256-hpc-129:11216:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2f3e83af) failed: No such file or directory
+[1725064859.431986] [cluster-256-hpc-129:11202:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4097a3e) failed: No such file or directory
+[1725064859.432066] [cluster-256-hpc-129:11202:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5c46a821) failed: No such file or directory
+[1725064859.431988] [cluster-256-hpc-129:11217:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_146924a1) failed: No such file or directory
+[1725064859.432068] [cluster-256-hpc-129:11217:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_34832420) failed: No such file or directory
+[1725064859.431986] [cluster-256-hpc-129:11225:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5ed0e90) failed: No such file or directory
+[1725064859.432064] [cluster-256-hpc-129:11225:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_59675802) failed: No such file or directory
+[1725064859.431933] [cluster-256-hpc-129:11226:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_74da1a7d) failed: No such file or directory
+[1725064859.432014] [cluster-256-hpc-129:11226:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5af77199) failed: No such file or directory
+[1725064859.431994] [cluster-256-hpc-129:11219:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_66bb2f1a) failed: No such file or directory
+[1725064859.432075] [cluster-256-hpc-129:11219:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_d296c87) failed: No such file or directory
+[1725064859.431992] [cluster-256-hpc-129:11215:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_58f51fc7) failed: No such file or directory
+[1725064859.432074] [cluster-256-hpc-129:11215:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7d35d082) failed: No such file or directory
+[1725064859.462494] [cluster-256-hpc-129:11199:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_71325eba) failed: No such file or directory
+[1725064859.462530] [cluster-256-hpc-129:11201:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_158db950) failed: No such file or directory
+[1725064859.462475] [cluster-256-hpc-129:11206:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3de4316d) failed: No such file or directory
+[1725064859.462579] [cluster-256-hpc-129:11213:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_42f238b) failed: No such file or directory
+[1725064859.462576] [cluster-256-hpc-129:11199:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7d6d7398) failed: No such file or directory
+[1725064859.462564] [cluster-256-hpc-129:11208:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_544a5667) failed: No such file or directory
+[1725064859.462608] [cluster-256-hpc-129:11201:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_231c8ac6) failed: No such file or directory
+[1725064859.462565] [cluster-256-hpc-129:11206:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_78acc046) failed: No such file or directory
+[1725064859.462631] [cluster-256-hpc-129:11212:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_44d41d51) failed: No such file or directory
+[1725064859.462646] [cluster-256-hpc-129:11213:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5be58bf2) failed: No such file or directory
+[1725064859.462638] [cluster-256-hpc-129:11208:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_385bf2f9) failed: No such file or directory
+[1725064859.462717] [cluster-256-hpc-129:11216:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_36908b60) failed: No such file or directory
+[1725064859.462810] [cluster-256-hpc-129:11216:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_58002dd8) failed: No such file or directory
+[1725064859.462749] [cluster-256-hpc-129:11227:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5ee5ab56) failed: No such file or directory
+[1725064859.462814] [cluster-256-hpc-129:11227:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_382a9afe) failed: No such file or directory
+[1725064859.462762] [cluster-256-hpc-129:11214:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6153b88d) failed: No such file or directory
+[1725064859.462786] [cluster-256-hpc-129:11215:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2880f8cf) failed: No such file or directory
+[1725064859.462728] [cluster-256-hpc-129:11223:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_35c6e989) failed: No such file or directory
+[1725064859.462792] [cluster-256-hpc-129:11223:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7d318282) failed: No such file or directory
+[1725064859.462791] [cluster-256-hpc-129:11211:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5508ef30) failed: No such file or directory
+[1725064859.462697] [cluster-256-hpc-129:11212:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6e04af0e) failed: No such file or directory
+[1725064859.462770] [cluster-256-hpc-129:11222:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_28871a12) failed: No such file or directory
+[1725064859.462827] [cluster-256-hpc-129:11222:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_efec75b) failed: No such file or directory
+[1725064859.462751] [cluster-256-hpc-129:11200:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_30dedf05) failed: No such file or directory
+[1725064859.462813] [cluster-256-hpc-129:11200:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_32572086) failed: No such file or directory
+[1725064859.462898] [cluster-256-hpc-129:11217:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1797e190) failed: No such file or directory
+[1725064859.462763] [cluster-256-hpc-129:11225:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_16b8a42b) failed: No such file or directory
+[1725064859.462839] [cluster-256-hpc-129:11225:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_77d6ebc6) failed: No such file or directory
+[1725064859.462768] [cluster-256-hpc-129:11205:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6362d82c) failed: No such file or directory
+[1725064859.462850] [cluster-256-hpc-129:11205:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5b88b020) failed: No such file or directory
+[1725064859.462867] [cluster-256-hpc-129:11198:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_18028c9a) failed: No such file or directory
+[1725064859.462924] [cluster-256-hpc-129:11198:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2dfc56a0) failed: No such file or directory
+[1725064859.462826] [cluster-256-hpc-129:11210:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6120ce68) failed: No such file or directory
+[1725064859.462879] [cluster-256-hpc-129:11210:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2bcb4430) failed: No such file or directory
+[1725064859.462831] [cluster-256-hpc-129:11203:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1ae4513f) failed: No such file or directory
+[1725064859.462888] [cluster-256-hpc-129:11203:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_57c1ac59) failed: No such file or directory
+[1725064859.462854] [cluster-256-hpc-129:11214:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_23a05711) failed: No such file or directory
+[1725064859.462884] [cluster-256-hpc-129:11215:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3b2bcf4c) failed: No such file or directory
+[1725064859.462878] [cluster-256-hpc-129:11211:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_327a9e4c) failed: No such file or directory
+[1725064859.462909] [cluster-256-hpc-129:11204:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6f4e3650) failed: No such file or directory
+[1725064859.462980] [cluster-256-hpc-129:11204:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_74119804) failed: No such file or directory
+[1725064859.462983] [cluster-256-hpc-129:11202:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3a9f71e0) failed: No such file or directory
+[1725064859.463043] [cluster-256-hpc-129:11202:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_68c713b8) failed: No such file or directory
+[1725064859.463016] [cluster-256-hpc-129:11217:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_43ea9ec1) failed: No such file or directory
+[1725064859.462927] [cluster-256-hpc-129:11226:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_279b1b31) failed: No such file or directory
+[1725064859.463029] [cluster-256-hpc-129:11226:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1b3eb719) failed: No such file or directory
+[1725064859.463041] [cluster-256-hpc-129:11219:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_562f3052) failed: No such file or directory
+[1725064859.463054] [cluster-256-hpc-129:11228:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_30c302cd) failed: No such file or directory
+[1725064859.463012] [cluster-256-hpc-129:11207:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_105c2a8b) failed: No such file or directory
+[1725064859.463074] [cluster-256-hpc-129:11207:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_17ada46d) failed: No such file or directory
+[1725064859.462958] [cluster-256-hpc-129:11218:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2fc7ff3) failed: No such file or directory
+[1725064859.463018] [cluster-256-hpc-129:11218:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6fcf6a7c) failed: No such file or directory
+[1725064859.463009] [cluster-256-hpc-129:11235:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_bc2829f) failed: No such file or directory
+[1725064859.463070] [cluster-256-hpc-129:11235:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_18e99952) failed: No such file or directory
+[1725064859.462970] [cluster-256-hpc-129:11616:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5d89ab3f) failed: No such file or directory
+[1725064859.463031] [cluster-256-hpc-129:11616:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7d4528f8) failed: No such file or directory
+[1725064859.463015] [cluster-256-hpc-129:11221:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7facd26) failed: No such file or directory
+[1725064859.463083] [cluster-256-hpc-129:11221:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_170ee8e0) failed: No such file or directory
+[1725064859.462960] [cluster-256-hpc-129:11209:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_262464cb) failed: No such file or directory
+[1725064859.463033] [cluster-256-hpc-129:11209:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_70393624) failed: No such file or directory
+[1725064859.463099] [cluster-256-hpc-129:11219:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_78007394) failed: No such file or directory
+[1725064859.463122] [cluster-256-hpc-129:11228:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_731e47f5) failed: No such file or directory
+[1725064859.463082] [cluster-256-hpc-129:11224:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7b1aa5f1) failed: No such file or directory
+[1725064859.463145] [cluster-256-hpc-129:11224:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_daa350c) failed: No such file or directory
+[1725064859.481590] [cluster-256-hpc-129:11206:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_bcbc736) failed: No such file or directory
+[1725064859.481655] [cluster-256-hpc-129:11206:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2963597d) failed: No such file or directory
+[1725064859.482003] [cluster-256-hpc-129:11201:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1e5ce52f) failed: No such file or directory
+[1725064859.482068] [cluster-256-hpc-129:11201:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_129198af) failed: No such file or directory
+[1725064859.482001] [cluster-256-hpc-129:11199:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2850fe30) failed: No such file or directory
+[1725064859.482062] [cluster-256-hpc-129:11199:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_1a469353) failed: No such file or directory
+[1725064859.481988] [cluster-256-hpc-129:11212:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_14ab0829) failed: No such file or directory
+[1725064859.482050] [cluster-256-hpc-129:11212:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_8c5698d) failed: No such file or directory
+[1725064859.482061] [cluster-256-hpc-129:11213:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7fe244c7) failed: No such file or directory
+[1725064859.482118] [cluster-256-hpc-129:11213:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4668ab13) failed: No such file or directory
+[1725064859.482604] [cluster-256-hpc-129:11200:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_8e7c7c9) failed: No such file or directory
+[1725064859.482667] [cluster-256-hpc-129:11200:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3adb04d9) failed: No such file or directory
+[1725064859.483011] [cluster-256-hpc-129:11210:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_17b34d2d) failed: No such file or directory
+[1725064859.482991] [cluster-256-hpc-129:11215:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5df6d30f) failed: No such file or directory
+[1725064859.483054] [cluster-256-hpc-129:11215:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6b84ef7c) failed: No such file or directory
+[1725064859.483072] [cluster-256-hpc-129:11210:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_74b43c4f) failed: No such file or directory
+[1725064859.483518] [cluster-256-hpc-129:11222:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_340a4dbe) failed: No such file or directory
+[1725064859.483579] [cluster-256-hpc-129:11222:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_79d1320c) failed: No such file or directory
+[1725064859.483899] [cluster-256-hpc-129:11217:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_10ef3774) failed: No such file or directory
+[1725064859.483972] [cluster-256-hpc-129:11217:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_50b8e45) failed: No such file or directory
+[1725064859.484103] [cluster-256-hpc-129:11216:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4f36790) failed: No such file or directory
+[1725064859.484167] [cluster-256-hpc-129:11216:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3dfb79aa) failed: No such file or directory
+[1725064859.484282] [cluster-256-hpc-129:11226:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4acb3fc8) failed: No such file or directory
+[1725064859.484257] [cluster-256-hpc-129:11225:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_658703fe) failed: No such file or directory
+[1725064859.484320] [cluster-256-hpc-129:11225:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3f136e19) failed: No such file or directory
+[1725064859.484286] [cluster-256-hpc-129:11209:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_e97cd15) failed: No such file or directory
+[1725064859.484340] [cluster-256-hpc-129:11209:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_78974e2f) failed: No such file or directory
+[1725064859.484343] [cluster-256-hpc-129:11226:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_557de35f) failed: No such file or directory
+[1725064859.484800] [cluster-256-hpc-129:11235:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_22675702) failed: No such file or directory
+[1725064859.484853] [cluster-256-hpc-129:11235:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_28939a01) failed: No such file or directory
+[1725064859.484907] [cluster-256-hpc-129:11219:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4336d69b) failed: No such file or directory
+[1725064859.484915] [cluster-256-hpc-129:11204:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_739a855f) failed: No such file or directory
+[1725064859.484974] [cluster-256-hpc-129:11204:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_58a604ea) failed: No such file or directory
+[1725064859.484964] [cluster-256-hpc-129:11219:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_39219c46) failed: No such file or directory
+[1725064859.485149] [cluster-256-hpc-129:11207:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_9fbae99) failed: No such file or directory
+[1725064859.485205] [cluster-256-hpc-129:11207:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_5c012655) failed: No such file or directory
+[1725064859.485214] [cluster-256-hpc-129:11198:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_7c5baeca) failed: No such file or directory
+[1725064859.485270] [cluster-256-hpc-129:11198:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_41564d05) failed: No such file or directory
+[1725064859.485528] [cluster-256-hpc-129:11203:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4597697d) failed: No such file or directory
+[1725064859.485592] [cluster-256-hpc-129:11203:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_37d61f37) failed: No such file or directory
+[1725064859.485630] [cluster-256-hpc-129:11218:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_55681dce) failed: No such file or directory
+[1725064859.485702] [cluster-256-hpc-129:11218:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_368533d3) failed: No such file or directory
+[1725064859.486307] [cluster-256-hpc-129:11223:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2efaa988) failed: No such file or directory
+[1725064859.486360] [cluster-256-hpc-129:11223:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_593d7eec) failed: No such file or directory
+[1725064859.486443] [cluster-256-hpc-129:11202:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_44318898) failed: No such file or directory
+[1725064859.486500] [cluster-256-hpc-129:11616:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_262f8fd) failed: No such file or directory
+[1725064859.486501] [cluster-256-hpc-129:11202:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_227597c0) failed: No such file or directory
+[1725064859.486564] [cluster-256-hpc-129:11616:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_6f869af7) failed: No such file or directory
+[1725064859.486585] [cluster-256-hpc-129:11227:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_419c6183) failed: No such file or directory
+[1725064859.486656] [cluster-256-hpc-129:11221:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3c82dd86) failed: No such file or directory
+[1725064859.486649] [cluster-256-hpc-129:11227:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_36377269) failed: No such file or directory
+[1725064859.486754] [cluster-256-hpc-129:11205:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4e4c6210) failed: No such file or directory
+[1725064859.486733] [cluster-256-hpc-129:11221:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_45abb679) failed: No such file or directory
+[1725064859.486800] [cluster-256-hpc-129:11228:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_686b74a3) failed: No such file or directory
+[1725064859.486816] [cluster-256-hpc-129:11205:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3a3452ea) failed: No such file or directory
+[1725064859.486855] [cluster-256-hpc-129:11228:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_36b26a72) failed: No such file or directory
+[1725064859.487248] [cluster-256-hpc-129:11208:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2935664a) failed: No such file or directory
+[1725064859.487304] [cluster-256-hpc-129:11208:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_3c65946f) failed: No such file or directory
+[1725064859.487543] [cluster-256-hpc-129:11211:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_34182ab1) failed: No such file or directory
+[1725064859.487604] [cluster-256-hpc-129:11211:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_10c73ccb) failed: No such file or directory
+[1725064859.489176] [cluster-256-hpc-129:11214:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_2bae6c31) failed: No such file or directory
+[1725064859.489225] [cluster-256-hpc-129:11214:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_4abb50bc) failed: No such file or directory
+[1725064859.492296] [cluster-256-hpc-129:11224:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_57e3ffbf) failed: No such file or directory
+[1725064859.492352] [cluster-256-hpc-129:11224:0]        mm_posix.c:291  UCX  ERROR shm_unlink(/ucx_shm_posix_49ed90b5) failed: No such file or directory
+End time: 1725064859

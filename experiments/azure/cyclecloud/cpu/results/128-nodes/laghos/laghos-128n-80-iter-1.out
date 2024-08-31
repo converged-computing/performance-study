@@ -1,0 +1,66 @@
+Start time: 1725065654
+
+       __                __                 
+      / /   ____  ____  / /_  ____  _____   
+     / /   / __ `/ __ `/ __ \/ __ \/ ___/ 
+    / /___/ /_/ / /_/ / / / / /_/ (__  )    
+   /_____/\__,_/\__, /_/ /_/\____/____/  
+               /____/                       
+
+Options used:
+   --dimension 3
+   --mesh /opt/laghos/data/cube_311_hex.mesh
+   --refine-serial 4
+   --refine-parallel 2
+   --cartesian-partitioning ''
+   --problem 1
+   --order-kinematic 3
+   --order-thermo 2
+   --order-intrule -1
+   --ode-solver 7
+   --t-final 0.6
+   --cfl 0.5
+   --cg-tol 0
+   --ftz-tol 0
+   --cg-max-steps 50
+   --max-steps 400
+   --partial-assembly
+   --no-impose-viscosity
+   --no-visualization
+   --visualization-steps 5
+   --no-visit
+   --no-print
+   --outputfilename results/Laghos
+   --partition 311
+   --device cpu
+   --no-checks
+   --no-mem
+   --fom
+   --no-gpu-aware-mpi
+   --dev 0
+Device configuration: cpu
+Memory configuration: host-std
+Number of zones in the serial mesh: 12288
+Zones min/max: 64 64
+Number of kinematic (position, velocity) dofs: 64478019
+Number of specific internal energy dofs: 21233664
+Repeating step 3
+step     5,	t = 0.0000,	dt = 0.000000,	|e| = 2.9273016842e+06
+Repeating step 6
+step    10,	t = 0.0000,	dt = 0.000000,	|e| = 2.7548731952e+06
+step    15,	t = 0.0000,	dt = 0.000000,	|e| = 2.6005931958e+06
+step    20,	t = 0.0000,	dt = 0.000000,	|e| = 2.4668403355e+06
+step    25,	t = 0.0000,	dt = 0.000000,	|e| = 2.3476774766e+06
+Repeating step 30
+step    30,	t = 0.0000,	dt = 0.000000,	|e| = 2.2468136043e+06
+Repeating step 34
+step    35,	t = 0.0000,	dt = 0.000000,	|e| = 2.1718745027e+06
+step    40,	t = 0.0000,	dt = 0.000000,	|e| = 2.1039332192e+06
+step    45,	t = 0.0000,	dt = 0.000000,	|e| = 2.0393897885e+06
+Repeating step 47
+step    50,	t = 0.0000,	dt = 0.000000,	|e| = 1.9857614817e+06
+step    55,	t = 0.0000,	dt = 0.000000,	|e| = 1.9320038994e+06
+step    60,	t = 0.0000,	dt = 0.000000,	|e| = 1.8768113505e+06
+step    65,	t = 0.0000,	dt = 0.000000,	|e| = 1.8219683824e+06
+Repeating step 66
+step    70,	t = 0.0000,	dt = 0.000000,	|e| = 1.7779709708e+06
