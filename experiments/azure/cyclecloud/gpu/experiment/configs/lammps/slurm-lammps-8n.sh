@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#SBATCH --job-name=lammps-2n
-#SBATCH --nodes=2
+#SBATCH --job-name=lammps-8n
+#SBATCH --nodes=8
 #SBATCH --time=0:20:00
 #SBATCH --exclusive
 
@@ -11,7 +11,7 @@ module load mpi/hpcx-pmix-2.18
 
 export CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7"
 echo "Start time:" $( date +%s )
-/usr/bin/time -p mpirun -N 2 --map-by ppr:8:node -x UCX_POSIX_USE_PROC_LINK=n \
+/usr/bin/time -p mpirun -N 8 --map-by ppr:8:node -x UCX_POSIX_USE_PROC_LINK=n \
 	singularity exec --nv --env UCX_TLS=all --env UCX_UNIFIED_MODE=y --env UCX_NET_DEVICES=mlx5_ib0:1 --env OPAL_PREFIX= \
     --env CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7" \
     /shared/containers/metric-lammps-gpu_azure-hpc-reax.sif \
@@ -19,7 +19,7 @@ echo "Start time:" $( date +%s )
 echo "End time:" $( date +%s )
 
 echo "Start time:" $( date +%s )
-/usr/bin/time -p mpirun -N 2 --map-by ppr:8:node -x UCX_POSIX_USE_PROC_LINK=n \
+/usr/bin/time -p mpirun -N 8 --map-by ppr:8:node -x UCX_POSIX_USE_PROC_LINK=n \
 	singularity exec --nv --env UCX_TLS=all --env UCX_UNIFIED_MODE=y --env UCX_NET_DEVICES=mlx5_ib0:1 --env OPAL_PREFIX= \
     --env CUDA_VISIBLE_DEVICES="0,1,2,3,4,5,6,7" \
     /shared/containers/metric-lammps-gpu_azure-hpc-reax.sif \
