@@ -23,7 +23,6 @@ sudo apt-get install -y man flex ssh sudo vim luarocks munge lcov ccache lua5.2 
 pip install --upgrade --ignore-installed markupsafe coverage cffi ply six pyyaml jsonschema && \
 pip install --upgrade --ignore-installed sphinx sphinx-rtd-theme sphinxcontrib-spelling
 
-# Prepare lua rocks things I don't understand
 sudo apt-get install -y locales
 sudo apt-get install -y faketime libfaketime pylint cppcheck aspell aspell-en && \
     sudo locale-gen en_US.UTF-8 && \
@@ -63,9 +62,6 @@ sudo mkdir -p /var/run/munge && \
     sudo chown -R munge /etc/munge/munge.key /var/run/munge && \
     sudo chmod 600 /etc/munge/munge.key
 
-# The flux run directory needs to be made on the fly by creating user
-# mkdir -p /home/azureuser/run/flux
-
 # Flux core
 sudo git clone https://github.com/flux-framework/flux-core /opt/flux-core && \
     sudo chown -R $USER /opt/flux-core && \ 
@@ -83,9 +79,6 @@ sudo git clone https://github.com/flux-framework/flux-pmix /opt/flux-pmix && \
     PYTHON=/opt/conda/bin/python ./configure --prefix=/usr && \
     make && \
     sudo make install
-
-# Clean up as we go
-# sudo rm -rf /opt/flux-pmix /opt/flux-core /opt/flux-security /opt/prrte/
 
 # Flux sched (installing older version to avoid cmake deps)
 cd /opt
@@ -138,8 +131,7 @@ sudo apt-get install -y \
    wget \
    zlib1g-dev
 
-# install go (already installed)!
-wget https://go.dev/dl/go1.21.0.linux-arm64.tar.gz
+# install go
 sudo wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
 sudo tar -xvf go1.21.0.linux-amd64.tar.gz
 sudo mv go /usr/local && sudo rm go1.21.0.linux-amd64.tar.gz
@@ -328,6 +320,8 @@ sudo systemctl enable flux.service
 sudo mkdir -p /opt/containers
 sudo chown -R 1000 /opt/containers
 
+# Don't forget to add entries to /etc/systemd/system.conf and /etc/systemd/user.conf and /etc/security/limits.conf for MEMLOCK and NPROC (in the first, should be infinity, in the second security should be unlimited) 
+
 # oras
 cd /tmp
 export VERSION="1.1.0" && \
@@ -339,8 +333,6 @@ export VERSION="1.1.0" && \
 
 cd /opt/containers
 sudo chown -R $USER /opt/containers
-# export SINGULARITY_CACHEDIR=/tmp/.singularity
-# export SINGULARITY_TMPDIR=/tmp/.singularity
 singularity pull docker://ghcr.io/converged-computing/metric-mixbench:latest && \
 singularity pull docker://ghcr.io/converged-computing/metric-magma:mnist && \
 singularity pull docker://ghcr.io/converged-computing/metric-osu-gpu:latest && \

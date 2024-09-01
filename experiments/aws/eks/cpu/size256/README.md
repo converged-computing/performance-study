@@ -640,6 +640,13 @@ When you are done:
 ```bash
 time eksctl delete cluster --config-file ./eks-config.yaml --wait
 ```
+```console
+2024-08-31 22:26:20 [✔]  all cluster resources were deleted
+
+real	7m59.805s
+user	0m0.151s
+sys	0m0.065s
+```
 
 **IMPORTANT** AWS sometimes has a bug that it won't delete, ever, unless you force delete all pods. It will say:
 
