@@ -8,23 +8,6 @@ sudo apt-get update && \
          libelf-dev libpcap-dev libbfd-dev binutils-dev build-essential make \
          bpfcc-tools net-tools
 
-# We already have MPI installed - ensure it is on our user path
-# echo "export PATH=\$PATH:/opt/openmpi-4.1.5/bin" >> /home/azureuser/.bashrc
-
-# install openmpi with cuda
-sudo mkdir -p /usr/local/pancakes && \
-    wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
-    tar -xzvf openmpi-4.1.2.tar.gz && \
-    cd openmpi-4.1.2 && \
-    ./configure --with-cuda --prefix=/usr/local/pancakes && \
-    make && sudo make install
-
-# These will need to be added to user's home
-export PATH=/usr/local/pancakes/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/pancakes/lib:$LD_LIBRARY_PATH
-# export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-# LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
-
 # cmake already installed - 3.18.4
 sudo apt-get install -y man flex ssh sudo vim luarocks munge lcov ccache lua5.2 \
          valgrind build-essential pkg-config autotools-dev libtool \
@@ -62,8 +45,8 @@ set +x
 
 cd /opt/prrte/prrte && \
     git checkout 477894f4720d822b15cab56eee7665107832921c && \
-    ./autogen.pl && \
-    ./configure --prefix=/usr && sudo make -j 4 install
+   ./autogen.pl && \
+   ./configure --prefix=/usr && sudo make -j 4 install
 
 # flux security
 sudo git clone --depth 1 https://github.com/flux-framework/flux-security /opt/flux-security && \
@@ -156,11 +139,11 @@ sudo apt-get install -y \
    zlib1g-dev
 
 # install go (already installed)!
-# wget https://go.dev/dl/go1.21.0.linux-arm64.tar.gz
-# sudo wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
-# sudo tar -xvf go1.21.0.linux-amd64.tar.gz
-# sudo mv go /usr/local && sudo rm go1.21.0.linux-amd64.tar.gz
-# export PATH=/usr/local/go/bin:$PATH
+wget https://go.dev/dl/go1.21.0.linux-arm64.tar.gz
+sudo wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
+sudo tar -xvf go1.21.0.linux-amd64.tar.gz
+sudo mv go /usr/local && sudo rm go1.21.0.linux-amd64.tar.gz
+export PATH=/usr/local/go/bin:$PATH
 
 # Install singularity
 export VERSION=4.0.1 && \
@@ -220,6 +203,7 @@ sudo mkdir -p /var/lib/flux
 sudo mkdir -p /usr/etc/flux/system/conf.d
 sudo chown -R flux /var/lib/flux
 
+cd /tmp
 echo "flux R encode --hosts=flux-[001-999]"
 flux R encode --hosts=flux-[001-999] --local > R
 sudo mv R /usr/etc/flux/system/R
@@ -268,6 +252,10 @@ sudo chmod u+s /usr/libexec/flux/flux-imp
 sudo chmod 4755 /usr/libexec/flux/flux-imp
 sudo chmod 0644 /etc/flux/imp/conf.d/imp.toml
 sudo chown -R flux:flux /usr/etc/flux/system/conf.d
+
+flux keygen curve.cert
+sudo mkdir -p /etc/flux/system
+sudo mv curve.cert /etc/flux/system/curve.cert
 sudo chmod u=r,g=,o= /etc/flux/system/curve.cert
 sudo chown flux:flux /etc/flux/system/curve.cert
 
@@ -278,6 +266,19 @@ sudo chown -R flux:flux /run/flux
 sudo chmod o-r /etc/flux/system/curve.cert
 sudo chmod g-r /etc/flux/system/curve.cert
 sudo chown -R flux /run/flux /var/lib/flux /etc/flux/system/curve.cert
+
+# TODO these need to be done for image rebuild
+sudo chmod u+s /usr/libexec/flux/flux-imp 
+sudo chmod 4755 /usr/libexec/flux/flux-imp
+sudo chown -R root /etc/flux/imp/conf.d
+
+# These are broken
+rm /opt/conda/lib/libuuid.so.1
+ln -s /usr/lib/x86_64-linux-gnu/libuuid.so.1 /opt/conda/lib/libuuid.so.1
+
+rm /opt/conda/lib/libtinfo.so /opt/conda/lib/libtinfo.so.6
+ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so /opt/conda/lib/libtinfo.so
+ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so /opt/conda/lib/libtinfo.so.6
 
 # Write service file
 # /usr/lib/systemd/system/flux.service
@@ -337,8 +338,9 @@ export VERSION="1.1.0" && \
     rm -rf oras_${VERSION}_*.tar.gz oras-install/
 
 cd /opt/containers
-export SINGULARITY_CACHEDIR=/tmp/.singularity
-export SINGULARITY_TMPDIR=/tmp/.singularity
+sudo chown -R $USER /opt/containers
+# export SINGULARITY_CACHEDIR=/tmp/.singularity
+# export SINGULARITY_TMPDIR=/tmp/.singularity
 singularity pull docker://ghcr.io/converged-computing/metric-mixbench:latest && \
 singularity pull docker://ghcr.io/converged-computing/metric-magma:mnist && \
 singularity pull docker://ghcr.io/converged-computing/metric-osu-gpu:latest && \
@@ -346,7 +348,7 @@ singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-
 singularity pull docker://ghcr.io/converged-computing/metric-minife:latest && \
 singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax && \
 singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:kokkos-reax && \
-singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu && \
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile && \
 singularity pull docker://ghcr.io/converged-computing/metric-quicksilver-gpu:latest && \
 singularity pull docker://ghcr.io/converged-computing/mt-gemm:latest && \
 singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:latest && \

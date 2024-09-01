@@ -19,16 +19,16 @@ This is a checklist for the setups we have tested and timed:
 
 ### "Bare Metal"
 
-- [ ] Microsoft Azure CycleCloud CPU (date)
+- [x] Microsoft Azure CycleCloud CPU (date)
   - [x] size 32 (abhik done 6 apps 8/28/2024, done milroy 8/30/2024)
   - [x] size 64 (abhik done 6 apps 8/28/2024, done milroy 8/30/2024)
   - [x] size 128 (done milroy 8/30/2024)
-  - [ ] size 256 (TBA)
+  - [x] size 256 (done milroy 8/31/2024)
 - [ ] Microsoft Azure CycleCloud GPU (date)
-  - [ ] size 32 (TBA)
-  - [ ] size 64 (TBA)
-  - [ ] size 128 (TBA)
-  - [ ] size 256 (TBA)
+  - [ ] size 4 (milroy and ani 8/31/2024)
+  - [ ] size 8 (milroy and ani 8/31/2024)
+  - [ ] size 16 (milroy and ani 8/31/2024)
+  - [ ] size 32 (milroy and ani 8/31/2024)
 - [ ] AWS GPU Parallel Cluster
   - [ ] size 32 (not going to do, could not build image)
   - [ ] size 64 (not going to do, could not build image)
@@ -45,6 +45,7 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 128 (vsoch done 8/27/2024)
   - [x] size 256 (vsoch done 8/27/2024)
 - [ ] Google Compute Engine GPU
+  - done on llnl-flux
   - New VM and automation needed with Terraform 
   - [ ] size 4 (vsoch TBA 8/31/2024)
   - [ ] size 8 (vsoch TBA 8/31/2024)
@@ -67,7 +68,7 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 32 (vsoch done 8/21/2024-8/22/2024)
   - [x] size 64  (vsoch done 8/22/2024) 
   - [x] size 128 (vsoch done 8/22/2024) 
-  - [ ] size 256 (needs [debugging](https://repost.aws/knowledge-center/eks-cni-plugin-troubleshooting) but unlikely, flagging as done)
+  - [x] size 256 (vsoch done on 8/31/2024)
 - [x] AWS GPU EKS
   - [x] size 4 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)
   - [x] size 8 (done vsoch 8/26/2024, milroy lammps/osu 8/27/2024)

@@ -1,0 +1,13 @@
+36.670s: job.exception type=cancel severity=0 
+flux-job: task(s) exited with exit code 143
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 256, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "osu-256-iter-3"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725156132.0651958,"name":"init"}
+{"timestamp":1725156132.0670514,"name":"starting"}
+{"timestamp":1725156133.2305143,"name":"shell.init","context":{"service":"0-shell-f7zCqqx8F","leader-rank":0,"size":256}}
+{"timestamp":1725156133.803906,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,256,96,1]]}}}
+{"timestamp":1725156146.2694683,"name":"shell.task-exit","context":{"localid":26,"rank":26,"state":"Exited","pid":658,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1725156147.7268322,"name":"complete","context":{"status":36608}}
+{"timestamp":1725156147.7268815,"name":"done"}
+
