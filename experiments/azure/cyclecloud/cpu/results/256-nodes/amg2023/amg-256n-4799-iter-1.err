@@ -1,0 +1,52 @@
+--------------------------------------------------------------------------
+The following command line options and corresponding MCA parameter have
+been deprecated and replaced as follows:
+
+  Command line options:
+    Deprecated:  --cpus-per-proc, -cpus-per-proc, --cpus-per-rank, -cpus-per-rank
+    Replacement: --map-by <obj>:PE=N, default <obj>=NUMA
+
+  Equivalent MCA parameter:
+    Deprecated:  rmaps_base_cpus_per_proc
+    Replacement: rmaps_base_mapping_policy=<obj>:PE=N, default <obj>=NUMA
+
+The deprecated forms *will* disappear in a future version of Open MPI.
+Please update to the new syntax.
+--------------------------------------------------------------------------
+[cluster-256-hpc-140:19819] [[57583,1],4466] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19697] [[57583,1],4463] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19776] [[57583,1],4469] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19275] [[57583,1],4449] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19396] [[57583,1],4456] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19884] [[57583,1],4470] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19342] [[57583,1],4452] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19982] [[57583,1],4478] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19818] [[57583,1],4467] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19868] [[57583,1],4472] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19902] [[57583,1],4471] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19631] [[57583,1],4458] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19851] [[57583,1],4473] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19395] [[57583,1],4457] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19931] [[57583,1],4476] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19284] [[57583,1],4451] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19278] [[57583,1],4450] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19934] [[57583,1],4475] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19777] [[57583,1],4468] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19932] [[57583,1],4477] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19689] [[57583,1],4464] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19730] [[57583,1],4462] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19933] [[57583,1],4474] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19577] [[57583,1],4461] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19983] [[57583,1],4479] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19274] [[57583,1],4448] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19343] [[57583,1],4455] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19630] [[57583,1],4459] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19686] [[57583,1],4465] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19341] [[57583,1],4454] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19580] [[57583,1],4460] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-140:19340] [[57583,1],4453] selected pml ob1, but peer [[57583,1],0] on cluster-256-hpc-1 selected pml ucx
+[cluster-256-hpc-1:20568] 255 more processes have sent help message help-orte-rmaps-base.txt / deprecated
+[cluster-256-hpc-1:20568] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+real 11.05
+user 3.77
+sys 26.30
