@@ -85,6 +85,8 @@ rm singularity-ce*.tar.gz
 
 ### 2. Applications
 
+All the following examples are for ${size} nodes.
+
 #### Single Node Benchmark
 
 Batch script:
@@ -99,8 +101,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```
 
 #### AMG2023
-
-All the following examples are for ${size} nodes. Mutatis mutandis for other sizes.
 
 ```bash
 size=4
@@ -120,7 +120,6 @@ cd ../../data/kripke
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-kripke kripke
 ```
 
-
 #### Laghos
 
 ```bash
@@ -139,6 +138,15 @@ cd ../../data/lammps
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-lammps lammps
 ```
 
+#### MAGMA
+
+```bash
+cd configs/magma/
+for i in {1..5}; do sbatch --output=../../data/magma/%x-%j-iter-${i}.out --error=../../data/magma/%x-%j-iter-${i}.err slurm-magma-${size}n.sh; done
+cd ../../data/magma
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-magma magma
+```
+
 #### MiniFE
 
 ```bash
@@ -155,14 +163,16 @@ Don't forget to save the MiniFE yaml output files that generate in the PWD.
 ```bash
 cd configs/mixbench/
 for i in {1..5}; do 
-  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
-    sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/%x-%j-iter-${i}.err slurm-mixbench-1n.sh
+  for node in $( sinfo -N -r -l | tail -n +3 | head -n ${size} | awk '{print $1}' ); do 
+    sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/${node}-%x-%j-iter-${i}.err slurm-mixbench-1n.sh
   done
 done
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-mixbench mixbench
 ```
 
 #### Mt-Gemm
+
+Notes: only uses 4 GPUs and oversubscribes processes.
 
 ```bash
 cd configs/mt-gemm/
@@ -172,7 +182,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```
 
 #### Nek5000
-
+NOT RUNNING
 ```bash
 mkdir /shared/nekrs
 cd /shared/nekrs/
@@ -183,6 +193,8 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```
 
 #### OSU
+
+Notes: UCX_ALL allows D D; duplicated experiments with H H to compare with other setups.
 
 ```bash
 cd configs/osu/
@@ -204,10 +216,6 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 
 ```bash
 cd configs/stream/
-for i in {1..5}; do 
-  for node in $( sinfo -N -r -l | tail -n +3 | head -n ${size} | awk '{print $1}' ); do 
-    sbatch --nodelist=${node} --output=../../data/stream/${node}-%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-1n.sh
-  done
-done
+for i in {1..5}; do sbatch --output=../../data/stream/%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-${size}n.sh; done
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-stream stream
 ```
