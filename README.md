@@ -28,7 +28,7 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 4 (milroy and ani 8/31/2024)
   - [x] size 8 (milroy and ani 8/31/2024)
   - [x] size 16 (milroy and ani 8/31/2024)
-  - [ ] size 32 (milroy and ani 8/31/2024) (completing)
+  - [x] size 32 (milroy and ani 8/31/2024)
 - [ ] AWS GPU Parallel Cluster
   - [ ] size 32 (not going to do, could not build image)
   - [ ] size 64 (not going to do, could not build image)

@@ -1,0 +1,24 @@
+Unloading mpi/hpcx-pmix-2.18
+  Unloading useless requirement:
+    /opt/hpcx-v2.18-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/modulefiles/hpcx-rebuild
+Loading mpi/hpcx-pmix-2.18
+  Loading requirement:
+    /opt/hpcx-v2.18-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/modulefiles/hpcx-rebuild
+--------------------------------------------------------------------------
+The following command line options and corresponding MCA parameter have
+been deprecated and replaced as follows:
+
+  Command line options:
+    Deprecated:  --cpus-per-proc, -cpus-per-proc, --cpus-per-rank, -cpus-per-rank
+    Replacement: --map-by <obj>:PE=N, default <obj>=NUMA
+
+  Equivalent MCA parameter:
+    Deprecated:  rmaps_base_cpus_per_proc
+    Replacement: rmaps_base_mapping_policy=<obj>:PE=N, default <obj>=NUMA
+
+The deprecated forms *will* disappear in a future version of Open MPI.
+Please update to the new syntax.
+--------------------------------------------------------------------------
+real 155.71
+user 276.45
+sys 0.28

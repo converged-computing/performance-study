@@ -35,11 +35,11 @@ mkdir -p /shared/containers
 cd /shared/containers
 
 # This is the newer build with spack
+singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu-zen4-tmpfile || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:azure-hpc-reax || true &&  \
 singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-amg2023:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-laghos:azure-hpc-gpu-ubuntu2204 || true && \
-singularity pull docker://ghcr.io/converged-computing/metric-single-node:cpu || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-minife:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/metric-mixbench:azure-hpc-gpu-ubuntu2204 || true && \
 singularity pull docker://ghcr.io/converged-computing/mt-gemm:azure-hpc-gpu-ubuntu2204 || true && \
@@ -85,28 +85,29 @@ rm singularity-ce*.tar.gz
 
 ### 2. Applications
 
+All the following examples are for ${size} nodes.
+
 #### Single Node Benchmark
 
 Batch script:
 
 ```console
+size=4
 oras login ghcr.io --username vsoch
-srun --time=00:04 -N 2 slurm-single-node-benchmarks.sh
+srun --time=00:04 -N ${size} slurm-single-node-benchmarks.sh
 rm -rf test_file*
 cd ../../data/single-node-benchmarks
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-single-node-benchmarks single-node-benchmarks
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-single-node-benchmarks single-node-benchmarks
 ```
 
 #### AMG2023
 
-All the following examples are for 32 nodes. Mutatis mutandis for other sizes.
-
 ```bash
-# May want to try these env variables in the job scripts:
+size=4
 cd configs/amg2023/
-for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/amg2023/%x-%j-iter-${i}.out --error=../../data/amg2023/%x-%j-iter-${i}.err slurm-amg-${size}n.sh; done
 cd ../../data/amg2023
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-amg2023 amg2023
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-amg2023 amg2023
 ```
 
 
@@ -114,37 +115,45 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 
 ```bash
 cd configs/kripke/
-for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/kripke/%x-%j-iter-${i}.out --error=../../data/kripke/%x-%j-iter-${i}.err slurm-kripke-${size}n.sh; done
 cd ../../data/kripke
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-kripke kripke
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-kripke kripke
 ```
-
 
 #### Laghos
 
 ```bash
 cd configs/laghos/
-for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/laghos/%x-%j-iter-${i}.out --error=../../data/laghos/%x-%j-iter-${i}.err slurm-laghos-${size}n.sh; done
 cd ../../data/laghos
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-laghos laghos
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-laghos laghos
 ```
 
 #### LAMMPS
 
 ```bash
 cd configs/lammps/
-for i in {1..5}; do sbatch --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/lammps/%x-%j-iter-${i}.out --error=../../data/lammps/%x-%j-iter-${i}.err slurm-lammps-${size}n.sh; done
 cd ../../data/lammps
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-lammps lammps
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-lammps lammps
+```
+
+#### MAGMA
+
+```bash
+cd configs/magma/
+for i in {1..5}; do sbatch --output=../../data/magma/%x-%j-iter-${i}.out --error=../../data/magma/%x-%j-iter-${i}.err slurm-magma-${size}n.sh; done
+cd ../../data/magma
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-magma magma
 ```
 
 #### MiniFE
 
 ```bash
 cd configs/minife/
-for i in {1..5}; do sbatch --output=../../data/minife/%x-%j-iter-${i}.out --error=../../data/minife/%x-%j-iter-${i}.err slurm-minife-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/minife/%x-%j-iter-${i}.out --error=../../data/minife/%x-%j-iter-${i}.err slurm-minife-${size}n.sh; done
 cd ../../data/minife
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-minife minife
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-minife minife
 ```
 
 Don't forget to save the MiniFE yaml output files that generate in the PWD.
@@ -154,59 +163,59 @@ Don't forget to save the MiniFE yaml output files that generate in the PWD.
 ```bash
 cd configs/mixbench/
 for i in {1..5}; do 
-  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
-    sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/%x-%j-iter-${i}.err slurm-mixbench-1n.sh
+  for node in $( sinfo -N -r -l | tail -n +3 | head -n ${size} | awk '{print $1}' ); do 
+    sbatch --nodelist=${node} --output=../../data/mixbench/${node}-%x-%j-iter-${i}.out --error=../../data/mixbench/${node}-%x-%j-iter-${i}.err slurm-mixbench-1n.sh
   done
 done
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-mixbench mixbench
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-mixbench mixbench
 ```
 
 #### Mt-Gemm
 
+Notes: only uses 4 GPUs and oversubscribes processes.
+
 ```bash
 cd configs/mt-gemm/
-for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/mt-gemm/%x-%j-iter-${i}.out --error=../../data/mt-gemm/%x-%j-iter-${i}.err slurm-mt-gemm-${size}n.sh; done
 cd ../../data/mt-gemm
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-mt-gemm mt-gemm
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-mt-gemm mt-gemm
 ```
 
 #### Nek5000
-
+NOT RUNNING
 ```bash
 mkdir /shared/nekrs
 cd /shared/nekrs/
 oras pull ghcr.io/converged-computing/metric-nek5000:libfabric-cpu-data
-for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/nekrs/%x-%j-iter-${i}.out --error=../../data/nekrs/%x-%j-iter-${i}.err slurm-nekrs-${size}n.sh; done
 cd ../../data/nekrs
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-nekrs nekrs
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-nekrs nekrs
 ```
 
 #### OSU
 
+Notes: UCX_ALL allows D D; duplicated experiments with H H to compare with other setups.
+
 ```bash
 cd configs/osu/
-sbatch --output=../../data/osu/%x-%j-iter-${i}.out --error=../../data/osu/%x-%j-iter-${i}.err slurm-osu-32n.sh
+sbatch --output=../../data/osu/%x-%j-iter-${i}.out --error=../../data/osu/%x-%j-iter-${i}.err slurm-osu-${size}n.sh
 cd ../../data/osu
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-osu osu
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-osu osu
 ```
 
 #### Quicksilver
 
 ```bash
 cd configs/quicksilver/
-for i in {1..5}; do sbatch --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-32n.sh; done
+for i in {1..5}; do sbatch --output=../../data/quicksilver/%x-%j-iter-${i}.out --error=../../data/quicksilver/%x-%j-iter-${i}.err slurm-quicksilver-${size}n.sh; done
 cd ../../data/quicksilver
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-quicksilver quicksilver
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-quicksilver quicksilver
 ```
 
 #### Stream
 
 ```bash
 cd configs/stream/
-for i in {1..5}; do 
-  for node in $( sinfo -N -r -l | tail -n +3 | awk '{print $1}' ); do 
-    sbatch --nodelist=${node} --output=../../data/stream/${node}-%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-1n.sh
-  done
-done
-oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-32-node-stream stream
+for i in {1..5}; do sbatch --output=../../data/stream/%x-%j-iter-${i}.out --error=../../data/stream/%x-%j-iter-${i}.err slurm-stream-${size}n.sh; done
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:azure-cyclecloud-gpu-${size}-node-stream stream
 ```

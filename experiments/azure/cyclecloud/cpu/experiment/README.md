@@ -101,6 +101,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 #### AMG2023
 
 All the following examples are for ${size} nodes. Mutatis mutandis for other sizes.
+Needed to set UCX_TLS=all for two runs due to ib errors. Seems to drop back to slower available transports if IB devices are missing
 
 ```bash
 size=128
