@@ -1,0 +1,50 @@
+Start time: 1725166553
+Running with these driver parameters:
+  Problem ID    = 2
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.000026 seconds
+  Laplacian_7pt:
+    (Nx, Ny, Nz) = (2048, 2048, 512)
+    (Px, Py, Pz) = (8, 8, 4)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 1.186126 seconds
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.050717 seconds
+=============================================
+Problem 2: AMG Setup Time:
+=============================================
+PCG Setup:
+  wall clock time = 1.712861 seconds
+
+FOM_Setup: nnz_AP / Setup Phase Time: 1.398372e+10
+
+=============================================
+Problem 2: AMG-PCG Solve Time:
+=============================================
+PCG Solve:
+  wall clock time = 3.022017 seconds
+
+Iterations = 100
+Final Relative Residual Norm = 5.371144e-05
+
+
+FOM_Solve: nnz_AP * iterations / Solve Phase Time: 7.925885e+09
+
+
+
+Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 2.222132e+09
+
+End time: 1725166568

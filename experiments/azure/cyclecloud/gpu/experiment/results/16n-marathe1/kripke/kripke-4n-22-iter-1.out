@@ -1,0 +1,111 @@
+Start time: 1725138046
+
+   _  __       _         _
+  | |/ /      (_)       | |
+  | ' /  _ __  _  _ __  | | __ ___
+  |  <  | '__|| || '_ \ | |/ // _ \ 
+  | . \ | |   | || |_) ||   <|  __/
+  |_|\_\|_|   |_|| .__/ |_|\_\\___|
+                 | |
+                 |_|        Version 1.2.5-dev
+
+LLNL-CODE-775068
+
+Copyright (c) 2014-23, Lawrence Livermore National Security, LLC
+
+Kripke is released under the BSD 3-Clause License, please see the
+LICENSE file for the full license
+
+This work was produced under the auspices of the U.S. Department of
+Energy by Lawrence Livermore National Laboratory under Contract
+DE-AC52-07NA27344.
+
+Author: Adam J. Kunen <kunen1@llnl.gov>
+
+Compilation Options:
+  Architecture:           CUDA
+  Compiler:               /usr/bin/g++
+  Compiler Flags:         "-I$(CUDA_INSTALL_PATH)/include    "
+  Linker Flags:           " -L$(CUDA_INSTALL_PATH)/lib64 -lnvidia-ml -ldl -lstdc++ -pthread "
+  CHAI Enabled:           Yes
+  CUDA Enabled:           Yes
+    NVCC:                 /usr/local/cuda/bin/nvcc
+    NVCC Flags:           "-restrict -gencode=arch=compute_70,code=sm_70 -I$(CUDA_INSTALL_PATH)/include -O3 --expt-extended-lambda -Xcompiler -std=c++14"
+  MPI Enabled:            Yes
+  OpenMP Enabled:         No
+  Caliper Enabled:        No
+
+Input Parameters
+================
+
+  Problem Size:
+    Zones:                 128 x 128 x 128  (2097152 total)
+    Groups:                64
+    Legendre Order:        8
+    Quadrature Set:        Dummy S2 with 8 points
+
+  Physical Properties:
+    Total X-Sec:           sigt=[0.100000, 0.000100, 0.100000]
+    Scattering X-Sec:      sigs=[0.050000, 0.000050, 0.050000]
+
+  Solver Options:
+    Number iterations:     50
+
+  MPI Decomposition Options:
+    Total MPI tasks:       32
+    Spatial decomp:        4 x 2 x 4 MPI tasks
+    Block solve method:    Sweep
+
+  Per-Task Options:
+    DirSets/Directions:    8 sets, 1 directions/set
+    GroupSet/Groups:       16 sets, 4 groups/set
+    Zone Sets:             1 x 1 x 1
+    Architecture:          CUDA
+    Data Layout:           GDZ
+
+Generating Problem
+==================
+
+  Decomposition Space:   Procs:      Subdomains (local/global):
+  ---------------------  ----------  --------------------------
+  (P) Energy:            1           16 / 16
+  (Q) Direction:         1           8 / 8
+  (R) Space:             32          1 / 32
+  (Rx,Ry,Rz) R in XYZ:   4x2x4       1x1x1 / 4x2x4
+  (PQR) TOTAL:           32          128 / 4096
+
+  Material Volumes=[8.252449e+03, 1.221333e+05, 2.749614e+06]
+
+  Memory breakdown of Field variables:
+  Field Variable            Num Elements    Megabytes
+  --------------            ------------    ---------
+  data/sigs                       110592        0.844
+  dx                                 128        0.001
+  dy                                 128        0.001
+  dz                                 128        0.001
+  ell                                648        0.005
+  ell_plus                           648        0.005
+  i_plane                        8388608       64.000
+  j_plane                        8388608       64.000
+  k_plane                        8388608       64.000
+  mixelem_to_fraction            2117576       16.156
+  phi                        10871635968    82944.000
+  phi_out                    10871635968    82944.000
+  psi                         1073741824     8192.000
+  quadrature/w                         8        0.000
+  quadrature/xcos                      8        0.000
+  quadrature/ycos                      8        0.000
+  quadrature/zcos                      8        0.000
+  rhs                         1073741824     8192.000
+  sigt_zonal                   134217728     1024.000
+  volume                         2097152       16.000
+  --------                  ------------    ---------
+  TOTAL                      24054466168   183521.013
+
+  Generation Complete!
+
+Steady State Solve
+==================
+
+3 total processes killed (some possibly by mpirun during cleanup)
+End time: 1725138056
