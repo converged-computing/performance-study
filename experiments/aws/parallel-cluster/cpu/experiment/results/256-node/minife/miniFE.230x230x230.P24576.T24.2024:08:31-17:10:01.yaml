@@ -1,0 +1,63 @@
+Mini-Application Name: miniFE
+Mini-Application Version: 2.0
+Global Run Parameters: 
+  dimensions: 
+    nx: 230
+    ny: 230
+    nz: 230
+  load_imbalance: 0
+  mv_overlap_comm_comp: 0 (no)
+  OpenMP Max Threads:: 24
+  number of processors: 24576
+  ScalarType: double
+  GlobalOrdinalType: int
+  LocalOrdinalType: int
+Platform: 
+  hostname: buildkitsandbox
+  kernel name: 'Linux'
+  kernel release: '6.8.0-39-generic'
+  processor: 'x86_64'
+Build: 
+  CXX: '/usr/local/bin/mpicxx'
+  compiler version: 'g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0'
+  CXXFLAGS: '-O3 -fopenmp'
+  using MPI: yes
+Run Date/Time: 2024-08-31, 17-02-11
+Rows-per-proc Load Imbalance: 
+  Largest (from avg, %): 29.2729
+  Std Dev (%): 8.89279
+Matrix structure generation: 
+  Mat-struc-gen Time: 0.850854
+FE assembly: 
+  FE assembly Time: 0.152995
+Matrix attributes: 
+  Global Nrows: 12326391
+  Global NNZ: 329939371
+  Global Memory (GB): 3.7792
+  Pll Memory Overhead (MB): 141.151
+  Rows per proc MIN: 441
+  Rows per proc MAX: 640
+  Rows per proc AVG: 501.562
+  NNZ per proc MIN: 11907
+  NNZ per proc MAX: 17280
+  NNZ per proc AVG: 13425.3
+CG solve: 
+  Iterations: 200
+  Final Resid Norm: 0.0012696
+  WAXPY Time: 122.492
+  WAXPY Flops: 2.19736e+10
+  WAXPY Mflops: 179.388
+  DOT Time: 256.054
+  DOT Flops: 9.7336e+09
+  DOT Mflops: 38.0139
+  MATVEC Time: 87.8012
+  MATVEC Flops: 1.32636e+11
+  MATVEC Mflops: 1510.64
+  Total: 
+    Total CG Time: 467.344
+    Total CG Flops: 1.64343e+11
+    Total CG Mflops: 351.652
+  Time per iteration: 2.33672
+Global All-RSS (kB): 3532288160
+Global Max-RSS (kB): 158208
+Total Program Time: 471.159

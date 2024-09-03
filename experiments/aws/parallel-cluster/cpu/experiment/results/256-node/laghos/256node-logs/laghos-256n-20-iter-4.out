@@ -1,0 +1,48 @@
+Start time: 1725123319
+
+       __                __                 
+      / /   ____  ____  / /_  ____  _____   
+     / /   / __ `/ __ `/ __ \/ __ \/ ___/ 
+    / /___/ /_/ / /_/ / / / / /_/ (__  )    
+   /_____/\__,_/\__, /_/ /_/\____/____/  
+               /____/                       
+
+Options used:
+   --dimension 3
+   --mesh /opt/laghos/data/cube_311_hex.mesh
+   --refine-serial 4
+   --refine-parallel 2
+   --cartesian-partitioning ''
+   --problem 1
+   --order-kinematic 3
+   --order-thermo 2
+   --order-intrule -1
+   --ode-solver 7
+   --t-final 0.6
+   --cfl 0.5
+   --cg-tol 0
+   --ftz-tol 0
+   --cg-max-steps 50
+   --max-steps 400
+   --partial-assembly
+   --no-impose-viscosity
+   --no-visualization
+   --visualization-steps 5
+   --no-visit
+   --no-print
+   --outputfilename results/Laghos
+   --partition 311
+   --device cpu
+   --no-checks
+   --no-mem
+   --fom
+   --no-gpu-aware-mpi
+   --dev 0
+Device configuration: cpu
+Memory configuration: host-std
+Number of zones in the serial mesh: 12288
+Non-Cartesian partitioning through METIS will be used.
+Zones min/max: 0 64
+Number of kinematic (position, velocity) dofs: 64478019
+Number of specific internal energy dofs: 21233664
+End time: 1725123339
