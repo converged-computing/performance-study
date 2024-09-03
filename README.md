@@ -24,7 +24,7 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 64 (abhik done 6 apps 8/28/2024, done milroy 8/30/2024)
   - [x] size 128 (done milroy 8/30/2024)
   - [x] size 256 (done milroy 8/31/2024)
-- [ ] Microsoft Azure CycleCloud GPU (date)
+- [x] Microsoft Azure CycleCloud GPU (date)
   - [x] size 4 (milroy and ani 8/31/2024)
   - [x] size 8 (milroy and ani 8/31/2024)
   - [x] size 16 (milroy and ani 8/31/2024)
