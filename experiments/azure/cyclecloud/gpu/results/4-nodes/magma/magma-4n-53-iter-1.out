@@ -1,0 +1,1186 @@
+Start time: 1725142500
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:03 2024
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:03 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:03 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:03 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% MAGMA 2.8.0  32-bit magma_int_t, 64-bit pointer.
+% Compiled with CUDA support for 3.0
+% CUDA runtime 12050, driver 12020. OpenMP threads 1. 
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 0: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 1: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 2: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 3: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 4: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% device 5: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 6: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% device 7: Tesla V100-SXM2-32GB, 1530.0 MHz clock, 32501.1 MiB memory, capability 7.0
+% Sat Aug 31 22:15:04 2024
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% Usage: /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched [options] [-h|--help]
+
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+% If running lapack (option --lapack), MAGMA error is computed
+% relative to CPU BLAS result.
+
+% transA = No transpose, transB = No transpose
+%              max   max   max
+% BatchCount     M     N     K   MAGMA Gflop/s (ms)   CPU Gflop/s (ms)   MAGMA error
+%===================================================================================
+         300    32    32    31      0.01 ( 467.40)     ---   (  ---  )     ---
+         300    64    64    63     62.64 (   0.30)     ---   (  ---  )     ---
+         300    96    96    95    297.04 (   0.24)     ---   (  ---  )     ---
+         300    32    32    31      0.00 ( 563.86)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 460.62)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 460.46)     ---   (  ---  )     ---
+         300   128   128   127    686.23 (   0.25)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 460.13)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 461.84)     ---   (  ---  )     ---
+         300    64    64    63     52.15 (   0.36)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 461.13)     ---   (  ---  )     ---
+         300    64    64    63     87.99 (   0.22)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 457.35)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 454.88)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 465.26)     ---   (  ---  )     ---
+         300    64    64    63    101.10 (   0.19)     ---   (  ---  )     ---
+         300    64    64    63     73.01 (   0.26)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 456.14)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 461.80)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 456.14)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 457.72)     ---   (  ---  )     ---
+         300    64    64    63    106.82 (   0.18)     ---   (  ---  )     ---
+         300    64    64    63     54.40 (   0.35)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 458.45)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 465.65)     ---   (  ---  )     ---
+         300    64    64    63     70.36 (   0.27)     ---   (  ---  )     ---
+         300    64    64    63     67.60 (   0.28)     ---   (  ---  )     ---
+         300    64    64    63     54.70 (   0.35)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 459.41)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 456.29)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 461.22)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 454.33)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 453.70)     ---   (  ---  )     ---
+         300    96    96    95    186.31 (   0.39)     ---   (  ---  )     ---
+         300    64    64    63     53.77 (   0.35)     ---   (  ---  )     ---
+         300    64    64    63     57.51 (   0.33)     ---   (  ---  )     ---
+         300    64    64    63     63.90 (   0.30)     ---   (  ---  )     ---
+         300    64    64    63     70.11 (   0.27)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 458.12)     ---   (  ---  )     ---
+         300    96    96    95    353.33 (   0.21)     ---   (  ---  )     ---
+         300    64    64    63     57.02 (   0.33)     ---   (  ---  )     ---
+         300    64    64    63    101.23 (   0.19)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 458.32)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 462.33)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 457.89)     ---   (  ---  )     ---
+         300    96    96    95    269.39 (   0.27)     ---   (  ---  )     ---
+         300    64    64    63     93.15 (   0.20)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 457.52)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 457.20)     ---   (  ---  )     ---
+         300    96    96    95    277.76 (   0.26)     ---   (  ---  )     ---
+         300    64    64    63     67.15 (   0.28)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 456.63)     ---   (  ---  )     ---
+         300    64    64    63     72.81 (   0.26)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 456.83)     ---   (  ---  )     ---
+         300    64    64    63     61.05 (   0.31)     ---   (  ---  )     ---
+         300    96    96    95    203.53 (   0.36)     ---   (  ---  )     ---
+         300    64    64    63     64.58 (   0.29)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 465.01)     ---   (  ---  )     ---
+         300    64    64    63     62.00 (   0.31)     ---   (  ---  )     ---
+         300    96    96    95    194.16 (   0.37)     ---   (  ---  )     ---
+         300    96    96    95    163.90 (   0.44)     ---   (  ---  )     ---
+         300    96    96    95    195.79 (   0.37)     ---   (  ---  )     ---
+         300    64    64    63     58.92 (   0.32)     ---   (  ---  )     ---
+         300    96    96    95    228.47 (   0.32)     ---   (  ---  )     ---
+         300    64    64    63     60.45 (   0.31)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 458.01)     ---   (  ---  )     ---
+         300    32    32    31      0.01 ( 457.92)     ---   (  ---  )     ---
+         300    96    96    95    240.78 (   0.30)     ---   (  ---  )     ---
+         300    64    64    63     61.05 (   0.31)     ---   (  ---  )     ---
+         300    64    64    63     94.15 (   0.20)     ---   (  ---  )     ---
+         300    64    64    63     48.13 (   0.39)     ---   (  ---  )     ---
+         300    96    96    95    302.06 (   0.24)     ---   (  ---  )     ---
+         300    96    96    95    206.99 (   0.35)     ---   (  ---  )     ---
+         300    96    96    95    212.35 (   0.34)     ---   (  ---  )     ---
+         300    64    64    63     47.44 (   0.40)     ---   (  ---  )     ---
+         300   160   160   159   1137.86 (   0.27)     ---   (  ---  )     ---
+         300    64    64    63     70.61 (   0.27)     ---   (  ---  )     ---
+         300    64    64    63     60.63 (   0.31)     ---   (  ---  )     ---
+         300    96    96    95    197.44 (   0.37)     ---   (  ---  )     ---
+         300    96    96    95    295.88 (   0.24)     ---   (  ---  )     ---
+         300    96    96    95    281.88 (   0.26)     ---   (  ---  )     ---
+         300    96    96    95    254.28 (   0.28)     ---   (  ---  )     ---
+         300    64    64    63     76.91 (   0.25)     ---   (  ---  )     ---
+         300    96    96    95    329.22 (   0.22)     ---   (  ---  )     ---
+         300   128   128   127    445.68 (   0.38)     ---   (  ---  )     ---
+         300    64    64    63     58.96 (   0.32)     ---   (  ---  )     ---
+         300    96    96    95    230.03 (   0.31)     ---   (  ---  )     ---
+         300   128   128   127    770.60 (   0.22)     ---   (  ---  )     ---
+         300    96    96    95    266.55 (   0.27)     ---   (  ---  )     ---
+         300    96    96    95    230.03 (   0.31)     ---   (  ---  )     ---
+         300    96    96    95    240.78 (   0.30)     ---   (  ---  )     ---
+         300    96    96    95    373.30 (   0.19)     ---   (  ---  )     ---
+         300    96    96    95    216.89 (   0.33)     ---   (  ---  )     ---
+         300   128   128   127    840.08 (   0.20)     ---   (  ---  )     ---
+         300   128   128   127    701.17 (   0.24)     ---   (  ---  )     ---
+         300    96    96    95    375.61 (   0.19)     ---   (  ---  )     ---
+         300    96    96    95    243.09 (   0.30)     ---   (  ---  )     ---
+         300   128   128   127    949.31 (   0.18)     ---   (  ---  )     ---
+         300    96    96    95    191.23 (   0.38)     ---   (  ---  )     ---
+         300    96    96    95    286.40 (   0.25)     ---   (  ---  )     ---
+         300   128   128   127    455.13 (   0.37)     ---   (  ---  )     ---
+         300    96    96    95    234.47 (   0.31)     ---   (  ---  )     ---
+         300   128   128   127    572.04 (   0.30)     ---   (  ---  )     ---
+         300   128   128   127    599.14 (   0.28)     ---   (  ---  )     ---
+         300   128   128   127    548.13 (   0.31)     ---   (  ---  )     ---
+         300    96    96    95    305.70 (   0.24)     ---   (  ---  )     ---
+         300   128   128   127    558.95 (   0.30)     ---   (  ---  )     ---
+         300    96    96    95    232.31 (   0.31)     ---   (  ---  )     ---
+         300   128   128   127    678.34 (   0.25)     ---   (  ---  )     ---
+         300   128   128   127    506.93 (   0.33)     ---   (  ---  )     ---
+         300   128   128   127    511.69 (   0.33)     ---   (  ---  )     ---
+         300   128   128   127    470.24 (   0.36)     ---   (  ---  )     ---
+         300   128   128   127    844.08 (   0.20)     ---   (  ---  )     ---
+         300   128   128   127    644.39 (   0.26)     ---   (  ---  )     ---
+         300   128   128   127    590.15 (   0.29)     ---   (  ---  )     ---
+         300   128   128   127    811.21 (   0.21)     ---   (  ---  )     ---
+         300   128   128   127    519.58 (   0.32)     ---   (  ---  )     ---
+         300   128   128   127    625.61 (   0.27)     ---   (  ---  )     ---
+         300   128   128   127    536.10 (   0.31)     ---   (  ---  )     ---
+         300   128   128   127    551.55 (   0.31)     ---   (  ---  )     ---
+         300   128   128   127    875.38 (   0.19)     ---   (  ---  )     ---
+         300   128   128   127    529.29 (   0.32)     ---   (  ---  )     ---
+         300   128   128   127    646.74 (   0.26)     ---   (  ---  )     ---
+         300   128   128   127    590.65 (   0.29)     ---   (  ---  )     ---
+         300   160   160   159    839.76 (   0.36)     ---   (  ---  )     ---
+         300   128   128   127    470.55 (   0.36)     ---   (  ---  )     ---
+         300   128   128   127    639.73 (   0.26)     ---   (  ---  )     ---
+         300   160   160   159   1466.69 (   0.21)     ---   (  ---  )     ---
+         300   128   128   127    549.83 (   0.31)     ---   (  ---  )     ---
+         300   128   128   127    700.48 (   0.24)     ---   (  ---  )     ---
+         300   128   128   127    539.36 (   0.31)     ---   (  ---  )     ---
+         300   160   160   159   1524.38 (   0.20)     ---   (  ---  )     ---
+         300   160   160   159   1104.45 (   0.28)     ---   (  ---  )     ---
+         300   192   192   191   2109.19 (   0.26)     ---   (  ---  )     ---
+         300   160   160   159   1509.98 (   0.20)     ---   (  ---  )     ---
+         300   160   160   159    745.75 (   0.41)     ---   (  ---  )     ---
+         300   160   160   159   1026.45 (   0.30)     ---   (  ---  )     ---
+         300   160   160   159    986.85 (   0.31)     ---   (  ---  )     ---
+         300   160   160   159    955.87 (   0.32)     ---   (  ---  )     ---
+         300   160   160   159   1003.10 (   0.30)     ---   (  ---  )     ---
+         300   160   160   159   1151.17 (   0.26)     ---   (  ---  )     ---
+         300   160   160   159    912.89 (   0.33)     ---   (  ---  )     ---
+         300   160   160   159    886.32 (   0.34)     ---   (  ---  )     ---
+         300   160   160   159   1487.16 (   0.21)     ---   (  ---  )     ---
+         300   160   160   159    841.97 (   0.36)     ---   (  ---  )     ---
+         300   160   160   159   1326.72 (   0.23)     ---   (  ---  )     ---
+         300   160   160   159   1089.40 (   0.28)     ---   (  ---  )     ---
+         300   160   160   159   1104.45 (   0.28)     ---   (  ---  )     ---
+         300   160   160   159    958.74 (   0.32)     ---   (  ---  )     ---
+         300   160   160   159   1089.40 (   0.28)     ---   (  ---  )     ---
+         300   160   160   159    949.48 (   0.32)     ---   (  ---  )     ---
+         300   160   160   159    986.85 (   0.31)     ---   (  ---  )     ---
+         300   160   160   159   1480.27 (   0.21)     ---   (  ---  )     ---
+         300   160   160   159    947.37 (   0.32)     ---   (  ---  )     ---
+         300   160   160   159   1676.22 (   0.18)     ---   (  ---  )     ---
+         300   160   160   159    974.07 (   0.31)     ---   (  ---  )     ---
+         300   160   160   159    775.59 (   0.39)     ---   (  ---  )     ---
+         300   160   160   159   1124.85 (   0.27)     ---   (  ---  )     ---
+         300   160   160   159    971.11 (   0.31)     ---   (  ---  )     ---
+         300   160   160   159   1229.76 (   0.25)     ---   (  ---  )     ---
+         300   160   160   159   1026.45 (   0.30)     ---   (  ---  )     ---
+         300   192   192   191   1425.73 (   0.38)     ---   (  ---  )     ---
+         300   192   192   191   2716.80 (   0.20)     ---   (  ---  )     ---
+         300   192   192   191   1973.52 (   0.28)     ---   (  ---  )     ---
+         300   192   192   191   2742.70 (   0.20)     ---   (  ---  )     ---
+         300   192   192   191   2663.34 (   0.21)     ---   (  ---  )     ---
+         300   192   192   191   1318.70 (   0.42)     ---   (  ---  )     ---
+         300   192   192   191   1403.13 (   0.39)     ---   (  ---  )     ---
+         300   192   192   191   1688.28 (   0.32)     ---   (  ---  )     ---
+         300   192   192   191   1017.75 (   0.54)     ---   (  ---  )     ---
+         300   192   192   191   1604.69 (   0.34)     ---   (  ---  )     ---
+         300   192   192   191   2126.74 (   0.26)     ---   (  ---  )     ---
+         300   192   192   191   1388.73 (   0.40)     ---   (  ---  )     ---
+         300   192   192   191   1527.97 (   0.36)     ---   (  ---  )     ---
+         300   192   192   191   1580.45 (   0.35)     ---   (  ---  )     ---
+         300   192   192   191   1466.62 (   0.37)     ---   (  ---  )     ---
+         300   224   224   223   2676.98 (   0.29)     ---   (  ---  )     ---
+         300   192   192   191   2461.10 (   0.22)     ---   (  ---  )     ---
+         300   192   192   191   1537.16 (   0.36)     ---   (  ---  )     ---
+         300   192   192   191   1960.08 (   0.28)     ---   (  ---  )     ---
+         300   192   192   191   1637.81 (   0.33)     ---   (  ---  )     ---
+         300   192   192   191   1945.16 (   0.28)     ---   (  ---  )     ---
+         300   192   192   191   1804.81 (   0.30)     ---   (  ---  )     ---
+         300   192   192   191   1747.25 (   0.31)     ---   (  ---  )     ---
+         300   192   192   191   2364.98 (   0.23)     ---   (  ---  )     ---
+         300   192   192   191   1757.93 (   0.31)     ---   (  ---  )     ---
+         300   192   192   191   1553.77 (   0.35)     ---   (  ---  )     ---
+         300   192   192   191   1099.44 (   0.50)     ---   (  ---  )     ---
+         300   192   192   191   1503.02 (   0.37)     ---   (  ---  )     ---
+         300   192   192   191   1846.81 (   0.30)     ---   (  ---  )     ---
+         300   192   192   191   1724.98 (   0.32)     ---   (  ---  )     ---
+         300   192   192   191   2258.22 (   0.24)     ---   (  ---  )     ---
+         300   192   192   191   1714.70 (   0.32)     ---   (  ---  )     ---
+         300   224   224   223   2037.02 (   0.38)     ---   (  ---  )     ---
+         300   224   224   223   3388.58 (   0.23)     ---   (  ---  )     ---
+         300   224   224   223   2766.91 (   0.28)     ---   (  ---  )     ---
+         300   224   224   223   2578.15 (   0.30)     ---   (  ---  )     ---
+         300   224   224   223   3140.15 (   0.24)     ---   (  ---  )     ---
+         300   224   224   223   2724.66 (   0.28)     ---   (  ---  )     ---
+         300   224   224   223   1854.72 (   0.41)     ---   (  ---  )     ---
+         300   224   224   223   1410.17 (   0.54)     ---   (  ---  )     ---
+         300   224   224   223   2676.98 (   0.29)     ---   (  ---  )     ---
+         300   224   224   223   1316.01 (   0.58)     ---   (  ---  )     ---
+         300   224   224   223   2080.56 (   0.37)     ---   (  ---  )     ---
+         300   224   224   223   3609.41 (   0.21)     ---   (  ---  )     ---
+         300   224   224   223   2511.63 (   0.30)     ---   (  ---  )     ---
+         300   224   224   223   1588.71 (   0.48)     ---   (  ---  )     ---
+         300   224   224   223   1939.84 (   0.39)     ---   (  ---  )     ---
+         300   224   224   223   1187.13 (   0.65)     ---   (  ---  )     ---
+         300   224   224   223   1425.82 (   0.54)     ---   (  ---  )     ---
+         300   224   224   223   1322.51 (   0.58)     ---   (  ---  )     ---
+         300   224   224   223   1598.99 (   0.48)     ---   (  ---  )     ---
+         300   224   224   223   1579.34 (   0.48)     ---   (  ---  )     ---
+         300   224   224   223   1402.79 (   0.55)     ---   (  ---  )     ---
+         300   224   224   223   1395.47 (   0.55)     ---   (  ---  )     ---
+         300   224   224   223   1402.79 (   0.55)     ---   (  ---  )     ---
+         300   224   224   223   2145.88 (   0.36)     ---   (  ---  )     ---
+         300   224   224   223   3683.92 (   0.21)     ---   (  ---  )     ---
+         300   224   224   223   2279.90 (   0.34)     ---   (  ---  )     ---
+         300   224   224   223   1507.45 (   0.51)     ---   (  ---  )     ---
+         300   224   224   223   1228.91 (   0.62)     ---   (  ---  )     ---
+         300   224   224   223   1324.69 (   0.58)     ---   (  ---  )     ---
+         300   224   224   223   1705.08 (   0.45)     ---   (  ---  )     ---
+         300   224   224   223   1339.05 (   0.57)     ---   (  ---  )     ---
+         300   256   256   255   5242.92 (   0.25)     ---   (  ---  )     ---
+         300   256   256   255   3498.55 (   0.38)     ---   (  ---  )     ---
+         300   256   256   255   6269.21 (   0.21)     ---   (  ---  )     ---
+         300   256   256   255   4827.46 (   0.28)     ---   (  ---  )     ---
+         300   256   256   255   4451.69 (   0.30)     ---   (  ---  )     ---
+         300   256   256   255   6851.68 (   0.20)     ---   (  ---  )     ---
+         300   256   256   255   4639.63 (   0.29)     ---   (  ---  )     ---
+         300   256   256   255   3324.25 (   0.40)     ---   (  ---  )     ---
+         300   256   256   255   4124.12 (   0.32)     ---   (  ---  )     ---
+         300   256   256   255   4201.41 (   0.32)     ---   (  ---  )     ---
+         300   256   256   255   3407.10 (   0.39)     ---   (  ---  )     ---
+         300   256   256   255   5587.91 (   0.24)     ---   (  ---  )     ---
+         300   256   256   255   4073.17 (   0.33)     ---   (  ---  )     ---
+         300   256   256   255   5040.18 (   0.27)     ---   (  ---  )     ---
+         300   256   256   255   4061.36 (   0.33)     ---   (  ---  )     ---
+         300   256   256   255   3243.45 (   0.41)     ---   (  ---  )     ---
+         300   256   256   255   4368.42 (   0.31)     ---   (  ---  )     ---
+         300   256   256   255   4176.36 (   0.32)     ---   (  ---  )     ---
+         300   256   256   255   3919.35 (   0.34)     ---   (  ---  )     ---
+         300   256   256   255   4516.26 (   0.30)     ---   (  ---  )     ---
+         300   256   256   255   4294.77 (   0.31)     ---   (  ---  )     ---
+         300   256   256   255   4382.08 (   0.30)     ---   (  ---  )     ---
+         300   256   256   255   4217.21 (   0.32)     ---   (  ---  )     ---
+         300   256   256   255   3894.84 (   0.34)     ---   (  ---  )     ---
+         300   256   256   255   5430.89 (   0.25)     ---   (  ---  )     ---
+         300   256   256   255   3583.55 (   0.37)     ---   (  ---  )     ---
+         300   256   256   255   5736.62 (   0.23)     ---   (  ---  )     ---
+         300   256   256   255   4512.62 (   0.30)     ---   (  ---  )     ---
+         300   256   256   255   4337.99 (   0.31)     ---   (  ---  )     ---
+         300   256   256   255   4201.41 (   0.32)     ---   (  ---  )     ---
+         300   256   256   255   4354.84 (   0.31)     ---   (  ---  )     ---
+         300   256   256   255   3873.31 (   0.34)     ---   (  ---  )     ---
+         300   288   287   287   7022.54 (   0.28)     ---   (  ---  )     ---
+         300   288   287   287   2972.64 (   0.66)     ---   (  ---  )     ---
+         300   288   287   287   9326.19 (   0.21)     ---   (  ---  )     ---
+         300   288   287   287   3826.91 (   0.51)     ---   (  ---  )     ---
+         300   288   287   287   7251.88 (   0.27)     ---   (  ---  )     ---
+         300   288   287   287   8558.72 (   0.23)     ---   (  ---  )     ---
+         300   288   287   287   4719.34 (   0.42)     ---   (  ---  )     ---
+         300   288   287   287   5596.99 (   0.35)     ---   (  ---  )     ---
+         300   288   287   287   6526.11 (   0.30)     ---   (  ---  )     ---
+         300   288   287   287   3948.28 (   0.50)     ---   (  ---  )     ---
+         300   288   287   287   3099.35 (   0.63)     ---   (  ---  )     ---
+         300   288   287   287   8863.40 (   0.22)     ---   (  ---  )     ---
+         300   288   287   287   8055.27 (   0.24)     ---   (  ---  )     ---
+         300   288   287   287   5693.95 (   0.34)     ---   (  ---  )     ---
+         300   288   287   287   5455.76 (   0.36)     ---   (  ---  )     ---
+         300   288   287   287   3503.78 (   0.56)     ---   (  ---  )     ---
+         300   288   287   287   5643.11 (   0.35)     ---   (  ---  )     ---
+         300   288   287   287   6159.20 (   0.32)     ---   (  ---  )     ---
+         300   288   287   287   5596.99 (   0.35)     ---   (  ---  )     ---
+         300   288   287   287   6779.19 (   0.29)     ---   (  ---  )     ---
+         300   288   287   287   6140.79 (   0.32)     ---   (  ---  )     ---
+         300   288   287   287   6238.71 (   0.31)     ---   (  ---  )     ---
+         300   288   287   287   6615.44 (   0.30)     ---   (  ---  )     ---
+         300   288   287   287   5992.98 (   0.33)     ---   (  ---  )     ---
+         300   288   287   287   8667.06 (   0.23)     ---   (  ---  )     ---
+         300   288   287   287   5128.82 (   0.38)     ---   (  ---  )     ---
+         300   288   287   287   5810.73 (   0.34)     ---   (  ---  )     ---
+         300   288   287   287   8333.04 (   0.24)     ---   (  ---  )     ---
+         300   288   287   287   6010.52 (   0.33)     ---   (  ---  )     ---
+         300   288   287   287   6552.13 (   0.30)     ---   (  ---  )     ---
+         300   288   287   287   6296.07 (   0.31)     ---   (  ---  )     ---
+         300   288   287   287   4567.19 (   0.43)     ---   (  ---  )     ---
+         300   320   320   319   5316.04 (   0.47)     ---   (  ---  )     ---
+         300   320   320   319   6809.46 (   0.37)     ---   (  ---  )     ---
+         300   320   320   319   11887.83 (   0.21)     ---   (  ---  )     ---
+         300   320   320   319   8933.46 (   0.28)     ---   (  ---  )     ---
+         300   320   320   319   6316.96 (   0.40)     ---   (  ---  )     ---
+         300   320   320   319   8843.75 (   0.28)     ---   (  ---  )     ---
+         300   320   320   319   10463.64 (   0.24)     ---   (  ---  )     ---
+         300   320   320   319   11302.97 (   0.22)     ---   (  ---  )     ---
+         300   320   320   319   8691.02 (   0.29)     ---   (  ---  )     ---
+         300   320   320   319   6332.10 (   0.40)     ---   (  ---  )     ---
+         300   320   320   319   6268.25 (   0.40)     ---   (  ---  )     ---
+         300   320   320   319   9686.78 (   0.26)     ---   (  ---  )     ---
+         300   320   320   319   10494.81 (   0.24)     ---   (  ---  )     ---
+         300   320   320   319   7564.98 (   0.33)     ---   (  ---  )     ---
+         300   320   320   319   6511.57 (   0.39)     ---   (  ---  )     ---
+         300   320   320   319   7592.15 (   0.33)     ---   (  ---  )     ---
+         300   320   320   319   5383.74 (   0.47)     ---   (  ---  )     ---
+         300   320   320   319   9923.27 (   0.25)     ---   (  ---  )     ---
+         300   320   320   319   7799.47 (   0.32)     ---   (  ---  )     ---
+         300   320   320   319   8683.88 (   0.29)     ---   (  ---  )     ---
+         300   320   320   319   7452.95 (   0.34)     ---   (  ---  )     ---
+         300   320   320   319   7500.55 (   0.34)     ---   (  ---  )     ---
+         300   320   320   319   8129.44 (   0.31)     ---   (  ---  )     ---
+         300   320   320   319   7452.95 (   0.34)     ---   (  ---  )     ---
+         300   320   320   319   10494.81 (   0.24)     ---   (  ---  )     ---
+         300   320   320   319   7636.04 (   0.33)     ---   (  ---  )     ---
+         300   320   320   319   6234.97 (   0.40)     ---   (  ---  )     ---
+         300   320   320   319   11195.21 (   0.23)     ---   (  ---  )     ---
+         300   320   320   319   6475.66 (   0.39)     ---   (  ---  )     ---
+         300   320   320   319   9335.93 (   0.27)     ---   (  ---  )     ---
+         300   320   320   319   7258.43 (   0.35)     ---   (  ---  )     ---
+         300   320   320   319   5913.98 (   0.43)     ---   (  ---  )     ---
+         300   352   350   351   12497.31 (   0.26)     ---   (  ---  )     ---
+         300   352   350   351   8696.87 (   0.38)     ---   (  ---  )     ---
+         300   352   350   351   15436.21 (   0.21)     ---   (  ---  )     ---
+         300   352   350   351   11652.18 (   0.28)     ---   (  ---  )     ---
+         300   352   350   351   8113.32 (   0.41)     ---   (  ---  )     ---
+         300   352   350   351   12166.40 (   0.27)     ---   (  ---  )     ---
+         300   352   350   351   12177.15 (   0.27)     ---   (  ---  )     ---
+         300   352   350   351   15717.83 (   0.21)     ---   (  ---  )     ---
+         300   352   350   351   15789.84 (   0.21)     ---   (  ---  )     ---
+         300   352   350   351   8359.33 (   0.39)     ---   (  ---  )     ---
+         300   352   350   351   15807.95 (   0.21)     ---   (  ---  )     ---
+         300   352   350   351   7483.46 (   0.44)     ---   (  ---  )     ---
+         300   352   350   351   14680.01 (   0.22)     ---   (  ---  )     ---
+         300   352   350   351   10669.14 (   0.31)     ---   (  ---  )     ---
+         300   352   350   351   7083.52 (   0.46)     ---   (  ---  )     ---
+         300   352   350   351   11373.38 (   0.29)     ---   (  ---  )     ---
+         300   352   350   351   7863.40 (   0.42)     ---   (  ---  )     ---
+         300   352   350   351   10562.86 (   0.31)     ---   (  ---  )     ---
+         300   352   350   351   9988.79 (   0.33)     ---   (  ---  )     ---
+         300   352   350   351   11289.54 (   0.29)     ---   (  ---  )     ---
+         300   352   350   351   8384.75 (   0.39)     ---   (  ---  )     ---
+         300   352   350   351   10702.28 (   0.31)     ---   (  ---  )     ---
+         300   352   350   351   8113.32 (   0.41)     ---   (  ---  )     ---
+         300   352   350   351   10530.58 (   0.31)     ---   (  ---  )     ---
+         300   352   350   351   13980.26 (   0.24)     ---   (  ---  )     ---
+         300   352   350   351   9639.53 (   0.34)     ---   (  ---  )     ---
+         300   352   350   351   8364.40 (   0.39)     ---   (  ---  )     ---
+         300   352   350   351   13370.06 (   0.25)     ---   (  ---  )     ---
+         300   352   350   351   8384.75 (   0.39)     ---   (  ---  )     ---
+         300   352   350   351   12882.74 (   0.26)     ---   (  ---  )     ---
+         300   352   350   351   9074.74 (   0.36)     ---   (  ---  )     ---
+         300   352   350   351   8951.00 (   0.37)     ---   (  ---  )     ---
+         300   384   382   383   16861.41 (   0.24)     ---   (  ---  )     ---
+         300   384   382   383   10612.58 (   0.39)     ---   (  ---  )     ---
+         300   384   382   383   19240.51 (   0.21)     ---   (  ---  )     ---
+         300   384   382   383   14901.80 (   0.27)     ---   (  ---  )     ---
+         300   384   382   383   10612.58 (   0.39)     ---   (  ---  )     ---
+         300   384   382   383   14270.58 (   0.29)     ---   (  ---  )     ---
+         300   384   382   383   11135.30 (   0.37)     ---   (  ---  )     ---
+         300   384   382   383   14622.79 (   0.28)     ---   (  ---  )     ---
+         300   384   382   383   17972.57 (   0.23)     ---   (  ---  )     ---
+         300   384   382   383   18220.33 (   0.22)     ---   (  ---  )     ---
+         300   384   382   383   17897.68 (   0.23)     ---   (  ---  )     ---
+         300   384   382   383   19978.81 (   0.21)     ---   (  ---  )     ---
+         300   384   382   383   9729.20 (   0.42)     ---   (  ---  )     ---
+         300   384   382   383   11070.73 (   0.37)     ---   (  ---  )     ---
+         300   384   382   383   11006.90 (   0.37)     ---   (  ---  )     ---
+         300   384   382   383   12689.64 (   0.32)     ---   (  ---  )     ---
+         300   384   382   383   10560.40 (   0.39)     ---   (  ---  )     ---
+         300   384   382   383   12185.66 (   0.34)     ---   (  ---  )     ---
+         300   384   382   383   13560.99 (   0.30)     ---   (  ---  )     ---
+         300   384   382   383   13701.57 (   0.30)     ---   (  ---  )     ---
+         300   384   382   383   12405.61 (   0.33)     ---   (  ---  )     ---
+         300   384   382   383   13518.31 (   0.30)     ---   (  ---  )     ---
+         300   384   382   383   10215.09 (   0.40)     ---   (  ---  )     ---
+         300   384   382   383   12918.63 (   0.32)     ---   (  ---  )     ---
+         300   384   382   383   18201.03 (   0.23)     ---   (  ---  )     ---
+         300   384   382   383   13433.76 (   0.30)     ---   (  ---  )     ---
+         300   384   382   383   9394.08 (   0.44)     ---   (  ---  )     ---
+         300   384   382   383   15997.93 (   0.26)     ---   (  ---  )     ---
+         300   384   382   383   13433.76 (   0.30)     ---   (  ---  )     ---
+         300   384   382   383   13800.62 (   0.30)     ---   (  ---  )     ---
+         300   384   382   383   12116.91 (   0.34)     ---   (  ---  )     ---
+         300   384   382   383   13095.86 (   0.31)     ---   (  ---  )     ---
+         300   416   416   414   19748.86 (   0.26)     ---   (  ---  )     ---
+         300   416   416   414   12919.93 (   0.40)     ---   (  ---  )     ---
+         300   416   416   414   24980.50 (   0.21)     ---   (  ---  )     ---
+         300   416   416   414   18475.82 (   0.28)     ---   (  ---  )     ---
+         300   416   416   414   13075.03 (   0.40)     ---   (  ---  )     ---
+         300   416   416   414   17315.58 (   0.30)     ---   (  ---  )     ---
+         300   416   416   414   12821.07 (   0.41)     ---   (  ---  )     ---
+         300   416   416   414   14227.95 (   0.37)     ---   (  ---  )     ---
+         300   416   416   414   13043.71 (   0.40)     ---   (  ---  )     ---
+         300   416   416   414   16691.95 (   0.31)     ---   (  ---  )     ---
+         300   416   416   414   24257.24 (   0.21)     ---   (  ---  )     ---
+         300   416   416   414   16378.19 (   0.32)     ---   (  ---  )     ---
+         300   416   416   414   7659.28 (   0.68)     ---   (  ---  )     ---
+         300   416   416   414   8140.13 (   0.64)     ---   (  ---  )     ---
+         300   416   416   414   15137.59 (   0.34)     ---   (  ---  )     ---
+         300   416   416   414   9049.85 (   0.57)     ---   (  ---  )     ---
+         300   416   416   414   9377.10 (   0.55)     ---   (  ---  )     ---
+         300   416   416   414   8542.35 (   0.61)     ---   (  ---  )     ---
+         300   416   416   414   10042.88 (   0.52)     ---   (  ---  )     ---
+         300   416   416   414   9946.57 (   0.52)     ---   (  ---  )     ---
+         300   416   416   414   10709.44 (   0.48)     ---   (  ---  )     ---
+         300   416   416   414   9144.84 (   0.57)     ---   (  ---  )     ---
+         300   416   416   414   9634.23 (   0.54)     ---   (  ---  )     ---
+         300   416   416   414   9273.31 (   0.56)     ---   (  ---  )     ---
+         300   416   416   414   9016.14 (   0.58)     ---   (  ---  )     ---
+         300   416   416   414   14302.69 (   0.36)     ---   (  ---  )     ---
+         300   416   416   414   7431.93 (   0.70)     ---   (  ---  )     ---
+         300   416   416   414   21631.58 (   0.24)     ---   (  ---  )     ---
+         300   416   416   414   17370.81 (   0.30)     ---   (  ---  )     ---
+         300   416   416   414   11096.79 (   0.47)     ---   (  ---  )     ---
+         300   416   416   414   17151.97 (   0.30)     ---   (  ---  )     ---
+         300   416   416   414   6961.65 (   0.75)     ---   (  ---  )     ---
+         300   448   448   446   24716.26 (   0.26)     ---   (  ---  )     ---
+         300   448   448   446   16250.57 (   0.40)     ---   (  ---  )     ---
+         300   448   448   446   17396.45 (   0.37)     ---   (  ---  )     ---
+         300   448   448   446   23116.23 (   0.28)     ---   (  ---  )     ---
+         300   448   448   446   16020.34 (   0.40)     ---   (  ---  )     ---
+         300   448   448   446   25969.82 (   0.25)     ---   (  ---  )     ---
+         300   448   448   446   9630.40 (   0.67)     ---   (  ---  )     ---
+         300   448   448   446   22317.81 (   0.29)     ---   (  ---  )     ---
+         300   448   448   446   29822.48 (   0.22)     ---   (  ---  )     ---
+         300   448   448   446   14381.80 (   0.45)     ---   (  ---  )     ---
+         300   448   448   446   18386.49 (   0.35)     ---   (  ---  )     ---
+         300   448   448   446   22465.61 (   0.29)     ---   (  ---  )     ---
+         300   448   448   446   25772.51 (   0.25)     ---   (  ---  )     ---
+         300   448   448   446   17819.08 (   0.36)     ---   (  ---  )     ---
+         300   448   448   446   20343.67 (   0.32)     ---   (  ---  )     ---
+         300   448   448   446   15552.12 (   0.42)     ---   (  ---  )     ---
+         300   448   448   446   20222.40 (   0.32)     ---   (  ---  )     ---
+         300   448   448   446   19608.71 (   0.33)     ---   (  ---  )     ---
+         300   448   448   446   23354.96 (   0.28)     ---   (  ---  )     ---
+         300   448   448   446   22153.84 (   0.29)     ---   (  ---  )     ---
+         300   448   448   446   19098.14 (   0.34)     ---   (  ---  )     ---
+         300   448   448   446   20748.06 (   0.31)     ---   (  ---  )     ---
+         300   448   448   446   21352.05 (   0.30)     ---   (  ---  )     ---
+         300   448   448   446   22153.84 (   0.29)     ---   (  ---  )     ---
+         300   448   448   446   17576.72 (   0.37)     ---   (  ---  )     ---
+         300   448   448   446   28122.75 (   0.23)     ---   (  ---  )     ---
+         300   448   448   446   16338.63 (   0.40)     ---   (  ---  )     ---
+         300   448   448   446   29562.59 (   0.22)     ---   (  ---  )     ---
+         300   448   448   446   16250.57 (   0.40)     ---   (  ---  )     ---
+         300   448   448   446   24515.32 (   0.26)     ---   (  ---  )     ---
+         300   448   448   446   15516.56 (   0.42)     ---   (  ---  )     ---
+         300   448   448   446   21285.07 (   0.30)     ---   (  ---  )     ---
+         300   480   480   479   16886.55 (   0.47)     ---   (  ---  )     ---
+         300   480   480   479   12319.59 (   0.65)     ---   (  ---  )     ---
+         300   480   480   479   36068.35 (   0.22)     ---   (  ---  )     ---
+         300   480   480   479   15631.31 (   0.51)     ---   (  ---  )     ---
+         300   480   480   479   13400.95 (   0.59)     ---   (  ---  )     ---
+         300   480   480   479   36742.16 (   0.22)     ---   (  ---  )     ---
+         300   480   480   479   19293.34 (   0.41)     ---   (  ---  )     ---
+         300   480   480   479   14239.93 (   0.56)     ---   (  ---  )     ---
+         300   480   480   479   32026.21 (   0.25)     ---   (  ---  )     ---
+         300   480   480   479   18534.02 (   0.43)     ---   (  ---  )     ---
+         300   480   480   479   28873.37 (   0.28)     ---   (  ---  )     ---
+         300   480   480   479   22963.85 (   0.35)     ---   (  ---  )     ---
+         300   480   480   479   22084.12 (   0.36)     ---   (  ---  )     ---
+         300   480   480   479   15211.72 (   0.52)     ---   (  ---  )     ---
+         300   480   480   479   27886.04 (   0.29)     ---   (  ---  )     ---
+         300   480   480   479   15274.26 (   0.52)     ---   (  ---  )     ---
+         300   480   480   479   16199.30 (   0.49)     ---   (  ---  )     ---
+         300   480   480   479   23713.02 (   0.34)     ---   (  ---  )     ---
+         300   480   480   479   25139.37 (   0.32)     ---   (  ---  )     ---
+         300   480   480   479   23446.96 (   0.34)     ---   (  ---  )     ---
+         300   480   480   479   28263.20 (   0.28)     ---   (  ---  )     ---
+         300   480   480   479   21838.91 (   0.37)     ---   (  ---  )     ---
+         300   480   480   479   18411.54 (   0.43)     ---   (  ---  )     ---
+         300   480   480   479   14036.68 (   0.57)     ---   (  ---  )     ---
+         300   480   480   479   16301.98 (   0.49)     ---   (  ---  )     ---
+         300   480   480   479   36224.66 (   0.22)     ---   (  ---  )     ---
+         300   480   480   479   21613.03 (   0.37)     ---   (  ---  )     ---
+         300   480   480   479   21669.06 (   0.37)     ---   (  ---  )     ---
+         300   480   480   479   14959.89 (   0.53)     ---   (  ---  )     ---
+         300   480   480   479   20337.81 (   0.39)     ---   (  ---  )     ---
+         300   480   480   479   13111.91 (   0.61)     ---   (  ---  )     ---
+         300   480   480   479   11569.33 (   0.69)     ---   (  ---  )     ---
+         300   512   512   511   40526.56 (   0.27)     ---   (  ---  )     ---
+         300   512   512   511   29021.58 (   0.37)     ---   (  ---  )     ---
+         300   512   512   511   50771.53 (   0.21)     ---   (  ---  )     ---
+         300   512   512   511   37951.29 (   0.29)     ---   (  ---  )     ---
+         300   512   512   511   45894.58 (   0.24)     ---   (  ---  )     ---
+         300   512   512   511   26857.84 (   0.40)     ---   (  ---  )     ---
+         300   512   512   511   22359.48 (   0.48)     ---   (  ---  )     ---
+         300   512   512   511   36457.63 (   0.30)     ---   (  ---  )     ---
+         300   512   512   511   25951.83 (   0.42)     ---   (  ---  )     ---
+         300   512   512   511   18951.88 (   0.57)     ---   (  ---  )     ---
+         300   512   512   511   33082.90 (   0.33)     ---   (  ---  )     ---
+         300   512   512   511   17654.51 (   0.61)     ---   (  ---  )     ---
+         300   512   512   511   46649.27 (   0.23)     ---   (  ---  )     ---
+         300   512   512   511   31281.70 (   0.35)     ---   (  ---  )     ---
+         300   512   512   511   16835.96 (   0.64)     ---   (  ---  )     ---
+         300   512   512   511   29021.58 (   0.37)     ---   (  ---  )     ---
+         300   512   512   511   19606.80 (   0.55)     ---   (  ---  )     ---
+         300   512   512   511   19708.96 (   0.55)     ---   (  ---  )     ---
+         300   512   512   511   22970.52 (   0.47)     ---   (  ---  )     ---
+         300   512   512   511   18496.23 (   0.59)     ---   (  ---  )     ---
+         300   512   512   511   18564.31 (   0.58)     ---   (  ---  )     ---
+         300   512   512   511   31542.56 (   0.34)     ---   (  ---  )     ---
+         300   512   512   511   13561.32 (   0.80)     ---   (  ---  )     ---
+         300   512   512   511   23776.71 (   0.46)     ---   (  ---  )     ---
+         300   512   512   511   39196.67 (   0.28)     ---   (  ---  )     ---
+         300   512   512   511   19743.26 (   0.55)     ---   (  ---  )     ---
+         300   512   512   511   19087.36 (   0.57)     ---   (  ---  )     ---
+         300   512   512   511   52052.46 (   0.21)     ---   (  ---  )     ---
+         300   512   512   511   33822.46 (   0.32)     ---   (  ---  )     ---
+         300   512   512   511   17095.95 (   0.63)     ---   (  ---  )     ---
+         300   512   512   511   12883.83 (   0.84)     ---   (  ---  )     ---
+         300   512   512   511   30668.75 (   0.35)     ---   (  ---  )     ---
+End time: 1725142515
