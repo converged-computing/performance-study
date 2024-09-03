@@ -1,0 +1,159 @@
+Start time: 1725063853
+
+       __                __                 
+      / /   ____  ____  / /_  ____  _____   
+     / /   / __ `/ __ `/ __ \/ __ \/ ___/ 
+    / /___/ /_/ / /_/ / / / / /_/ (__  )    
+   /_____/\__,_/\__, /_/ /_/\____/____/  
+               /____/                       
+
+Options used:
+   --dimension 3
+   --mesh /opt/laghos/data/cube_311_hex.mesh
+   --refine-serial 4
+   --refine-parallel 2
+   --cartesian-partitioning ''
+   --problem 1
+   --order-kinematic 3
+   --order-thermo 2
+   --order-intrule -1
+   --ode-solver 7
+   --t-final 0.6
+   --cfl 0.5
+   --cg-tol 0
+   --ftz-tol 0
+   --cg-max-steps 50
+   --max-steps 400
+   --partial-assembly
+   --no-impose-viscosity
+   --no-visualization
+   --visualization-steps 5
+   --no-visit
+   --no-print
+   --outputfilename results/Laghos
+   --partition 311
+   --device cpu
+   --no-checks
+   --no-mem
+   --fom
+   --no-gpu-aware-mpi
+   --dev 0
+Device configuration: cpu
+Memory configuration: host-std
+Number of zones in the serial mesh: 12288
+Non-Cartesian partitioning through METIS will be used.
+Mesh::GeneratePartitioning(...): edgecut = 28391
+Zones min/max: 64 192
+Number of kinematic (position, velocity) dofs: 64478019
+Number of specific internal energy dofs: 21233664
+Repeating step 3
+step     5,	t = 0.0000,	dt = 0.000000,	|e| = 2.9273016842e+06
+Repeating step 6
+step    10,	t = 0.0000,	dt = 0.000000,	|e| = 2.7548731952e+06
+step    15,	t = 0.0000,	dt = 0.000000,	|e| = 2.6005931958e+06
+step    20,	t = 0.0000,	dt = 0.000000,	|e| = 2.4668403355e+06
+step    25,	t = 0.0000,	dt = 0.000000,	|e| = 2.3476774766e+06
+Repeating step 30
+step    30,	t = 0.0000,	dt = 0.000000,	|e| = 2.2468136043e+06
+Repeating step 34
+step    35,	t = 0.0000,	dt = 0.000000,	|e| = 2.1718745027e+06
+step    40,	t = 0.0000,	dt = 0.000000,	|e| = 2.1039332192e+06
+step    45,	t = 0.0000,	dt = 0.000000,	|e| = 2.0393897885e+06
+Repeating step 47
+step    50,	t = 0.0000,	dt = 0.000000,	|e| = 1.9857614817e+06
+step    55,	t = 0.0000,	dt = 0.000000,	|e| = 1.9320038994e+06
+step    60,	t = 0.0000,	dt = 0.000000,	|e| = 1.8768113505e+06
+step    65,	t = 0.0000,	dt = 0.000000,	|e| = 1.8219683824e+06
+Repeating step 66
+step    70,	t = 0.0000,	dt = 0.000000,	|e| = 1.7779709708e+06
+step    75,	t = 0.0000,	dt = 0.000000,	|e| = 1.7338233987e+06
+step    80,	t = 0.0000,	dt = 0.000000,	|e| = 1.6920199936e+06
+step    85,	t = 0.0000,	dt = 0.000000,	|e| = 1.6530371402e+06
+step    90,	t = 0.0000,	dt = 0.000000,	|e| = 1.6151886020e+06
+step    95,	t = 0.0000,	dt = 0.000000,	|e| = 1.5785624388e+06
+step   100,	t = 0.0000,	dt = 0.000000,	|e| = 1.5432598746e+06
+step   105,	t = 0.0000,	dt = 0.000000,	|e| = 1.5090999595e+06
+step   110,	t = 0.0000,	dt = 0.000000,	|e| = 1.4760127221e+06
+Repeating step 111
+Repeating step 113
+Repeating step 115
+step   115,	t = 0.0000,	dt = 0.000000,	|e| = 1.4512693420e+06
+Repeating step 118
+step   120,	t = 0.0000,	dt = 0.000000,	|e| = 1.4328956042e+06
+step   125,	t = 0.0000,	dt = 0.000000,	|e| = 1.4163076927e+06
+step   130,	t = 0.0000,	dt = 0.000000,	|e| = 1.4004632065e+06
+step   135,	t = 0.0000,	dt = 0.000000,	|e| = 1.3853049273e+06
+Repeating step 136
+step   140,	t = 0.0000,	dt = 0.000000,	|e| = 1.3729219355e+06
+step   145,	t = 0.0000,	dt = 0.000000,	|e| = 1.3609733585e+06
+step   150,	t = 0.0000,	dt = 0.000000,	|e| = 1.3494328531e+06
+step   155,	t = 0.0000,	dt = 0.000000,	|e| = 1.3382693799e+06
+step   160,	t = 0.0000,	dt = 0.000000,	|e| = 1.3274620287e+06
+step   165,	t = 0.0000,	dt = 0.000000,	|e| = 1.3169971344e+06
+step   170,	t = 0.0000,	dt = 0.000000,	|e| = 1.3068436355e+06
+step   175,	t = 0.0000,	dt = 0.000000,	|e| = 1.2969825072e+06
+step   180,	t = 0.0000,	dt = 0.000000,	|e| = 1.2871634945e+06
+step   185,	t = 0.0000,	dt = 0.000000,	|e| = 1.2773843215e+06
+step   190,	t = 0.0000,	dt = 0.000000,	|e| = 1.2676377808e+06
+step   195,	t = 0.0000,	dt = 0.000000,	|e| = 1.2578781850e+06
+step   200,	t = 0.0000,	dt = 0.000000,	|e| = 1.2480667203e+06
+step   205,	t = 0.0000,	dt = 0.000000,	|e| = 1.2382492789e+06
+step   210,	t = 0.0000,	dt = 0.000000,	|e| = 1.2283819581e+06
+step   215,	t = 0.0000,	dt = 0.000000,	|e| = 1.2185384275e+06
+step   220,	t = 0.0000,	dt = 0.000000,	|e| = 1.2087546367e+06
+step   225,	t = 0.0000,	dt = 0.000000,	|e| = 1.1989928292e+06
+step   230,	t = 0.0000,	dt = 0.000000,	|e| = 1.1892564612e+06
+step   235,	t = 0.0000,	dt = 0.000000,	|e| = 1.1795470815e+06
+step   240,	t = 0.0000,	dt = 0.000000,	|e| = 1.1698715166e+06
+step   245,	t = 0.0000,	dt = 0.000000,	|e| = 1.1602331211e+06
+step   250,	t = 0.0000,	dt = 0.000000,	|e| = 1.1506396346e+06
+step   255,	t = 0.0000,	dt = 0.000000,	|e| = 1.1411311725e+06
+step   260,	t = 0.0000,	dt = 0.000000,	|e| = 1.1318925238e+06
+step   265,	t = 0.0000,	dt = 0.000000,	|e| = 1.1229116480e+06
+step   270,	t = 0.0000,	dt = 0.000000,	|e| = 1.1141775122e+06
+step   275,	t = 0.0000,	dt = 0.000000,	|e| = 1.1056473823e+06
+step   280,	t = 0.0000,	dt = 0.000000,	|e| = 1.0972203638e+06
+step   285,	t = 0.0000,	dt = 0.000000,	|e| = 1.0890251724e+06
+step   290,	t = 0.0000,	dt = 0.000000,	|e| = 1.0810543279e+06
+step   295,	t = 0.0000,	dt = 0.000000,	|e| = 1.0732999923e+06
+step   300,	t = 0.0000,	dt = 0.000000,	|e| = 1.0657537359e+06
+step   305,	t = 0.0000,	dt = 0.000000,	|e| = 1.0583219429e+06
+step   310,	t = 0.0000,	dt = 0.000000,	|e| = 1.0509437904e+06
+step   315,	t = 0.0000,	dt = 0.000000,	|e| = 1.0436185361e+06
+step   320,	t = 0.0000,	dt = 0.000000,	|e| = 1.0363192438e+06
+step   325,	t = 0.0000,	dt = 0.000000,	|e| = 1.0291894006e+06
+step   330,	t = 0.0000,	dt = 0.000000,	|e| = 1.0221954459e+06
+step   335,	t = 0.0000,	dt = 0.000000,	|e| = 1.0153079303e+06
+step   340,	t = 0.0001,	dt = 0.000000,	|e| = 1.0085253341e+06
+step   345,	t = 0.0001,	dt = 0.000000,	|e| = 1.0018717213e+06
+step   350,	t = 0.0001,	dt = 0.000000,	|e| = 9.9539294932e+05
+Repeating step 351
+step   355,	t = 0.0001,	dt = 0.000000,	|e| = 9.8984938341e+05
+step   360,	t = 0.0001,	dt = 0.000000,	|e| = 9.8438722688e+05
+step   365,	t = 0.0001,	dt = 0.000000,	|e| = 9.7904773425e+05
+step   370,	t = 0.0001,	dt = 0.000000,	|e| = 9.7380671075e+05
+step   375,	t = 0.0001,	dt = 0.000000,	|e| = 9.6847474040e+05
+step   380,	t = 0.0001,	dt = 0.000000,	|e| = 9.6298907246e+05
+step   385,	t = 0.0001,	dt = 0.000000,	|e| = 9.5750207078e+05
+Repeating step 389
+
+CG (H1) total time: 304.9910290510
+CG (H1) rate (megadofs x cg_iterations / second): 8477.5233223914
+
+CG (L2) total time: 56.6059224390
+CG (L2) rate (megadofs x cg_iterations / second): 18.8390498035
+
+Forces total time: 6.0059372670
+Forces rate (megadofs x timesteps / second): 11445.4691599429
+
+UpdateQuadData total time: 69.3689654880
+UpdateQuadData rate (megaquads x timesteps / second): 1995.7554261631
+
+Major kernels total time (seconds): 347.2064269960
+Major kernels total rate (megadofs x time steps / second): 8043.4940248908
+
+| Ranks | Zones   | H1 dofs | L2 dofs | QP | N dofs   | FOM0   | FOM1   | T1   | FOM2   | T2   | FOM3   | T3   | FOM    | TT   |
+|   6144|   786432| 64478019| 21233664| 216| 320059014| 197.982| 8477.523| 304.991| 11445.469| 6.006| 1995.755| 69.369| 8043.494| 347.206| 
+
+Energy  diff: 2.69e-15
+End time: 1725064269
