@@ -1,7 +1,7 @@
 FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
 
-# docker build -t ghcr.io/converged-computing/pytorch-resnet-experiment:gpu .
-# docker push ghcr.io/converged-computing/pytorch-resnet-experiment:gpu
+# docker build -t ghcr.io/converged-computing/pytorch-resnet-experiment:google-gpu .
+# docker push ghcr.io/converged-computing/pytorch-resnet-experiment:google-gpu
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -186,7 +186,6 @@ RUN mkdir -p /usr/local/pancakes && \
     ./configure --with-cuda --prefix=/usr/local/pancakes && \
     make && make install
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-12.4/compat
 

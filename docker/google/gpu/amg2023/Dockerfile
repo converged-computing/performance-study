@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim
 
 # AMD
-#  docker build -t ghcr.io/converged-computing/metric-amg2023:spack-slim-zen4 .
-#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-zen4
+#  docker build -t ghcr.io/converged-computing/metric-amg2023:google-gpu .
+#  docker push ghcr.io/converged-computing/metric-amg2023:google-gpu
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
@@ -52,7 +52,6 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
 
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV CUDACXX=/usr/local/cuda/bin/nvcc
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH

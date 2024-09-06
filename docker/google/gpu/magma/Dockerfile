@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-magma:mnist .
-#  docker push ghcr.io/converged-computing/metric-magma:mnist
+#  docker build -t ghcr.io/converged-computing/metric-magma:google-gpu .
+#  docker push ghcr.io/converged-computing/metric-magma:google-gpu
 
 # Utilities
 RUN apt-get update && \
@@ -182,7 +182,6 @@ RUN mkdir -p /usr/local/pancakes && \
     ./configure --with-cuda --prefix=/usr/local/pancakes && \
     make && make install
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-12.4/compat
 
@@ -199,11 +198,11 @@ WORKDIR /opt/magma/magma-2.8.0/example
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/magma/lib
 EXPOSE 22
 
-RUN mkdir -p /data
-COPY t10k-images.idx3-ubyte.zip /data/
-COPY t10k-labels.idx1-ubyte /data/
-COPY train-images.idx3-ubyte.zip /data/
-COPY train-labels.idx1-ubyte /data/
+# RUN mkdir -p /data
+# COPY t10k-images.idx3-ubyte.zip /data/
+# COPY t10k-labels.idx1-ubyte /data/
+# COPY train-images.idx3-ubyte.zip /data/
+# COPY train-labels.idx1-ubyte /data/
 
 # Finally, install oras for saving artifacts
 RUN export VERSION="1.1.0" && \

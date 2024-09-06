@@ -47,10 +47,10 @@ This is a checklist for the setups we have tested and timed:
 - [ ] Google Compute Engine GPU
   - done on llnl-flux
   - New VM and automation needed with Terraform 
-  - [ ] size 4 (vsoch TBA 8/31/2024)
-  - [ ] size 8 (vsoch TBA 8/31/2024)
-  - [ ] size 16 (vsoch TBA 8/31/2024)
-  - [ ] size 32 (vsoch TBA 8/31/2024)
+  - [ ] size 4 (vsoch TBA 9/2024)
+  - [ ] size 8 (vsoch TBA 9/2024)
+  - [ ] size 16 (vsoch TBA 9/2024)
+  - [ ] size 32 (vsoch TBA 9/2024)
 
 ### Kubernetes
 

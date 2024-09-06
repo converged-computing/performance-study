@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/metric-osu-gpu .
-#  docker push ghcr.io/converged-computing/metric-mixbench
+#  docker build -t ghcr.io/converged-computing/metric-osu-gpu:google-gpu .
+#  docker push ghcr.io/converged-computing/metric-mixbench:google-gpu
 
 # Utilities
 RUN apt-get update && \
@@ -182,13 +182,8 @@ RUN mkdir -p /usr/local/pancakes && \
     ./configure --with-cuda --prefix=/usr/local/pancakes && \
     make && make install
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib:/usr/local/cuda-12.4/targets/x86_64-linux/lib
-
-RUN apt-get update && apt-get install -y git wget g++ gcc build-essential \
-    openssh-client openssh-server openmpi-bin openmpi-common libopenmpi-dev libgtk2.0-dev \
-    net-tools
 
 # Prepare tutorial per
 # https://ulhpc-tutorials.readthedocs.io/en/latest/parallel/mpi/OSU_MicroBenchmarks/
