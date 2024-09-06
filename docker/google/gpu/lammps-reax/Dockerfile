@@ -20,7 +20,6 @@ RUN rm -rf /code /opt/lammps && \
     -D CMAKE_INSTALL_PREFIX=/usr \
     && make && make install 
 
-ENV 
 WORKDIR /code
 RUN cp -R /opt/lammps/examples/reaxff/HNS/* /code/ && \
     chown -R 1000 /code /opt/lammps
