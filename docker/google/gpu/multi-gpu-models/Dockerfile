@@ -2,8 +2,8 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
-#  docker build -t ghcr.io/converged-computing/multi-gpu-models:flux-gpu .
-#  docker push ghcr.io/converged-computing/multi-gpu-models:flux-gpu
+#  docker build -t ghcr.io/converged-computing/multi-gpu-models:google-gpu .
+#  docker push ghcr.io/converged-computing/multi-gpu-models:google-gpu
 
 # flux submit --watch -N1 --gpus-per-node 4 /opt/multi-gpu-programming-models/multi_threaded_copy/jacobi -niter 5000
 # mpirun -np 4 --allow-run-as-root /opt/multi-gpu-programming-models/mpi/jacobi -niter 5000
@@ -187,7 +187,6 @@ RUN mkdir -p /usr/local/pancakes && \
     ./configure --with-cuda --prefix=/usr/local/pancakes && \
     make && make install
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 

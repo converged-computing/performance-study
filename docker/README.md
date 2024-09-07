@@ -28,22 +28,22 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:spack-slim | Google | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
+| ghcr.io/converged-computing/metric-amg2023:google-gpu | Google | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
 | ghcr.io/converged-computing/metric-laghos:gpu-zen4             | Google    | yes |[Dockerfile](docker/google/gpu/laghos)  | Needs to be built on large machine  |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
-| ghcr.io/converged-computing/metric-kripke-gpu:latest           | Google    | yes |[Dockerfile](docker/google/gpu/kripke)  | |
+| ghcr.io/converged-computing/metric-kripke-gpu:google-gpu           | Google    | yes |[Dockerfile](docker/google/gpu/kripke)  | |
 | ghcr.io/converged-computing/metric-lammps-gpu:kokkos           | Google    | yes |[Dockerfile](docker/google/gpu/lammps)  | using Kokkos build |
-| ghcr.io/converged-computing/metric-lammps-gpu:kokkos-reax      | Google    | yes |[Dockerfile](docker/google/gpu/lammps-reax)  | |
-| ghcr.io/converged-computing/metric-magma                       | Google    | yes |[Dockerfile](docker/google/gpu/magma)   |  |
-| ghcr.io/converged-computing/metric-minife:latest               | Google    | yes |[Dockerfile](docker/google/gpu/minife)  | | 
-| ghcr.io/converged-computing/metric-mixbench:latest             | Google    | yes |[Dockerfile](docker/google/gpu/mixbench)| |
-| ghcr.io/converged-computing/mt-gemm:latest                     | Google    | yes |[Dockerfile](docker/google/gpu/mt-gemm-base)| |
-| ghcr.io/converged-computing/multi-gpu-models:flux-gpu          | Google    | yes |[Dockerfile](docker/google/gpu/multi-gpu-models)| |
+| ghcr.io/converged-computing/metric-lammps-gpu:google-gpu      | Google    | yes |[Dockerfile](docker/google/gpu/lammps-reax)  | |
+| ghcr.io/converged-computing/metric-magma:google-gpu      | Google    | yes |[Dockerfile](docker/google/gpu/magma)   |  |
+| ghcr.io/converged-computing/metric-minife:google-gpu               | Google    | yes |[Dockerfile](docker/google/gpu/minife)  | | 
+| ghcr.io/converged-computing/metric-mixbench:google-gpu             | Google    | yes |[Dockerfile](docker/google/gpu/mixbench)| |
+| ghcr.io/converged-computing/mt-gemm:google-gpu                     | Google    | yes |[Dockerfile](docker/google/gpu/mt-gemm-base)| |
+| ghcr.io/converged-computing/multi-gpu-models:google-gpu          | Google    | yes |[Dockerfile](docker/google/gpu/multi-gpu-models)| |
 | ghcr.io/converged-computing/metric-nek5000:latest              | Google    | yes |[Dockerfile](docker/google/gpu/nek5000) | |
-| ghcr.io/converged-computing/metric-osu-gpu:latest              | Google    | yes |[Dockerfile](docker/google/gpu/osu) | |
-| ghcr.io/converged-computing/metric-quicksilver-gpu:latest      | Google    | yes |[Dockerfile](docker/google/gpu/quicksilver) | |
+| ghcr.io/converged-computing/metric-osu-gpu:google-gpu              | Google    | yes |[Dockerfile](docker/google/gpu/osu) | |
+| ghcr.io/converged-computing/metric-quicksilver-gpu:google-gpu      | Google    | yes |[Dockerfile](docker/google/gpu/quicksilver) | |
 | ghcr.io/converged-computing/pytorch-resnet-experiment:gpu      | Google    | yes |[Dockerfile](docker/google/gpu/resnet) | |
-| ghcr.io/converged-computing/metric-stream:zen4                 | Google    | yes |[Dockerfile](docker/google/gpu/stream) | | 
+| ghcr.io/converged-computing/metric-stream:google-gpu                 | Google    | yes |[Dockerfile](docker/google/gpu/stream) | | 
 
 ### Amazon Web Services
 

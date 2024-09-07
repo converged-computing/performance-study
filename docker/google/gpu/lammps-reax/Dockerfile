@@ -19,7 +19,7 @@ RUN rm -rf /code /opt/lammps && \
     cmake ../cmake -D PKG_REAXFF=yes -D BUILD_MPI=yes -D PKG_OPT=yes -D FFT=FFTW3 \
     -D CMAKE_INSTALL_PREFIX=/usr \
     && make && make install 
-    
+
 WORKDIR /code
 RUN cp -R /opt/lammps/examples/reaxff/HNS/* /code/ && \
     chown -R 1000 /code /opt/lammps

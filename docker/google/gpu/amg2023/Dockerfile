@@ -5,9 +5,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim .
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim
 
-# AMD
-#  docker build -t ghcr.io/converged-computing/metric-amg2023:spack-slim-zen4 .
-#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim-zen4
+# Built on n1-standard-96 image on Google Cloud 
+#  ghcr.io/converged-computing/metric-amg2023:spack-intel-int64 .
+#  docker push  ghcr.io/converged-computing/metric-amg2023:spack-intel-int64
+
+# The final one that worked was on an old skylake I have from grad school
+# with the +mixedint removed
+# docker build -t ghcr.io/converged-computing/metric-amg2023:spack-older-intel .
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
@@ -44,7 +48,8 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  - pmix@4.2.2" \
     &&   echo "  - flux-pmix@0.4.0" \
     &&   echo "  - amg2023 +mpi +cuda cuda_arch=70" \
-    &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
+    &&   echo "  - hypre +cuda cuda_arch=70" \
+#   &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
     &&   echo "  concretizer:" \
     &&	 echo "    unify: true" \
     &&   echo "  config:" \
@@ -52,7 +57,6 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
 
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV CUDACXX=/usr/local/cuda/bin/nvcc
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH
@@ -86,7 +90,6 @@ COPY --from=builder /opt/software /opt/software
 COPY --from=builder /opt/view /opt/view
 COPY --from=builder /etc/profile.d/z10_spack_environment.sh /etc/profile.d/z10_spack_environment.sh
 
-ENV CUDA_VISIBLE_DEVICES=0,1,2,3
 ENV CUDACXX=/usr/local/cuda/bin/nvcc
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH
