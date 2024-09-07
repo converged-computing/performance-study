@@ -9,6 +9,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 #  ghcr.io/converged-computing/metric-amg2023:spack-intel-int64 .
 #  docker push  ghcr.io/converged-computing/metric-amg2023:spack-intel-int64
 
+# The final one that worked was on an old skylake I have from grad school
+# with the +mixedint removed
+# docker build -t ghcr.io/converged-computing/metric-amg2023:spack-older-intel .
+
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
     autotools-dev \
@@ -44,7 +48,8 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  - pmix@4.2.2" \
     &&   echo "  - flux-pmix@0.4.0" \
     &&   echo "  - amg2023 +mpi +cuda cuda_arch=70" \
-    &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
+    &&   echo "  - hypre +cuda cuda_arch=70" \
+#   &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
     &&   echo "  concretizer:" \
     &&	 echo "    unify: true" \
     &&   echo "  config:" \

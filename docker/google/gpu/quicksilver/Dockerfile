@@ -3,7 +3,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Build command
 #  docker build -t ghcr.io/converged-computing/metric-quicksilver-gpu:google-gpu .
-#  docker push ghcr.io/converged-computing/metric-quicksilver-gpu:google-gpuu 
+#  docker push ghcr.io/converged-computing/metric-quicksilver-gpu:google-gpu
 
 # Utilities
 RUN apt-get update && \
