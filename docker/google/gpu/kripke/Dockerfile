@@ -46,8 +46,6 @@ RUN apt-get update && \
         g++ && \
     rm -rf /var/lib/apt/lists/*
 
-# Python - instead of a system python we install anaconda
-# https://docs.conda.io/en/latest/miniconda.html#linux-installers
 RUN pip install --upgrade --ignore-installed \
         "markupsafe==2.0.0" \
         coverage cffi ply six pyyaml "jsonschema>=2.6,<4.0" \
@@ -184,14 +182,6 @@ RUN mkdir -p /usr/local/pancakes && \
 
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
-
-WORKDIR /opt
-RUN git clone https://github.com/ekondis/mixbench && \
-    cd mixbench && \
-    mkdir build && \
-    cd build && \
-    cmake ../mixbench-cuda && \
-    cmake --build ./
 
 RUN apt-get update && \
     apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1 \

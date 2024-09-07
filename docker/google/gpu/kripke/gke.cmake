@@ -47,5 +47,4 @@ set(CMAKE_CUDA_FLAGS_RELWITHDEBINFO "-O3 -lineinfo --expt-extended-lambda -Xcomp
 set(CMAKE_CUDA_FLAGS_DEBUG "-O0 -G --expt-extended-lambda -Xcompiler -std=c++14" CACHE STRING "")
 set(CMAKE_CUDA_HOST_COMPILER "${CMAKE_CUDA_CXX_COMPILER}" CACHE STRING "")
 
-
 set(CMAKE_EXE_LINKER_FLAGS " -L$(CUDA_INSTALL_PATH)/lib64 -lnvidia-ml -ldl -lstdc++ -pthread" CACHE STRING "")

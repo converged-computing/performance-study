@@ -356,8 +356,11 @@ sudo chown -R $USER /opt/containers
 # singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:latest && \
 # singularity pull docker://ghcr.io/converged-computing/metric-stream:latest
 
-singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 && \
+# None of these worked for different reasons
+# singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3 && \
 # singularity pull docker://ghcr.io/converged-computing/metric-amg2023:google-gpu && \
+#singularity pull docker://docker push ghcr.io/converged-computing/metric-amg2023:spack-intel-int64 && \
+singularity pull docker://ghcr.io/converged-computing/metric-amg2023:spack-older-intel && \
 singularity pull docker://ghcr.io/converged-computing/metric-kripke-gpu:google-gpu && \
 singularity pull docker://ghcr.io/converged-computing/metric-lammps-gpu:google-gpu && \
 singularity pull docker://ghcr.io/converged-computing/metric-minife:google-gpu && \

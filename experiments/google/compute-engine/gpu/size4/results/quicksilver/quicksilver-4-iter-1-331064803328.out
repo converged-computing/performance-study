@@ -1,0 +1,285 @@
+670.409s: job.exception type=cancel severity=0 interrupted by ctrl-C
+670.573s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) Terminated
+Copyright (c) 2016
+Lawrence Livermore National Security, LLC
+All Rights Reserved
+Quicksilver Version     : 2023-Aug-18-15:12:10
+Quicksilver Git Hash    : eb68bb8d6fc53de1f65011d4e79ff2ed0dd60f3b
+MPI Version             : 3.1
+Number of MPI ranks     : 32
+Number of OpenMP Threads: 1
+Number of OpenMP CPUs   : 1
+
+Simulation:
+   dt: 2e-09
+   fMax: 0.1
+   inputFile: /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp
+   energySpectrum: 
+   boundaryCondition: reflect
+   loadBalance: 0
+   cycleTimers: 0
+   debugThreads: 0
+   lx: 32
+   ly: 32
+   lz: 32
+   nParticles: 52428800
+   batchSize: 0
+   nBatches: 10
+   nSteps: 100
+   nx: 32
+   ny: 32
+   nz: 32
+   seed: 1029384756
+   xDom: 4
+   yDom: 4
+   zDom: 2
+   eMax: 20
+   eMin: 1e-09
+   nGroups: 230
+   lowWeightCutoff: 0.001
+   bTally: 1
+   fTally: 1
+   cTally: 1
+   coralBenchmark: 1
+   crossSectionsOut:
+
+Geometry:
+   material: sourceMaterial
+   shape: brick
+   xMax: 10000
+   xMin: 0
+   yMax: 10000
+   yMin: 0
+   zMax: 10000
+   zMin: 0
+
+Material:
+   name: sourceMaterial
+   mass: 12.011
+   nIsotopes: 20
+   nReactions: 9
+   sourceRate: 1e+10
+   totalCrossSection: 1.5
+   absorptionCrossSection: flat
+   fissionCrossSection: flat
+   scatteringCrossSection: flat
+   absorptionCrossSectionRatio: 0.04
+   fissionCrossSectionRatio: 0.05
+   scatteringCrossSectionRatio: 1
+
+CrossSection:
+   name: flat
+   A: 0
+   B: 0
+   C: 0
+   D: 0
+   E: 1
+   nuBar: 1.6
+Building partition 0
+done building
+Building MC_Domain 0
+Finished initMesh
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x777c97e00008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7dfde3e00008, 134217728, 0) failed.
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7716e2200008, 134217728, 0) failed.
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7d457e200008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x75e8c5800008, 134217728, 0) failed.
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x754a1fe00008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7e451a200008, 134217728, 0) failed.
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x71b59e200008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x77156fe00008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x78f8d2200008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7cfbbe200008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7d5203800008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x714fffe00008, 134217728, 0) failed.
+The call to cuMemHostRegister(0x794b92000008, 134217728, 0) failed.
+  Host:  flux-002
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x751e6fe00008, 134217728, 0) failed.
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x75b36e200008, 134217728, 0) failed.
+  Host:  flux-002
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7d5abe200008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x776d67e00008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x74312a200008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7fd413e00008, 134217728, 0) failed.
+  Host:  flux-003
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7c221e200008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7a334e200008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7691d9c00008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x70f10a200008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x762b9fe00008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x76c6c2200008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7efbcbe00008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7bbc07e00008, 134217728, 0) failed.
+  Host:  flux-004
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7a75f1c00008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7cc07f800008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7dbddbe00008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+The call to cuMemHostRegister(0x7e21e1c00008, 134217728, 0) failed.
+  Host:  flux-001
+  cuMemHostRegister return value:  1
+  Registration cache:  smcuda
+--------------------------------------------------------------------------
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 4, "exclusive": true, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/metric-quicksilver-gpu_google-gpu.sif", "qs", "--inputFile", "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp", "-X", "32", "-Y", "32", "-Z", "32", "-x", "32", "-y", "32", "-z", "32", "-I", "4", "-J", "4", "-K", "2", "-n", "52428800"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "gpu-affinity": "per-task", "cpu-affinity": "per-task"}}}, "user": {"study_id": "quicksilver-4-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725750166.2175574,"name":"init"}
+{"timestamp":1725750166.2184737,"name":"starting"}
+{"timestamp":1725750166.2419271,"name":"shell.init","context":{"service":"501043911-shell-f9hQ4euV","leader-rank":0,"size":4}}
+{"timestamp":1725750166.2667487,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,4,8,1]]}}}
+{"timestamp":1725750836.7131841,"name":"shell.task-exit","context":{"localid":1,"rank":9,"state":"Exited","pid":8520,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1725750836.929749,"name":"complete","context":{"status":36608}}
+{"timestamp":1725750836.9297707,"name":"done"}
+
