@@ -1,0 +1,28 @@
+Matrix size input by command line: 16384
+Repeat multiply 100 times.
+Alpha =    1.000000
+Beta  =    1.000000
+Allocating Matrices...
+Allocation complete, populating with values...
+Performing multiplication...
+Calculating matrix check...
+
+===============================================================
+Final Sum is:         16384.010000
+ -> Solution check PASSED successfully.
+Memory for Matrices:  6144.000000 MB
+Multiply time:        112.835618 seconds
+GFLOP/s rate:         498957.246757 GF/s
+===============================================================
+
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/mt-gemm_google-gpu.sif", "/opt/gem/mt-dgemm.x", "16384", "100"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "mt-gemm-8-iter-3"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725756973.0370936,"name":"init"}
+{"timestamp":1725756973.0380232,"name":"starting"}
+{"timestamp":1725756973.0596735,"name":"shell.init","context":{"service":"501043911-shell-f3MWRwYRd","leader-rank":0,"size":8}}
+{"timestamp":1725756973.0828662,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,8,1]]}}}
+{"timestamp":1725757099.6406384,"name":"shell.task-exit","context":{"localid":4,"rank":28,"state":"Exited","pid":22290,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725757099.9168687,"name":"complete","context":{"status":0}}
+{"timestamp":1725757099.9168913,"name":"done"}
+

@@ -1,0 +1,59 @@
+Running with these driver parameters:
+  Problem ID    = 2
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.000035 seconds
+  Laplacian_7pt:
+    (Nx, Ny, Nz) = (512, 512, 512)
+    (Px, Py, Pz) = (4, 4, 4)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 1.407844 seconds
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.130700 seconds
+=============================================
+Problem 2: AMG Setup Time:
+=============================================
+PCG Setup:
+  wall clock time = 11.182960 seconds
+
+FOM_Setup: nnz_AP / Setup Phase Time: 1.335698e+08
+
+=============================================
+Problem 2: AMG-PCG Solve Time:
+=============================================
+PCG Solve:
+  wall clock time = 14.295536 seconds
+
+Iterations = 44
+Final Relative Residual Norm = 9.584130e-09
+
+
+FOM_Solve: nnz_AP * iterations / Solve Phase Time: 1.044876e+08
+
+
+
+Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 2.762563e+07
+
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/metric-amg2023_spack-older-intel.sif", "/opt/view/bin/amg", "-n", "128", "128", "128", "-P", "4", "4", "4", "-problem", "2"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "pmi": "pmix", "gpu-affinity": "per-task", "cpu-affinity": "per-task"}}}, "user": {"study_id": "amg2023-8-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725776096.7875869,"name":"init"}
+{"timestamp":1725776096.7885897,"name":"starting"}
+{"timestamp":1725776097.167803,"name":"shell.init","context":{"service":"501043911-shell-f2LwWb7v7","leader-rank":0,"size":8}}
+{"timestamp":1725776097.1933775,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,8,1]]}}}
+{"timestamp":1725776130.3710577,"name":"shell.task-exit","context":{"localid":1,"rank":49,"state":"Exited","pid":3266,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725776130.6633601,"name":"complete","context":{"status":0}}
+{"timestamp":1725776130.6633902,"name":"done"}
+

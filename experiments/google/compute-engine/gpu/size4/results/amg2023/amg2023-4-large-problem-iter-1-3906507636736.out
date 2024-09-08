@@ -1,0 +1,536 @@
+flux-job: task(s) Segmentation fault
+Running with these driver parameters:
+  Problem ID    = 2
+
+=============================================
+Hypre init times:
+=============================================
+Hypre init:
+  wall clock time = 0.000046 seconds
+  Laplacian_7pt:
+    (Nx, Ny, Nz) = (1024, 1024, 256)
+    (Px, Py, Pz) = (4, 4, 2)
+
+[flux-004:04284] *** Process received signal ***
+[flux-004:04280] *** Process received signal ***
+[flux-003:04299] *** Process received signal ***
+[flux-004:04279] *** Process received signal ***
+[flux-003:04299] Signal: Segmentation fault (11)
+[flux-004:04284] Signal: Segmentation fault (11)
+[flux-003:04299] Signal code:  (128)
+[flux-004:04280] Signal: Segmentation fault (11)
+[flux-003:04298] *** Process received signal ***
+[flux-004:04279] Signal: Segmentation fault (11)
+[flux-003:04299] Failing at address: (nil)
+[flux-004:04284] Signal code:  (128)
+[flux-003:04298] Signal: Segmentation fault (11)
+[flux-004:04280] Signal code:  (128)
+[flux-003:04298] Signal code:  (128)
+[flux-004:04279] Signal code:  (128)
+[flux-003:04298] Failing at address: (nil)
+[flux-004:04307] *** Process received signal ***
+[flux-004:04284] Failing at address: (nil)
+[flux-004:04280] Failing at address: (nil)
+[flux-004:04279] Failing at address: (nil)
+[flux-004:04307] Signal: Segmentation fault (11)
+[flux-004:04307] Signal code:  (128)
+[flux-004:04307] Failing at address: (nil)
+[flux-004:04305] *** Process received signal ***
+[flux-004:04305] Signal: Segmentation fault (11)
+[flux-004:04305] Signal code:  (128)
+[flux-004:04305] Failing at address: (nil)
+[flux-004:04327] *** Process received signal ***
+[flux-004:04327] Signal: Segmentation fault (11)
+[flux-004:04327] Signal code:  (128)
+[flux-004:04327] Failing at address: (nil)
+[flux-003:04372] *** Process received signal ***
+[flux-003:04372] Signal: Segmentation fault (11)
+[flux-003:04336] *** Process received signal ***
+[flux-003:04372] Signal code:  (128)
+[flux-003:04336] Signal: Segmentation fault (11)
+[flux-003:04372] Failing at address: (nil)
+[flux-003:04336] Signal code:  (128)
+[flux-003:04336] Failing at address: (nil)
+[flux-003:04335] *** Process received signal ***
+[flux-003:04335] Signal: Segmentation fault (11)
+[flux-003:04335] Signal code:  (128)
+[flux-003:04335] Failing at address: (nil)
+[flux-003:04316] *** Process received signal ***
+[flux-003:04316] Signal: Segmentation fault (11)
+[flux-003:04316] Signal code:  (128)
+[flux-003:04316] Failing at address: (nil)
+[flux-003:04299] [ 0] [flux-003:04298] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7ed027bfc520]
+[flux-003:04299] [ 1] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7cc6c860d520]
+[flux-003:04298] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7ed00729a554]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7cc6a7c9a554]
+[flux-003:04299] [ 2] [flux-003:04298] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7ed028525db0]
+[flux-003:04299] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7cc6c8f36db0]
+[flux-003:04298] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7ed028525353]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7cc6c8f36353]
+[flux-003:04299] [ 4] [flux-003:04298] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7ed02806efef]
+[flux-003:04299] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7cc6c8a7ffef]
+[flux-003:04298] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7ed028073c6c]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7cc6c8a84c6c]
+[flux-003:04299] [ 6] /opt/view/bin/amg(+0xe181)[0x574f20a91181]
+[flux-003:04298] [ 6] /opt/view/bin/amg(+0xe181)[0x576f956c8181]
+[flux-003:04299] [ 7] /opt/view/bin/amg(+0x6143)[0x574f20a89143]
+[flux-003:04298] [ 7] /opt/view/bin/amg(+0x6143)[0x576f956c0143]
+[flux-003:04299] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7ed027be3d90]
+[flux-003:04298] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7cc6c85f4d90]
+[flux-003:04299] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7ed027be3e40]
+[flux-003:04298] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7cc6c85f4e40]
+[flux-003:04299] [10] /opt/view/bin/amg(+0x7075)[0x574f20a8a075]
+[flux-003:04298] [10] /opt/view/bin/amg(+0x7075)[0x576f956c1075]
+[flux-003:04299] *** End of error message ***
+[flux-003:04298] *** End of error message ***
+[flux-003:04321] *** Process received signal ***
+[flux-003:04321] Signal: Segmentation fault (11)
+[flux-003:04336] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7f86c7fa4520]
+[flux-003:04372] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x73205b0fa520]
+[flux-003:04321] Signal code:  (128)
+[flux-003:04336] [ 1] [flux-003:04372] [ 1] [flux-003:04321] Failing at address: (nil)
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x73203a69a554]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7f86a769a554]
+[flux-003:04372] [ 2] [flux-003:04336] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7f86c88cddb0]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x73205ba23db0]
+[flux-003:04336] [ 3] [flux-003:04372] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x73205ba23353]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7f86c88cd353]
+[flux-003:04372] [ 4] [flux-003:04336] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7f86c8416fef]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x73205b56cfef]
+[flux-003:04336] [ 5] [flux-003:04372] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7f86c841bc6c]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x73205b571c6c]
+[flux-003:04336] [ 6] /opt/view/bin/amg(+0xe181)[0x62b2a8537181]
+[flux-003:04372] [ 6] /opt/view/bin/amg(+0xe181)[0x5d38a5135181]
+[flux-003:04336] [ 7] /opt/view/bin/amg(+0x6143)[0x62b2a852f143]
+[flux-003:04372] [ 7] /opt/view/bin/amg(+0x6143)[0x5d38a512d143]
+[flux-003:04335] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x717ad26d9520]
+[flux-003:04336] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7f86c7f8bd90]
+[flux-003:04372] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x73205b0e1d90]
+[flux-003:04335] [ 1] [flux-003:04336] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f86c7f8be40]
+[flux-003:04372] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x73205b0e1e40]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x717ab1c9a554]
+[flux-003:04336] [10] /opt/view/bin/amg(+0x7075)[0x62b2a8530075]
+[flux-003:04372] [10] /opt/view/bin/amg(+0x7075)[0x5d38a512e075]
+[flux-003:04335] [ 2] [flux-003:04336] *** End of error message ***
+[flux-003:04372] *** End of error message ***
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x717ad3002db0]
+[flux-003:04316] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7b2a31a88520]
+[flux-003:04335] [ 3] [flux-003:04316] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x717ad3002353]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7b2a1109a554]
+[flux-003:04335] [ 4] [flux-003:04316] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x717ad2b4bfef]
+[flux-003:04335] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7b2a323b1db0]
+[flux-003:04316] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x717ad2b50c6c]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7b2a323b1353]
+[flux-003:04335] [ 6] /opt/view/bin/amg(+0xe181)[0x564d75289181]
+[flux-003:04316] [ 4] [flux-003:04335] [ 7] /opt/view/bin/amg(+0x6143)[0x564d75281143]
+[flux-003:04335] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x717ad26c0d90]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7b2a31efafef]
+[flux-003:04335] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x717ad26c0e40]
+[flux-003:04316] [ 5] [flux-003:04335] [10] /opt/view/bin/amg(+0x7075)[0x564d75282075]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7b2a31effc6c]
+[flux-003:04335] *** End of error message ***
+[flux-003:04316] [ 6] /opt/view/bin/amg(+0xe181)[0x5c6931f7b181]
+[flux-003:04316] [ 7] /opt/view/bin/amg(+0x6143)[0x5c6931f73143]
+[flux-003:04316] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7b2a31a6fd90]
+[flux-003:04316] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7b2a31a6fe40]
+[flux-003:04316] [10] /opt/view/bin/amg(+0x7075)[0x5c6931f74075]
+[flux-003:04316] *** End of error message ***
+[flux-003:04321] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x78939fd06520]
+[flux-003:04321] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x78937f29a554]
+[flux-003:04321] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7893a062fdb0]
+[flux-003:04321] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7893a062f353]
+[flux-003:04321] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7893a0178fef]
+[flux-003:04321] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7893a017dc6c]
+[flux-003:04321] [ 6] /opt/view/bin/amg(+0xe181)[0x5758188b8181]
+[flux-003:04321] [ 7] /opt/view/bin/amg(+0x6143)[0x5758188b0143]
+[flux-003:04321] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x78939fcedd90]
+[flux-003:04321] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x78939fcede40]
+[flux-003:04321] [10] /opt/view/bin/amg(+0x7075)[0x5758188b1075]
+[flux-003:04321] *** End of error message ***
+[flux-004:04351] *** Process received signal ***
+[flux-004:04351] Signal: Segmentation fault (11)
+[flux-004:04351] Signal code:  (128)
+[flux-004:04351] Failing at address: (nil)
+[flux-002:04357] *** Process received signal ***
+[flux-002:04358] *** Process received signal ***
+[flux-002:04357] Signal: Segmentation fault (11)
+[flux-002:04358] Signal: Segmentation fault (11)
+[flux-002:04357] Signal code:  (128)
+[flux-002:04358] Signal code:  (128)
+[flux-002:04357] Failing at address: (nil)
+[flux-002:04358] Failing at address: (nil)
+[flux-002:04338] *** Process received signal ***
+[flux-002:04338] Signal: Segmentation fault (11)
+[flux-002:04338] Signal code:  (128)
+[flux-002:04338] Failing at address: (nil)
+[flux-002:04276] *** Process received signal ***
+[flux-002:04276] Signal: Segmentation fault (11)
+[flux-002:04276] Signal code:  (128)
+[flux-002:04276] Failing at address: (nil)
+[flux-002:04308] *** Process received signal ***
+[flux-002:04308] Signal: Segmentation fault (11)
+[flux-002:04308] Signal code:  (128)
+[flux-002:04308] Failing at address: (nil)
+[flux-002:04309] *** Process received signal ***
+[flux-002:04309] Signal: Segmentation fault (11)
+[flux-002:04309] Signal code:  (128)
+[flux-002:04309] Failing at address: (nil)
+[flux-002:04302] *** Process received signal ***
+[flux-002:04302] Signal: Segmentation fault (11)
+[flux-002:04302] Signal code:  (128)
+[flux-002:04302] Failing at address: (nil)
+[flux-002:04358] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7c4d2b1f2520]
+[flux-002:04358] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7c4d0a89a554]
+[flux-002:04358] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7c4d2bb1bdb0]
+[flux-002:04358] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7c4d2bb1b353]
+[flux-002:04358] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7c4d2b664fef]
+[flux-002:04358] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7c4d2b669c6c]
+[flux-002:04358] [ 6] /opt/view/bin/amg(+0xe181)[0x5715559e4181]
+[flux-002:04358] [ 7] /opt/view/bin/amg(+0x6143)[0x5715559dc143]
+[flux-002:04358] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7c4d2b1d9d90]
+[flux-002:04358] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7c4d2b1d9e40]
+[flux-002:04358] [10] /opt/view/bin/amg(+0x7075)[0x5715559dd075]
+[flux-002:04358] *** End of error message ***
+[flux-002:04338] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x74d0ba8e2520]
+[flux-002:04338] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x74d099e9a554]
+[flux-002:04338] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x74d0bb20bdb0]
+[flux-002:04338] [ 3] [flux-002:04276] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7db0cc64f520]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x74d0bb20b353]
+[flux-002:04276] [ 1] [flux-002:04338] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x74d0bad54fef]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7db0abc9a554]
+[flux-002:04338] [ 5] [flux-002:04276] [ 2] [flux-002:04308] [ 0] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x74d0bad59c6c]
+[flux-002:04338] [ 6] /opt/view/bin/amg(+0xe181)[0x5c8c94cef181]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7db0ccf78db0]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x6ffe0650b520]
+[flux-002:04338] [ 7] /opt/view/bin/amg(+0x6143)[0x5c8c94ce7143]
+[flux-002:04276] [ 3] [flux-002:04308] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x6ffde5a9a554]
+[flux-002:04338] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x74d0ba8c9d90]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7db0ccf78353]
+[flux-002:04308] [ 2] [flux-003:04389] *** Process received signal ***
+[flux-002:04338] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x74d0ba8c9e40]
+[flux-003:04389] Signal: Segmentation fault (11)
+[flux-002:04276] [ 4] [flux-002:04338] [10] /opt/view/bin/amg(+0x7075)[0x5c8c94ce8075]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7db0ccac1fef]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x6ffe06e34db0]
+[flux-002:04338] *** End of error message ***
+[flux-002:04276] [ 5] [flux-002:04308] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7db0ccac6c6c]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x6ffe06e34353]
+[flux-002:04276] [ 6] /opt/view/bin/amg(+0xe181)[0x64f64c526181]
+[flux-002:04308] [ 4] [flux-002:04276] [ 7] /opt/view/bin/amg(+0x6143)[0x64f64c51e143]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x6ffe0697dfef]
+[flux-002:04276] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7db0cc636d90]
+[flux-002:04308] [ 5] [flux-002:04276] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7db0cc636e40]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x6ffe06982c6c]
+[flux-002:04276] [10] /opt/view/bin/amg(+0x7075)[0x64f64c51f075]
+[flux-002:04309] [ 0] [flux-002:04308] [ 6] /opt/view/bin/amg(+0xe181)[0x5f384d0bb181]
+[flux-002:04276] *** End of error message ***
+[flux-002:04308] [ 7] /opt/view/bin/amg(+0x6143)[0x5f384d0b3143]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x705585ffc520]
+[flux-002:04308] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x6ffe064f2d90]
+[flux-002:04309] [ 1] [flux-002:04308] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x6ffe064f2e40]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x70556569a554]
+[flux-002:04308] [10] /opt/view/bin/amg(+0x7075)[0x5f384d0b4075]
+[flux-002:04302] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x70ff538ba520]
+[flux-002:04309] [ 2] [flux-002:04308] *** End of error message ***
+[flux-002:04302] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x705586925db0]
+[flux-002:04309] [ 3] [flux-003:04389] Signal code:  (128)
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x70ff32e9a554]
+[flux-002:04302] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x705586925353]
+[flux-002:04309] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x70ff541e3db0]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x70558646efef]
+[flux-002:04302] [ 3] [flux-002:04309] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x705586473c6c]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x70ff541e3353]
+[flux-002:04309] [ 6] /opt/view/bin/amg(+0xe181)[0x59b410b69181]
+[flux-002:04302] [ 4] [flux-002:04309] [ 7] /opt/view/bin/amg(+0x6143)[0x59b410b61143]
+[flux-002:04309] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x705585fe3d90]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x70ff53d2cfef]
+[flux-002:04309] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x705585fe3e40]
+[flux-002:04302] [ 5] [flux-002:04309] [10] /opt/view/bin/amg(+0x7075)[0x59b410b62075]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x70ff53d31c6c]
+[flux-002:04309] *** End of error message ***
+[flux-002:04302] [ 6] /opt/view/bin/amg(+0xe181)[0x555840236181]
+[flux-002:04302] [ 7] /opt/view/bin/amg(+0x6143)[0x55584022e143]
+[flux-002:04302] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x70ff538a1d90]
+[flux-002:04302] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x70ff538a1e40]
+[flux-002:04302] [10] /opt/view/bin/amg(+0x7075)[0x55584022f075]
+[flux-002:04302] *** End of error message ***
+[flux-003:04389] Failing at address: (nil)
+[flux-003:04389] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7e3bcd0c5520]
+[flux-003:04389] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7e3bac69a554]
+[flux-003:04389] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7e3bcd9eedb0]
+[flux-003:04389] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7e3bcd9ee353]
+[flux-003:04389] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7e3bcd537fef]
+[flux-003:04389] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7e3bcd53cc6c]
+[flux-003:04389] [ 6] /opt/view/bin/amg(+0xe181)[0x5ef6ab253181]
+[flux-003:04389] [ 7] /opt/view/bin/amg(+0x6143)[0x5ef6ab24b143]
+[flux-003:04389] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7e3bcd0acd90]
+[flux-003:04389] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7e3bcd0ace40]
+[flux-003:04389] [10] /opt/view/bin/amg(+0x7075)[0x5ef6ab24c075]
+[flux-003:04389] *** End of error message ***
+[flux-004:04372] *** Process received signal ***
+[flux-004:04327] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x79fb0b170520]
+[flux-004:04351] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x71e1943b7520]
+[flux-004:04305] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7828996d8520]
+[flux-004:04284] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7caf84646520]
+[flux-004:04280] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7badcc411520]
+[flux-004:04279] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7a2e12382520]
+[flux-004:04307] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x79795af97520]
+[flux-004:04372] Signal: Segmentation fault (11)
+[flux-004:04327] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x79faea89a554]
+[flux-004:04351] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x71e173a9a554]
+[flux-004:04305] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x782878c9a554]
+[flux-004:04284] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7caf63c9a554]
+[flux-004:04280] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7badaba9a554]
+[flux-004:04279] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7a2df1a9a554]
+[flux-004:04307] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x79793a69a554]
+[flux-004:04372] Signal code:  (128)
+[flux-004:04327] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x79fb0ba99db0]
+[flux-004:04351] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x71e194ce0db0]
+[flux-004:04305] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x78289a001db0]
+[flux-004:04284] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7caf84f6fdb0]
+[flux-004:04280] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7badccd3adb0]
+[flux-004:04279] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7a2e12cabdb0]
+[flux-004:04307] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x79795b8c0db0]
+[flux-004:04372] Failing at address: (nil)
+[flux-004:04327] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x79fb0ba99353]
+[flux-004:04351] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x71e194ce0353]
+[flux-004:04305] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x78289a001353]
+[flux-004:04284] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7caf84f6f353]
+[flux-004:04280] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7badccd3a353]
+[flux-004:04279] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7a2e12cab353]
+[flux-004:04307] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x79795b8c0353]
+[flux-004:04327] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x79fb0b5e2fef]
+[flux-004:04351] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x71e194829fef]
+[flux-004:04305] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x782899b4afef]
+[flux-004:04284] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7caf84ab8fef]
+[flux-004:04280] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7badcc883fef]
+[flux-004:04279] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7a2e127f4fef]
+[flux-004:04307] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x79795b409fef]
+[flux-004:04327] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x79fb0b5e7c6c]
+[flux-004:04351] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x71e19482ec6c]
+[flux-004:04305] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x782899b4fc6c]
+[flux-004:04284] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7caf84abdc6c]
+[flux-004:04280] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7badcc888c6c]
+[flux-004:04279] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7a2e127f9c6c]
+[flux-004:04307] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x79795b40ec6c]
+[flux-004:04327] [ 6] /opt/view/bin/amg(+0xe181)[0x59c52342b181]
+[flux-004:04351] [ 6] /opt/view/bin/amg(+0xe181)[0x61b32428e181]
+[flux-004:04305] [ 6] /opt/view/bin/amg(+0xe181)[0x623cf59f0181]
+[flux-004:04284] [ 6] /opt/view/bin/amg(+0xe181)[0x5daa144e7181]
+[flux-004:04280] [ 6] /opt/view/bin/amg(+0xe181)[0x6243bea78181]
+[flux-004:04279] [ 6] /opt/view/bin/amg(+0xe181)[0x5e1a14cf2181]
+[flux-004:04307] [ 6] /opt/view/bin/amg(+0xe181)[0x5c9a0e5e4181]
+[flux-004:04327] [ 7] /opt/view/bin/amg(+0x6143)[0x59c523423143]
+[flux-004:04351] [ 7] /opt/view/bin/amg(+0x6143)[0x61b324286143]
+[flux-004:04305] [ 7] /opt/view/bin/amg(+0x6143)[0x623cf59e8143]
+[flux-004:04284] [ 7] /opt/view/bin/amg(+0x6143)[0x5daa144df143]
+[flux-004:04280] [ 7] /opt/view/bin/amg(+0x6143)[0x6243bea70143]
+[flux-004:04279] [ 7] /opt/view/bin/amg(+0x6143)[0x5e1a14cea143]
+[flux-004:04307] [ 7] /opt/view/bin/amg(+0x6143)[0x5c9a0e5dc143]
+[flux-004:04327] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x79fb0b157d90]
+[flux-004:04351] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x71e19439ed90]
+[flux-004:04305] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7828996bfd90]
+[flux-004:04284] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7caf8462dd90]
+[flux-004:04280] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7badcc3f8d90]
+[flux-004:04279] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7a2e12369d90]
+[flux-004:04307] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x79795af7ed90]
+[flux-004:04327] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x79fb0b157e40]
+[flux-004:04351] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x71e19439ee40]
+[flux-004:04305] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7828996bfe40]
+[flux-002:04325] *** Process received signal ***
+[flux-004:04284] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7caf8462de40]
+[flux-002:04325] Signal: Segmentation fault (11)
+[flux-004:04280] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7badcc3f8e40]
+[flux-002:04325] Signal code:  (128)
+[flux-004:04279] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7a2e12369e40]
+[flux-002:04325] Failing at address: (nil)
+[flux-004:04307] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x79795af7ee40]
+[flux-004:04327] [10] /opt/view/bin/amg(+0x7075)[0x59c523424075]
+[flux-004:04351] [10] /opt/view/bin/amg(+0x7075)[0x61b324287075]
+[flux-004:04305] [10] /opt/view/bin/amg(+0x7075)[0x623cf59e9075]
+[flux-004:04284] [10] /opt/view/bin/amg(+0x7075)[0x5daa144e0075]
+[flux-004:04280] [10] /opt/view/bin/amg(+0x7075)[0x6243bea71075]
+[flux-004:04279] [10] /opt/view/bin/amg(+0x7075)[0x5e1a14ceb075]
+[flux-004:04307] [10] /opt/view/bin/amg(+0x7075)[0x5c9a0e5dd075]
+[flux-004:04327] *** End of error message ***
+[flux-004:04351] *** End of error message ***
+[flux-004:04305] *** End of error message ***
+[flux-004:04284] *** End of error message ***
+[flux-004:04280] *** End of error message ***
+[flux-004:04279] *** End of error message ***
+[flux-004:04307] *** End of error message ***
+[flux-002:04325] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7aa16f35c520]
+[flux-002:04325] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7aa14ea9a554]
+[flux-002:04325] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7aa16fc85db0]
+[flux-002:04325] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7aa16fc85353]
+[flux-002:04325] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7aa16f7cefef]
+[flux-002:04325] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7aa16f7d3c6c]
+[flux-002:04325] [ 6] /opt/view/bin/amg(+0xe181)[0x61d31a29c181]
+[flux-002:04325] [ 7] /opt/view/bin/amg(+0x6143)[0x61d31a294143]
+[flux-002:04325] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7aa16f343d90]
+[flux-002:04325] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7aa16f343e40]
+[flux-002:04325] [10] /opt/view/bin/amg(+0x7075)[0x61d31a295075]
+[flux-002:04325] *** End of error message ***
+[flux-002:04357] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x70f23a9a2520]
+[flux-002:04357] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x70f21a09a554]
+[flux-002:04357] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x70f23b2cbdb0]
+[flux-002:04357] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x70f23b2cb353]
+[flux-002:04357] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x70f23ae14fef]
+[flux-002:04357] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x70f23ae19c6c]
+[flux-002:04357] [ 6] /opt/view/bin/amg(+0xe181)[0x6353d8e62181]
+[flux-002:04357] [ 7] /opt/view/bin/amg(+0x6143)[0x6353d8e5a143]
+[flux-002:04357] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x70f23a989d90]
+[flux-002:04357] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x70f23a989e40]
+[flux-002:04357] [10] /opt/view/bin/amg(+0x7075)[0x6353d8e5b075]
+[flux-002:04357] *** End of error message ***
+[flux-004:04372] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7dc3df60a520]
+[flux-004:04372] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7dc3bec9a554]
+[flux-004:04372] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7dc3dff33db0]
+[flux-004:04372] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7dc3dff33353]
+[flux-004:04372] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7dc3dfa7cfef]
+[flux-004:04372] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7dc3dfa81c6c]
+[flux-004:04372] [ 6] /opt/view/bin/amg(+0xe181)[0x5ae14af99181]
+[flux-004:04372] [ 7] /opt/view/bin/amg(+0x6143)[0x5ae14af91143]
+[flux-004:04372] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7dc3df5f1d90]
+[flux-004:04372] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7dc3df5f1e40]
+[flux-004:04372] [10] /opt/view/bin/amg(+0x7075)[0x5ae14af92075]
+[flux-004:04372] *** End of error message ***
+[flux-001:05682] *** Process received signal ***
+[flux-001:05682] Signal: Segmentation fault (11)
+[flux-001:05682] Signal code:  (128)
+[flux-001:05682] Failing at address: (nil)
+[flux-001:05617] *** Process received signal ***
+[flux-001:05617] Signal: Segmentation fault (11)
+[flux-001:05617] Signal code:  (128)
+[flux-001:05617] Failing at address: (nil)
+[flux-001:05682] [ 0] [flux-001:05617] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7af313743520]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7832efe51520]
+[flux-001:05682] [ 1] [flux-001:05617] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7af2f2c9a554]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7832cf49a554]
+[flux-001:05682] [ 2] [flux-001:05617] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7af31406cdb0]
+[flux-001:05682] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7832f077adb0]
+[flux-001:05617] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7af31406c353]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7832f077a353]
+[flux-001:05682] [ 4] [flux-001:05617] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7af313bb5fef]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7832f02c3fef]
+[flux-001:05682] [ 5] [flux-001:05617] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7af313bbac6c]
+[flux-001:05682] [ 6] /opt/view/bin/amg(+0xe181)[0x583ad6900181]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7832f02c8c6c]
+[flux-001:05682] [ 7] /opt/view/bin/amg(+0x6143)[0x583ad68f8143]
+[flux-001:05617] [ 6] /opt/view/bin/amg(+0xe181)[0x61763497d181]
+[flux-001:05682] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7af31372ad90]
+[flux-001:05617] [ 7] /opt/view/bin/amg(+0x6143)[0x617634975143]
+[flux-001:05682] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7af31372ae40]
+[flux-001:05617] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7832efe38d90]
+[flux-001:05682] [10] /opt/view/bin/amg(+0x7075)[0x583ad68f9075]
+[flux-001:05617] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7832efe38e40]
+[flux-001:05682] *** End of error message ***
+[flux-001:05617] [10] /opt/view/bin/amg(+0x7075)[0x617634976075]
+[flux-001:05617] *** End of error message ***
+[flux-001:05705] *** Process received signal ***
+[flux-001:05705] Signal: Segmentation fault (11)
+[flux-001:05705] Signal code:  (128)
+[flux-001:05705] Failing at address: (nil)
+[flux-001:05705] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x75ef29211520]
+[flux-001:05705] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x75ef0889a554]
+[flux-001:05705] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x75ef29b3adb0]
+[flux-001:05705] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x75ef29b3a353]
+[flux-001:05705] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x75ef29683fef]
+[flux-001:05705] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x75ef29688c6c]
+[flux-001:05705] [ 6] /opt/view/bin/amg(+0xe181)[0x616874689181]
+[flux-001:05705] [ 7] /opt/view/bin/amg(+0x6143)[0x616874681143]
+[flux-001:05705] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x75ef291f8d90]
+[flux-001:05705] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x75ef291f8e40]
+[flux-001:05705] [10] /opt/view/bin/amg(+0x7075)[0x616874682075]
+[flux-001:05705] *** End of error message ***
+[flux-001:05652] *** Process received signal ***
+[flux-001:05652] Signal: Segmentation fault (11)
+[flux-001:05652] Signal code:  (128)
+[flux-001:05652] Failing at address: (nil)
+[flux-001:05652] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x732d41117520]
+[flux-001:05652] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x732d2069a554]
+[flux-001:05652] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x732d41a40db0]
+[flux-001:05652] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x732d41a40353]
+[flux-001:05652] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x732d41589fef]
+[flux-001:05652] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x732d4158ec6c]
+[flux-001:05652] [ 6] /opt/view/bin/amg(+0xe181)[0x636b81255181]
+[flux-001:05652] [ 7] /opt/view/bin/amg(+0x6143)[0x636b8124d143]
+[flux-001:05652] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x732d410fed90]
+[flux-001:05652] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x732d410fee40]
+[flux-001:05652] [10] /opt/view/bin/amg(+0x7075)[0x636b8124e075]
+[flux-001:05652] *** End of error message ***
+[flux-001:05681] *** Process received signal ***
+[flux-001:05681] Signal: Segmentation fault (11)
+[flux-001:05681] Signal code:  (128)
+[flux-001:05681] Failing at address: (nil)
+[flux-001:05616] *** Process received signal ***
+[flux-001:05616] Signal: Segmentation fault (11)
+[flux-001:05616] Signal code:  (128)
+[flux-001:05616] Failing at address: (nil)
+[flux-001:05616] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7e91fe488520]
+[flux-001:05616] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7e91dda9a554]
+[flux-001:05616] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7e91fedb1db0]
+[flux-001:05616] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7e91fedb1353]
+[flux-001:05616] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7e91fe8fafef]
+[flux-001:05616] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7e91fe8ffc6c]
+[flux-001:05616] [ 6] /opt/view/bin/amg(+0xe181)[0x5cbe145ed181]
+[flux-001:05616] [ 7] /opt/view/bin/amg(+0x6143)[0x5cbe145e5143]
+[flux-001:05616] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7e91fe46fd90]
+[flux-001:05616] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7e91fe46fe40]
+[flux-001:05616] [10] /opt/view/bin/amg(+0x7075)[0x5cbe145e6075]
+[flux-001:05616] *** End of error message ***
+[flux-001:05681] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x739cf8f0f520]
+[flux-001:05681] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x739cd849a554]
+[flux-001:05681] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x739cf9838db0]
+[flux-001:05681] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x739cf9838353]
+[flux-001:05681] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x739cf9381fef]
+[flux-001:05681] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x739cf9386c6c]
+[flux-001:05681] [ 6] /opt/view/bin/amg(+0xe181)[0x5ae6d771f181]
+[flux-001:05681] [ 7] /opt/view/bin/amg(+0x6143)[0x5ae6d7717143]
+[flux-001:05681] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x739cf8ef6d90]
+[flux-001:05681] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x739cf8ef6e40]
+[flux-001:05681] [10] /opt/view/bin/amg(+0x7075)[0x5ae6d7718075]
+[flux-001:05681] *** End of error message ***
+[flux-001:05627] *** Process received signal ***
+[flux-001:05627] Signal: Segmentation fault (11)
+[flux-001:05627] Signal code:  (128)
+[flux-001:05627] Failing at address: (nil)
+[flux-001:05665] *** Process received signal ***
+[flux-001:05665] Signal: Segmentation fault (11)
+[flux-001:05665] Signal code:  (128)
+[flux-001:05665] Failing at address: (nil)
+[flux-001:05627] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7cb1400f7520]
+[flux-001:05627] [ 1] [flux-001:05665] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7da23bdef520]
+[flux-001:05665] [ 1] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7cb11f69a554]
+[flux-001:05627] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/gcc-runtime-11.4.0-upaenq3yrbtqfwelvgkrjkq2xb7j3iaz/lib/libstdc++.so.6(_ZSt18_Rb_tree_incrementPKSt18_Rb_tree_node_base+0x24)[0x7da21b49a554]
+[flux-001:05665] [ 2] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7cb140a20db0]
+[flux-001:05627] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_ZN32hypre_cub_CachingDeviceAllocator14DeviceAllocateEiPPvmP11CUstream_st+0x2b0)[0x7da23c718db0]
+[flux-001:05665] [ 3] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7cb140a20353]
+[flux-001:05627] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_MAlloc+0xf3)[0x7da23c718353]
+[flux-001:05665] [ 4] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7cb140569fef]
+[flux-001:05627] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(_Z36hypre_IJMatrixAssembleSortAndReduce1iPiS_PcPdS_PS_S2_PS0_PS1_+0xaf)[0x7da23c261fef]
+[flux-001:05665] [ 5] /opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7cb14056ec6c]
+[flux-001:05627] [ 6] /opt/view/bin/amg(+0xe181)[0x643382ee2181]
+/opt/software/linux-ubuntu22.04-broadwell/gcc-11.4.0/hypre-2.31.0-rw7lzoqq27f5p27winxataqxbj2mi473/lib/libHYPRE-2.31.0.so(hypre_IJMatrixAssembleParCSRDevice+0x8cc)[0x7da23c266c6c]
+[flux-001:05627] [ 7] /opt/view/bin/amg(+0x6143)[0x643382eda143]
+[flux-001:05665] [ 6] /opt/view/bin/amg(+0xe181)[0x5b34f0f54181]
+[flux-001:05627] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7cb1400ded90]
+[flux-001:05665] [ 7] /opt/view/bin/amg(+0x6143)[0x5b34f0f4c143]
+[flux-001:05627] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7cb1400dee40]
+[flux-001:05665] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7da23bdd6d90]
+[flux-001:05627] [10] /opt/view/bin/amg(+0x7075)[0x643382edb075]
+[flux-001:05665] [ 9] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7da23bdd6e40]
+[flux-001:05627] *** End of error message ***
+[flux-001:05665] [10] /opt/view/bin/amg(+0x7075)[0x5b34f0f4d075]
+[flux-001:05665] *** End of error message ***
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 4, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "--env", "FI_PROVIDER=tcp,self", "/opt/containers/metric-amg2023_spack-older-intel.sif", "/opt/view/bin/amg", "-n", "256", "256", "128", "-P", "4", "4", "2", "-problem", "2"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "pmi": "pmix", "gpu-affinity": "per-task", "cpu-affinity": "per-task"}}}, "user": {"study_id": "amg2023-4-large-problem-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725759964.3474593,"name":"init"}
+{"timestamp":1725759964.3485162,"name":"starting"}
+{"timestamp":1725759964.5308695,"name":"shell.init","context":{"service":"501043911-shell-f2mcohkij","leader-rank":0,"size":4}}
+{"timestamp":1725759964.5567057,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,4,8,1]]}}}
+{"timestamp":1725759972.1528125,"name":"shell.task-exit","context":{"localid":6,"rank":14,"state":"Exited","pid":4218,"wait_status":139,"signaled":11,"exitcode":139}}
+{"timestamp":1725759972.739109,"name":"complete","context":{"status":35584}}
+{"timestamp":1725759972.7391427,"name":"done"}
+
