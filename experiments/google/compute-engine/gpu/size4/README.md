@@ -84,17 +84,12 @@ export app=amg2023
 export output=results/$app
 mkdir -p $output
 
-# this worked (full problem did not, segfault) - 13 seconds
-# confirmed using all GPU
-time flux run -opmi=pmix -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg
-
-# Smaller problem size? - this works in 23 seconds
-time flux run -opmi=pmix -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 128 128 128 -P 4 4 2 -problem 2 
-
 # Confirmed using all 8 GPU
-for i in $(seq 1 5); do
+for i in $(seq 2 5); do
   echo "Running iteration $i"
-  time flux run -opmi=pmix --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 128 128 128 -P 4 4 2 -problem 2 
+  # time flux run -opmi=pmix --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 128 128 128 -P 4 4 2 -problem 2 
+  # Note that 256 cubed still doesn't work at this size
+  time flux run -opmi=pmix --setattr=user.study_id=$app-4-large-problem-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 256 128 128 -P 4 4 2 -problem 2 
 done
 
 # When they are done:

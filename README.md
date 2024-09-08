@@ -47,10 +47,11 @@ This is a checklist for the setups we have tested and timed:
 - [ ] Google Compute Engine GPU
   - done on llnl-flux
   - [x] New VM and automation needed with Terraform (vsoch, early 9/2024)
-  - [x] size 4 (vsoch 9/6/2024) quicksilver doesn't get into matrices, osu allreduce done in 3 ways
-  - [ ] size 8 (vsoch TBA 9/2024)
+  - [x] size 4 (vsoch 9/6/2024)
+  - [x] size 8 (vsoch 9/8/2024)
   - [ ] size 16 (vsoch TBA 9/2024)
   - [ ] size 32 (vsoch TBA 9/2024)
+  - [ ] quicksilver and osu all reduce need runs at all sizes if/when bug figured out
 
 ### Kubernetes
 
