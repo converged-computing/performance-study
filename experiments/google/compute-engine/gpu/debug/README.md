@@ -16,6 +16,12 @@ And from the outside and within the container.
 strace -f flux run -opmi=pmix --env OMPI_COMM_WORLD_LOCAL_RANK=0 -N 1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task   singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-osu-gpu_google-gpu.sif    /bin/bash -c "/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H" 2> flux-singularity-trace-f.txt
 ```
 
+### [flux-singularity-ltrace-f.txt](flux-singularity-ltrace-f.txt)
+
+```bash
+ltrace -f flux run -opmi=pmix --env OMPI_COMM_WORLD_LOCAL_RANK=0 -N 1 -n 8 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task   singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-osu-gpu_google-gpu.sif    /bin/bash -c "/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H" 2> flux-singularity-ltrace-f.txt
+```
+
 ### [flux-singularity-trace-s-f.txt](flux-singularity-trace-s-f.txt)
 
 ```bash

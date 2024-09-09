@@ -1,0 +1,37 @@
+23.953s: job.exception type=cancel severity=0 interrupted by ctrl-C
+24.155s: job.exception type=cancel severity=0 interrupted by ctrl-C
+24.348s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) Terminated
+
+# OSU MPI-CUDA Allreduce Latency Test v5.8
+# Size       Avg Latency(us)
+4                     346.93
+8                     343.36
+16                    345.98
+32                    345.99
+64                    345.13
+128                   343.23
+256                   359.02
+512                   366.02
+1024                  379.76
+2048                  423.79
+4096                  467.01
+8192                  738.21
+16384                1113.73
+32768                1372.31
+65536                1449.55
+131072               2002.28
+262144               1318.81
+524288               2209.33
+1048576              4025.37
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 16, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "osu-allreduce-16-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725922887.4867351,"name":"init"}
+{"timestamp":1725922887.4880421,"name":"starting"}
+{"timestamp":1725922887.6449196,"name":"shell.init","context":{"service":"501043911-shell-f38FgPx4w","leader-rank":0,"size":16}}
+{"timestamp":1725922887.6735122,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,16,8,1]]}}}
+{"timestamp":1725922911.4788885,"name":"shell.task-exit","context":{"localid":0,"rank":16,"state":"Exited","pid":1540,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1725922911.8023748,"name":"complete","context":{"status":36608}}
+{"timestamp":1725922911.8023956,"name":"done"}
+

@@ -4,8 +4,6 @@
 - Cluster coming up at 7:55pm Mountain, $640/hour
 - Cluster coming down at 9:02pm
 
-I'm not running OSU all reduce or quicksilver.
-
 ## Experiment
 
 Shell in:
@@ -299,56 +297,15 @@ mkdir -p $output
 # We should do H H - better values across the board
 ./flux-run-combinations.sh 32 $app
 
-# D D and H H errors (bad results but we ran anyway):
-# The call to cuMemHostRegister(0x78407fe00008, 134217728, 0) failed.
-#  Host:  flux-004
-#  cuMemHostRegister return value:  1
-#  Registration cache:  smcuda
-
-# Note that osu_latency had worse values with D D. H H seems better across the board.
-cho "Running iteration $i"
-
-# -d cuda H H/D D slowest and has errors for allreduce
-
 # These were run separately
 export app=osu-allreduce
 export output=results/$app
 mkdir -p $output
 
-# I skipped these for now because we need to debug the GPU issue, don't
-# want to spend the money credits on crappy results
-# confirmed using all 8 gpu, but just a little, mostly memory (~312MiB)
-for i in $(seq 2 2); do
-
-# original command for 4, 2m 36 seconds  
-time flux run -opmi=pmix -N 8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
-  --setattr=user.study_id=$app-4-DD-iter-$i \
-  singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-osu-gpu_google-gpu.sif  \
-  bash -c "ulimit -m 9999999999 ; /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda D D"
-
-# 2m 41 seconds
-time flux run -opmi=pmix -N 4 -n 32 -g 1 --setattr=user.study_id=$app-4-HH-iter-$i  -o cpu-affinity=per-task -o gpu-affinity=per-task \
-  singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-osu-gpu_google-gpu.sif  \
-  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
-
-# 2m 19 seconds
-time flux run -opmi=pmix -N 4 -n 32 -g 1 --setattr=user.study_id=$app-4-iter-$i -o cpu-affinity=per-task -o gpu-affinity=per-task \
-  singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-osu-gpu_google-gpu.sif  \
-  /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+# fastest with D D and the OMPI envar.
+for i in $(seq 1 5); do
+   time flux run --env OMPI_COMM_WORLD_LOCAL_RANK=0 --env OMPI_MCA_pml=ucx --env OMPI_MCA_btl=tcp -N 32 -n 256 -g 1 --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce -d cuda H H
 done
-
-# Not tested yet! There are still errors (and much slower times) with any cuda flags
-sflux run --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
-singularity exec --nv /opt/containers/metric-osu-gpu_google-gpu.sif \
-/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
-
-flux run --setattr=user.study_id=$app-16-iter-$i -N 16 -n 128 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
-singularity exec --nv /opt/containers/metric-osu-gpu_google-gpu.sif \
-/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
-
-flux run --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
-singularity exec --nv /opt/containers/metric-osu-gpu_google-gpu.sif \
-/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
 
 # When they are done:
 ./save.sh $output
@@ -357,57 +314,20 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### Quicksilver
 
-Testing:
-
-```console
-# This is the only app that didn't run (I tried a lot of different configs)
-# The call to cuMemHostRegister(0x7fbb82200008, 134217728, 0) failed.
-#  Host:  flux-004
-#  cuMemHostRegister return value:  1
-#  Registration cache:  smcuda
-
-# testing smcuda snake error
-flux run -opmi=pmix -o gpu-affinity=per-task --env OMP_NUM_THREADS=1 -o cpu-affinity=per-task -N2 -n 16 -g 1 singularity exec --nv /opt/containers/metric-quicksilver-gpu_google-gpu.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 16 -x 32 -y 32 -z 16 -I 4 -J 2 -K 2 -n 26214400
-
-# only works on one node, ssh is not allowed
-mpirun -n 8 --map-by ppr:8:node singularity exec --nv /opt/containers/metric-quicksilver-gpu_google-gpu.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 16 -Y 16 -Z 16 -x 16 -y 16 -z 16 -I 4 -J 4 -K 2 -n 163840
-
-time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --exclusive --env OMP_NUM_THREADS=1 -N2 -n 16 -g 1 singularity exec --nv /opt/containers/metric-quicksilver-gpu_google-gpu.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 16 -x 32 -y 32 -z 16 -I 4 -J 4 -K 2 -n 26214400
-```
-
-Run attempt:
-
 ```console
 export app=quicksilver
 export output=results/$app
 mkdir -p $output
 
-# Error:
-# --------------------------------------------------------------------------
-# The call to cuMemHostRegister(0x7e21e1c00008, 134217728, 0) failed.
-#  Host:  flux-001
-#  cuMemHostRegister return value:  1
-#  Registration cache:  smcuda
-# --------------------------------------------------------------------------
-
-# confirmed using all 8 GPU, 100%, despite error above
-# Allowing 10 minutes to see output, and if none, cancelling.
+# confirmed using all 8 GPU, 100%
+# Allowing 15 minutes to run
 for i in $(seq 1 1); do
     echo "Running iteration $i"
-    # Try this and see if completes
-    time flux run -o gpu-affinity=per-task -o cpu-affinity=per-task --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 singularity exec --nv /opt/containers/metric-quicksilver-gpu_google-gpu.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 32 -Y 32 -Z 32 -x 32 -y 32 -z 32 -I 4 -J 4 -K 2 -n 52428800
+    time flux run --exclusive --env OMP_NUM_THREADS=1 --env OMPI_MCA_pml=ucx --env OMPI_MCA_btl=tcp -N 32 -n 256 -g 1 --setattr=user.study_id=$app-32-iter-$i -o cpu-affinity=per-task -o gpu-affinity=per-task qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 64  -x 64  -y 64  -z 64  -I 8  -J 8  -K 4 -n 419430400
 done
-
-# These can't be finalized or done unless the above works
-flux run --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-8-iter-$i -N8 -n 64 -g 1 singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-quicksilver-gpu_latest.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 32  -Z 32  -x 64  -y 32  -z 32  -I 4  -J 4  -K 4 -n 104857600
-
-flux run --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-16-iter-$i -N16 -n 128 -g 1 singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-quicksilver-gpu_latest.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 32  -x 64  -y 64  -z 32  -I 8  -J 4  -K 4  -n 209715200
-
-flux run --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-32-iter-$i -N32 -n 256 -g 1 singularity exec --nv --bind /usr/local/cuda /opt/containers/metric-quicksilver-gpu_latest.sif qs --inputFile /opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp -X 64  -Y 64  -Z 64  -x 64  -y 64  -z 64  -I 8  -J 8  -K 4 -n 419430400
 
 # When they are done:
 ./save.sh $output
-
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-32-$app $output
 ```
 
