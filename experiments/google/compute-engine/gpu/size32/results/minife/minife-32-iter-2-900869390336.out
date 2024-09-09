@@ -1,0 +1,31 @@
+ OMP_NUM_THREADS=1
+      creating/filling mesh...0.083617s, total time: 0.083617
+generating matrix structure...0.621997s, total time: 0.705614
+         assembling FE data...0.0172911s, total time: 0.722905
+      imposing Dirichlet BC...0.00215197s, total time: 0.725057
+      imposing Dirichlet BC...2.14577e-06s, total time: 0.725059
+making matrix indices local...0.386693s, total time: 1.11175
+Starting CG solver ... 
+Initial Residual = 641.001
+Iteration = 20   Residual = 0.0845035
+Iteration = 40   Residual = 1.24375
+Iteration = 60   Residual = 0.013975
+Iteration = 80   Residual = 0.00708942
+Iteration = 100   Residual = 0.00646761
+Iteration = 120   Residual = 0.00189153
+Iteration = 140   Residual = 0.00102865
+Iteration = 160   Residual = 0.00915568
+Iteration = 180   Residual = 0.00374859
+Iteration = 200   Residual = 0.00014253
+Final Resid Norm: 0.00014253
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--bind", "/usr/local/cuda", "--nv", "/opt/containers/metric-minife_google-gpu.sif", "miniFE.x", "nx=640", "ny=640", "nz=640", "num_devices=8", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "minife-32-iter-2"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725849094.4652421,"name":"init"}
+{"timestamp":1725849094.4661422,"name":"starting"}
+{"timestamp":1725849094.4949558,"name":"shell.init","context":{"service":"501043911-shell-fQfXk6vs","leader-rank":0,"size":32}}
+{"timestamp":1725849094.5182941,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,8,1]]}}}
+{"timestamp":1725849101.212256,"name":"shell.task-exit","context":{"localid":5,"rank":165,"state":"Exited","pid":17610,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725849101.7839642,"name":"complete","context":{"status":0}}
+{"timestamp":1725849101.7840126,"name":"done"}
+

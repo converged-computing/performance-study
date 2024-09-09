@@ -1,0 +1,43 @@
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+# OSU MPI-CUDA Bandwidth Test v5.8
+# Send Buffer on HOST (H) and Receive Buffer on HOST (H)
+# Size      Bandwidth (MB/s)
+1                       0.17
+2                       0.33
+4                       0.56
+8                       1.41
+16                      2.48
+32                      6.63
+64                     14.70
+128                    26.16
+256                    53.34
+512                   102.52
+1024                  199.59
+2048                  346.26
+4096                  580.87
+8192                 1005.64
+16384                1466.23
+32768                1975.27
+65536                2157.10
+131072               2096.95
+262144               1815.83
+524288               1649.06
+1048576              1515.96
+2097152              1638.75
+4194304              1393.20
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/metric-osu-gpu_google-gpu.sif", "/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-011,flux-019"]}}, "user": {"study_id": "osu-2-iter-17"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725850073.3993239,"name":"init"}
+{"timestamp":1725850073.402905,"name":"starting"}
+{"timestamp":1725850073.4318223,"name":"shell.init","context":{"service":"501043911-shell-fLY3n7gB","leader-rank":10,"size":2}}
+{"timestamp":1725850073.4366894,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1725850083.9097435,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":23311,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1725850083.9142919,"name":"complete","context":{"status":0}}
+{"timestamp":1725850083.9143291,"name":"done"}
+
