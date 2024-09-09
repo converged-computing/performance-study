@@ -50,8 +50,8 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 4 (vsoch 9/6/2024)
   - [x] size 8 (vsoch 9/7/2024)
   - [x] size 16 (vsoch 9/8/2024)
-  - [ ] size 32 (vsoch TBA 9/2024)
-  - [ ] quicksilver and osu all reduce need runs at all sizes if/when bug figured out
+  - [x] size 32 (vsoch 9/8/2024)
+  - [ ] quicksilver and osu all reduce need runs at all sizes.
 
 ### Kubernetes
 
