@@ -183,12 +183,7 @@ mkdir -p $output
 
 for i in $(seq 2 5); do     
   echo "Running iteration $i"
-  # confirmed 100% all GPU, runs in 50 and then <10 seconds
-  # I think we want this one because time of the above will not scale nicely as the cluster gets larger
-  time flux run -N4 -g 1 singularity exec --bind /usr/local/cuda --nv /opt/containers/metric-mixbench_google-gpu.sif  /opt/mixbench/mixbench-cuda/wrapper 32
-
-  # Try g8
-  time flux run -N4 -g 1 singularity exec --bind /usr/local/cuda --nv /opt/containers/metric-mixbench_google-gpu.sif  /opt/mixbench/mixbench-cuda/wrapper 32
+  time flux run -N4 -n 32 -g 1 --setattr=user.study_id=$app-4-iter-$i -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --bind /usr/local/cuda --nv /opt/containers/metric-mixbench_google-gpu.sif mixbench-cuda 32
 done
 
 # When they are done:
