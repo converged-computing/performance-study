@@ -97,18 +97,14 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### AMG2023
 
-This still seems to have spack visible devices - needs a rebuild.
-
 ```console
 export app=amg2023
 export output=results/$app
 mkdir -p $output
 
-# This only is using 4 again, hmm.
 for i in $(seq 1 5); do
   echo "Running iteration $i"
-  # 34 seconds each...
-  time flux run -opmi=pmix --setattr=user.study_id=$app-8-larger-problem-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 225 128 128 -P 4 4 4 -problem 2 
+  time flux run -opmi=pmix --setattr=user.study_id=$app-8-larger-problem-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 256 128 128 -P 4 4 4 -problem 2 
   time flux run -opmi=pmix --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 128 128 128 -P 4 4 4 -problem 2 
 done
 
