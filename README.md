@@ -11,10 +11,6 @@ This study will test HPC application performance across three clouds. The reposi
  - [Amazon Web Services](experiments/aws) includes Parallel Cluster (EC2), and EKS (KUbernetes) for each of CPU and GPU
  - [Microsoft Azure](experiments/azure) includes CycleCloud (VMs), and AKS (Kubernetes) for each of CPU and GPU.
 
-## Timing
-
-This is a checklist for the setups we have tested and timed:
-
 ## Experiments
 
 ### "Bare Metal"
@@ -44,14 +40,14 @@ This is a checklist for the setups we have tested and timed:
   - [x] size 64 (vsoch done 8/26/2024)
   - [x] size 128 (vsoch done 8/27/2024)
   - [x] size 256 (vsoch done 8/27/2024)
-- [ ] Google Compute Engine GPU
+- [x] Google Compute Engine GPU
   - done on llnl-flux
   - [x] New VM and automation needed with Terraform (vsoch, early 9/2024)
   - [x] size 4 (vsoch 9/6/2024)
   - [x] size 8 (vsoch 9/7/2024)
   - [x] size 16 (vsoch 9/8/2024)
   - [x] size 32 (vsoch 9/8/2024)
-  - [ ] quicksilver and osu all reduce need runs at all sizes.
+  - [x] quicksilver and osu all reduce need runs at all sizes (vsoch 9/9/2024)
 
 ### Kubernetes
 

@@ -5,14 +5,12 @@ compute_node_specs = [
     machine_arch = "x86-64"
     machine_type = "n1-standard-32"
     gpu_type     = "nvidia-tesla-v100"
-    # We are using 4 gpus instead of 8:
-    # cheaper, matches lassen, apps were only seeing 4!
-    gpu_count   = 8
-    compact     = false
-    zone        = "us-central1-c"
-    instances   = 16
-    properties  = []
-    boot_script = <<BOOT_SCRIPT
+    gpu_count    = 8
+    compact      = false
+    zone         = "us-central1-c"
+    instances    = 16
+    properties   = []
+    boot_script  = <<BOOT_SCRIPT
 #!/bin/bash
 
 # sudo journalctl -u google-startup-scripts.service

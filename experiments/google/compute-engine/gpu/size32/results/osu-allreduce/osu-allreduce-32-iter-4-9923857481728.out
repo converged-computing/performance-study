@@ -1,0 +1,35 @@
+54.496s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) Terminated
+
+# OSU MPI-CUDA Allreduce Latency Test v5.8
+# Size       Avg Latency(us)
+4                     377.98
+8                     376.59
+16                    381.60
+32                    375.47
+64                    382.53
+128                   378.35
+256                   392.89
+512                   385.75
+1024                  412.88
+2048                  446.03
+4096                  733.36
+8192                  742.83
+16384                 886.76
+32768                 926.58
+65536                 934.44
+131072               1247.81
+262144               1663.65
+524288               2555.58
+1048576              4420.15
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "osu-allreduce-32-iter-4"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725925083.6712868,"name":"init"}
+{"timestamp":1725925083.6724148,"name":"starting"}
+{"timestamp":1725925083.8146317,"name":"shell.init","context":{"service":"501043911-shell-f5VgcJaKH","leader-rank":0,"size":32}}
+{"timestamp":1725925083.840488,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,8,1]]}}}
+{"timestamp":1725925138.182318,"name":"shell.task-exit","context":{"localid":0,"rank":48,"state":"Exited","pid":1684,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1725925138.4595866,"name":"complete","context":{"status":36608}}
+{"timestamp":1725925138.4596181,"name":"done"}
+

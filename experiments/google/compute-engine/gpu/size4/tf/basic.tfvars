@@ -1,3 +1,8 @@
+# This is for OSU and quicksilver on the VM directly
+# also see the recipe below and make sure root owns /run/flux
+# compute_family = "flux-framework-ubuntu-gpu-root"
+
+# This is for the rest
 compute_family = "flux-framework-ubuntu-gpu"
 compute_node_specs = [
   {
@@ -5,14 +10,12 @@ compute_node_specs = [
     machine_arch = "x86-64"
     machine_type = "n1-standard-32"
     gpu_type     = "nvidia-tesla-v100"
-    # We are using 4 gpus instead of 8:
-    # cheaper, matches lassen, apps were only seeing 4!
-    gpu_count   = 8
-    compact     = false
-    zone        = "us-central1-c"
-    instances   = 4
-    properties  = []
-    boot_script = <<BOOT_SCRIPT
+    gpu_count    = 8
+    compact      = false
+    zone         = "us-central1-c"
+    instances    = 4
+    properties   = []
+    boot_script  = <<BOOT_SCRIPT
 #!/bin/bash
 
 # sudo journalctl -u google-startup-scripts.service
@@ -45,6 +48,7 @@ echo "🐸 Broker Configuration"
 cat /usr/etc/flux/system/conf.d/system.toml
 
 mkdir -p /run/flux
+# chown -R root /run/flux
 chown -R flux /run/flux
 
 # /usr/sbin/create-munge-key

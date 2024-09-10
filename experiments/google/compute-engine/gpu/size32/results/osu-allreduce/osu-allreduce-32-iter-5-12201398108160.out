@@ -1,0 +1,36 @@
+26.124s: job.exception type=cancel severity=0 interrupted by ctrl-C
+26.320s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) Terminated
+
+# OSU MPI-CUDA Allreduce Latency Test v5.8
+# Size       Avg Latency(us)
+4                     368.73
+8                     356.39
+16                    345.07
+32                    353.10
+64                    358.35
+128                   363.34
+256                   370.18
+512                   362.94
+1024                  401.21
+2048                  427.15
+4096                  707.90
+8192                  775.25
+16384                1037.11
+32768                 924.79
+65536                1074.10
+131072               1238.45
+262144               1620.64
+524288               2585.98
+1048576              4460.00
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "osu-allreduce-32-iter-5"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725925219.4240344,"name":"init"}
+{"timestamp":1725925219.4252229,"name":"starting"}
+{"timestamp":1725925219.5670409,"name":"shell.init","context":{"service":"501043911-shell-f6XWamcEK","leader-rank":0,"size":32}}
+{"timestamp":1725925219.5928216,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,32,8,1]]}}}
+{"timestamp":1725925245.5599644,"name":"shell.task-exit","context":{"localid":0,"rank":8,"state":"Exited","pid":1748,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1725925246.1357791,"name":"complete","context":{"status":36608}}
+{"timestamp":1725925246.1358104,"name":"done"}
+

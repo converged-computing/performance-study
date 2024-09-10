@@ -104,20 +104,30 @@ cd flux-sched
 ./configure --prefix=/usr --sysconfdir=/etc
 make -j 8 && sudo make install && sudo ldconfig
 
-# install openmpi with cuda
+# Note that UCX (and a rebuild of open mpi) was done after to get OSU/quicksilver working
+
+cd /opt
+sudo git clone https://github.com/openucx/ucx && \
+    sudo chown -R $USER ./ucx && cd ucx/ && \
+    git clean -xfd && \
+    ./autogen.sh && mkdir build && cd build && \
+    ../configure --prefix=/usr --enable-debug --with-cuda=/usr/local/cuda --enable-mt --disable-cma && \
+    make -j && sudo make install
+
+# If already existed - remove
+sudo rm -rf /usr/local/pancakes/
+
+# install openmpi with cuda and ucx
 cd /opt
 sudo mkdir -p /usr/local/pancakes && \
-    sudo wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz && \
+    sudo wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz || true && \
     sudo tar -xzvf openmpi-4.1.2.tar.gz && \
     cd openmpi-4.1.2 && \
     sudo chown -R $USER $(pwd) && \
-    ./configure --with-cuda --prefix=/usr/local/pancakes && \
-    make -j 20 && sudo make install
-
-# TODO check these, should be provided in flux environment later
-# ENV CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-# ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/pancakes/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-# ENV LD_LIBRARY_PATH=/usr/local/pancakes/lib:/opt/miniconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+    make distclean || true && \
+    mkdir build && cd build
+    ../configure --with-cuda=/usr/local/cuda --with-ucx=/usr/ --prefix=/usr/local/pancakes
+    make -j && sudo make install
 
 cd /opt
 
@@ -384,3 +394,47 @@ sudo apt-get install -y --no-install-recommends --allow-change-held-packages apt
 sudo echo "deb https://packages.cloud.google.com/apt google-fast-socket main" | tee /etc/apt/sources.list.d/google-fast-socket.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt update && sudo apt install -y --no-install-recommends google-fast-socket=0.0.5
+
+
+# Install additional apps for bare metal, osu and quicksilver and multi-gpu-models
+54  make -j
+   55  make install
+   56  cd /opt/osu-benchmark/
+   57  rm -rf build.openmpi/
+   58  export OSU_VERSION=5.8
+   59  mkdir -p build.openmpi && cd build.openmpi &&     ../src/osu-micro-benchmarks-${OSU_VERSION}/configure CC=mpicc CXX=mpicxx CFLAGS=-I$(pwd)/../src/osu-micro-benchmarks-${OSU_VERSION}/util --prefix=$(pwd) --enable-cuda --with-cuda=/usr/local/cuda &&     make && make install
+   60  export PATH=/usr/local/pancakes/bin:$PATH
+   61  make && make install
+   62  cd /opt/containers/
+   63  cd /root
+
+# OSU benchmarks
+sudo git clone --depth 1 https://github.com/ULHPC/tutorials /opt/tutorials && \
+    sudo mkdir -p /opt/osu-benchmark && \
+    sudo chown -R $USER /opt/tutorials /opt/osu-benchmark && \
+    cd /opt/osu-benchmark && \
+    ln -s /opt/tutorials/parallel/mpi/OSU_MicroBenchmarks ref.d && \
+    ln -s ref.d/Makefile . && \
+    ln -s ref.d/scripts  . && \
+    mkdir src && \
+    cd src && \
+    export OSU_VERSION=5.8 && \
+    wget --no-check-certificate http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-${OSU_VERSION}.tgz && \
+    tar xf osu-micro-benchmarks-${OSU_VERSION}.tgz && \
+    cd /opt/osu-benchmark && \
+    # Compile based on openmpi with cuda/ucx
+    mkdir -p build.openmpi && cd build.openmpi && \
+    ../src/osu-micro-benchmarks-${OSU_VERSION}/configure CC=mpicc CXX=mpicxx CFLAGS=-I$(pwd)/../src/osu-micro-benchmarks-${OSU_VERSION}/util --prefix=$(pwd) --enable-cuda --with-cuda=/usr/local/cuda && \
+    make && make install
+    
+# Quicksilver
+sudo git clone https://github.com/LLNL/Quicksilver quicksilver
+sudo chown -R $USER /opt/quicksilver
+wget https://raw.githubusercontent.com/converged-computing/performance-study/main/docker/google/gpu/quicksilver/Makefile
+cd /opt/quicksilver/src
+make || nvcc -DHAVE_CUDA -std=c++11 -O2 -Xptxas -v -gencode=arch=compute_70,code=\"sm_70,compute_70\" --compiler-bindir=/usr/local/pancakes/bin/mpicxx -L/usr/local/cuda/lib64/ -lcuda -lcudart -lm -o qs CollisionEvent.o CoralBenchmark.o CycleTracking.o DecompositionObject.o DirectionCosine.o EnergySpectrum.o GlobalFccGrid.o GridAssignmentObject.o InputBlock.o MCT.o MC_Adjacent_Facet.o MC_Base_Particle.o MC_Domain.o MC_Facet_Crossing_Event.o MC_Fast_Timer.o MC_Load_Particle.o MC_Location.o MC_Particle_Buffer.o MC_RNG_State.o MC_Segment_Outcome.o MC_SourceNow.o MacroscopicCrossSection.o MeshPartition.o MonteCarlo.o MpiCommObject.o NuclearData.o Parameters.o ParticleVault.o ParticleVaultContainer.o PopulationControl.o SendQueue.o SharedMemoryCommObject.o Tallies.o cmdLineParser.o cudaFunctions.o initMC.o main.o parseUtils.o utils.o utilsMpi.o && sudo cp qs /usr/bin/qs
+
+# Multi-gpu-models
+sudo git clone https://github.com/NVIDIA/multi-gpu-programming-models /opt/multi-gpu-programming-models && \
+    cd multi-gpu-programming-models/mpi && \
+    make && sudo mv jacobi /usr/local/bin

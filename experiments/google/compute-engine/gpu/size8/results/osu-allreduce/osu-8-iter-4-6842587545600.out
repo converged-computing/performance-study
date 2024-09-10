@@ -1,0 +1,36 @@
+16.376s: job.exception type=cancel severity=0 interrupted by ctrl-C
+16.550s: job.exception type=cancel severity=0 interrupted by ctrl-C
+flux-job: task(s) Terminated
+
+# OSU MPI-CUDA Allreduce Latency Test v5.8
+# Size       Avg Latency(us)
+4                     170.62
+8                     167.00
+16                    165.94
+32                    166.13
+64                    166.02
+128                   175.64
+256                   172.47
+512                   179.65
+1024                  196.90
+2048                  218.03
+4096                  244.71
+8192                  380.68
+16384                 393.83
+32768                 617.54
+65536                 967.74
+131072               1613.92
+262144               1271.29
+524288               2054.04
+1048576              3800.24
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 8, "with": [{"type": "slot", "count": 8, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}}, "user": {"study_id": "osu-8-iter-4"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1725920691.6671219,"name":"init"}
+{"timestamp":1725920691.6681292,"name":"starting"}
+{"timestamp":1725920691.8463962,"name":"shell.init","context":{"service":"501043911-shell-f46k72k8w","leader-rank":0,"size":8}}
+{"timestamp":1725920691.8715441,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,8,8,1]]}}}
+{"timestamp":1725920708.1018085,"name":"shell.task-exit","context":{"localid":0,"rank":8,"state":"Exited","pid":1663,"wait_status":15,"signaled":15,"exitcode":143}}
+{"timestamp":1725920708.6721523,"name":"complete","context":{"status":36608}}
+{"timestamp":1725920708.6721849,"name":"done"}
+
