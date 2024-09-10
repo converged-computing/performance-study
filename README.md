@@ -1,10 +1,13 @@
 # Performance Study
 
-This study will test HPC application performance across three clouds. The repository is organized as follows:
+[![DOI](https://zenodo.org/badge/837429553.svg)](https://zenodo.org/doi/10.5281/zenodo.13738495)
+
+This study tested HPC application performance across three clouds and on-premises HPC. The repository is organized as follows:
 
 - [docker](docker): includes container builds for different environments. Containers are shared between environments when possible to reduce redundancy.
   - [google](docker/google): includes Google builds for each of CPU an GPU
   - [aws](docker/aws): includes AWS builds for each of CPU and GPU. The distinguishing feature is building with libfabric for EFA.
+  - [azure](docker/azure): includes Microsoft Azure builds for each of CPU and GPU, targeting infiniband.
 
 - [experiments](experiments): are organized first by cloud, and then the underlying environment. In each, a README with the full experiment protocol (and usually commands to run) are included.
  - [Google Cloud](experiments/google) includes HPC Toolkit (Compute Engine), and GKE (Kubernetes) for each of CPU and GPU
