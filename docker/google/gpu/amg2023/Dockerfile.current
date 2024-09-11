@@ -1,22 +1,10 @@
 FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04 as builder
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Build command
-#  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim .
-#  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim
-
-# Built on n1-standard-96 image on Google Cloud 
-#  ghcr.io/converged-computing/metric-amg2023:spack-intel-int64 .
-#  docker push  ghcr.io/converged-computing/metric-amg2023:spack-intel-int64
-
 # The final one that worked was on an old skylake I have from grad school
-# with the +mixedint removed
+# with the +mixedint removed. It only went up to 256 128 128 but at least did 
+# not segfault. This was used for current runs.
 # docker build -t ghcr.io/converged-computing/metric-amg2023:spack-older-intel .
-
-# Note that we are still testing a derivative of the below (this Dockerfile with spack.yaml)
-# to get to the larger problem size - no luck so far.
-
-# cmake -DHYPRE_PREFIX=/opt/software/linux-ubuntu22.04-haswell/gcc-11.4.0/hypre-2.31.0-pk6f7bem62g3l3g5prbb7ddhowbstgnd/ -DAMG_WITH_CUDA=ON -DAMG_WITH_MPI=ON ..
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
@@ -43,19 +31,33 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install \
 # What we want to install and how we want to install it
 # is specified in a manifest file (spack.yaml)
 # IMPORTANT: cpu gets +int64, and gpu +mixedint
-WORKDIR /opt/spack-environment
-COPY ./spack.yaml ./spack.yaml
+RUN mkdir /opt/spack-environment \
+    &&  (echo "spack:" \
+    &&   echo "  specs:" \
+    &&   echo "  - openmpi@4.1.4 fabrics=ofi +legacylaunchers +cuda cuda_arch=70" \
+    &&   echo "  - libfabric@1.19.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm" \
+    &&   echo "  - flux-sched" \
+    &&   echo "  - flux-core" \
+    &&   echo "  - pmix@4.2.2" \
+    &&   echo "  - flux-pmix@0.4.0" \
+    &&   echo "  - amg2023 +mpi +cuda cuda_arch=70" \
+    &&   echo "  - hypre +cuda cuda_arch=70" \
+    &&   echo "  concretizer:" \
+    &&	 echo "    unify: true" \
+    &&   echo "  config:" \
+    &&   echo "    install_tree: /opt/software" \
+    &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
+
 
 ENV CUDACXX=/usr/local/cuda/bin/nvcc
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:$LD_LIBRARY_PATH
 
 # Install the software, remove unnecessary deps
 RUN cd /opt/spack-environment \
     && git clone https://github.com/spack/spack.git \
     && . spack/share/spack/setup-env.sh \
     && spack env activate . \
-    && spack compiler find \
     && spack external find openssh \
     && spack external find cmake \
     && spack install --reuse --fail-fast \
@@ -73,7 +75,7 @@ EXPOSE 22
 #  docker build  -t ghcr.io/converged-computing/metric-amg2023:spack-slim .
 #  docker push ghcr.io/converged-computing/metric-amg2023:spack-slim
 
-FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 
 COPY --from=builder /opt/spack-environment /opt/spack-environment
 COPY --from=builder /opt/software /opt/software

@@ -1,0 +1,18 @@
+spack:
+  specs:
+  #- amg2023 +mpi +cuda cuda_arch=70
+  - hypre +mixedint +cuda cuda_arch=70 ^cuda@12.4.1 ^openmpi@4.1.2
+  - openmpi@4.1.2
+  packages:
+    cuda:
+      externals:
+      - spec: cuda@12.4.1
+        prefix: /usr/local/cuda
+      variants:
+      - cuda_arch=70
+      buildable: false
+  concretizer:
+    unify: true
+  config:
+    install_tree: /opt/software
+  view: /opt/view
