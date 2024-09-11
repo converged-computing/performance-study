@@ -22,8 +22,12 @@ Saving raw container times to /home/vanessa/Desktop/Code/performance-study/analy
 Saving list of unique containers to /home/vanessa/Desktop/Code/performance-study/analysis/container-sizes/data/unique-containers.json
 ```
 
- - containers.json: gives us a unique list to query the registry for. We can use manifests and configs to assess similarity.
+ - unique-containers.json: gives us a unique list to query the registry for. We can use manifests and configs to assess similarity.
  - raw-times.json: has raw event timings. More notes on this below!
+
+Note that I added a all-containers.json, which also has containers that were pulled for Singularity in environments like compute engine
+that would not be pro grammatically captured here. We can't use them to assess pull times, but we can assess them for manifests and layers
+and similarity!
 
 <details>
 
@@ -475,8 +479,15 @@ When we just consider the layer content (and the digest that accounts for previo
 
 ![data/similarity/cluster-container-layer-content-similarity.png](data/similarity/cluster-container-layer-content-similarity.png)
 
-This is super cool!
+This is super cool! I saved the new labels (of the clustering) and can tell you that (based on looking at rows):
 
+- The top left, indices up to 26, are GPU containers. It's a mix of libfabric and not, which means a mixture of AWS and Google.
+- The next group (not very similar) up to row 52 are cpu containers, and again some with and some without libfabric. This is again AWS vs Google, but CPU space
+- We then have one container that was rocky (the flux view)
+- We then have (54-56) one GPU libfabric container, and a resnet container
+- The last set (the two group you can see) are Azure GPU and Azure CPU
+
+And I realize now I'm missing the rocky set that we used for compute engine, which wouldn't be present in the timestamp data. I'll add those are parse them soon.
 
 ## 5. Average Containers
 

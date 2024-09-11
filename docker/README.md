@@ -54,7 +54,6 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | AWS | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-lammps-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/lammps) | |
 | ghcr.io/converged-computing/metric-lammps-gpu:libfabric-reax | AWS | yes |[Dockerfile](docker/aws/gpu/lammps-reax/Dockerfile) | |
-| ghcr.io/converged-computing/metric-lammps-gpu:libfabric-openmpi5-reax | AWS | yes | [Dockerfile](docker/aws/gpu/lammps-reax/Dockerfile.reax)| rebuilt with openmpi5, lammps reax, and kokkos |
 | ghcr.io/converged-computing/metric-kripke-gpu:libfabric   | AWS | yes |[Dockerfile](docker/aws/gpu/kripke)  | |
 | ghcr.io/converged-computing/metric-magma:libfabric        | AWS | yes |[Dockerfile](docker/aws/gpu/magma)   |  |
 | ghcr.io/converged-computing/metric-minife:libfabric       | AWS | yes |[Dockerfile](docker/aws/gpu/minife)  | | 

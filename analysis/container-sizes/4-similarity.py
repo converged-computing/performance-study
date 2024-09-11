@@ -141,7 +141,7 @@ def calculate_similarity(df, outdir, outfile):
     total = len(sims.index)
     for i, a in enumerate(sims.index):
         print(f"Calculating for {a}, {i} of {total}")
-        for b in sims.columns:
+        for b in sims.index:
             if a == b:
                 sims.loc[a, b] = 1
                 continue
@@ -153,24 +153,38 @@ def calculate_similarity(df, outdir, outfile):
             score = len(layers_a.intersection(layers_b)) / len(layers_a.union(layers_b))
             sims.loc[a, b] = score
 
-    # sims.to_csv(os.path.join(outdir, "exact_digest_similarity_df.csv"))
+    sims.to_csv(os.path.join(outdir, f"{outfile}-similarity.csv"))
+
+    # Update sims index and columns to make them shorter (they will render on the plot)
+    names = [x.replace('ghcr.io/converged-computing/', '').replace('metric-', '') for x in sims.index.tolist()]
+    sims.index = names
+    sims.columns = names
 
     # Now plot it! Remove containers so we just have tags left
     plt.figure(figsize=(36, 36))
-    nums = sims.to_numpy()
-    nums = nums.astype(float)
-    m = sns.heatmap(nums, annot=True, cmap="BrBG", mask=(nums == 0.0))
+    sims = sims.astype(float)
+    m = sns.heatmap(sims, annot=True, cmap="BrBG", mask=(sims == 0.0))
     m.set_facecolor("black")
     plt.title("Container similarity by digest")
     plt.savefig(os.path.join(outdir, f"{outfile}.png"))
     plt.savefig(os.path.join(outdir, f"{outfile}.svg"))
     plt.clf()
 
-    m = sns.clustermap(nums, annot=False, cmap="BrBG", mask=(nums == 0.0))
+    m = sns.clustermap(sims, annot=False, cmap="BrBG")
     plt.title("Container similarity by digest")
     plt.savefig(os.path.join(outdir, f"cluster-{outfile}.png"))
     plt.savefig(os.path.join(outdir, f"cluster-{outfile}.svg"))
     plt.clf()
+
+    # Get a gist of the groups
+    new_order = m.dendrogram_row.reordered_ind
+    new_rows = sims.index[new_order].tolist()
+    new_order = m.dendrogram_col.reordered_ind
+    new_cols = sims.index[new_order].tolist()
+    write_json(
+        {"rows": new_rows, "cols": new_cols},
+        os.path.join(outdir, f"cluster-{outfile}-labels.json"),
+    )
 
 
 def plot_layers(df, outdir):

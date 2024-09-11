@@ -1,12 +1,12 @@
 {
     "manifests": {
-        "cpu-zen4": {
+        "libfabric-cpu-zen4": {
             "schemaVersion": 2,
             "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
             "config": {
                 "mediaType": "application/vnd.docker.container.image.v1+json",
-                "size": 14429,
-                "digest": "sha256:5d151aa03334d8ef9e7b554e652d45408ff852baf0c27a26a93f4d01b24c160a"
+                "size": 15762,
+                "digest": "sha256:8c78fd9eb40ea393a3389aa5bb34b074b6e714e6327202102d047df731e9d06a"
             },
             "layers": [
                 {
@@ -101,8 +101,18 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 14030477,
-                    "digest": "sha256:95f6de7966202940d7e1955b52f2ab0910df4e703bd1a8b4d8cf5eb436fb04e6"
+                    "size": 11237396,
+                    "digest": "sha256:2c4272e50bd0f79e6d1e45426c804d9d86ceb54adb989381b98b45d1877245e7"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 8445599,
+                    "digest": "sha256:6dcd716a6d82cc25912073abd9a305979aeae9c62181893b03342b468f0b6733"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 79725663,
+                    "digest": "sha256:84dcab2279227b4ac8d6b63ffccb5f761bf7a37595989240d28f207e864028d5"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
@@ -111,8 +121,8 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 61689193,
-                    "digest": "sha256:31d1c51af66fca08b49f7f6ffaa44c6c1ceecd7751d621e1d259b1ea585764cc"
+                    "size": 62559239,
+                    "digest": "sha256:5f2b27f9241f86f91fcdfc35f1595077efdb3c8979dd14a34f1b1ff8b5988d9e"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
@@ -121,18 +131,18 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 21735406,
-                    "digest": "sha256:51454387ee5420dc16939dfbc2e96dddf8bac330d4c3da6e9640e77eda9ee4c5"
+                    "size": 21735639,
+                    "digest": "sha256:785d04eda65c7e2f18ea851b462b4a781127ccd898bdb44f1aef5d9678a98a8c"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 1377070,
-                    "digest": "sha256:6d54158d4ac3a90e2ea860bd2b287a027ddc6cc8d84d2f6d1ab6488457bbe8cc"
+                    "size": 1376983,
+                    "digest": "sha256:33a1f76dcb7778b3ee06284c52e01f38741c4862ac3ee0bf21cfbcf9be49037c"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 26377365,
-                    "digest": "sha256:08a7ac3a4410a4ec5ce9515f9a8e971ac6fb60aaeab39fdd7bd64dfb0644df2d"
+                    "size": 26377367,
+                    "digest": "sha256:79cf4f963fd82946c1b81a34150063859f05a98d7145c07af396716baa59a212"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
@@ -141,13 +151,149 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 7582516,
-                    "digest": "sha256:de8f018c8b92386611368e3540623d45ece939e995df0ebe42c593cdea3312e7"
+                    "size": 7582514,
+                    "digest": "sha256:351e345dd1ddba57c4e5bfef1983213381893b6246a7db8202dc9531603481de"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 3738653,
-                    "digest": "sha256:2795e3b495e163ea70f02a9e08e29285516d9bd8da0d72dac9e6762d98b0b29f"
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 3738720,
+                    "digest": "sha256:ed10a4d65c42df8a3efd20a70a769a3fb32651799392481c1af3c3dbbd380bff"
+                }
+            ]
+        },
+        "rocky-8": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "config": {
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 10291,
+                "digest": "sha256:6ecc0034755b3f1ab1f5675eec90bed30e7f20f83f45b353bcb948ec30f95b17"
+            },
+            "layers": [
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 72820450,
+                    "digest": "sha256:9088cdb84e397c480d4c5f1675d1aa6928c3e8b5b30c57b68a756d5d1fda4d80"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 390870921,
+                    "digest": "sha256:6adc7d01f44d91c076bf0bde1d310f11f1d512e31a37c43e0085cfb22782e676"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 139305989,
+                    "digest": "sha256:69f1b813e2a4c8a57956c74ca687cbdc8a1f1c4c89d097378fff1c71ef4213f1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1946,
+                    "digest": "sha256:4e48dfc561cb3c688202fa9dc5ef68e4cd084445c51b5932cfa4f8b614615174"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1450233,
+                    "digest": "sha256:14a0857cd39a9dbbc997eeefead95ef8f498c15e197c1c54a16ac8710141bcca"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 59803440,
+                    "digest": "sha256:373ed996d10a0dfcecc72eb489664fc53f25ebf30450b0a991c27883f224825e"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 2493929,
+                    "digest": "sha256:52d9186ac0fb3953ff674ca14341c930a2a1cee26e2d4c355a2b92718af628fe"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1338,
+                    "digest": "sha256:cf991d11d14a4272d96243cc3d2e3a17ef01249fbd968a60c1c178e9a2fe87a1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 90025111,
+                    "digest": "sha256:20938b62cfd8658b13038fd4f53a1b4e8b84c06011ab9158e618370b0d34c748"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 121812911,
+                    "digest": "sha256:2e670136be4e54287ed8c088bf243a758a2a3fce0f1f689ba5d882dbb0cf0c2b"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 112,
+                    "digest": "sha256:2d371ae9723e7880408279a75edb402d706928d396e485d222d137e69d0028d2"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 2260874,
+                    "digest": "sha256:4bf7c174ae0ef145d6311f01b1c54e87e3bde7288f9a02547ce28fd1d2d3c877"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1595370,
+                    "digest": "sha256:583588639be7b862be88c3e92ce65f3ce1a82e4ca7ddbc4cf2012b6befbe915f"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1445416,
+                    "digest": "sha256:dac0b0b95bd1965b7e3cedc64ae778fdf12d58d5738f95e2ac4630175060596f"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 62829934,
+                    "digest": "sha256:bae4586fd5dfb014114ba0be7f102b23a2df56b16e76fa88b098c02b73013b65"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 36438315,
+                    "digest": "sha256:fdb78c9f660ce8f0709a48abdaa40d9e1e4596229a066bd4a89ac4f33a3c76fd"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 14929858,
+                    "digest": "sha256:696b16b86ab7a07d68a7b619d4102513d0d0c56328598a0fff26b119f97d52fa"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 21359651,
+                    "digest": "sha256:87961434d5e5aa417e29ef997d23f4d1e8a592beda0237c117431ce3d22d8e86"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1369154,
+                    "digest": "sha256:f38fc5c05348fe650da7f6b485a212b63188ebf6640dfaaedf1bf601f358b406"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 25091902,
+                    "digest": "sha256:80e6322f3894dc0b3772cee39d9af394008f78d10f4f075f56f519f764436924"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 6834433,
+                    "digest": "sha256:f8873d7dcb4c185bd4b7dd79df92f8f11e3f37e2f71466a8723f46701087253c"
                 }
             ]
         },
@@ -372,13 +518,13 @@
                 }
             ]
         },
-        "libfabric-cpu-zen4": {
+        "cpu-zen4": {
             "schemaVersion": 2,
             "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
             "config": {
                 "mediaType": "application/vnd.docker.container.image.v1+json",
-                "size": 15762,
-                "digest": "sha256:8c78fd9eb40ea393a3389aa5bb34b074b6e714e6327202102d047df731e9d06a"
+                "size": 14429,
+                "digest": "sha256:5d151aa03334d8ef9e7b554e652d45408ff852baf0c27a26a93f4d01b24c160a"
             },
             "layers": [
                 {
@@ -473,18 +619,8 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 11237396,
-                    "digest": "sha256:2c4272e50bd0f79e6d1e45426c804d9d86ceb54adb989381b98b45d1877245e7"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 8445599,
-                    "digest": "sha256:6dcd716a6d82cc25912073abd9a305979aeae9c62181893b03342b468f0b6733"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 79725663,
-                    "digest": "sha256:84dcab2279227b4ac8d6b63ffccb5f761bf7a37595989240d28f207e864028d5"
+                    "size": 14030477,
+                    "digest": "sha256:95f6de7966202940d7e1955b52f2ab0910df4e703bd1a8b4d8cf5eb436fb04e6"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
@@ -493,8 +629,8 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 62559239,
-                    "digest": "sha256:5f2b27f9241f86f91fcdfc35f1595077efdb3c8979dd14a34f1b1ff8b5988d9e"
+                    "size": 61689193,
+                    "digest": "sha256:31d1c51af66fca08b49f7f6ffaa44c6c1ceecd7751d621e1d259b1ea585764cc"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
@@ -503,28 +639,18 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 21735639,
-                    "digest": "sha256:785d04eda65c7e2f18ea851b462b4a781127ccd898bdb44f1aef5d9678a98a8c"
+                    "size": 21735406,
+                    "digest": "sha256:51454387ee5420dc16939dfbc2e96dddf8bac330d4c3da6e9640e77eda9ee4c5"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 1376983,
-                    "digest": "sha256:33a1f76dcb7778b3ee06284c52e01f38741c4862ac3ee0bf21cfbcf9be49037c"
+                    "size": 1377070,
+                    "digest": "sha256:6d54158d4ac3a90e2ea860bd2b287a027ddc6cc8d84d2f6d1ab6488457bbe8cc"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 26377367,
-                    "digest": "sha256:79cf4f963fd82946c1b81a34150063859f05a98d7145c07af396716baa59a212"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 32,
-                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 7582514,
-                    "digest": "sha256:351e345dd1ddba57c4e5bfef1983213381893b6246a7db8202dc9531603481de"
+                    "size": 26377365,
+                    "digest": "sha256:08a7ac3a4410a4ec5ce9515f9a8e971ac6fb60aaeab39fdd7bd64dfb0644df2d"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
@@ -533,89 +659,13 @@
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 3738720,
-                    "digest": "sha256:ed10a4d65c42df8a3efd20a70a769a3fb32651799392481c1af3c3dbbd380bff"
-                }
-            ]
-        },
-        "azure-hpc": {
-            "schemaVersion": 2,
-            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
-            "config": {
-                "mediaType": "application/vnd.docker.container.image.v1+json",
-                "size": 7109,
-                "digest": "sha256:0517072ac70274a377e26492f3c60c4372b36904372894760e39e471c34ebde5"
-            },
-            "layers": [
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 30439866,
-                    "digest": "sha256:9b857f539cb142c9aa2201a17bb8e1cd5cf12edd4a65adf5732fe9f4343964cf"
+                    "size": 7582516,
+                    "digest": "sha256:de8f018c8b92386611368e3540623d45ece939e995df0ebe42c593cdea3312e7"
                 },
                 {
                     "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 32,
-                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 66239721,
-                    "digest": "sha256:e1e8e91c744e78d7958343cf1e83e716e1bc5c495e78a0f80d33686178af1e2a"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 928960,
-                    "digest": "sha256:01875250da3141c076723b068bb36ab3793be2eeb7a83cd94c242596d0353c10"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 32,
-                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 3318815442,
-                    "digest": "sha256:e0e151e5a172a26b319dce04c747980b756be804ce2bcc2fdfb3f4722eaa0f5b"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 83168618,
-                    "digest": "sha256:c739f5ecce7d1475742b5ac6ee824d8ae3e0147d516b18eb8a7ce25f134bdcb1"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 32,
-                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 21737223,
-                    "digest": "sha256:088872476fcff3c0e5e99936bb9b994b8042fd9c16b3bddf5c9f08b2f75554c7"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 1377067,
-                    "digest": "sha256:ac3ae4fe8bb1a13e91482e6c90196bc0d5cf97c6bd05da018ff2da4820107db5"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 26377449,
-                    "digest": "sha256:09b0efe1dc6b1b0ed4be45f20fec3922e06db631acdc8cc27dd710e0a5a714fd"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 32,
-                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 7582591,
-                    "digest": "sha256:592ed03bd44da3c21fd5daaf55ce1cf458bb661a013e62f7935510071331e1de"
-                },
-                {
-                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-                    "size": 32,
-                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                    "size": 3738653,
+                    "digest": "sha256:2795e3b495e163ea70f02a9e08e29285516d9bd8da0d72dac9e6762d98b0b29f"
                 }
             ]
         },
@@ -829,17 +879,301 @@
                     "digest": "sha256:56d23b3f4781d9fcb4352bfb810d9e7bf94dee2272dba479a9e5e60c5d970968"
                 }
             ]
+        },
+        "azure-hpc-gpu-ubuntu2204": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "config": {
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 18523,
+                "digest": "sha256:609dc06c2a210899c2d845a1ecd4d1002b66a4c4b084e256d1c127262a20dce1"
+            },
+            "layers": [
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 30440714,
+                    "digest": "sha256:762bedf4b1b784c3de6c5022c5307d63123d3b7cdd59211317e37e9d477deaa0"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 173590618,
+                    "digest": "sha256:0c82df6d1f79fd2a10e547b4743d34d8fe925da0c56cb02ff99d0f7f433a7a83"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 3738644,
+                    "digest": "sha256:c29d3e293af8f3f8b4cc40c02a5a1def441d4e57c32011dadae3f68abd0895fe"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 929271,
+                    "digest": "sha256:8371d6198ea744515f8de97915a676d1eefb5cf25e2488dc1d0393d0d0bec404"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 665996683,
+                    "digest": "sha256:0f20533e54b1be08362bfd24942e75a478531e677eea2bdbcf554c62d4c37878"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 903261,
+                    "digest": "sha256:9e0ca29158fc4d9c5feaa419bf507da4bab0bf0fb83f322a39e650d56cdec366"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 355718172,
+                    "digest": "sha256:f84f8572b3028800a9dcb07a1c485fea5c1510908c5a7cbd39b746bb778eaddb"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 7851004,
+                    "digest": "sha256:882c80a33221d58650ab891ee3c9b4da02757bcc7e8ab283aecde253e7ab994b"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1633540951,
+                    "digest": "sha256:d97d254d0c263b114090d51ddc79a2c0a8decc457d4dd0ddc140ec81190fcc57"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 5834254169,
+                    "digest": "sha256:10df1b25010b2f1f44e04da847a639318a6faae31de8b616faa3a19c75928079"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 422360577,
+                    "digest": "sha256:9842b67904a7273af01b2cf8d49c84034a0eb646c387c5890508087ffeea9884"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 156169947,
+                    "digest": "sha256:87b9c47a7a66776b35493813eb82b7abfeb96127516361a0dfbeee4b78914cdb"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 663,
+                    "digest": "sha256:96b854cb7c537b4e5aa9e99b21722c9491825227a16c79b4b8c8cb0958e3ee11"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 923413546,
+                    "digest": "sha256:ca3d30fdb055408db6004be0ff5ce7e6290261eec27da7b095e22a8a677f640e"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 11263,
+                    "digest": "sha256:9bf65a1ea2395142a539fba6f747e8f55cf232b416645718844bdb88a67d78a3"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 27533,
+                    "digest": "sha256:28158df7747a2c93ca65b385ebee1a83e2e00b717586c7a20a31f544c301b7f4"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1732330,
+                    "digest": "sha256:107f4d9200fd260764ce46e8cccb32193251278ef6943e4701156029349e3f44"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 501775809,
+                    "digest": "sha256:967734bea5a4bbab2af90918c20a45fabf8aea7deb306f56f80e9cf729c74427"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 112,
+                    "digest": "sha256:cb751dacdb2c2f1f2f590c8bfb2d9f09a7392eb88ead1ca51e62de8ffc15a695"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1930914,
+                    "digest": "sha256:4069cab638b215104818ec47428f35976426a291c7d6ee39fb5bbbb8fae00f72"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1317,
+                    "digest": "sha256:105ad63b0664f871d5d970e37975f34af46638472a60ffc52bd35c458df3d89d"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 7803418,
+                    "digest": "sha256:a00060a57838f6894f011e1983831f3ea08c11b435c69d5499b3e97327a97129"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 339125,
+                    "digest": "sha256:e14710e69fc9970c6f937bc2ea90b290f1e0bda23b7540938660f513b780b18c"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 33510365,
+                    "digest": "sha256:6ecc535ec0dfa68a5a18e0dd53cb4577ee629a279eb10904f55aeb49b41279ce"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 21924921,
+                    "digest": "sha256:17d459d7ed59212ccdbc5c50d5582accdf67c4a0bee3a09e331658ba3266f2d2"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 25995643,
+                    "digest": "sha256:79edb0cce2868c167ab6567bda4a954dc1f1f87a09dd839df6838de940cde07f"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 121380,
+                    "digest": "sha256:d3409c4b81f56b759730d94ee5f62046d55b5e66191e14324f9d5e4d70691917"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 21739382,
+                    "digest": "sha256:e56968496ae2492173b358e84e179cc59c0a0aa60ee7dfb0c1849b22f1e1ed71"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1377156,
+                    "digest": "sha256:f7bdbb5c5b8120c16fb06aed5dc518ba5f4b3cdb6b3418efd47111750ed3b7fc"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 26377521,
+                    "digest": "sha256:d273a0577fa476193d19e9514aa350f67aa5dd94d1642d761a45f8e0a8ccc8d6"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 7582590,
+                    "digest": "sha256:4d5f7b6e3654186598ca6747c245820e66b47606d9a8571629a47bf11d861e47"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                }
+            ]
+        },
+        "azure-hpc": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "config": {
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 7109,
+                "digest": "sha256:0517072ac70274a377e26492f3c60c4372b36904372894760e39e471c34ebde5"
+            },
+            "layers": [
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 30439866,
+                    "digest": "sha256:9b857f539cb142c9aa2201a17bb8e1cd5cf12edd4a65adf5732fe9f4343964cf"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 66239721,
+                    "digest": "sha256:e1e8e91c744e78d7958343cf1e83e716e1bc5c495e78a0f80d33686178af1e2a"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 928960,
+                    "digest": "sha256:01875250da3141c076723b068bb36ab3793be2eeb7a83cd94c242596d0353c10"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 3318815442,
+                    "digest": "sha256:e0e151e5a172a26b319dce04c747980b756be804ce2bcc2fdfb3f4722eaa0f5b"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 83168618,
+                    "digest": "sha256:c739f5ecce7d1475742b5ac6ee824d8ae3e0147d516b18eb8a7ce25f134bdcb1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 21737223,
+                    "digest": "sha256:088872476fcff3c0e5e99936bb9b994b8042fd9c16b3bddf5c9f08b2f75554c7"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 1377067,
+                    "digest": "sha256:ac3ae4fe8bb1a13e91482e6c90196bc0d5cf97c6bd05da018ff2da4820107db5"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 26377449,
+                    "digest": "sha256:09b0efe1dc6b1b0ed4be45f20fec3922e06db631acdc8cc27dd710e0a5a714fd"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 7582591,
+                    "digest": "sha256:592ed03bd44da3c21fd5daaf55ce1cf458bb661a013e62f7935510071331e1de"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 32,
+                    "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+                }
+            ]
         }
     },
     "tags": [
-        "cpu-zen4",
-        "libfabric-gpu-zen4",
         "libfabric-cpu-zen4",
-        "azure-hpc",
-        "gpu-zen4"
+        "rocky-8",
+        "libfabric-gpu-zen4",
+        "cpu-zen4",
+        "gpu-zen4",
+        "azure-hpc-gpu-ubuntu2204",
+        "azure-hpc"
     ],
     "configs": {
-        "cpu-zen4": {
+        "libfabric-cpu-zen4": {
             "architecture": "amd64",
             "config": {
                 "ExposedPorts": {
@@ -849,20 +1183,20 @@
                     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
                     "DEBIAN_FRONTEND=noninteractive",
                     "LANG=C.UTF-8",
-                    "LD_LIBRARY_PATH=/opt/miniconda/lib:",
+                    "LD_LIBRARY_PATH=/opt/miniconda/lib::/usr/local/lib",
                     "CMAKE=3.23.1",
                     "MAKE_CXX_FLAG=MPICXX=mpic++"
                 ],
                 "Cmd": [
                     "/bin/bash"
                 ],
-                "WorkingDir": "/opt",
+                "WorkingDir": "/opt/laghos",
                 "Labels": {
                     "org.opencontainers.image.ref.name": "ubuntu",
                     "org.opencontainers.image.version": "22.04"
                 }
             },
-            "created": "2024-08-12T16:06:43.739870167-06:00",
+            "created": "2024-08-12T17:28:26.627186245-06:00",
             "history": [
                 {
                     "created": "2024-06-27T20:10:10.528110614Z",
@@ -1009,66 +1343,87 @@
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T14:00:56.34240192-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get update &&     apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1         openssh-client openssh-server         dnsutils telnet strace git g++         unzip bzip2 # buildkit",
+                    "created": "2024-08-12T17:18:21.936112086-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get update &&     apt-get install -y fftw3-dev fftw3 pdsh         openssh-client openssh-server         dnsutils telnet strace git g++         unzip bzip2 # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T14:00:56.35717951-06:00",
+                    "created": "2024-08-12T17:18:27.596773024-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get install -y         libibverbs-dev         librdmacm-dev         rdma-core # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-12T17:20:47.685740324-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric &&     cd libfabric && ./autogen.sh &&     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes &&     make -j 4 && make install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-12T17:20:47.703410117-06:00",
                     "created_by": "WORKDIR /opt",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T14:31:42.661540093-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz &&     tar -xzvf openmpi-4.1.2.tar.gz &&     cd openmpi-4.1.2 &&     ./configure &&     make && make install && ldconfig # buildkit",
+                    "created": "2024-08-12T17:24:54.96071949-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz &&     tar -xzvf openmpi-4.1.2.tar.gz &&     cd openmpi-4.1.2 &&     ./configure --with-ofi=/usr/local &&     make -j 4 && make install && ldconfig # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T14:31:42.680975899-06:00",
+                    "created": "2024-08-12T17:24:54.979066353-06:00",
                     "created_by": "WORKDIR /opt",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T14:31:42.680975899-06:00",
+                    "created": "2024-08-12T17:24:54.979066353-06:00",
                     "created_by": "ENV MAKE_CXX_FLAG=MPICXX=mpic++",
                     "comment": "buildkit.dockerfile.v0",
                     "empty_layer": true
                 },
                 {
-                    "created": "2024-08-12T15:54:37.671798622-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make # buildkit",
+                    "created": "2024-08-12T17:25:32.145635119-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make -j 4 # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T15:58:23.475655383-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
+                    "created": "2024-08-12T17:25:39.479718702-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T16:06:15.194346518-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make # buildkit",
+                    "created": "2024-08-12T17:28:04.891396899-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make -j 4 # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T16:06:15.227599942-06:00",
+                    "created": "2024-08-12T17:28:04.923614066-06:00",
                     "created_by": "WORKDIR /opt",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T16:06:32.676633958-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make # buildkit",
+                    "created": "2024-08-12T17:28:15.582561917-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make -j 4 # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T16:06:32.676633958-06:00",
+                    "created": "2024-08-12T17:28:15.582561917-06:00",
                     "created_by": "EXPOSE map[22/tcp:{}]",
                     "comment": "buildkit.dockerfile.v0",
                     "empty_layer": true
                 },
                 {
-                    "created": "2024-08-12T16:06:43.739870167-06:00",
+                    "created": "2024-08-12T17:28:15.631768094-06:00",
+                    "created_by": "WORKDIR /opt/laghos",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-12T17:28:26.627186245-06:00",
                     "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c export VERSION=\"1.1.0\" &&     curl -LO \"https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz\" &&     mkdir -p oras-install/ &&     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ &&     mv oras-install/oras /usr/local/bin/ &&     rm -rf oras_${VERSION}_*.tar.gz oras-install/ # buildkit",
                     "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-12T17:28:26.627186245-06:00",
+                    "created_by": "ENV LD_LIBRARY_PATH=/opt/miniconda/lib::/usr/local/lib",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
                 }
             ],
             "os": "linux",
@@ -1093,16 +1448,207 @@
                     "sha256:ecd94afe8aa2c1bafa59fbdc69fdb1be8147adf4b10bb4a83d3ee0ef6321447b",
                     "sha256:ec718e14506f1df2f1d56e161ed5a1c656b421a6da375cdcbfd8671b46410a83",
                     "sha256:7d80474303cbbf16642497d5a9edd688950ee901b68829c6a4b03b048824ead3",
-                    "sha256:4604e7280fc6f72b8a37ba51f7f23038bb3e6671f0876c280884cb41410faa70",
+                    "sha256:b5add2a4d334bf32446390416a7a12e6fea14297dc389b79feca25c75eeaf2ac",
+                    "sha256:8d47161c0b5bcbcaa1efa328763182f2b4d5e9cee749a8cd384cc79d35e4745f",
+                    "sha256:f74835bb9f9bbefa99132c1933a3f74aa211231f013685661afffb67d8a298c1",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:9fb307bf8fd8085c8f5ba7f139622d8fc791c118c8000076825bbf348796d82e",
+                    "sha256:b7447ad8d16fa6e49e80eb5b9ab1a5eade847d7ca8d9d8d78aa3129b975a96ec",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:1a693acff32fdfb01ed13d3b4b10689aff2d45613ab208af7210ac49d49da0b8",
-                    "sha256:ed44e9762ecff358ab5d0b60d4a2b2374b952922e263e8777f78029e894f975b",
-                    "sha256:868163f0f7e576a5a7e5d5c328a230722021b1cbd9aafa5fee10c71416feea0c",
+                    "sha256:e585f4d2cfaf5ee3dd2b14b1def0be9c1dc7098e1d8dcce725f78a9d4c63c25f",
+                    "sha256:8397f4d2b0e00308834a204d718959846425c74ee6d20f89f87054fe6063eb54",
+                    "sha256:6859592902b7cf7f99967ee7e4bd2a3f051abb2af379443311f34605b000c285",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:2f822cb3dfce2651912eebcdc3744de8d4b7b3a861f196196527ea2e57377cdb",
-                    "sha256:8cc1a105e4286b8a524d238983474583f82f8796627447252e865175ad9f7458"
+                    "sha256:5bb68ed64eff5da7138d9211378afbc2ebf1231b4abeaf2fd6d64f01ed5ae1a6",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:dc147ef230fce15fd7cd3166677835da02eadf1a153b5cf9be44854d1da28934"
+                ]
+            }
+        },
+        "rocky-8": {
+            "architecture": "amd64",
+            "config": {
+                "ExposedPorts": {
+                    "22/tcp": {}
+                },
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "MAKE_CXX_FLAG=MPICXX=mpic++"
+                ],
+                "Cmd": [
+                    "/bin/bash"
+                ],
+                "WorkingDir": "/opt",
+                "ArgsEscaped": true
+            },
+            "created": "2024-08-19T01:44:16.415113487-06:00",
+            "history": [
+                {
+                    "created": "2023-11-24T18:22:37Z",
+                    "created_by": "ADD layer.tar.xz / # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2023-11-24T18:22:37Z",
+                    "created_by": "CMD [\"/bin/bash\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-19T00:08:10.827976739-06:00",
+                    "created_by": "RUN /bin/sh -c dnf update -y && dnf clean all &&     dnf group install -y \"Development Tools\" &&     dnf config-manager --set-enabled powertools &&     dnf install -y epel-release # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:12.846708645-06:00",
+                    "created_by": "RUN /bin/sh -c dnf install -y     cmake     munge     munge-devel     hwloc     hwloc-devel     pmix     pmix-devel     lua     lua-devel     lua-posix     libevent-devel     czmq-devel     jansson-devel     lz4-devel     sqlite-devel     ncurses-devel     libarchive-devel     libxml2-devel     yaml-cpp-devel     boost-devel     libedit-devel     nfs-utils     python3-devel     python3-cffi     python3-yaml     python3-jsonschema     python3-sphinx     python3-docutils     aspell     aspell-en     valgrind-devel     wget     jq # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:12.996697574-06:00",
+                    "created_by": "RUN /bin/sh -c groupadd -g 1004 flux &&     useradd -u 1004 -g 1004 -M -r -s /bin/false -c \"flux-framework identity\" flux # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:13.812186645-06:00",
+                    "created_by": "RUN /bin/sh -c dnf install -y grubby &&     grubby --update-kernel=ALL --args=\"systemd.unified_cgroup_hierarchy=1\" # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:13.843458853-06:00",
+                    "created_by": "WORKDIR /usr/share",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:36.850385182-06:00",
+                    "created_by": "RUN /bin/sh -c git clone https://github.com/flux-framework/flux-core.git &&     git clone https://github.com/flux-framework/flux-security.git &&     git clone https://github.com/flux-framework/flux-pmix.git # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:46.960968711-06:00",
+                    "created_by": "RUN /bin/sh -c cd /usr/share/flux-security &&     ./autogen.sh &&     ./configure --prefix=/usr --sysconfdir=/etc  &&     make -j 4 && make install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:17:47.127479007-06:00",
+                    "created_by": "RUN /bin/sh -c mkdir -p /var/run/munge &&     dd if=/dev/urandom bs=1 count=1024 > munge.key &&     mv munge.key /etc/munge/munge.key &&     chown -R munge /etc/munge/munge.key /var/run/munge &&     chmod 600 /etc/munge/munge.key # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:19:04.24037206-06:00",
+                    "created_by": "RUN /bin/sh -c cd /usr/share/flux-core &&     ./autogen.sh &&     ./configure --prefix=/usr --sysconfdir=/etc --with-flux-security &&     make clean &&     make -j 4 && make install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:31:57.090869079-06:00",
+                    "created_by": "RUN /bin/sh -c cd /usr/share &&     wget https://github.com/flux-framework/flux-sched/releases/download/v0.33.1/flux-sched-0.33.1.tar.gz &&     tar -xzvf flux-sched-0.33.1.tar.gz &&     cd flux-sched-0.33.1 &&     ln $(which python3) /usr/bin/python &&     PYTHON=/usr/bin/python3 ./configure --prefix=/usr --sysconfdir=/etc &&     make -j 4 && make install && ldconfig # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:31:57.111661286-06:00",
+                    "created_by": "WORKDIR /opt/prrte",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:35:07.03200989-06:00",
+                    "created_by": "RUN /bin/sh -c git clone https://github.com/openpmix/openpmix.git &&     git clone https://github.com/openpmix/prrte.git &&     ls -l &&     set -x &&     cd openpmix &&     git checkout fefaed568f33bf86f28afb6e45237f1ec5e4de93 &&     ./autogen.pl &&     ./configure --prefix=/usr --disable-static && make -j 4 install &&     ldconfig &&     cd .. &&     cd prrte &&     git checkout 477894f4720d822b15cab56eee7665107832921c &&     ./autogen.pl &&     ./configure --prefix=/usr && make -j 4 install &&     cd ../.. &&     rm -rf prrte && set +x # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T00:35:17.016080208-06:00",
+                    "created_by": "RUN /bin/sh -c cd /usr/share/flux-pmix &&     ./autogen.sh &&     ./configure --prefix=/usr --sysconfdir=/etc  &&     make -j4  &&     make install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:16:04.22168233-06:00",
+                    "created_by": "RUN /bin/sh -c yum install -y git # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:21:10.476141252-06:00",
+                    "created_by": "RUN /bin/sh -c cd /tmp && wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz &&     tar -xzvf openmpi-4.1.2.tar.gz &&     cd openmpi-4.1.2 &&     ./configure --prefix=/usr/local &&     make -j4 && make install && ldconfig # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:21:10.775609611-06:00",
+                    "created_by": "RUN /bin/sh -c cp -R /usr/lib64/flux /usr/lib/flux && cp -R /usr/lib64/libflux-* /usr/lib/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:36:45.505140616-06:00",
+                    "created_by": "RUN /bin/sh -c dnf update -y && dnf groupinstall -y \"Development Tools\" # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:36:45.555475374-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:37:58.78754463-06:00",
+                    "created_by": "ENV MAKE_CXX_FLAG=MPICXX=mpic++",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-19T01:37:58.78754463-06:00",
+                    "created_by": "RUN /bin/sh -c export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:38:09.046696676-06:00",
+                    "created_by": "RUN /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:44:01.725065322-06:00",
+                    "created_by": "RUN /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:44:01.776739178-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:44:16.415113487-06:00",
+                    "created_by": "RUN /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-19T01:44:16.415113487-06:00",
+                    "created_by": "EXPOSE map[22/tcp:{}]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:c1827ee010dbe3d0e7aa85282da0a80f74f02da1c44d6e81313cccdf465e58c6",
+                    "sha256:ab2fed9c4f4625aa7d0381b9cd206115888fd4b196654c094889d16912fce7e0",
+                    "sha256:cd6100b9848de464b267db5dc165d59ba923af6586970d8493430efb1d8d1cae",
+                    "sha256:10e530fe58a6f25cc967b0b502d3fa72d37adecb74347ec2b3d5d046427e1fee",
+                    "sha256:a83bd82658deef8638383a42852266cdd37cde75bc94b6022ef0f3d0cfbc9ea7",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:cc57fd66eb76a9ebefeca70b85d9cea426c144285292eab9b5183729b9073b4b",
+                    "sha256:8ad530b3c77b6199fab0fd5fd3848429b16fbc1b124925e3ffe826885cc4d715",
+                    "sha256:8b3a3fb09e4e5fe8761f6e6aab8be8a37e749e379d288f98968f0f587c72d05c",
+                    "sha256:53da2a78670ebb07bb09a5d443c6f1d4375dcbd0104042615c74d233b4f95396",
+                    "sha256:ad18eb342a208116c58531ae10b89617f4af49d0e2a9ce91a1f654fcf2b6cbcc",
+                    "sha256:f3c832b0e7722335906f61a2b0012843897179266ce3386063d18b3f0ebb639a",
+                    "sha256:f5b39e373a79c56b557cae27117c4dad507a18ee77f8aa6e6ddeeeec638108bc",
+                    "sha256:333c483a13e252ca4a8848594ed9354166d9b5e38e57335d899f017d94eb5436",
+                    "sha256:8dcf0e55bc36ed5c58e3f600f961a6e3cf61e4ed909acc67ad654a0aa828b2bb",
+                    "sha256:fda882f30c3bc26e9dd5b000491fb6ca6ddf24dd508c0c2f097715eac72da992",
+                    "sha256:23ef355e7e6e1ea0b5ba151a872a3e38cc2be2e37fc328e7f9eaaeea1124ec62",
+                    "sha256:e5b67a267a6da5d051840f946ed3ac47423011690db7da7700e478c4cc1ade95",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:76a4db2b5d72f4b7547ba8cab0b579c0f1037a994c559add0c79175fdb18035e",
+                    "sha256:22429b3952d3e735000b241f3cee4dea34e42033a5c03e43135d923ca7da51d5",
+                    "sha256:c9f1e6efd2b0ca545a3c79d1e1a897d03f8ef72f787329ba126d737ad209c79e",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:7a632c86c27bd3ce75e5267d51fd7c468447a7a793d6bedfefa1efbf21f88ce2"
                 ]
             }
         },
@@ -1855,7 +2401,7 @@
                 ]
             }
         },
-        "libfabric-cpu-zen4": {
+        "cpu-zen4": {
             "architecture": "amd64",
             "config": {
                 "ExposedPorts": {
@@ -1865,20 +2411,20 @@
                     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
                     "DEBIAN_FRONTEND=noninteractive",
                     "LANG=C.UTF-8",
-                    "LD_LIBRARY_PATH=/opt/miniconda/lib::/usr/local/lib",
+                    "LD_LIBRARY_PATH=/opt/miniconda/lib:",
                     "CMAKE=3.23.1",
                     "MAKE_CXX_FLAG=MPICXX=mpic++"
                 ],
                 "Cmd": [
                     "/bin/bash"
                 ],
-                "WorkingDir": "/opt/laghos",
+                "WorkingDir": "/opt",
                 "Labels": {
                     "org.opencontainers.image.ref.name": "ubuntu",
                     "org.opencontainers.image.version": "22.04"
                 }
             },
-            "created": "2024-08-12T17:28:26.627186245-06:00",
+            "created": "2024-08-12T16:06:43.739870167-06:00",
             "history": [
                 {
                     "created": "2024-06-27T20:10:10.528110614Z",
@@ -2025,87 +2571,66 @@
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:18:21.936112086-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get update &&     apt-get install -y fftw3-dev fftw3 pdsh         openssh-client openssh-server         dnsutils telnet strace git g++         unzip bzip2 # buildkit",
+                    "created": "2024-08-12T14:00:56.34240192-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get update &&     apt-get install -y fftw3-dev fftw3 pdsh libfabric-dev libfabric1         openssh-client openssh-server         dnsutils telnet strace git g++         unzip bzip2 # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:18:27.596773024-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get install -y         libibverbs-dev         librdmacm-dev         rdma-core # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-12T17:20:47.685740324-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c git clone -b v1.21.1 https://github.com/ofiwg/libfabric.git /opt/libfabric &&     cd libfabric && ./autogen.sh &&     ./configure --enable-efa=yes --enable-tcp=yes --enable-udp=yes --enable-sockets=yes --enable-verbs=yes --enable-shm=yes --enable-mrail=yes --enable-rxd=yes --enable-rxm=yes &&     make -j 4 && make install # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-12T17:20:47.703410117-06:00",
+                    "created": "2024-08-12T14:00:56.35717951-06:00",
                     "created_by": "WORKDIR /opt",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:24:54.96071949-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz &&     tar -xzvf openmpi-4.1.2.tar.gz &&     cd openmpi-4.1.2 &&     ./configure --with-ofi=/usr/local &&     make -j 4 && make install && ldconfig # buildkit",
+                    "created": "2024-08-12T14:31:42.661540093-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.gz &&     tar -xzvf openmpi-4.1.2.tar.gz &&     cd openmpi-4.1.2 &&     ./configure &&     make && make install && ldconfig # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:24:54.979066353-06:00",
+                    "created": "2024-08-12T14:31:42.680975899-06:00",
                     "created_by": "WORKDIR /opt",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:24:54.979066353-06:00",
+                    "created": "2024-08-12T14:31:42.680975899-06:00",
                     "created_by": "ENV MAKE_CXX_FLAG=MPICXX=mpic++",
                     "comment": "buildkit.dockerfile.v0",
                     "empty_layer": true
                 },
                 {
-                    "created": "2024-08-12T17:25:32.145635119-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make -j 4 # buildkit",
+                    "created": "2024-08-12T15:54:37.671798622-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:25:39.479718702-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
+                    "created": "2024-08-12T15:58:23.475655383-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:28:04.891396899-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make -j 4 # buildkit",
+                    "created": "2024-08-12T16:06:15.194346518-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:28:04.923614066-06:00",
+                    "created": "2024-08-12T16:06:15.227599942-06:00",
                     "created_by": "WORKDIR /opt",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:28:15.582561917-06:00",
-                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make -j 4 # buildkit",
+                    "created": "2024-08-12T16:06:32.676633958-06:00",
+                    "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make # buildkit",
                     "comment": "buildkit.dockerfile.v0"
                 },
                 {
-                    "created": "2024-08-12T17:28:15.582561917-06:00",
+                    "created": "2024-08-12T16:06:32.676633958-06:00",
                     "created_by": "EXPOSE map[22/tcp:{}]",
                     "comment": "buildkit.dockerfile.v0",
                     "empty_layer": true
                 },
                 {
-                    "created": "2024-08-12T17:28:15.631768094-06:00",
-                    "created_by": "WORKDIR /opt/laghos",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-12T17:28:26.627186245-06:00",
+                    "created": "2024-08-12T16:06:43.739870167-06:00",
                     "created_by": "RUN |1 FLUX_SECURITY_VERSION=0.11.0 /bin/sh -c export VERSION=\"1.1.0\" &&     curl -LO \"https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz\" &&     mkdir -p oras-install/ &&     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ &&     mv oras-install/oras /usr/local/bin/ &&     rm -rf oras_${VERSION}_*.tar.gz oras-install/ # buildkit",
                     "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-12T17:28:26.627186245-06:00",
-                    "created_by": "ENV LD_LIBRARY_PATH=/opt/miniconda/lib::/usr/local/lib",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
                 }
             ],
             "os": "linux",
@@ -2130,213 +2655,16 @@
                     "sha256:ecd94afe8aa2c1bafa59fbdc69fdb1be8147adf4b10bb4a83d3ee0ef6321447b",
                     "sha256:ec718e14506f1df2f1d56e161ed5a1c656b421a6da375cdcbfd8671b46410a83",
                     "sha256:7d80474303cbbf16642497d5a9edd688950ee901b68829c6a4b03b048824ead3",
-                    "sha256:b5add2a4d334bf32446390416a7a12e6fea14297dc389b79feca25c75eeaf2ac",
-                    "sha256:8d47161c0b5bcbcaa1efa328763182f2b4d5e9cee749a8cd384cc79d35e4745f",
-                    "sha256:f74835bb9f9bbefa99132c1933a3f74aa211231f013685661afffb67d8a298c1",
+                    "sha256:4604e7280fc6f72b8a37ba51f7f23038bb3e6671f0876c280884cb41410faa70",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:b7447ad8d16fa6e49e80eb5b9ab1a5eade847d7ca8d9d8d78aa3129b975a96ec",
+                    "sha256:9fb307bf8fd8085c8f5ba7f139622d8fc791c118c8000076825bbf348796d82e",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:e585f4d2cfaf5ee3dd2b14b1def0be9c1dc7098e1d8dcce725f78a9d4c63c25f",
-                    "sha256:8397f4d2b0e00308834a204d718959846425c74ee6d20f89f87054fe6063eb54",
-                    "sha256:6859592902b7cf7f99967ee7e4bd2a3f051abb2af379443311f34605b000c285",
+                    "sha256:1a693acff32fdfb01ed13d3b4b10689aff2d45613ab208af7210ac49d49da0b8",
+                    "sha256:ed44e9762ecff358ab5d0b60d4a2b2374b952922e263e8777f78029e894f975b",
+                    "sha256:868163f0f7e576a5a7e5d5c328a230722021b1cbd9aafa5fee10c71416feea0c",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:5bb68ed64eff5da7138d9211378afbc2ebf1231b4abeaf2fd6d64f01ed5ae1a6",
-                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:dc147ef230fce15fd7cd3166677835da02eadf1a153b5cf9be44854d1da28934"
-                ]
-            }
-        },
-        "azure-hpc": {
-            "architecture": "amd64",
-            "config": {
-                "ExposedPorts": {
-                    "22/tcp": {}
-                },
-                "Env": [
-                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin",
-                    "DEBIAN_FRONTEND=noninteractive",
-                    "UCX_NET_DEVICES=mlx5_0:1",
-                    "UCX_TLS=ib",
-                    "OMPI_MCA_btl_openib_warn_no_device_params_found=0",
-                    "LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib",
-                    "MAKE_CXX_FLAG=MPICXX=mpic++"
-                ],
-                "Cmd": [
-                    "bash"
-                ],
-                "WorkingDir": "/opt/laghos",
-                "Labels": {
-                    "org.opencontainers.image.ref.name": "ubuntu",
-                    "org.opencontainers.image.version": "22.04"
-                }
-            },
-            "created": "2024-08-16T12:27:01.232574876-06:00",
-            "history": [
-                {
-                    "created": "2024-06-27T20:10:10.528110614Z",
-                    "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-06-27T20:10:10.566300625Z",
-                    "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-06-27T20:10:10.606737029Z",
-                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-06-27T20:10:10.638915467Z",
-                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-06-27T20:10:12.481980539Z",
-                    "created_by": "/bin/sh -c #(nop) ADD file:d5da92199726e42da09a6f75a778befb607fe3f79e4afaf7ef5188329b26b386 in / "
-                },
-                {
-                    "created": "2024-06-27T20:10:12.703519218Z",
-                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-15T00:23:12.770714377-06:00",
-                    "created_by": "WORKDIR /opt",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-15T00:34:04.162915949-06:00",
-                    "created_by": "RUN /bin/sh -c apt-get update && apt-get install -y git curl wget unzip gpg debian-archive-keyring ubuntu-keyring && apt-get clean # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-15T00:55:25.4375766-06:00",
-                    "created_by": "COPY ./azhpc-images /opt/azhpc-images # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-15T00:55:25.467579071-06:00",
-                    "created_by": "WORKDIR /opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-15T00:55:25.467579071-06:00",
-                    "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-15T08:25:06.099982601Z",
-                    "created_by": "bash"
-                },
-                {
-                    "created": "2024-08-16T14:50:11.778057876Z",
-                    "created_by": "bash"
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV UCX_NET_DEVICES=mlx5_0:1",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV UCX_TLS=ib",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV OMPI_MCA_btl_openib_warn_no_device_params_found=0",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "WORKDIR /opt",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-16T08:51:22.756362558-06:00",
-                    "created_by": "ENV MAKE_CXX_FLAG=MPICXX=mpic++",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T12:14:21.0038084-06:00",
-                    "created_by": "RUN /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make -j 4 # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-16T12:14:28.876663559-06:00",
-                    "created_by": "RUN /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-16T12:16:37.901804146-06:00",
-                    "created_by": "RUN /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make -j 4 # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-16T12:16:37.952559028-06:00",
-                    "created_by": "WORKDIR /opt",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-16T12:27:01.182991226-06:00",
-                    "created_by": "RUN /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make -j 4 # buildkit",
-                    "comment": "buildkit.dockerfile.v0"
-                },
-                {
-                    "created": "2024-08-16T12:27:01.182991226-06:00",
-                    "created_by": "EXPOSE map[22/tcp:{}]",
-                    "comment": "buildkit.dockerfile.v0",
-                    "empty_layer": true
-                },
-                {
-                    "created": "2024-08-16T12:27:01.232574876-06:00",
-                    "created_by": "WORKDIR /opt/laghos",
-                    "comment": "buildkit.dockerfile.v0"
-                }
-            ],
-            "os": "linux",
-            "rootfs": {
-                "type": "layers",
-                "diff_ids": [
-                    "sha256:931b7ff0cb6f494b27d31a4cbec3efe62ac54676add9c7469560302f1541ecaf",
-                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:404c47491ee5026c4ae2b6511be6277163617ac1cf56e0ccf4f7d8794e1b76ee",
-                    "sha256:00050c06b9d35cf14b898250ba893375657bcb3637cd4ae117a4cb632f8da084",
-                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:907231feffc0ce3d870f977a27c6cdc2ef8c0253d282680cbe34de9fec46eec4",
-                    "sha256:de70c7ac5940241259318640cc05db0e12bc6b488f501bbac81bb97f15dc254a",
-                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:041e1d8f79d9306eddc7548f025222babcb6c1eb531a9e57b616c3383ab42013",
-                    "sha256:6bd8677dc3bbd12e5817b455c1b4f2167d65e10b214de0abc167cd171e97f1e9",
-                    "sha256:c2f99b9c92f8b844718f502d21c36ecec85c962cbffb1397e3b270bd34211b7e",
-                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-                    "sha256:dc73c2f80c9a7ce8f6ce01e741e2164d88365cdc7e31158306bcf6edc19b0b81",
-                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+                    "sha256:2f822cb3dfce2651912eebcdc3744de8d4b7b3a861f196196527ea2e57377cdb",
+                    "sha256:8cc1a105e4286b8a524d238983474583f82f8796627447252e865175ad9f7458"
                 ]
             }
         },
@@ -3068,6 +3396,554 @@
                     "sha256:01cc3c4cf835c4f60cbb16d51741852758bef2ec9ed58e4dea007f09fd8b286f",
                     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
                     "sha256:b53b8e05e3c3cf6d7be096cb68ce2d05efa523a66d790b2dcdf29ca3ed43ca24"
+                ]
+            }
+        },
+        "azure-hpc-gpu-ubuntu2204": {
+            "architecture": "amd64",
+            "config": {
+                "ExposedPorts": {
+                    "22/tcp": {}
+                },
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin:/usr/local/cuda/bin",
+                    "DEBIAN_FRONTEND=noninteractive",
+                    "GPU=NVIDIA",
+                    "LANG=C.UTF-8",
+                    "FLUX_SECURITY_VERSION=0.11.0",
+                    "LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib:/usr/local/cuda/lib64",
+                    "CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7",
+                    "MAKE_CXX_FLAG=MPICXX=mpic++",
+                    "MFEM_BUILD=pcuda -j CUDA_ARCH=sm_70 -j MFEM_USE_CUDA=YES"
+                ],
+                "Cmd": [
+                    "/bin/bash"
+                ],
+                "WorkingDir": "/opt/laghos",
+                "Labels": {
+                    "org.opencontainers.image.ref.name": "ubuntu",
+                    "org.opencontainers.image.version": "22.04"
+                }
+            },
+            "created": "2024-08-27T16:14:44.947579332-06:00",
+            "history": [
+                {
+                    "created": "2024-08-13T09:27:22.357288914Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-13T09:27:22.382523486Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-13T09:27:22.406703187Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-13T09:27:22.435023547Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-13T09:27:24.259075912Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:2f8a54a5efd080fb81efea702b4e3e07d946eec7563fb2281bd28950c10ec462 in / "
+                },
+                {
+                    "created": "2024-08-13T09:27:24.541222744Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T21:28:18.174543623-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T21:33:27.018496707-06:00",
+                    "created_by": "RUN /bin/sh -c apt-get update && apt-get install -y munge git curl wget unzip gpg debian-archive-keyring     pkg-config vim ubuntu-keyring systemctl libgomp1 libibverbs1     libnvidia-compute-550-server && apt-get clean # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T21:33:39.519415175-06:00",
+                    "created_by": "RUN /bin/sh -c export VERSION=\"1.1.0\" &&     curl -LO \"https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz\" &&     mkdir -p oras-install/ &&     tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ &&     mv oras-install/oras /usr/local/bin/ &&     rm -rf oras_${VERSION}_*.tar.gz oras-install/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:08:13.123194556-06:00",
+                    "created_by": "COPY ./azhpc-images /opt/azhpc-images # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:08:13.15071593-06:00",
+                    "created_by": "WORKDIR /opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:13:31.549819184-06:00",
+                    "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T00:13:31.549819184-06:00",
+                    "created_by": "RUN /bin/sh -c oras pull ghcr.io/converged-computing/rdma-infiniband:ubuntu-22.04-tgz --output /opt &&     cd /opt &&     tar -xzvf MLNX_OFED_LINUX-24.04-0.7.0.0-ubuntu22.04-x86_64.tgz &&     cd MLNX_OFED_LINUX-24.04-0.7.0.0-ubuntu22.04-x86_64/DEBS/ &&     dpkg -i mpitests_3.2.23-45a045b.2404066_amd64.deb &&     apt-get install -y libnl-3-dev || true &&     apt --fix-broken install &&     apt-get install -y libnl-route-3-dev || true &&     apt --fix-broken install &&     dpkg -i ibverbs-providers* &&     dpkg -i libibverbs* &&     dpkg -i librdmacm* &&     dpkg -i libib* &&     dpkg -i ucx_1.17.0-1.2404066_amd64.deb &&     dpkg -i sharp_3.7.0.MLNX20240421.48444036-1.2404066_amd64.deb &&     dpkg -i hcoll_4.8.3227-1.2404066_amd64.deb &&     dpkg -i dpcp_1.1.48-1.2404066_amd64.deb &&     dpkg -i infiniband-diags_2404mlnx51-1.2404066_amd64.deb &&     dpkg -i ucx-cuda_1.17.0-1.2404066_amd64.deb # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:13:31.549819184-06:00",
+                    "created_by": "ENV GPU=NVIDIA",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T00:23:53.99323986-06:00",
+                    "created_by": "RUN /bin/sh -c ./install_prerequisites.sh &&     . ./set_properties.sh &&     $UBUNTU_COMMON_DIR/remove_unused_packages.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:25:10.286103309-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     ./install_utils.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:25:18.21958482-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $UBUNTU_COMMON_DIR/install_pmix.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:43:00.672002621-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $UBUNTU_COMMON_DIR/install_mpis.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T00:51:43.954060468-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     ./install_nvidiagpudriver.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:09:48.654605417-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $UBUNTU_COMMON_DIR/install_nccl.sh || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:10:17.113463791-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $UBUNTU_COMMON_DIR/install_docker.sh || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:10:19.037776853-06:00",
+                    "created_by": "RUN /bin/sh -c rm -rf *.tgz *.bz2 *.tbz *.tar.gz *.run *.deb *_offline.sh &&     rm -rf /tmp/MLNX_OFED_LINUX* /tmp/*conf* &&     rm -rf /var/intel/ /var/cache/* &&     rm -Rf -- */ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:11:01.575949703-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $UBUNTU_COMMON_DIR/install_dcgm.sh || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:11:13.201324795-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $COMMON_DIR/install_hpcdiag.sh || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:12:08.215700468-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $COMMON_DIR/install_azure_persistent_rdma_naming.sh  || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:12:21.055007879-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&      $UBUNTU_COMMON_DIR/hpc-tuning.sh || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:13:11.018970493-06:00",
+                    "created_by": "RUN /bin/sh -c . ./set_properties.sh &&     $COMMON_DIR/copy_test_file.sh &&     $COMMON_DIR/install_monitoring_tools.sh || true &&     $COMMON_DIR/install_amd_libs.sh || true &&     $COMMON_DIR/setup_sku_customizations.sh || true # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:13:11.03823064-06:00",
+                    "created_by": "WORKDIR /opt/prrte",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:48:30.727501002-06:00",
+                    "created_by": "RUN /bin/sh -c git clone https://github.com/openpmix/openpmix.git &&     git clone https://github.com/openpmix/prrte.git &&     ls -l &&     cd openpmix &&     git checkout fefaed568f33bf86f28afb6e45237f1ec5e4de93 &&     ./autogen.pl &&     ./configure --prefix=/usr --disable-static && make -j 4 install &&     ldconfig &&     cd .. &&     cd prrte &&     git checkout 477894f4720d822b15cab56eee7665107832921c &&     ./autogen.pl &&     ./configure --prefix=/usr && make -j 4 install &&     cd ../.. &&     rm -rf prrte # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:48:30.727501002-06:00",
+                    "created_by": "ENV LANG=C.UTF-8",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T01:48:30.727501002-06:00",
+                    "created_by": "ENV FLUX_SECURITY_VERSION=0.11.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T01:48:30.910649487-06:00",
+                    "created_by": "RUN /bin/sh -c mkdir -p /var/run/munge &&     dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key &&     chown -R munge /etc/munge/munge.key /var/run/munge &&     chmod 600 /etc/munge/munge.key # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:48:36.232885401-06:00",
+                    "created_by": "RUN /bin/sh -c apt-get update && apt-get install -y --no-install-recommends         libjansson-dev         libmunge-dev         lua5.2 luarocks liblua5.2-dev         libzmq3-dev         libczmq-dev         liblz4-dev         libsqlite3-dev         uuid-dev         libhwloc-dev         libs3-dev         libevent-dev         libarchive-dev         libsodium-dev && apt-get clean # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:48:36.251793412-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:48:48.240491829-06:00",
+                    "created_by": "RUN /bin/sh -c CCACHE_DISABLE=1 &&     V=$FLUX_SECURITY_VERSION &&     PKG=flux-security-$V &&     URL=https://github.com/flux-framework/flux-security/releases/download &&     wget ${URL}/v${V}/${PKG}.tar.gz &&     tar xvfz ${PKG}.tar.gz &&     cd ${PKG} &&     ./configure --prefix=/usr --sysconfdir=/etc &&     make -j 4 &&     make install &&     cd .. &&     rm -rf flux-security-* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:51:57.833060927-06:00",
+                    "created_by": "RUN /bin/sh -c pip install cffi ply &&     wget https://github.com/flux-framework/flux-core/releases/download/v0.61.2/flux-core-0.61.2.tar.gz &&     tar xzvf flux-core-0.61.2.tar.gz &&     cd flux-core-0.61.2 &&     ./configure --prefix=/usr --sysconfdir=/etc &&     make clean &&     make -j 4 &&     make install && cd /opt && rm -rf flux-core-0.61.2 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:52:05.562547832-06:00",
+                    "created_by": "RUN /bin/sh -c apt-get -qq install -y --no-install-recommends \tlibboost-graph-dev \tlibboost-system-dev \tlibboost-filesystem-dev \tlibboost-regex-dev \tlibyaml-cpp-dev \tlibedit-dev         libboost-dev         libyaml-cpp-dev &&         apt-get clean # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:52:56.670086763-06:00",
+                    "created_by": "RUN /bin/sh -c pip install jsonschema &&     wget https://github.com/flux-framework/flux-sched/releases/download/v0.33.1/flux-sched-0.33.1.tar.gz &&     tar -xzvf flux-sched-0.33.1.tar.gz &&     cd flux-sched-0.33.1 &&     ./configure --prefix=/usr --sysconfdir=/etc &&     make -j 4 &&     make install &&     ldconfig &&     cd /opt &&     rm -rf flux-sched-0.33.1 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:53:10.473299852-06:00",
+                    "created_by": "RUN /bin/sh -c git clone https://github.com/flux-framework/flux-pmix /opt/flux-pmix &&     cd /opt/flux-pmix &&     ./autogen.sh &&     ./configure --prefix=/usr &&     make -j 4 &&     make install &&     cd /opt &&     rm -rf flux-pmix && rm -rf flux-*.tar.gz # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T01:53:10.516759501-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T02:04:51.333123621-06:00",
+                    "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T02:04:51.333123621-06:00",
+                    "created_by": "ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib:/usr/local/cuda/lib64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T02:04:51.333123621-06:00",
+                    "created_by": "ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin:/usr/local/cuda/bin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T02:04:51.333123621-06:00",
+                    "created_by": "ENV CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-17T02:04:51.333123621-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-17T02:04:51.333123621-06:00",
+                    "created_by": "ENV MAKE_CXX_FLAG=MPICXX=mpic++",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-20T06:08:40.138615482-06:00",
+                    "created_by": "RUN /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-20T06:08:51.240525918-06:00",
+                    "created_by": "RUN /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-20T06:08:51.240525918-06:00",
+                    "created_by": "ENV MFEM_BUILD=pcuda -j CUDA_ARCH=sm_70 -j MFEM_USE_CUDA=YES",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-27T16:14:28.355982019-06:00",
+                    "created_by": "RUN /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make MFEM_BUILD=${MFEM_BUILD} # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-27T16:14:28.382411971-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-27T16:14:44.889828118-06:00",
+                    "created_by": "RUN /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-27T16:14:44.889828118-06:00",
+                    "created_by": "EXPOSE map[22/tcp:{}]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-27T16:14:44.947579332-06:00",
+                    "created_by": "WORKDIR /opt/laghos",
+                    "comment": "buildkit.dockerfile.v0"
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:1b9b7346fee7abbc7f5538eaa23548bd05a45abe8daf6794024be0c8ad7d60bb",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:ba09953ca8a2c767b86362e5dc505562dd655cc2b57f90b6826bb81aad4c7ca9",
+                    "sha256:c79b1d7603e7f4464cfc5b58a7021384501d946524db5c7a6ea5b74cbac85f5f",
+                    "sha256:957c72d5e4702b3ce310e6e13ef566f20e45fbb0955859b8dbcb743b89a18a1d",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:71ec1777e08833ae37411edae9c1a8550f1026551214d1ba46225da853923792",
+                    "sha256:42ca69e263fd6c093ae045ea31cdd2a02769d158787482300fb811da13306a40",
+                    "sha256:7ec0409ea6bf253df55f3f8084b31e77150d4c0f6c81bb26545b009dd89abe46",
+                    "sha256:e1ae0fdd78302e840a7dee38e387adab71d48d23880d914744e406d9335bbf4b",
+                    "sha256:27dd598be0a533618b88518635e59ba78bc72917f2363771d018af4aeaecb429",
+                    "sha256:8292ef77875201125fe7d4d8806c1f46f4706c9e7aedd8e1e646baaa8a89fc99",
+                    "sha256:b38f9ebf5ef9963898db5495d382261a71db29262a4fc205892922785b9357f8",
+                    "sha256:279c8006aa42dc7cf097646af10d8f4c98bbb64ede8e019b76aa0a90c7e780fa",
+                    "sha256:c1354d8d8634464ea6b16ae78f2efdb50c3f1a6f7811e676c8d271796276ddf1",
+                    "sha256:45e332db8f805694ccc3d02bb3c300385778e7e70160a72d05a1f329f43d9ea7",
+                    "sha256:95a6a90cffceda757edacd3f13775fc2d047a897d1ca9e6151c71bcf98a77214",
+                    "sha256:67980c9de1850004c266fd6dc8f0d709b4d6d42e82e93b1c07274f218c31e8f1",
+                    "sha256:9393ae16f4ad609fcf6cb7d1384db47c0c17b531b425bccab303c4f35fe31f01",
+                    "sha256:c6946ded9b14a339725460b2118f6a191f9f8f2f178d9d735c47de149fbefe55",
+                    "sha256:d7f80c712bf0c9a4008fc3a0971f36d12691b314a892de43e40bd4fe743bf865",
+                    "sha256:89fbb1ef5adc0bffda8f0f933d005f52c1cac81081846b52445abb8c4851750e",
+                    "sha256:40c5e59f070684a436cb0fc003771bf54eba2ed985a3084741bd16d58fa0e2be",
+                    "sha256:36db96881459e4c4702e52b50bcfdf61f6a7e1c6e68a3535c7df56ebc7462bf9",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:2bda5cc2f2c3fb927e3811d830d247c314c02dcf00e9214f1fc597ffab07ab95",
+                    "sha256:266fbe87bf250cbe7ae16f62c64262ddfcc4f799d2e51a2814ab34dbce3b592e",
+                    "sha256:00e89eff92f0379a4cc865333598d3f686513001ce2f03ddbc19476acb6047fb",
+                    "sha256:e24312a40a1dc45289724bd18cd3d834ea82be638380291a4e9a9e9e14cf7b70",
+                    "sha256:af43b1d3d9ad2244f30459945b453fb976f740394d66c07983d2163e3d3db846",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:75e2ec3fb68c777e93498fe940f26b7bcd0cf3079d2e506d926080e51ac255ed",
+                    "sha256:1f31c36097c3c68d3cffaee6ac86287845fc00fe283e6e9e5b23684c0108c4ce",
+                    "sha256:f5c49bf23e347e40628cc1855d197875d8a54399e8e8db60a093357fa51fb495",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:3b126e95fd33376278dc28d3cb811f3a3571eb094c6ec189990602ad67077422",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+                ]
+            }
+        },
+        "azure-hpc": {
+            "architecture": "amd64",
+            "config": {
+                "ExposedPorts": {
+                    "22/tcp": {}
+                },
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin",
+                    "DEBIAN_FRONTEND=noninteractive",
+                    "UCX_NET_DEVICES=mlx5_0:1",
+                    "UCX_TLS=ib",
+                    "OMPI_MCA_btl_openib_warn_no_device_params_found=0",
+                    "LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib",
+                    "MAKE_CXX_FLAG=MPICXX=mpic++"
+                ],
+                "Cmd": [
+                    "bash"
+                ],
+                "WorkingDir": "/opt/laghos",
+                "Labels": {
+                    "org.opencontainers.image.ref.name": "ubuntu",
+                    "org.opencontainers.image.version": "22.04"
+                }
+            },
+            "created": "2024-08-16T12:27:01.232574876-06:00",
+            "history": [
+                {
+                    "created": "2024-06-27T20:10:10.528110614Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:10.566300625Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:10.606737029Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:10.638915467Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:12.481980539Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:d5da92199726e42da09a6f75a778befb607fe3f79e4afaf7ef5188329b26b386 in / "
+                },
+                {
+                    "created": "2024-06-27T20:10:12.703519218Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-15T00:23:12.770714377-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-15T00:34:04.162915949-06:00",
+                    "created_by": "RUN /bin/sh -c apt-get update && apt-get install -y git curl wget unzip gpg debian-archive-keyring ubuntu-keyring && apt-get clean # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-15T00:55:25.4375766-06:00",
+                    "created_by": "COPY ./azhpc-images /opt/azhpc-images # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-15T00:55:25.467579071-06:00",
+                    "created_by": "WORKDIR /opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-15T00:55:25.467579071-06:00",
+                    "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-15T08:25:06.099982601Z",
+                    "created_by": "bash"
+                },
+                {
+                    "created": "2024-08-16T14:50:11.778057876Z",
+                    "created_by": "bash"
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV UCX_NET_DEVICES=mlx5_0:1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV UCX_TLS=ib",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV OMPI_MCA_btl_openib_warn_no_device_params_found=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV LD_LIBRARY_PATH=/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/lib:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hcoll/lib",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/hpcx-v2.19-gcc-mlnx_ofed-ubuntu22.04-cuda12-x86_64/hpcx-rebuild/bin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T08:51:22.756362558-06:00",
+                    "created_by": "ENV MAKE_CXX_FLAG=MPICXX=mpic++",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T12:14:21.0038084-06:00",
+                    "created_by": "RUN /bin/sh -c apt-get install -y libc6-dev &&     export hypre_options=\"--disable-fortran --without-fei\" &&     wget --no-verbose https://github.com/hypre-space/hypre/archive/v2.28.0.tar.gz &&     tar -xzf v2.28.0.tar.gz &&     mv hypre-2.28.0 hypre &&     cd hypre/src &&    ./configure ${hypre_options} CC=mpicc CXX=mpic++ &&     make -j 4 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T12:14:28.876663559-06:00",
+                    "created_by": "RUN /bin/sh -c wget --no-verbose https://github.com/mfem/tpls/raw/gh-pages/metis-4.0.3.tar.gz &&     tar -xzf metis-4.0.3.tar.gz &&     mv metis-4.0.3 metis-4.0 &&     make -j 4 -C metis-4.0/Lib CC=mpicc OPTFLAGS=\"-Wno-error=implicit-function-declaration -O2\" # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T12:16:37.901804146-06:00",
+                    "created_by": "RUN /bin/sh -c wget https://github.com/mfem/mfem/archive/refs/tags/v4.7.tar.gz &&     tar -xzvf v4.7.tar.gz &&     mv mfem-4.7 /opt/mfem &&     cd /opt/mfem &&     unset LD_LIBRARY_PATH &&     make config MFEM_USE_MPI=YES MPICXX=mpiCC MFEM_MPI_NP=2 MFEM_DEBUG=${DEBUG} CPPFLAGS=\"${CPPFLAGS}\" &&     make -j 4 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T12:16:37.952559028-06:00",
+                    "created_by": "WORKDIR /opt",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T12:27:01.182991226-06:00",
+                    "created_by": "RUN /bin/sh -c wget https://github.com/CEED/Laghos/archive/refs/tags/v3.1.tar.gz &&     tar -xzvf v3.1.tar.gz &&     mv Laghos-3.1 /opt/laghos &&     cd /opt/laghos &&     make -j 4 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-16T12:27:01.182991226-06:00",
+                    "created_by": "EXPOSE map[22/tcp:{}]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-16T12:27:01.232574876-06:00",
+                    "created_by": "WORKDIR /opt/laghos",
+                    "comment": "buildkit.dockerfile.v0"
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:931b7ff0cb6f494b27d31a4cbec3efe62ac54676add9c7469560302f1541ecaf",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:404c47491ee5026c4ae2b6511be6277163617ac1cf56e0ccf4f7d8794e1b76ee",
+                    "sha256:00050c06b9d35cf14b898250ba893375657bcb3637cd4ae117a4cb632f8da084",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:907231feffc0ce3d870f977a27c6cdc2ef8c0253d282680cbe34de9fec46eec4",
+                    "sha256:de70c7ac5940241259318640cc05db0e12bc6b488f501bbac81bb97f15dc254a",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:041e1d8f79d9306eddc7548f025222babcb6c1eb531a9e57b616c3383ab42013",
+                    "sha256:6bd8677dc3bbd12e5817b455c1b4f2167d65e10b214de0abc167cd171e97f1e9",
+                    "sha256:c2f99b9c92f8b844718f502d21c36ecec85c962cbffb1397e3b270bd34211b7e",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:dc73c2f80c9a7ce8f6ce01e741e2164d88365cdc7e31158306bcf6edc19b0b81",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
                 ]
             }
         }
