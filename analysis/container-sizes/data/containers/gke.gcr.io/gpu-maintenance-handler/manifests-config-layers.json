@@ -1,0 +1,211 @@
+{
+    "manifests": {
+        "0.1.0-gke.39@sha256:531ead9c9c9dabeeb4da6737ccbef171e094d1d63c999710f56916ab01fc7471": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "config": {
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 3045,
+                "digest": "sha256:6f349a70a68c6987b333fa972cb8742f3af247187ccbe0bd302d011fa12662ad"
+            },
+            "layers": [
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 104182,
+                    "digest": "sha256:f531499c6b730fc55a63e5ade55ce2c849bbf03f894248e3a2092689e3749312"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 13370,
+                    "digest": "sha256:e8d9a567199d7a318c875f2558a679ba8a924f817afacbb428afc3ffe6be6828"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 537709,
+                    "digest": "sha256:058cf3d8c2ba04ad7c064698c08c5e886a8623c0ad6171b8d72684253534417d"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 67,
+                    "digest": "sha256:b6824ed73363f94b3b2b44084c51c31bc32af77a96861d49e16f91e3ab6bed71"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 188,
+                    "digest": "sha256:7c12895b777bcaa8ccae0605b4de635b68fc32d60fa08f421dc3818bf55ee212"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 122,
+                    "digest": "sha256:33e068de264953dfdc9f9ada207e76b61159721fd64a4820b320d05133a55fb8"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 168,
+                    "digest": "sha256:5664b15f108bf9436ce3312090a767300800edbbfd4511aa1a6d64357024d5dd"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 93,
+                    "digest": "sha256:27be814a09ebd97fac6fb7b82d19f117185e90601009df3fbab6f442f85cd6b3"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 385,
+                    "digest": "sha256:4aa0ea1413d37a58615488592a0b827ea4b2e48fa5a77cf707d0e35f025e613f"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 321,
+                    "digest": "sha256:da7816fa955ea24533c388143c78804c28682eef99b4ee3723b548c70148bba6"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 130495,
+                    "digest": "sha256:9aee425378d2c16cd44177dc54a274b312897f5860a8e78fdfda555a0d79dd71"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 126,
+                    "digest": "sha256:ab28043021b4fd92ffdc32009089a034d91874f505f0dafd2a42b41554fd6e40"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 43472240,
+                    "digest": "sha256:b57bbcfaf110248af89312cdd81560c326c933604aa530153938de84023d3897"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "0.1.0-gke.39@sha256:531ead9c9c9dabeeb4da6737ccbef171e094d1d63c999710f56916ab01fc7471"
+    ],
+    "configs": {
+        "0.1.0-gke.39@sha256:531ead9c9c9dabeeb4da6737ccbef171e094d1d63c999710f56916ab01fc7471": {
+            "architecture": "amd64",
+            "config": {
+                "Hostname": "",
+                "Domainname": "",
+                "User": "0",
+                "AttachStdin": false,
+                "AttachStdout": false,
+                "AttachStderr": false,
+                "Tty": false,
+                "OpenStdin": false,
+                "StdinOnce": false,
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+                ],
+                "Cmd": null,
+                "Image": "sha256:d5e9aa20f36d2978cb72d02b0cf16ad00bd48757cfa85110fc1e3f58365f92ed",
+                "Volumes": null,
+                "WorkingDir": "/app",
+                "Entrypoint": [
+                    "./gpu-maintenance-handler"
+                ],
+                "OnBuild": null,
+                "Labels": null
+            },
+            "container": "66b48f648787b43012d27f83c400366a6344902c242225b0f53540af4706bd12",
+            "container_config": {
+                "Hostname": "66b48f648787",
+                "Domainname": "",
+                "User": "0",
+                "AttachStdin": false,
+                "AttachStdout": false,
+                "AttachStderr": false,
+                "Tty": false,
+                "OpenStdin": false,
+                "StdinOnce": false,
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+                ],
+                "Cmd": [
+                    "/bin/sh",
+                    "-c",
+                    "#(nop) ",
+                    "ENTRYPOINT [\"./gpu-maintenance-handler\"]"
+                ],
+                "Image": "sha256:d5e9aa20f36d2978cb72d02b0cf16ad00bd48757cfa85110fc1e3f58365f92ed",
+                "Volumes": null,
+                "WorkingDir": "/app",
+                "Entrypoint": [
+                    "./gpu-maintenance-handler"
+                ],
+                "OnBuild": null,
+                "Labels": {}
+            },
+            "created": "2024-07-16T13:54:06.016186823Z",
+            "docker_version": "20.10.24",
+            "history": [
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "2024-07-16T13:54:03.023859147Z",
+                    "created_by": "/bin/sh -c #(nop) WORKDIR /app"
+                },
+                {
+                    "created": "2024-07-16T13:54:05.141349904Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:355408c4068a566dbc481b1427e7858e923e4f02360e56f96196f70a40f0db0a in /app/ "
+                },
+                {
+                    "created": "2024-07-16T13:54:06.016186823Z",
+                    "created_by": "/bin/sh -c #(nop)  ENTRYPOINT [\"./gpu-maintenance-handler\"]",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:f144bb4c7c7f0d2aa7eeffd36d934ec40db1ee167be727e326aad9fdc616f475",
+                    "sha256:49626df344c912cfe9f8d8fcd635d301bd41127cd326914212cf2443a96cf421",
+                    "sha256:945d17be9a3e27af5ca1c671792bf1a8f2c3f4d13d3994665d95f084ed4f8a60",
+                    "sha256:4d049f83d9cf21d1f5cc0e11deaf36df02790d0e60c1a3829538fb4b61685368",
+                    "sha256:af5aa97ebe6ce1604747ec1e21af7136ded391bcabe4acef882e718a87c86bcc",
+                    "sha256:ac805962e47900b616b2f4b4584a34ac7b07d64ac1fd2c077478cf65311addcc",
+                    "sha256:bbb6cacb8c82e4da4e8143e03351e939eab5e21ce0ef333c42e637af86c5217b",
+                    "sha256:2a92d6ac9e4fcc274d5168b217ca4458a9fec6f094ead68d99c77073f08caac1",
+                    "sha256:1a73b54f556b477f0a8b939d13c504a3b4f4db71f7a09c63afbc10acb3de5849",
+                    "sha256:f4aee9e53c42a22ed82451218c3ea03d1eea8d6ca8fbe8eb4e950304ba8a8bb3",
+                    "sha256:b336e209998fa5cf0eec3dabf93a21194198a35f4f75612d8da03693f8c30217",
+                    "sha256:4babcf89f6b74e39302cfe901dcae1de8845376780b384692aacb836eb17a076",
+                    "sha256:c7da5f77c30eba0839407e0b43501296128ed2475f7d0217e4544f4862e4fd2d"
+                ]
+            }
+        }
+    }
+}

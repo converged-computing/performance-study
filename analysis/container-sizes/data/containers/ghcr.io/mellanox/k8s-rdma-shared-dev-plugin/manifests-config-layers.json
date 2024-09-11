@@ -1,0 +1,139 @@
+{
+    "manifests": {
+        "v1.5.1": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:89088e42831057dee8eaf26cf302aa84c1fe4a5494a0f731aa6a88fa1b0aebeb",
+                    "size": 864,
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:2d484fcc5982555fbcef9d59c16379b5b0f088302653578408257b0a5b252782",
+                    "size": 566,
+                    "annotations": {
+                        "vnd.docker.reference.digest": "sha256:89088e42831057dee8eaf26cf302aa84c1fe4a5494a0f731aa6a88fa1b0aebeb",
+                        "vnd.docker.reference.type": "attestation-manifest"
+                    },
+                    "platform": {
+                        "architecture": "unknown",
+                        "os": "unknown"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:dd58431a5bda8e44e18570af145e502062aa083a75eae2a419868e45e72f1b3d",
+                    "size": 864,
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:e9d3c87719c08e95018308f6c00b97a5a52beccb8ca66f4b583d11e1d195e6d1",
+                    "size": 566,
+                    "annotations": {
+                        "vnd.docker.reference.digest": "sha256:dd58431a5bda8e44e18570af145e502062aa083a75eae2a419868e45e72f1b3d",
+                        "vnd.docker.reference.type": "attestation-manifest"
+                    },
+                    "platform": {
+                        "architecture": "unknown",
+                        "os": "unknown"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:a5527b09de12d5dc7003fcb20684f6084cc59343f6f74116218f2aec28db0b4c",
+                    "size": 864,
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:58a8b34b14a09f5f56a8dda83c32fb411b86004534432ad25ab77016fadfb0f4",
+                    "size": 566,
+                    "annotations": {
+                        "vnd.docker.reference.digest": "sha256:a5527b09de12d5dc7003fcb20684f6084cc59343f6f74116218f2aec28db0b4c",
+                        "vnd.docker.reference.type": "attestation-manifest"
+                    },
+                    "platform": {
+                        "architecture": "unknown",
+                        "os": "unknown"
+                    }
+                }
+            ]
+        }
+    },
+    "tags": [
+        "v1.5.1"
+    ],
+    "configs": {
+        "v1.5.1": {
+            "architecture": "amd64",
+            "config": {
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ],
+                "Cmd": [
+                    "/bin/k8s-rdma-shared-dp"
+                ],
+                "Labels": {
+                    "io.k8s.display-name": "RDMA Shared Device Plugin"
+                },
+                "ArgsEscaped": true
+            },
+            "created": "2024-06-17T08:43:37.186157745Z",
+            "history": [
+                {
+                    "created": "2023-06-14T20:41:58.950178204Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:1da756d12551a0e3e793e02ef87432d69d4968937bd11bed0af215db19dd94cd in / "
+                },
+                {
+                    "created": "2023-06-14T20:41:59.079795125Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/sh\"]",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-17T08:43:16.376853987Z",
+                    "created_by": "RUN /bin/sh -c apk add --no-cache kmod=30-r3 hwdata-pci=0.370-r0 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-06-17T08:43:37.186157745Z",
+                    "created_by": "COPY /usr/src/k8s-rdma-shared-dp/build/k8s-rdma-shared-dp /bin/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-06-17T08:43:37.186157745Z",
+                    "created_by": "LABEL io.k8s.display-name=RDMA Shared Device Plugin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-17T08:43:37.186157745Z",
+                    "created_by": "CMD [\"/bin/k8s-rdma-shared-dp\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:78a822fe2a2d2c84f3de4a403188c45f623017d6a4521d23047c9fbb0801794c",
+                    "sha256:6f6ed9098adb9911aed00a2bd3f31a9b3394484cfac8d39efb83641381388e93",
+                    "sha256:6dd45c36f272c23b9aa8560c3f206e6afc2a11b384ee824b21705321e35f4bf9"
+                ]
+            }
+        }
+    }
+}

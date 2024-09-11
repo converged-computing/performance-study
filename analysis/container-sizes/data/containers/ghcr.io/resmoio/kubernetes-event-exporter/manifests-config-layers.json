@@ -1,0 +1,121 @@
+{
+    "manifests": {
+        "latest": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "digest": "sha256:36e5ce64dad3d22426c1e7a0f1dd5d5ae0e9ff53aa86e6bcf7429d483582a317",
+                    "size": 2261,
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "digest": "sha256:5d91d04161637e0f01d5fd5aa8ce3a4a4b99952bf1cd9be5ddbe5ba204d049ba",
+                    "size": 2261,
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                }
+            ]
+        }
+    },
+    "tags": [
+        "latest"
+    ],
+    "configs": {
+        "latest": {
+            "architecture": "amd64",
+            "config": {
+                "User": "65532",
+                "Env": [
+                    "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ],
+                "Entrypoint": [
+                    "/kubernetes-event-exporter"
+                ],
+                "WorkingDir": "/home/nonroot",
+                "Labels": {
+                    "org.opencontainers.image.created": "2024-02-23T05:28:49.294Z",
+                    "org.opencontainers.image.description": "Export Kubernetes events to multiple destinations with routing and filtering",
+                    "org.opencontainers.image.licenses": "Apache-2.0",
+                    "org.opencontainers.image.revision": "2668c4309da33fd47ee0846923b8aa2107b87f88",
+                    "org.opencontainers.image.source": "https://github.com/resmoio/kubernetes-event-exporter",
+                    "org.opencontainers.image.title": "kubernetes-event-exporter",
+                    "org.opencontainers.image.url": "https://github.com/resmoio/kubernetes-event-exporter",
+                    "org.opencontainers.image.version": "v1.7"
+                },
+                "OnBuild": null
+            },
+            "created": "2024-02-23T05:31:14.454995426Z",
+            "history": [
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "2024-02-23T05:31:14.454995426Z",
+                    "created_by": "COPY /main /kubernetes-event-exporter # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-02-23T05:31:14.454995426Z",
+                    "created_by": "USER 65532",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-02-23T05:31:14.454995426Z",
+                    "created_by": "ENTRYPOINT [\"/kubernetes-event-exporter\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:70c35736547b3e931b1a31e6d5e7df15ca445f3923da9c5bf966e67fe7f08564",
+                    "sha256:6fbdf253bbc2490dcfede5bdb58ca0db63ee8aff565f6ea9f918f3bce9e2d5aa",
+                    "sha256:1df9699731f7846ad827986563c27981294fd53a7ce7b4665f87936b0d9a7945",
+                    "sha256:ff5700ec54186528cbae40f54c24b1a34fb7c01527beaa1232868c16e2353f52",
+                    "sha256:d52f02c6501c9c4410568f0bf6ff30d30d8290f57794c308fe36ea78393afac2",
+                    "sha256:e624a5370eca2b8266e74d179326e2a8767d361db14d13edd9fb57e408731784",
+                    "sha256:1a73b54f556b477f0a8b939d13c504a3b4f4db71f7a09c63afbc10acb3de5849",
+                    "sha256:d2d7ec0f6756eb51cf1602c6f8ac4dd811d3d052661142e0110357bf0b581457",
+                    "sha256:4cb10dd2545bd173858450b80853b850e49608260f1a0789e0d0b39edf12f500",
+                    "sha256:342ebb0295867d9183d27f458f1fc51a4514cd508cf0d2ef1e93a7a4932972b3"
+                ]
+            }
+        }
+    }
+}

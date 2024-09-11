@@ -1,0 +1,108 @@
+{
+    "manifests": {
+        "latest@sha256:0f61b69f36cc28d4c6c38daef6b1b96eaf9f76ca37528950380f7372f25ef973": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "config": {
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 1834,
+                "digest": "sha256:c3690d356cba3bcf99a4b3a7cd80a6aaf43dee1350b3b457622eed175a326404"
+            },
+            "layers": [
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 29126270,
+                    "digest": "sha256:b7d7012a817065b5fd444bd84265e11162ea9cc3d4388e8732ce320bf88aa9c6"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 20627838,
+                    "digest": "sha256:4dbb096b592b66ba74839a67822cf13e4ce0e43d9f7fd5da93f0eac96f1b0186"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 17832993,
+                    "digest": "sha256:a342b13eadeaec24d6dd656f5da0f05a216f19e8f072d102922e1b81ea7c3e40"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 66418841,
+                    "digest": "sha256:7809cb0d152d69991304e76db5c94028f9bdcc2d68ad7423fe5cad68c0a4e55d"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "latest@sha256:0f61b69f36cc28d4c6c38daef6b1b96eaf9f76ca37528950380f7372f25ef973"
+    ],
+    "configs": {
+        "latest@sha256:0f61b69f36cc28d4c6c38daef6b1b96eaf9f76ca37528950380f7372f25ef973": {
+            "architecture": "amd64",
+            "config": {
+                "User": "65532:65532",
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ],
+                "Entrypoint": [
+                    "/manager"
+                ],
+                "WorkingDir": "/"
+            },
+            "created": "2024-07-23T20:08:53.221574436Z",
+            "history": [
+                {
+                    "created": "2024-07-23T05:25:43.613144483Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:9e42c6c58fbe653f09f40e2c144fba3677f022fcdd242a3f9c2fda1575c9e902 in / "
+                },
+                {
+                    "created": "2024-07-23T05:25:43.93957186Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"bash\"]",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-07-23T20:08:44.742627725Z",
+                    "created_by": "WORKDIR /",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-07-23T20:08:44.742627725Z",
+                    "created_by": "COPY /workspace/manager /manager # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-23T20:08:44.840123433Z",
+                    "created_by": "COPY /workspace/bin/fluxoperator-gen /usr/bin/fluxoperator-gen # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-23T20:08:53.221574436Z",
+                    "created_by": "RUN /bin/sh -c apt-get update && apt-get install -y libsodium-dev libzmq3-dev libczmq-dev &&     apt-get clean &&     rm -rf /var/lib/apt/lists/* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-23T20:08:53.221574436Z",
+                    "created_by": "USER 65532:65532",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-07-23T20:08:53.221574436Z",
+                    "created_by": "ENTRYPOINT [\"/manager\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:ea29029be8d03f15724ae8dcff9f3d6b3af1f2d3596459dcdabfb8dbbe153b00",
+                    "sha256:9801097ff718808c0f299c18a076462c54561f66f05cde52db0c5929f22852dd",
+                    "sha256:e6b253843fd501f93f9f2a716dad6b09a69958954bfea15039c23a82efce74d3",
+                    "sha256:27bb125d16f2f034ea8b64d93dfc0cab775cbd23a13f7d1277f6309da020dbf9"
+                ]
+            }
+        }
+    }
+}
