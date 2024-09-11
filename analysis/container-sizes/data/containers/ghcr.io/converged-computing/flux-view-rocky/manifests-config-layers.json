@@ -1,0 +1,116 @@
+{
+    "manifests": {
+        "tag-9": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:85a568d0b4477a0b53a10bc9ca6bf7e72e42190e275e44375d359a708db56f51",
+                    "size": 1440,
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:7d2d1a51a92094dd38a3aebc9a0bddcdf40a7d666cd2c1099e68ab1ac1b69a8f",
+                    "size": 566,
+                    "annotations": {
+                        "vnd.docker.reference.digest": "sha256:85a568d0b4477a0b53a10bc9ca6bf7e72e42190e275e44375d359a708db56f51",
+                        "vnd.docker.reference.type": "attestation-manifest"
+                    },
+                    "platform": {
+                        "architecture": "unknown",
+                        "os": "unknown"
+                    }
+                }
+            ]
+        }
+    },
+    "tags": [
+        "tag-9"
+    ],
+    "configs": {
+        "tag-9": {
+            "architecture": "amd64",
+            "config": {
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ],
+                "Entrypoint": [
+                    "/entrypoint.sh"
+                ],
+                "Cmd": [
+                    "/bin/bash"
+                ],
+                "WorkingDir": "/",
+                "ArgsEscaped": true
+            },
+            "created": "2024-07-18T16:05:26.994370299Z",
+            "history": [
+                {
+                    "created": "2023-11-28T20:08:58Z",
+                    "created_by": "ADD layer.tar.xz / # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2023-11-28T20:08:58Z",
+                    "created_by": "CMD [\"/bin/bash\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-07-18T16:05:06.587356899Z",
+                    "created_by": "COPY /opt/spack-environment /opt/spack-environment # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-18T16:05:15.083456973Z",
+                    "created_by": "COPY /opt/software /opt/software # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-18T16:05:20.051746573Z",
+                    "created_by": "COPY /opt/views /opt/views # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-18T16:05:20.388709202Z",
+                    "created_by": "RUN /bin/sh -c {       echo '#!/bin/sh'       && echo '.' /opt/spack-environment/activate.sh       && echo 'exec \"$@\"';     } > /entrypoint.sh && chmod a+x /entrypoint.sh && ln -s /opt/views/view /opt/view # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-18T16:05:26.994370299Z",
+                    "created_by": "RUN /bin/sh -c dnf install -y munge && systemctl enable munge # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-07-18T16:05:26.994370299Z",
+                    "created_by": "ENTRYPOINT [\"/entrypoint.sh\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-07-18T16:05:26.994370299Z",
+                    "created_by": "CMD [\"/bin/bash\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:44343de3ea1d3f71f143967c71a91df76138a17a21ac56642f3c0f2a64b07dce",
+                    "sha256:e1eefb8271953a54464f06bce4945de7090592b42771ab67a726f0abe4f24201",
+                    "sha256:46a30f8613732d530c1d8d1745be044c0aa24d2564aba92ff4432a3f3d229ab7",
+                    "sha256:4104844ba89f16103f44f2f8c6c2803ec94db4599fa0730251cab861f3b667f4",
+                    "sha256:87cacec4c54dbddc571641772d0c87fd2781cea988b6744e22e97f2c869c2c13",
+                    "sha256:67c77010b0af9f3f5d091d328ce38389fb14fca55acbc42f69fdaec09218f561"
+                ]
+            }
+        }
+    }
+}

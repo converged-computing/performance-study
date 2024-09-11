@@ -1,0 +1,162 @@
+{
+    "manifests": {
+        "20240714_2300_RC0@sha256:6fc54e7e073e5addc6f2b4aaada46679c9d6e058017791bad02f79f31c60d2f3": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "size": 1075,
+                    "digest": "sha256:9a37e8caa1fc3ff9f2b3af850f470cd0f7b9392512186c1006a650a29b3d6848",
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "size": 1075,
+                    "digest": "sha256:ed4ff9c787b0eb89b3d218049d35ee924680a7aa6f4cb504db3beb53a20c4e52",
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                }
+            ]
+        },
+        "20240620_2300_RC0@sha256:463e73163c4d343b8a3327e0d2e8e955d22434e9005a1a188275ac55b8cfebb4": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "size": 1075,
+                    "digest": "sha256:ef5b61b5a1becd1dfb836d98590df6d4ec87871747e71720bf9f12580836328d",
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "size": 1075,
+                    "digest": "sha256:6d55ca057793abdbb883bc06f88e866a15cfefedea2ca71dc392fb125837687b",
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                }
+            ]
+        }
+    },
+    "tags": [
+        "20240714_2300_RC0@sha256:6fc54e7e073e5addc6f2b4aaada46679c9d6e058017791bad02f79f31c60d2f3",
+        "20240620_2300_RC0@sha256:463e73163c4d343b8a3327e0d2e8e955d22434e9005a1a188275ac55b8cfebb4"
+    ],
+    "configs": {
+        "20240714_2300_RC0@sha256:6fc54e7e073e5addc6f2b4aaada46679c9d6e058017791bad02f79f31c60d2f3": {
+            "architecture": "amd64",
+            "author": "Bazel",
+            "created": "2024-07-15T06:01:04Z",
+            "history": [
+                {
+                    "author": "Bazel",
+                    "created": "2024-07-15T06:01:04Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-07-15T06:01:04Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-07-15T06:01:04Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-07-15T06:01:04Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-07-15T06:01:04Z",
+                    "created_by": "bazel build ..."
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:cfe3f5cdb0be0a5aa36ccb70b100d8c56486e2b291f3ea0d1d3db8da7a45ce7c",
+                    "sha256:a6b3bc065b1b0331a590e60f7e863ad909a1a642fb22727a3e4bf947ff2c57cb",
+                    "sha256:b0dc66a99164ac50c16e32bf6e06c468d762d2d2c45c1ed74088e904f403c514",
+                    "sha256:758ca991764de0a0d8bec4f90d30362c9837aa18505fc806b3cd628cf50ee749",
+                    "sha256:635c10fda15e29cd8d9b91e95a7e8002f49058286d43c2450a7487cb77daeaae"
+                ]
+            },
+            "config": {
+                "Cmd": [
+                    "/main"
+                ],
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+                ]
+            }
+        },
+        "20240620_2300_RC0@sha256:463e73163c4d343b8a3327e0d2e8e955d22434e9005a1a188275ac55b8cfebb4": {
+            "architecture": "amd64",
+            "author": "Bazel",
+            "created": "2024-06-21T06:07:15Z",
+            "history": [
+                {
+                    "author": "Bazel",
+                    "created": "2024-06-21T06:07:15Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-06-21T06:07:15Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-06-21T06:07:15Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-06-21T06:07:15Z",
+                    "created_by": "bazel build ..."
+                },
+                {
+                    "author": "Bazel",
+                    "created": "2024-06-21T06:07:15Z",
+                    "created_by": "bazel build ..."
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:cfe3f5cdb0be0a5aa36ccb70b100d8c56486e2b291f3ea0d1d3db8da7a45ce7c",
+                    "sha256:a6b3bc065b1b0331a590e60f7e863ad909a1a642fb22727a3e4bf947ff2c57cb",
+                    "sha256:b0dc66a99164ac50c16e32bf6e06c468d762d2d2c45c1ed74088e904f403c514",
+                    "sha256:758ca991764de0a0d8bec4f90d30362c9837aa18505fc806b3cd628cf50ee749",
+                    "sha256:da5541fd2aaa98edf4b025022e17b7fc067c817eb610f379fe72587f6b5f1de7"
+                ]
+            },
+            "config": {
+                "Cmd": [
+                    "/main"
+                ],
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+                ]
+            }
+        }
+    }
+}

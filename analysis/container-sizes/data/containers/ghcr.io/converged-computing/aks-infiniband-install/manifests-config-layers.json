@@ -1,0 +1,129 @@
+{
+    "manifests": {
+        "ubuntu-22.04": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "config": {
+                "mediaType": "application/vnd.docker.container.image.v1+json",
+                "size": 2257,
+                "digest": "sha256:bf58aa208c4f37b0ffdb5e792992e43a75182d2ff1864073804c85bbe6f2b90d"
+            },
+            "layers": [
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 30439866,
+                    "digest": "sha256:9b857f539cb142c9aa2201a17bb8e1cd5cf12edd4a65adf5732fe9f4343964cf"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 325113398,
+                    "digest": "sha256:991d072b616a3a1fb508b6f7d6c67e0b4b8f2aa7d7382053d4dee804f2648693"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 522,
+                    "digest": "sha256:66e11b767e3aa28f9a56bcba50970149a1cf298ae9b41afd800cbafd8178e8e0"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 487,
+                    "digest": "sha256:be77b26c6f6ddc60951d9ee0a6838832ca1e0f42ddeefe514a7b4502592a63c8"
+                },
+                {
+                    "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                    "size": 522,
+                    "digest": "sha256:7263a10414f948070c95f8e3c41c757ac99e1764caa5ac04aa98bc44be09e400"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "ubuntu-22.04"
+    ],
+    "configs": {
+        "ubuntu-22.04": {
+            "architecture": "amd64",
+            "config": {
+                "Env": [
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ],
+                "Entrypoint": [
+                    "/entrypoint.sh"
+                ],
+                "Labels": {
+                    "org.opencontainers.image.ref.name": "ubuntu",
+                    "org.opencontainers.image.version": "22.04"
+                }
+            },
+            "created": "2024-08-14T15:55:21.045718117-06:00",
+            "history": [
+                {
+                    "created": "2024-06-27T20:10:10.528110614Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:10.566300625Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:10.606737029Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:10.638915467Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-06-27T20:10:12.481980539Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:d5da92199726e42da09a6f75a778befb607fe3f79e4afaf7ef5188329b26b386 in / "
+                },
+                {
+                    "created": "2024-06-27T20:10:12.703519218Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-08-10T15:34:30.876899637-06:00",
+                    "created_by": "COPY /opt/debs /opt/debs # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-14T15:55:20.893635198-06:00",
+                    "created_by": "COPY entrypoint.sh /entrypoint.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-14T15:55:20.910021539-06:00",
+                    "created_by": "COPY ./parse-links.py /opt/parse-links.py # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-14T15:55:21.045718117-06:00",
+                    "created_by": "RUN /bin/sh -c chmod +x /entrypoint.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-08-14T15:55:21.045718117-06:00",
+                    "created_by": "ENTRYPOINT [\"/entrypoint.sh\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:931b7ff0cb6f494b27d31a4cbec3efe62ac54676add9c7469560302f1541ecaf",
+                    "sha256:a02383c0e88745205876a5a229c702bb622b6cb807faa72414a642cdec20bd68",
+                    "sha256:796955a88e9f32859042548c3d2b63f67226eb5258bdb00eb402c625624fc4d6",
+                    "sha256:d8716a1e5c8bac965f85ada5a6ffee6e32ef70fe23cd290d6796c6a107b2effb",
+                    "sha256:5100c4ac8dde0c657f8612037684fbac899d6748fb3e828f901cc105c6b77910"
+                ]
+            }
+        }
+    }
+}

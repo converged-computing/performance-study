@@ -1,0 +1,360 @@
+{
+    "manifests": {
+        "v0.15.0": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:3284c77c22e79cab78ff9eb374c0170b1b0ac6a37f6e17b64a2c3f0739c8a29f",
+                    "size": 2768,
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:ac402f8265960b7b7b11a80e38922033176d6b5d29151d8a49d048ba7b7f8ee5",
+                    "size": 2765,
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:b2792365770106e11b5e9da5ddb596ab6412bb95343f747c62dfc5409ae0d946",
+                    "size": 566,
+                    "annotations": {
+                        "vnd.docker.reference.digest": "sha256:3284c77c22e79cab78ff9eb374c0170b1b0ac6a37f6e17b64a2c3f0739c8a29f",
+                        "vnd.docker.reference.type": "attestation-manifest"
+                    },
+                    "platform": {
+                        "architecture": "unknown",
+                        "os": "unknown"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+                    "digest": "sha256:ec0ee3ea632ec036129b2ca24baba02009417d2a4d679e97eebf5f1fab3e85ad",
+                    "size": 566,
+                    "annotations": {
+                        "vnd.docker.reference.digest": "sha256:ac402f8265960b7b7b11a80e38922033176d6b5d29151d8a49d048ba7b7f8ee5",
+                        "vnd.docker.reference.type": "attestation-manifest"
+                    },
+                    "platform": {
+                        "architecture": "unknown",
+                        "os": "unknown"
+                    }
+                }
+            ]
+        }
+    },
+    "tags": [
+        "v0.15.0"
+    ],
+    "configs": {
+        "v0.15.0": {
+            "architecture": "amd64",
+            "config": {
+                "Env": [
+                    "PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "NVARCH=x86_64",
+                    "NVIDIA_REQUIRE_CUDA=cuda>=12.4 brand=tesla,driver>=470,driver<471 brand=unknown,driver>=470,driver<471 brand=nvidia,driver>=470,driver<471 brand=nvidiartx,driver>=470,driver<471 brand=geforce,driver>=470,driver<471 brand=geforcertx,driver>=470,driver<471 brand=quadro,driver>=470,driver<471 brand=quadrortx,driver>=470,driver<471 brand=titan,driver>=470,driver<471 brand=titanrtx,driver>=470,driver<471 brand=tesla,driver>=525,driver<526 brand=unknown,driver>=525,driver<526 brand=nvidia,driver>=525,driver<526 brand=nvidiartx,driver>=525,driver<526 brand=geforce,driver>=525,driver<526 brand=geforcertx,driver>=525,driver<526 brand=quadro,driver>=525,driver<526 brand=quadrortx,driver>=525,driver<526 brand=titan,driver>=525,driver<526 brand=titanrtx,driver>=525,driver<526 brand=tesla,driver>=535,driver<536 brand=unknown,driver>=535,driver<536 brand=nvidia,driver>=535,driver<536 brand=nvidiartx,driver>=535,driver<536 brand=geforce,driver>=535,driver<536 brand=geforcertx,driver>=535,driver<536 brand=quadro,driver>=535,driver<536 brand=quadrortx,driver>=535,driver<536 brand=titan,driver>=535,driver<536 brand=titanrtx,driver>=535,driver<536",
+                    "NV_CUDA_CUDART_VERSION=12.4.127-1",
+                    "NV_CUDA_COMPAT_PACKAGE=cuda-compat-12-4",
+                    "CUDA_VERSION=12.4.1",
+                    "LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+                    "NVIDIA_VISIBLE_DEVICES=all",
+                    "NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+                    "NVIDIA_DISABLE_REQUIRE=true"
+                ],
+                "Entrypoint": [
+                    "nvidia-device-plugin"
+                ],
+                "Labels": {
+                    "com.nvidia.git-commit": "435bfb70a44b74daca23fe957a0f256afaa3c51e",
+                    "description": "See summary",
+                    "io.k8s.display-name": "NVIDIA Device Plugin",
+                    "maintainer": "NVIDIA CORPORATION <cudatools@nvidia.com>",
+                    "name": "NVIDIA Device Plugin",
+                    "org.opencontainers.image.ref.name": "ubuntu",
+                    "org.opencontainers.image.source": "https://github.com/",
+                    "org.opencontainers.image.version": "22.04",
+                    "release": "N/A",
+                    "summary": "NVIDIA device plugin for Kubernetes",
+                    "vendor": "NVIDIA",
+                    "version": "435bfb70"
+                }
+            },
+            "created": "2024-04-16T19:45:35.343683426Z",
+            "history": [
+                {
+                    "created": "2024-02-27T18:52:57.011931013Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-02-27T18:52:57.033105379Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-02-27T18:52:57.056007352Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-02-27T18:52:57.070227736Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-02-27T18:52:58.867932393Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:21c2e8d95909bec6f4acdaf4aed55b44ee13603681f93b152e423e3e6a4a207b in / "
+                },
+                {
+                    "created": "2024-02-27T18:52:59.070788584Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "ENV NVARCH=x86_64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "ENV NVIDIA_REQUIRE_CUDA=cuda>=12.4 brand=tesla,driver>=470,driver<471 brand=unknown,driver>=470,driver<471 brand=nvidia,driver>=470,driver<471 brand=nvidiartx,driver>=470,driver<471 brand=geforce,driver>=470,driver<471 brand=geforcertx,driver>=470,driver<471 brand=quadro,driver>=470,driver<471 brand=quadrortx,driver>=470,driver<471 brand=titan,driver>=470,driver<471 brand=titanrtx,driver>=470,driver<471 brand=tesla,driver>=525,driver<526 brand=unknown,driver>=525,driver<526 brand=nvidia,driver>=525,driver<526 brand=nvidiartx,driver>=525,driver<526 brand=geforce,driver>=525,driver<526 brand=geforcertx,driver>=525,driver<526 brand=quadro,driver>=525,driver<526 brand=quadrortx,driver>=525,driver<526 brand=titan,driver>=525,driver<526 brand=titanrtx,driver>=525,driver<526 brand=tesla,driver>=535,driver<536 brand=unknown,driver>=535,driver<536 brand=nvidia,driver>=535,driver<536 brand=nvidiartx,driver>=535,driver<536 brand=geforce,driver>=535,driver<536 brand=geforcertx,driver>=535,driver<536 brand=quadro,driver>=535,driver<536 brand=quadrortx,driver>=535,driver<536 brand=titan,driver>=535,driver<536 brand=titanrtx,driver>=535,driver<536",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "ENV NV_CUDA_CUDART_VERSION=12.4.127-1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "ENV NV_CUDA_COMPAT_PACKAGE=cuda-compat-12-4",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "ARG TARGETARCH",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "LABEL maintainer=NVIDIA CORPORATION <cudatools@nvidia.com>",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "RUN |1 TARGETARCH=amd64 /bin/sh -c apt-get update && apt-get install -y --no-install-recommends     gnupg2 curl ca-certificates &&     curl -fsSLO https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/${NVARCH}/cuda-keyring_1.1-1_all.deb &&     dpkg -i cuda-keyring_1.1-1_all.deb &&     apt-get purge --autoremove -y curl     && rm -rf /var/lib/apt/lists/* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-08T19:07:07.096630027Z",
+                    "created_by": "ENV CUDA_VERSION=12.4.1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:17.693372963Z",
+                    "created_by": "RUN |1 TARGETARCH=amd64 /bin/sh -c apt-get update && apt-get install -y --no-install-recommends     cuda-cudart-12-4=${NV_CUDA_CUDART_VERSION}     ${NV_CUDA_COMPAT_PACKAGE}     && rm -rf /var/lib/apt/lists/* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-08T19:07:17.845123483Z",
+                    "created_by": "RUN |1 TARGETARCH=amd64 /bin/sh -c echo \"/usr/local/nvidia/lib\" >> /etc/ld.so.conf.d/nvidia.conf     && echo \"/usr/local/nvidia/lib64\" >> /etc/ld.so.conf.d/nvidia.conf # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-08T19:07:17.845123483Z",
+                    "created_by": "ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:17.845123483Z",
+                    "created_by": "ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:18.012025884Z",
+                    "created_by": "COPY NGC-DL-CONTAINER-LICENSE / # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-08T19:07:18.012025884Z",
+                    "created_by": "ENV NVIDIA_VISIBLE_DEVICES=all",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-08T19:07:18.012025884Z",
+                    "created_by": "ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:17.562522076Z",
+                    "created_by": "RUN /bin/sh -c rm -f cuda-*.deb # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:44:18.147319769Z",
+                    "created_by": "RUN /bin/sh -c apt-get --purge -y autoremove cuda-* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "ENV NVIDIA_DISABLE_REQUIRE=true",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "ENV NVIDIA_VISIBLE_DEVICES=all",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "ARG VERSION=N/A",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "ARG GIT_COMMIT=unknown",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL io.k8s.display-name=NVIDIA Device Plugin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL name=NVIDIA Device Plugin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL vendor=NVIDIA",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL version=435bfb70",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL com.nvidia.git-commit=435bfb70a44b74daca23fe957a0f256afaa3c51e",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL release=N/A",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL summary=NVIDIA device plugin for Kubernetes",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "LABEL description=See summary",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:44:18.24311081Z",
+                    "created_by": "RUN |2 VERSION=435bfb70 GIT_COMMIT=435bfb70a44b74daca23fe957a0f256afaa3c51e /bin/sh -c mkdir /licenses && mv /NGC-DL-CONTAINER-LICENSE /licenses/NGC-DL-CONTAINER-LICENSE # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:45:35.090144806Z",
+                    "created_by": "COPY /artifacts/config-manager /usr/bin/config-manager # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:45:35.180530603Z",
+                    "created_by": "COPY /artifacts/gpu-feature-discovery /usr/bin/gpu-feature-discovery # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:45:35.224287307Z",
+                    "created_by": "COPY /artifacts/mps-control-daemon /usr/bin/mps-control-daemon # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:45:35.278975413Z",
+                    "created_by": "COPY /artifacts/nvidia-device-plugin /usr/bin/nvidia-device-plugin # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:45:35.278975413Z",
+                    "created_by": "ARG CVE_UPDATES",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2024-04-16T19:45:35.343683426Z",
+                    "created_by": "RUN |3 VERSION=435bfb70 GIT_COMMIT=435bfb70a44b74daca23fe957a0f256afaa3c51e CVE_UPDATES= /bin/sh -c if [ -n \"${CVE_UPDATES}\" ]; then         rm -f /etc/apt/sources.list.d/cuda.list &&         apt-get update && apt-get upgrade -y ${CVE_UPDATES} &&         rm -rf /var/lib/apt/lists/*;     fi # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2024-04-16T19:45:35.343683426Z",
+                    "created_by": "ENTRYPOINT [\"nvidia-device-plugin\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:5498e8c22f6996f25ef193ee58617d5b37e2a96decf22e72de13c3b34e147591",
+                    "sha256:a5b5877063ce2785614b1c155eae9f21225baed36102eca317479b9e6c2bf647",
+                    "sha256:c44f87b62b34b180efc4e6fdd0db017667c98cdf1a5c4bb36649794a5ad0e76d",
+                    "sha256:5152f26b2054950f6a1e06c47f80f310ef896835df7613076c9e664691b29916",
+                    "sha256:9a3d8b021722149bb1066fe6edaec63cb8e557cca5fe5994ab308045eed8cc3f",
+                    "sha256:dcb88cf02f9cff074e108adf56274218aee0f407149b1bd33956953b51e2a464",
+                    "sha256:10ddc8e25369df002915294147940eca3adf5903d379ff50e7ba9575de67f64d",
+                    "sha256:565da937c84c69e98a324ec3cec66323401b36780c580a9a9e5385e434ca859b",
+                    "sha256:135bb20b95123927e998475f50c09c26af418f16cc3fed412e30ae6e3960b78e",
+                    "sha256:871e959aff1c7933895e4d377b39d8f26386bc624eb36e8147a6b9a6578e5fcd",
+                    "sha256:8631180130207ab3d494279e39c2c40a84f75f7896b8ec3444e91fa15162dbfb",
+                    "sha256:6f0e1677b05448dacf8d64d21ba4db019999ad2d85e655811038c71a0e6a11b9",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+                ]
+            }
+        }
+    }
+}

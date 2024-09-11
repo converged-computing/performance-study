@@ -1,0 +1,112 @@
+{
+    "manifests": {
+        "v0.6.3": {
+            "schemaVersion": 2,
+            "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+            "manifests": [
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "size": 2403,
+                    "digest": "sha256:00b5d7e2b2f560c36165db4432f4abf1e48fc7d6564f3feeaee28ebfdc5f5b7c",
+                    "platform": {
+                        "architecture": "amd64",
+                        "os": "linux"
+                    }
+                },
+                {
+                    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+                    "size": 2403,
+                    "digest": "sha256:6fa1683bf297987a847d3679a0a3fd73f303ed4090047c9a2a655036817fe5b0",
+                    "platform": {
+                        "architecture": "arm64",
+                        "os": "linux"
+                    }
+                }
+            ]
+        }
+    },
+    "tags": [
+        "v0.6.3"
+    ],
+    "configs": {
+        "v0.6.3": {
+            "architecture": "amd64",
+            "config": {
+                "User": "65534",
+                "Env": [
+                    "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+                    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ],
+                "Entrypoint": [
+                    "/metrics-server"
+                ],
+                "WorkingDir": "/",
+                "OnBuild": null
+            },
+            "created": "2023-03-25T00:05:38.022793204Z",
+            "history": [
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "0001-01-01T00:00:00Z"
+                },
+                {
+                    "created": "2023-03-25T00:05:38.022793204Z",
+                    "created_by": "COPY /go/src/sigs.k8s.io/metrics-server/metrics-server / # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+                },
+                {
+                    "created": "2023-03-25T00:05:38.022793204Z",
+                    "created_by": "USER 65534",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                },
+                {
+                    "created": "2023-03-25T00:05:38.022793204Z",
+                    "created_by": "ENTRYPOINT [\"/metrics-server\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+                }
+            ],
+            "moby.buildkit.buildinfo.v1": "eyJmcm9udGVuZCI6ImRvY2tlcmZpbGUudjAiLCJzb3VyY2VzIjpbeyJ0eXBlIjoiZG9ja2VyLWltYWdlIiwicmVmIjoiZG9ja2VyLmlvL2xpYnJhcnkvZ29sYW5nOjEuMTkuNyIsInBpbiI6InNoYTI1NjpkNzFjM2E0NmNkMDIwNGU3MTBhYzM0NzZjZGE1YThhMzVlNDc4OWZlZWE0YTdlNjMwYjkwOGU3MTM0NjQ2ODIwIn0seyJ0eXBlIjoiZG9ja2VyLWltYWdlIiwicmVmIjoiZ2NyLmlvL2Rpc3Ryb2xlc3Mvc3RhdGljOmxhdGVzdC1hbWQ2NCIsInBpbiI6InNoYTI1NjoxMjY4MDgwZGM4MGEyMDk3YzZjMjczYWM1MDFkNmRkYWY5YWFmOTJkZTEzMWEyYmRiNDBlMDIyNmZiNTYxZDAwIn1dfQ==",
+            "os": "linux",
+            "rootfs": {
+                "type": "layers",
+                "diff_ids": [
+                    "sha256:d0157aa0c95a4cae128dab97d699b2f303c8bea46914dc4a40722411f50bb40e",
+                    "sha256:6fbdf253bbc2490dcfede5bdb58ca0db63ee8aff565f6ea9f918f3bce9e2d5aa",
+                    "sha256:1b19a5d8d2dcb505a30c110e471dcd600d9300a8b7b0bcfa74316f3c9f1a71b5",
+                    "sha256:ff5700ec54186528cbae40f54c24b1a34fb7c01527beaa1232868c16e2353f52",
+                    "sha256:d52f02c6501c9c4410568f0bf6ff30d30d8290f57794c308fe36ea78393afac2",
+                    "sha256:e624a5370eca2b8266e74d179326e2a8767d361db14d13edd9fb57e408731784",
+                    "sha256:1a73b54f556b477f0a8b939d13c504a3b4f4db71f7a09c63afbc10acb3de5849",
+                    "sha256:d2d7ec0f6756eb51cf1602c6f8ac4dd811d3d052661142e0110357bf0b581457",
+                    "sha256:4cb10dd2545bd173858450b80853b850e49608260f1a0789e0d0b39edf12f500",
+                    "sha256:0293b93c131791265b928ac40b38807e66fab2a073c57c0efcce4c9135a6fac3"
+                ]
+            }
+        }
+    }
+}

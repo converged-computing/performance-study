@@ -48,8 +48,8 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  - pmix@4.2.2" \
     &&   echo "  - flux-pmix@0.4.0" \
     &&   echo "  - amg2023 +mpi +cuda cuda_arch=70" \
-    &&   echo "  - hypre +cuda cuda_arch=70" \
-#   &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
+#    &&   echo "  - hypre +cuda cuda_arch=70" \
+    &&   echo "  - hypre +cuda cuda_arch=70 +mixedint" \
     &&   echo "  concretizer:" \
     &&	 echo "    unify: true" \
     &&   echo "  config:" \
