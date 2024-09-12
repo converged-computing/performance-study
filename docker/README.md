@@ -28,7 +28,9 @@ Since we need to vary builds across clouds, let's keep track of that here. These
 
 | Container                                                      | Cloud     | GPU | Dockerfile                          | Notes             |
 |----------------------------------------------------------------|-----------|-----|------------------------------------|--------------------|
-| ghcr.io/converged-computing/metric-amg2023:google-gpu | Google | yes |[Dockerfile](docker/google/gpu/amg2023) | Using slim variant |
+| ghcr.io/converged-computing/metric-amg2023:google-gpu | Google | yes |[Dockerfile](docker/google/gpu/amg2023) |  This was GKE |
+| ghcr.io/converged-computing/metric-amg2023:spack-older-intel | Google | yes |[Dockerfile](docker/google/gpu/amg2023) |  This was for smaller problem on compute engine |
+| ghcr.io/converged-computing/metric-amg2023:skylake-manual | Google | yes |[Dockerfile](docker/google/gpu/amg2023) |  This was for larger problem on compute engine |
 | ghcr.io/converged-computing/metric-laghos:gpu-zen4             | Google    | yes |[Dockerfile](docker/google/gpu/laghos)  | Needs to be built on large machine  |
 | ghcr.io/converged-computing/metric-single-node:cpu-zen4 | Google | no |[Dockerfile](docker/google/cpu/single-node) | |  
 | ghcr.io/converged-computing/metric-kripke-gpu:google-gpu           | Google    | yes |[Dockerfile](docker/google/gpu/kripke)  | |

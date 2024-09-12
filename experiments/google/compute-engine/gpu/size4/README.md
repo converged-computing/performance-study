@@ -85,11 +85,30 @@ export output=results/$app
 mkdir -p $output
 
 # Confirmed using all 8 GPU
+# This was the first run using a container that couldn't hit the largest problem size
 for i in $(seq 2 5); do
   echo "Running iteration $i"
   # time flux run -opmi=pmix --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 128 128 128 -P 4 4 2 -problem 2 
   # Note that 256 cubed still doesn't work at this size
   time flux run -opmi=pmix --setattr=user.study_id=$app-4-large-problem-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv --env FI_PROVIDER=tcp,self /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 256 128 128 -P 4 4 2 -problem 2 
+done
+
+# When they are done:
+./save.sh $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-4-$app $output
+```
+
+This is a second run for a container that can hit 256 256 128.
+
+```console
+export app=amg2023-large
+export output=results/$app
+mkdir -p $output
+
+# Confirmed using all 8 GPU
+for i in $(seq 2 5); do
+  echo "Running iteration $i"
+  time flux run -opmi=pmix --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_skylake-manual.sif amg -n 256 256 128 -P 4 4 2 -problem 2 
 done
 
 # When they are done:
