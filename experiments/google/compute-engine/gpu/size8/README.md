@@ -97,6 +97,24 @@ done
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-8-$app $output
 ```
 
+This is a second run for a container that can hit 256 256 128.
+
+```console
+export app=amg2023-large
+export output=results/$app
+mkdir -p $output
+
+# Confirmed using all 8 GPU
+for i in $(seq 2 5); do
+  echo "Running iteration $i"
+  time flux run -opmi=pmix --setattr=user.study_id=$app-8-iter-$i -N 8 -n 64 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_skylake-manual.sif amg -n 256 256 128 -P 4 4 4 -problem 2 
+done
+
+# When they are done:
+./save.sh $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-8-$app $output
+```
+
 #### Kripke
 
 ```console

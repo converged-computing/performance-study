@@ -74,7 +74,7 @@ module "flux_compute_instance_template" {
 module "flux_compute_instances" {
     source              = "github.com/terraform-google-modules/terraform-google-vm/modules/compute_instance"
     region              = var.region
-    # Explicitly choose c
+    # Explicitly choose c - if you don't, will choose across zones
     zone		= "us-central1-c"
     //zone                = data.google_compute_zones.available.names[0]
     hostname            = var.name_prefix

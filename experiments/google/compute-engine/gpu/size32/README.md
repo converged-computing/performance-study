@@ -84,7 +84,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 
 #### AMG2023
 
-Note error at largest size:
+Note error at largest size (with original container - we fixed this by not building with spack):
 
 ```console
 [flux-032:04050] *** Process received signal ***
@@ -122,6 +122,24 @@ for i in $(seq 1 5); do
   time flux run -opmi=pmix --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 256 128 128 -P 8 8 4 -problem 2
   #  also 63 seconds!
   time flux run -opmi=pmix --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_spack-older-intel.sif /opt/view/bin/amg -n 128 128 128 -P 8 8 4 -problem 2
+done
+
+# When they are done:
+./save.sh $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-32-$app $output
+```
+
+This is a second run for a container that can hit 256 256 128.
+
+```console
+export app=amg2023-large
+export output=results/$app
+mkdir -p $output
+
+# Confirmed using all 8 GPU
+for i in $(seq 2 5); do
+  echo "Running iteration $i"
+  time flux run -opmi=pmix --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task singularity exec --nv /opt/containers/metric-amg2023_skylake-manual.sif amg -n 256 256 128 -P 8 8 4 -problem 2 
 done
 
 # When they are done:
