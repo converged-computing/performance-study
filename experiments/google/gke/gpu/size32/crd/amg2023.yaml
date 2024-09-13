@@ -12,18 +12,16 @@ spec:
       disable: true
 
   containers:
-  - image: ghcr.io/converged-computing/metric-amg2023:spack-slim-cpu-int64-zen3
+  - image: ghcr.io/converged-computing/metric-amg2023:skylake-manual
     volumes:
       shared-memory:
         emptyDir: true
         emptyDirMedium: "memory"
     commands:
       pre: |
-        . /etc/profile.d/z10_spack_environment.sh
         echo "Regenerated resources"
         flux R encode --hosts=${hosts} --cores=0-15 --gpu=0-7 > ${viewroot}/etc/flux/system/R
         cat ${viewroot}/etc/flux/system/R        
-        export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
     resources:
       limits:
         nvidia.com/gpu: "8"
