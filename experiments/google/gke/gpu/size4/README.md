@@ -1,4 +1,4 @@
-# GKE GPU Experiment (size 8)
+# GKE GPU Experiment (size 4)
 
 - Created at : 11:55pm
 - Deleted: 2:30am
@@ -46,6 +46,14 @@ gpu-cluster-4  us-central1-a  1.29.7-gke.1104000  34.135.142.49  n1-standard-32 
 real	6m11.385s
 user	0m3.760s
 sys	0m0.310s
+
+# amg re-runs
+NAME           LOCATION       MASTER_VERSION      MASTER_IP     MACHINE_TYPE    NODE_VERSION        NUM_NODES  STATUS
+gpu-cluster-4  us-central1-c  1.30.3-gke.1639000  34.31.181.80  n1-standard-32  1.30.3-gke.1639000  4          RUNNING
+
+real	5m53.267s
+user	0m2.277s
+sys	0m0.206s
 ```
 
 Sanity check installed on all nodes
@@ -55,7 +63,7 @@ kubectl get nodes -o json | jq .items[].status.allocatable
 kubectl get nodes -o json | jq .items[].status.allocatable | grep nvidia | wc -l
 ```
 ```
-8
+4
 ```
 
 Install the Flux Operator:
@@ -141,11 +149,12 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:g
 kubectl delete -f crd/single-node.yaml
 ```
 
-### AMG2023
+### AMG2023 (CPU)
 
+This was mostly an erroneous run because we didn't originally get the GPU container working.
 
 ```bash
-kubectl apply -f ./crd/amg2023.yaml
+kubectl apply -f ./crd/amg2023-cpu.yaml
 time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
 ```
 
@@ -165,12 +174,64 @@ export output=./results/$app
 mkdir -p $output
 
 # Size 4
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   flux submit --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 4 4 2 -problem 2 
 done
 
 apt-get update && apt-get install -y jq
+
+# When they are done:
+for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
+done
+
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-gpu-4-$app $output
+```
+```bash
+kubectl delete -f ./crd/amg2023.yaml
+```
+
+### AMG2023
+
+```bash
+kubectl apply -f ./crd/amg2023.yaml
+time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=600s
+```
+
+Forgot to install oras here:
+
+```
+export VERSION="1.1.0" && \
+    curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_linux_amd64.tar.gz" && \
+    mkdir -p oras-install/ && \
+    tar -zxf oras_${VERSION}_*.tar.gz -C oras-install/ && \
+    mv oras-install/oras /usr/local/bin/ && \
+    rm -rf oras_${VERSION}_*.tar.gz oras-install/
+```
+
+Here is an example loop through sizes and iterations.
+
+```console
+flux proxy local:///mnt/flux/view/run/flux/local bash
+oras login ghcr.io --username vsoch
+export app=amg2023-large
+export output=./results/$app
+mkdir -p $output
+
+# Size 4
+for i in $(seq 1 5); do     
+  echo "Running iteration $i"
+  flux run --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task  amg -n 256 256 128 -P 4 4 2 -problem 2 
+done
 
 # When they are done:
 for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
@@ -253,7 +314,7 @@ for i in $(seq 1 5); do
     flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-1-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm
 done
 
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i" 
   flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-vbatched-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/magma/magma-2.8.0/build/testing/testing_dgemm_vbatched --ngpu 1
 done
@@ -426,7 +487,7 @@ output=./results/$app
 mkdir -p $output
 
 # 4 Nodes
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 --setattr=user.study_id=$app-4-iter-$i -N4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task /opt/gem/mt-dgemm.x 16384 100
 done
@@ -516,7 +577,7 @@ mkdir -p $output
 ./flux-run-combinations.sh 4 $app
 
 # 4 Nodes
-for i in $(seq 2 5); do     
+for i in $(seq 1 5); do     
   echo "Running iteration $i"
   flux run --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
   --setattr=user.study_id=$app-4-iter-$i -N 4 -n 32 -g 1 -o cpu-affinity=per-task -o gpu-affinity=per-task \
