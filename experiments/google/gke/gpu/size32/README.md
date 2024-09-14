@@ -6,6 +6,8 @@
 Note that it seems we need to create the exact cluster size that flux is going to use and run on.
 If you create one that is larger and run smaller, the GPUs won't be used
 
+For the amg2023 re-run, I tried for days to get a cluster, and finally did in region c at 5:50am Mountain.
+
 ## Experiment
 
 ### 1. Setup
@@ -36,7 +38,13 @@ user	0m2.200s
 sys	0m0.211s
 
 # amg re-run (zone c)?
-# NOT RUN YET - can't get nodes.
+kubeconfig entry generated for gpu-cluster-32.
+NAME            LOCATION       MASTER_VERSION      MASTER_IP      MACHINE_TYPE    NODE_VERSION        NUM_NODES  STATUS
+gpu-cluster-32  us-central1-a  1.30.3-gke.1639000  34.31.240.102  n1-standard-32  1.30.3-gke.1639000  32         RUNNING
+
+real	5m23.837s
+user	0m1.804s
+sys	0m0.147s
 ```
 
 Sanity check installed on all nodes
@@ -225,7 +233,7 @@ export app=amg2023-large
 export output=./results/$app
 mkdir -p $output
 
-# Size 16
+# Size 32
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
   flux run --setattr=user.study_id=$app-32-iter-$i -N 32 -n 256 -g 1 -o gpu-affinity=per-task -o cpu-affinity=per-task amg -n 256 256 128 -P 8 8 4 -problem 2 
