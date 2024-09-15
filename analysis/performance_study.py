@@ -6,6 +6,7 @@ import json
 import os
 import re
 
+from matplotlib.ticker import FormatStrFormatter
 import matplotlib.pylab as plt
 import pandas
 import seaborn as sns
@@ -192,6 +193,7 @@ def make_plot(
     hue=None,
     outdir="img",
     log_scale=False,
+    do_round=False,
 ):
     """
     Helper function to make common plots.
@@ -223,6 +225,8 @@ def make_plot(
             plt.ScalarFormatter(useOffset=True, useMathText=True)
         )
 
+    if do_round is True:
+        ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
     plt.clf()
