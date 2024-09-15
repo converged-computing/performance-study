@@ -130,30 +130,11 @@ def parse_data(indir, outdir, files):
         cloud = parts.pop(0)
         env = parts.pop(0)
         env_type = parts.pop(0)
+        size = parts.pop(0)
 
-        # aws eks gpu was done as one cluster (all sizes at 16)
-        if "aws/eks/gpu" in filename:
-            size = parts.pop(0)
-            size = int(size.replace("results-", ""))
-
-        elif re.search("(eks|aks|compute-engine|gke)", filename):
-            size = parts.pop(0)
-            # We can use the node data for shared memory, no efa runs too, still valuable
-            size = re.sub("-(shared-memory|noefa|placement)", "", size)
-            size = int(size.replace("size", ""))
-
-        # experiments/aws/parallel-cluster/cpu/experiment/results/64-node/single-node-benchmarks/*.out
-        elif "parallel-cluster" in filename:
-            # skip "experiment" then "results"
-            size = parts.pop(2)
-            size = int(size.replace("-node", ""))
-
-        # Azure has results before size
-        elif "azure" in filename:
-            size = parts.pop(1)
-            size = int(size.replace("-nodes-update", "").replace("-nodes", ""))
-        else:
-            print(parts)
+        # We can use the node data for shared memory, no efa runs too, still valuable
+        size = re.sub("-(shared-memory|noefa|placement)", "", size)
+        size = int(size.replace("size", ""))
 
         print(cloud, env, env_type, size)
         if cloud not in counter:

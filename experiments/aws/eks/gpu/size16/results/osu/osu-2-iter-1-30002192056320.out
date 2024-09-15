@@ -1,0 +1,45 @@
+0.038s: flux-shell[1]: ERROR: host flux-sample-6: Could not change dir to /opt/results/osu: No such file or directory. Going to /tmp instead
+0.039s: flux-shell[0]: ERROR: host flux-sample-2: Could not change dir to /opt/results/osu: No such file or directory. Going to /tmp instead
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+Warning: OMB could not identify the local rank of the process.
+         Please use the get_local_rank script in the OMB repo for this.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+# OSU MPI-CUDA Bandwidth Test v5.8
+# Send Buffer on HOST (H) and Receive Buffer on HOST (H)
+# Size      Bandwidth (MB/s)
+1                       0.66
+2                       1.32
+4                       2.65
+8                       5.26
+16                     10.50
+32                     21.07
+64                     42.41
+128                    83.50
+256                   166.47
+512                   331.58
+1024                  658.11
+2048                 1284.03
+4096                 2412.75
+8192                 3851.46
+16384                4630.90
+32768                5607.21
+65536                6512.98
+131072               6525.03
+262144               6613.26
+524288               6691.96
+1048576              6692.67
+2097152              6636.03
+4194304              6601.81
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/results/osu", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 10485760, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}, "constraints": {"and": [{"hostlist": ["flux-sample-2,flux-sample-6"]}, {"hostlist": ["flux-sample-2,flux-sample-6"]}]}}, "user": {"study_id": "osu-2-iter-1"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724828717.3201289,"name":"init"}
+{"timestamp":1724828717.3220298,"name":"starting"}
+{"timestamp":1724828717.338062,"name":"shell.init","context":{"service":"0-shell-fEb7ByWfq","leader-rank":2,"size":2}}
+{"timestamp":1724828717.3407803,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724828719.7965257,"name":"shell.task-exit","context":{"localid":0,"rank":1,"state":"Exited","pid":112,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724828719.8016694,"name":"complete","context":{"status":0}}
+{"timestamp":1724828719.801693,"name":"done"}
+
