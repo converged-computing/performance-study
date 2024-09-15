@@ -175,7 +175,7 @@ def parse_data(indir, outdir, files):
         p.set_context(cloud, env, env_type, size)
         print(cloud, env, env_type, size)
 
-        # Now we can read each AMG result file and get the FOM.
+        # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
 

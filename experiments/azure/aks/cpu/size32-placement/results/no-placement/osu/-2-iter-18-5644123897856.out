@@ -1,0 +1,36 @@
+# OSU MPI Bandwidth Test v5.8
+# Size      Bandwidth (MB/s)
+1                       0.20
+2                       0.45
+4                       0.83
+8                       1.66
+16                      2.98
+32                      7.58
+64                     83.12
+128                    22.51
+256                    46.26
+512                    97.16
+1024                  193.83
+2048                  449.04
+4096                 6188.34
+8192                12563.06
+16384               15197.74
+32768               15976.49
+65536               15183.22
+131072              16895.35
+262144              11216.71
+524288               8541.45
+1048576              7794.23
+2097152              5971.12
+4194304              4657.82
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/azhpc-images/ubuntu/ubuntu-22.x/ubuntu-22.04-hpc", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-sample-5,flux-sample-6"]}}, "user": {"study_id": "-2-iter-18"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1724527709.391295,"name":"init"}
+{"timestamp":1724527709.3925889,"name":"starting"}
+{"timestamp":1724527709.3760464,"name":"shell.init","context":{"service":"0-shell-f3ZGAuHWX","leader-rank":5,"size":2}}
+{"timestamp":1724527709.3796232,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1724527712.6052949,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":488,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1724527712.6528704,"name":"complete","context":{"status":0}}
+{"timestamp":1724527712.6528959,"name":"done"}
+
