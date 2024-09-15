@@ -18,6 +18,22 @@ Note that the [1-run-analysis.py](1-run-analysis.py) has a listing of erroneous 
 
 Several problem sizes were run.
 
+### Wall Time LAMMPS
+
+> As reported by lammps
+
+#### Wall Time LAMMPS GPU 64 x 32 x 32
+
+![data/img/lammps-reax-wall_time-64x32x32-gpu.png](data/img/lammps-reax-wall_time-64x32x32-gpu.png)
+
+#### Wall Time LAMMPS GPU 64 x 64 x 32
+
+![data/img/lammps-reax-wall_time-64x64x32-gpu.png](data/img/lammps-reax-wall_time-64x64x32-gpu.png)
+
+#### Wall Time LAMMPS CPU 64 x 64 x 32
+
+![data/img/lammps-reax-wall_time-64x64x32-cpu.png](data/img/lammps-reax-wall_time-64x64x32-cpu.png)
+
 ### CPU Utilization
 
 > As reported by LAMMPS
@@ -34,7 +50,25 @@ Several problem sizes were run.
 
 ![data/img/lammps-reax-cpu_utilization-64x64x32-cpu.png](data/img/lammps-reax-cpu_utilization-64x64x32-cpu.png)
 
+### Hookup Time
+
+> Wrapper time - duration (of workload manager)
+
+#### Hookup Time for GPU 64 x 32 x 32
+
+![data/img/lammps-reax-hookup_time-64x32x32-gpu.png](data/img/lammps-reax-hookup_time-64x32x32-gpu.png)
+
+#### Hookup Time for GPU 64 x 64 x 32
+
+![data/img/lammps-reax-hookup_time-64x64x32-gpu.png](data/img/lammps-reax-hookup_time-64x64x32-gpu.png)
+
+#### Hookup Time for CPU 64 x 64 x 32
+
+![data/img/lammps-reax-hookup_time-64x64x32-cpu.png](data/img/lammps-reax-hookup_time-64x64x32-cpu.png)
+
 ### Workload Manager Wrapper Seconds
+
+> This is the wall time plus the hookup time.
 
 #### Wrapper Time Seconds GPU 64 x 32 x 32
 
@@ -48,16 +82,3 @@ Several problem sizes were run.
 
 ![data/img/lammps-reax-seconds-64x64x32-cpu.png](data/img/lammps-reax-seconds-64x64x32-cpu.png)
 
-### Wall Time LAMMPS
-
-#### Wall Time LAMMPS GPU 64 x 32 x 32
-
-![data/img/lammps-reax-wall_time-64x32x32-gpu.png](data/img/lammps-reax-wall_time-64x32x32-gpu.png)
-
-#### Wall Time LAMMPS GPU 64 x 64 x 32
-
-![data/img/lammps-reax-wall_time-64x64x32-gpu.png](data/img/lammps-reax-wall_time-64x64x32-gpu.png)
-
-#### Wall Time LAMMPS CPU 64 x 64 x 32
-
-![data/img/lammps-reax-wall_time-64x64x32-cpu.png](data/img/lammps-reax-wall_time-64x64x32-cpu.png)

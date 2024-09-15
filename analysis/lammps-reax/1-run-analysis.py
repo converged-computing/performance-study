@@ -219,18 +219,20 @@ def parse_data(indir, outdir, files):
 
             # We want this to fail if there is an issue!
             lammps_result = parse_lammps(item)
+            wall_time = lammps_result["total_wall_time_seconds"]
             metadata["lammps"] = lammps_result
-            p.add_result(
-                "wall_time",
-                metadata["lammps"]["total_wall_time_seconds"],
-                problem_size,
-            )
+            p.add_result("wall_time", wall_time, problem_size)
             p.add_result("ranks", metadata["lammps"]["ranks"], problem_size)
+
+            # Calculate the hookup time - wrapper time minus wall time
+            hookup_time = duration - wall_time
+            p.add_result("hookup_time", hookup_time, problem_size)
 
             # CPU utilization
             line = [x for x in item.split("\n") if "CPU use" in x][0]
             cpu_util = float(line.split(" ")[0].replace("%", ""))
             p.add_result("cpu_utilization", cpu_util, problem_size)
+
     print("Done parsing lammps results!")
     p.df.to_csv(os.path.join(outdir, "lammps-reax-results.csv"))
     ps.write_json(data, os.path.join(outdir, "lammps-reax-parsed.json"))
