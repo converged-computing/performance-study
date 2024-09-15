@@ -156,6 +156,12 @@ def parse_slurm_duration(item):
     done = int([x for x in item.split("\n") if "End time" in x][0].rsplit(" ", 1)[-1])
     return done - start
 
+def remove_slurm_duration(item):
+    """
+    Remove the start and end time from the slurm output.
+    """
+    keepers = [x for x in item.split("\n") if not re.search("^(Start|End) time", x)]
+    return "\n".join(keepers)
 
 def skip_result(dirname, filename):
     """
