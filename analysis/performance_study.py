@@ -172,6 +172,10 @@ def skip_result(dirname, filename):
     if os.path.join("experiment", "data") in filename:
         return True
 
+    # These are OK
+    if "aks/cpu/size" in filename and "kripke" in filename:
+        return False
+
     # These were redone with a placement group
     if "aks/cpu/size" in filename and "placement" not in filename:
         return True
@@ -181,6 +185,7 @@ def skip_result(dirname, filename):
         or "configs" in filename
         or "no-add" in filename
         or "noefa" in filename
+        or "attempt-1" in filename
         or "no-placement" in filename
         or "shared-memory" in filename
     )
