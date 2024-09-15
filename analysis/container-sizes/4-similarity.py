@@ -278,56 +278,5 @@ def parse_manifests(files):
     return df
 
 
-def make_plot(
-    df,
-    title,
-    ydimension,
-    xdimension,
-    xlabel,
-    ylabel,
-    palette=None,
-    ext="pdf",
-    plotname="lammps",
-    plot_type="violin",
-    hue=None,
-    outdir="img",
-):
-    """
-    Helper function to make common plots.
-    """
-    plotfunc = sns.boxplot
-    if plot_type == "violin":
-        plotfunc = sns.violinplot
-
-    ext = ext.strip(".")
-    plt.figure(figsize=(12, 8))
-    sns.set_style("dark")
-    if plot_type == "violin":
-        ax = plotfunc(
-            x=xdimension, y=ydimension, hue=hue, data=df, linewidth=0.8, palette=palette
-        )
-    else:
-        ax = plotfunc(
-            x=xdimension,
-            y=ydimension,
-            hue=hue,
-            data=df,
-            linewidth=0.8,
-            palette=palette,
-            whis=[5, 95],
-            dodge=False,
-        )
-
-    plt.title(title)
-    ax.set_xlabel(xlabel, fontsize=16)
-    ax.set_ylabel(ylabel, fontsize=16)
-    ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-    ax.set_yticklabels(ax.get_yticks(), fontsize=14)
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
-    plt.clf()
-
-
 if __name__ == "__main__":
     main()
