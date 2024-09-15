@@ -123,10 +123,8 @@ def parse_data(indir, outdir, files):
         if re.search("(attempt|broken|configs|times)", filename):
             continue
 
-        # Slightly different nesting across experiments. All of these are consistent
+        # All of these are consistent across studies
         parts = filename.replace(indir + os.sep, "").split(os.sep)
-
-        # These are consistent across studies
         cloud = parts.pop(0)
         env = parts.pop(0)
         env_type = parts.pop(0)
