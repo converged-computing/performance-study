@@ -174,6 +174,7 @@ def skip_result(dirname, filename):
         or "configs" in filename
         or "no-add" in filename
         or "noefa" in filename
+        or "no-placement" in filename
         or "shared-memory" in filename
     )
 
