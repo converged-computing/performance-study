@@ -4,6 +4,7 @@ import argparse
 import collections
 import json
 import os
+import sys
 import re
 
 import matplotlib.pylab as plt
@@ -11,7 +12,11 @@ import pandas
 import seaborn as sns
 
 here = os.path.dirname(os.path.abspath(__file__))
-root = os.path.dirname(os.path.dirname(here))
+analysis_root = os.path.dirname(here)
+root = os.path.dirname(analysis_root)
+sys.path.insert(0, analysis_root)
+
+import performance_study as ps
 
 sns.set_theme(style="whitegrid", palette="pastel")
 
@@ -60,39 +65,6 @@ def get_parser():
     return parser
 
 
-def recursive_find(base, pattern="*.*"):
-    """
-    Recursively find and yield directories matching a glob pattern.
-    """
-    for root, dirnames, filenames in os.walk(base):
-        for dirname in dirnames:
-            if not re.search(pattern, dirname):
-                continue
-            yield os.path.join(root, dirname)
-
-
-def find_inputs(input_dir, pattern="*.*"):
-    """
-    Find inputs (times results files)
-    """
-    files = []
-    for filename in recursive_find(input_dir, pattern):
-        # We only have data for small
-        files.append(filename)
-    return files
-
-
-def get_outfiles(base, pattern="[.]out"):
-    """
-    Recursively find and yield directories matching a glob pattern.
-    """
-    for root, _, filenames in os.walk(base):
-        for filename in filenames:
-            if not re.search(pattern, filename):
-                continue
-            yield os.path.join(root, filename)
-
-
 def main():
     """
     Find application result files to parse.
@@ -107,91 +79,13 @@ def main():
         os.makedirs(outdir)
 
     # Find input files (skip anything with test)
-    files = find_inputs(indir, "amg2023")
+    files = ps.find_inputs(indir, "amg2023")
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
     plot_results(df, outdir)
-
-
-def read_file(filename):
-    with open(filename, "r") as fd:
-        content = fd.read()
-    return content
-
-
-def write_json(obj, filename):
-    with open(filename, "w") as fd:
-        fd.write(json.dumps(obj, indent=4))
-
-
-def write_file(text, filename):
-    with open(filename, "w") as fd:
-        fd.write(text)
-
-
-class ResultParser:
-    """
-    Helper class to parse results into a data frame.
-    """
-
-    def __init__(self, app):
-        self.init_df()
-        self.idx = 0
-        self.app = app
-
-    def init_df(self):
-        """
-        Initialize an empty data frame for the application
-        """
-        self.df = pandas.DataFrame(
-            columns=[
-                "experiment",
-                "cloud",
-                "env",
-                "env_type",
-                "nodes",
-                "application",
-                "metric",
-                "value",
-            ]
-        )
-
-    def set_context(self, cloud, env, env_type, size, qualifier=None):
-        """
-        Set the context for the next stream of results.
-
-        These are just fields to add to the data frame.
-        """
-        self.cloud = cloud
-        self.env = env
-        self.env_type = env_type
-        self.size = size
-        # Extra metadata to add to experiment name
-        self.qualifier = qualifier
-
-    def add_result(self, metric, value):
-        """
-        Add a result to the table
-        """
-        # Unique identifier for the experiment plot
-        # is everything except for size
-        experiment = os.path.join(self.cloud, self.env, self.env_type)
-        if self.qualifier is not None:
-            experiment = os.path.join(experiment, self.qualifier)
-        self.df.loc[self.idx, :] = [
-            experiment,
-            self.cloud,
-            self.env,
-            self.env_type,
-            self.size,
-            self.app,
-            metric,
-            value,
-        ]
-        self.idx += 1
 
 
 def get_fom_line(item, name):
@@ -202,44 +96,12 @@ def get_fom_line(item, name):
     return float(line.rsplit(" ", 1)[-1])
 
 
-def parse_flux_metadata(item):
-    """
-    Jobs run with flux have a jobspec and event metadata at the end
-    """
-    item, metadata = item.split("START OF JOBSPEC")
-    metadata, events = metadata.split("START OF EVENTLOG")
-    jobspec = json.loads(metadata)
-    events = [json.loads(x) for x in events.split("\n") if x]
-
-    # QUESTION: is this the correct event, shell.start? I chose over init
-    # Note that I assume we want to start at init and done.
-    # This unit is in seconds
-    start = [x for x in events if x["name"] == "shell.start"][0]["timestamp"]
-    done = [x for x in events if x["name"] == "done"][0]["timestamp"]
-    duration = done - start
-    metadata = {"jobspec": jobspec, "events": events}
-    return item, duration, metadata
-
-
-def parse_slurm_duration(item):
-    """
-    Get the start and end time from the slurm output.
-
-    We want this to throwup if it is missing from the output.
-    """
-    start = int(
-        [x for x in item.split("\n") if "Start time" in x][0].rsplit(" ", 1)[-1]
-    )
-    done = int([x for x in item.split("\n") if "End time" in x][0].rsplit(" ", 1)[-1])
-    return done - start
-
-
 def parse_data(indir, outdir, files):
     """
     Parse filepaths for environment, etc., and results files for data.
     """
     # metrics here will be figures of merit, and seconds runtime
-    p = ResultParser("amg2023")
+    p = ps.ResultParser("amg2023")
 
     # For flux we can save jobspecs and other event data
     data = {}
@@ -250,13 +112,7 @@ def parse_data(indir, outdir, files):
         # Underscore means skip, also skip configs and runs without efa
         # runs with google and shared memory were actually slower...
         dirname = os.path.basename(filename)
-        if (
-            dirname.startswith("_")
-            or "configs" in filename
-            or "no-add" in filename
-            or "noefa" in filename
-            or "shared-memory" in filename
-        ):
+        if ps.skip_result(dirname, filename):
             continue
 
         # All of these are consistent across studies
@@ -290,14 +146,6 @@ def parse_data(indir, outdir, files):
                 print(f"Skipping {filename}, not correct result to use.")
                 continue
 
-        # I don't know if these are results or testing, skipping for now
-        # They are from aws parallel-cluster CPU
-        if os.path.join("experiment", "data") in filename:
-            continue
-
-        # These were redone with a placement group
-        if "aks/cpu/size" in filename and "placement" not in filename:
-            continue
         # If these are in the size, they are additional identifiers to indicate the
         # environment type. Add to it instead of the size. I could skip some of these
         # but I want to see the differences.
@@ -315,7 +163,7 @@ def parse_data(indir, outdir, files):
         print(cloud, env, env_type, size)
 
         # Now we can read each AMG result file and get the FOM.
-        results = list(get_outfiles(filename))
+        results = list(ps.get_outfiles(filename))
         for result in results:
 
             # Skip over found erroneous results
@@ -326,16 +174,16 @@ def parse_data(indir, outdir, files):
             # Basename that start with underscore are test or otherwise should not be included
             if os.path.basename(result).startswith("_"):
                 continue
-            item = read_file(result)
+            item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, duration, metadata = parse_flux_metadata(item)
+                item, duration, metadata = ps.parse_flux_metadata(item)
                 data[prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
-                duration = parse_slurm_duration(item)
+                duration = ps.parse_slurm_duration(item)
 
             # Add the duration in seconds
             p.add_result("seconds", duration)
@@ -358,7 +206,7 @@ def parse_data(indir, outdir, files):
 
     # Save stuff to file first
     p.df.to_csv(os.path.join(outdir, "amg2023-results.csv"))
-    write_json(data, os.path.join(outdir, "flux-jobspec-and-events.json"))
+    ps.write_json(data, os.path.join(outdir, "flux-jobspec-and-events.json"))
     return p.df
 
 
@@ -394,7 +242,7 @@ def plot_results(df, outdir):
 
             # Make sure fom is always capitalized
             title = title.replace("Fom", "FOM")
-            make_plot(
+            ps.make_plot(
                 metric_df,
                 title=f"AMG2023 Metric {title} for {env.upper()}",
                 ydimension="value",
@@ -407,56 +255,6 @@ def plot_results(df, outdir):
                 ylabel=title,
                 log_scale=log_scale,
             )
-
-
-def make_plot(
-    df,
-    title,
-    ydimension,
-    xdimension,
-    xlabel,
-    ylabel,
-    palette=None,
-    ext="png",
-    plotname="lammps",
-    hue=None,
-    outdir="img",
-    log_scale=False,
-):
-    """
-    Helper function to make common plots.
-    """
-    ext = ext.strip(".")
-    plt.figure(figsize=(12, 6))
-    sns.set_style("dark")
-    ax = sns.boxplot(
-        x=xdimension,
-        y=ydimension,
-        hue=hue,
-        data=df,
-        # gap=.1,
-        linewidth=0.8,
-        palette=palette,
-        whis=[5, 95],
-        # dodge=False,
-    )
-
-    plt.title(title)
-    print(log_scale)
-    ax.set_xlabel(xlabel, fontsize=16)
-    ax.set_ylabel(ylabel, fontsize=16)
-    ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-    ax.set_yticklabels(ax.get_yticks(), fontsize=14)
-    # plt.xticks(rotation=90)
-    if log_scale is True:
-        plt.gca().yaxis.set_major_formatter(
-            plt.ScalarFormatter(useOffset=True, useMathText=True)
-        )
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
-    plt.clf()
-
 
 if __name__ == "__main__":
     main()
