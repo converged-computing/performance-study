@@ -131,6 +131,9 @@ def parse_data(indir, outdir, files):
     # For flux we can save jobspecs and other event data
     data = {}
 
+    import IPython
+    IPython.embed()
+    sys.exit()
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
 
