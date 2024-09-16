@@ -72,13 +72,13 @@ Several problem sizes were run.
 
 #### Wrapper Time Seconds GPU 64 x 32 x 32
 
-![data/img/lammps-reax-seconds-64x32x32-gpu.png](data/img/lammps-reax-seconds-64x32x32-gpu.png)
+![data/img/lammps-reax-workload_manager_wrapper_seconds-64x32x32-gpu.png](data/img/lammps-reax-workload_manager_wrapper_seconds-64x32x32-gpu.png)
 
 #### Wrapper Time Seconds GPU 64 x 64 x 32
 
-![data/img/lammps-reax-seconds-64x64x32-gpu.png](data/img/lammps-reax-seconds-64x64x32-gpu.png)
+![data/img/lammps-reax-workload_manager_wrapper_seconds-64x64x32-gpu.png](data/img/lammps-reax-workload_manager_wrapper_seconds-64x64x32-gpu.png)
 
 #### Wrapper Time Seconds CPU 64 x 64 x 32
 
-![data/img/lammps-reax-seconds-64x64x32-cpu.png](data/img/lammps-reax-seconds-64x64x32-cpu.png)
+![data/img/lammps-reax-workload_manager_wrapper_seconds-64x64x32-cpu.png](data/img/lammps-reax-workload_manager_wrapper_seconds-64x64x32-cpu.png)
 

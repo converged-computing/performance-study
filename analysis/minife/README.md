@@ -39,9 +39,26 @@ python 1-run-analysis.py
 
 ## Results
 
+### Size 230 CPU
+
 ![data/img/minife-resid_norm-230nx-ny-nz-cpu.png](data/img/minife-resid_norm-230nx-ny-nz-cpu.png)
+
+### Size 230 GPU
+
 ![data/img/minife-resid_norm-230nx-ny-nz-gpu.png](data/img/minife-resid_norm-230nx-ny-nz-gpu.png)
+
+### Size 640 GPU
+
 ![data/img/minife-resid_norm-640nx-ny-nz-gpu.png](data/img/minife-resid_norm-640nx-ny-nz-gpu.png)
+
+### Size 230 Workload Manager Wrapper Seconds CPU
+
 ![data/img/minife-workload_manager_wrapper_seconds-230nx-ny-nz-cpu.png](data/img/minife-workload_manager_wrapper_seconds-230nx-ny-nz-cpu.png)
+
+### Size 230 Workload Manager Wrapper Seconds GPU
+
 ![data/img/minife-workload_manager_wrapper_seconds-230nx-ny-nz-gpu.png](data/img/minife-workload_manager_wrapper_seconds-230nx-ny-nz-gpu.png)
+
+### Size 640 Workload Manager Wrapper Seconds GPU
+
 ![data/img/minife-workload_manager_wrapper_seconds-640nx-ny-nz-gpu.png](data/img/minife-workload_manager_wrapper_seconds-640nx-ny-nz-gpu.png)

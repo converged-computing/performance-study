@@ -155,7 +155,7 @@ def parse_data(indir, outdir, files):
                 duration = ps.parse_slurm_duration(item)
 
             # Add the duration in seconds
-            p.add_result("seconds", duration, problem_size)
+            p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
 
             # We want this to fail if there is an issue!
             lammps_result = parse_lammps(item)

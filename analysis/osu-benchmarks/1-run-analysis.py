@@ -182,9 +182,6 @@ def parse_data(indir, outdir, files):
         if exp.size == 2:
             continue
 
-        # Set the parsing context for the result data frame
-        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size)
-
         # Cyclecloud GPU had multiple types, osu-dd and osu-hh
         # For Google Cloud GPU on GKE the point to point benchmarks
         # were run without GPU - never worked
@@ -260,7 +257,7 @@ def parse_data(indir, outdir, files):
                     elif "osu-hh" in result:
                         command = f"{command}_hh"
                     matrix = parse_multi_section([command] + section)
-                    matrix["context"] = [cloud, env, env_type, size]
+                    matrix["context"] = [exp.cloud, exp.env, exp.env_type, exp.size]
                     parsed.append(matrix)
 
             # If this is a flux run, we have a jobspec and events here
@@ -284,7 +281,7 @@ def parse_data(indir, outdir, files):
                 # but not here because of the cuda line. So we are just
                 # going to use the command.
                 matrix = parse_multi_section([command] + item)
-                matrix["context"] = [cloud, env, env_type, size]
+                matrix["context"] = [exp.cloud, exp.env, exp.env_type, exp.size]
                 parsed.append(matrix)
 
             # Slurm has the item output, and then just the start/end of the job

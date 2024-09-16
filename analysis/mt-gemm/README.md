@@ -94,13 +94,13 @@ It seems that Google has the nicest CPU? I can't find any data for cyclecloud CP
 
 I can't explain this result, but at size 256 for AWS EKS Flux took longer to do the wrapped run. E.g., the done - shell.start is actually that many seconds.
 
-![data/img/mt-gemm-seconds-cpu.png](data/img/mt-gemm-seconds-cpu.png)
+![data/img/mt-gemm-workload_manager_wrapper_seconds-cpu.png](data/img/mt-gemm-workload_manager_wrapper_seconds-cpu.png)
 
 ### Wrapper time of Workload Manager (seconds) GPU
 
 This is similar to the above, but CycleCloud GPU has (likely the hookup time included in the job) that makes it take a really long time. These would have been calculated from the timestamps in the job runs, so anything like errors or just slow hookup could cause that.
 
-![data/img/mt-gemm-seconds-gpu.png](data/img/mt-gemm-seconds-gpu.png)
+![data/img/mt-gemm-workload_manager_wrapper_seconds-gpu.png](data/img/mt-gemm-workload_manager_wrapper_seconds-gpu.png)
 
 ### Metric Size Ops for CPU
 

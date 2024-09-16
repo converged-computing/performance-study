@@ -175,11 +175,11 @@ def parse_data(indir, outdir, files):
 
             # Add the duration in seconds
             # Note - different output for GPU vs. CPU!
-            if env_type == "gpu":
+            if exp.env_type == "gpu":
                 metrics = parse_gpu_gemm(item)
             else:
                 metrics = parse_cpu_gemm(item)
-            p.add_result("seconds", duration)
+            p.add_result("workload_manager_wrapper_seconds", duration)
             for metric, value in metrics.items():
                 p.add_result(metric, value)
 
