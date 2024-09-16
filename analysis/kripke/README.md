@@ -34,7 +34,7 @@ We likely want to check how many GPU each were using, if that is possible. I can
 
 > (seconds/iteration)/unknowns
 
-I'm guessing a lower value is better here, meaning it took less time to do the same work. It looks like we are missing one result at size 128 for GKE CPU, which I can't find. I can re-run.
+I'm guessing a lower value is better here, meaning it took less time to do the same work.
 
 ![data/img/kripke-grind_time_seconds_per_iteration_over_unknowns-cpu.png](data/img/kripke-grind_time_seconds_per_iteration_over_unknowns-cpu.png)
 
@@ -66,7 +66,7 @@ We don't have results for EKS 32 because we couldn't get that many GPU nodes.
 
 #### Sweet Efficiency for CPU
 
-All over the place! Again size 128 on GKE CPU is missing.
+All over the place!
 
 ![data/img/kripke-sweep_efficiency-cpu.png](data/img/kripke-sweep_efficiency-cpu.png)
 

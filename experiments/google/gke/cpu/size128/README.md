@@ -47,6 +47,13 @@ time gcloud container clusters create test-cluster \
     --region=us-central1-a \
     --project=${GOOGLE_PROJECT} 
 ```
+```console
+Kripke cluster September 15
+test-cluster  us-central1-a  1.30.3-gke.1639000  104.198.45.99  c2d-standard-112  1.30.3-gke.1639000  128        RUNNING
+real	5m41.094s
+user	0m2.157s
+sys	0m0.209s
+```
 
 Install the Flux Operator (container digest pinned on August 2, 2024)
 
@@ -57,8 +64,9 @@ kubectl apply -f ./flux-operator.yaml
 Save nodes:
 
 ```bash
-kubectl get nodes -o json > nodes-quicksilver-128.json 
-kubectl get nodes -o json > nodes-lammps-128.json 
+kubectl get nodes -o json > metadata/nodes-quicksilver-128.json 
+kubectl get nodes -o json > metadata/nodes-lammps-128.json 
+kubectl get nodes -o json > metadata/nodes-kripke-128.json 
 ```
 
 Get placement (note this is for the quicksilver cluster, August 23rd 8:48pm)
@@ -212,7 +220,8 @@ export app=kripke
 output=./results/$app
 mkdir -p $output
 
-for i in $(seq 2 5); do
+# Each is ~6m 18s, running 3 iterations
+for i in $(seq 2 3); do
   echo "Running iteration $i"
   time flux run --cores-per-task 1 --exclusive --env OMP_NUM_THREADS=1 --setattr=user.study_id=$app-128-iter-$i -N 128 -n 7168 kripke --layout DGZ --dset 16 --zones 448,168,256 --gset 16 --groups 16 --niter 500 --legendre 2 --quad 16 --procs 32,14,16
 done
@@ -237,7 +246,6 @@ kubectl delete -f ./crd/kripke.yaml
 ```
 
 #### Laghos
-
 
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-laghos-$(date +%s).json
