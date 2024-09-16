@@ -315,7 +315,7 @@ def plot_results(results, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
-    # Create a data frame for each result type
+    # Create a data frame for each result type, also lookup by size
     dfs = {}
     idxs = {}
     # lookup for x and y values for each
@@ -328,6 +328,11 @@ def plot_results(results, outdir):
         if re.search("_(dd|hh)", title):
             title = title.rsplit("_", 1)[0]
         if title not in dfs:
+            dfs[title] = {}
+            idxs[title] = {}
+            lookup[title] = {}
+        size = entry["context"][-1]
+        if size not in dfs[title]:
             columns = get_columns(title) + [
                 "experiment",
                 "cloud",
@@ -335,56 +340,60 @@ def plot_results(results, outdir):
                 "env_type",
                 "nodes",
             ]
-            dfs[title] = pandas.DataFrame(columns=columns)
-            idxs[title] = 0
-            lookup[title] = {"x": columns[0], "y": columns[1]}
+            dfs[title][size] = pandas.DataFrame(columns=columns)
+            idxs[title][size] = 0
+            lookup[title][size] = {"x": columns[0], "y": columns[1]}
+
         # Add command to experiment id since it includes unique command
         experiment = os.sep.join(entry["context"][:-1] + [command])
         for datum in entry["matrix"]:
-            dfs[title].loc[idxs[title], :] = datum + [experiment] + entry["context"]
-            idxs[title] += 1
+            dfs[title][size].loc[idxs[title][size], :] = (
+                datum + [experiment] + entry["context"]
+            )
+            idxs[title][size] += 1
 
     # Save each completed data frame to file and plot!
-    for slug, df in dfs.items():
-        print(f"Preparing plot for {slug}")
+    for slug, sizes in dfs.items():
+        for size, df in sizes.items():
+            print(f"Preparing plot for {slug} size {size}")
 
-        # Save entire (unsplit) data frame to file
-        df.to_csv(os.path.join(outdir, f"{slug}-dataframe.csv"))
+            # Save entire (unsplit) data frame to file
+            df.to_csv(os.path.join(outdir, f"{slug}-{size}-dataframe.csv"))
 
-        # Separate x and y - latency (y) is a function of size (x)
-        x = lookup[slug]["x"]
-        y = lookup[slug]["y"]
+            # Separate x and y - latency (y) is a function of size (x)
+            x = lookup[slug][size]["x"]
+            y = lookup[slug][size]["y"]
 
-        # Within a setup, compare between experiments for GPU and cpu
-        for env in df.env_type.unique():
-            subset = df[df.env_type == env]
+            # Within a setup, compare between experiments for GPU and cpu
+            for env in df.env_type.unique():
+                subset = df[df.env_type == env]
 
-            # Make each figure a little bigger
-            plt.figure(figsize=(10, 6))
+                # Make each figure a little bigger
+                plt.figure(figsize=(10, 6))
 
-            # for sty in plt.style.available:
-            ax = sns.lineplot(
-                data=subset,
-                hue="experiment",
-                x=x,
-                y=y,
-                markers=True,
-                dashes=True,
-                errorbar=("ci", 95),
-            )
-            plt.title(slug + " " + env.upper())
-            x_label = x.replace("_", " ")
-            y_label = y.replace("_", " ")
-            ax.set_xlabel(x_label + " (logscale)", fontsize=16)
-            ax.set_ylabel(y_label + " (logscale)", fontsize=16)
-            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-            ax.set_yticklabels(ax.get_yticks(), fontsize=14)
-            plt.xscale("log")
-            plt.yscale("log")
-            plt.tight_layout()
-            plt.savefig(os.path.join(img_outdir, f"{slug}_{env}.png"))
-            plt.clf()
-            plt.close()
+                # for sty in plt.style.available:
+                ax = sns.lineplot(
+                    data=subset,
+                    hue="experiment",
+                    x=x,
+                    y=y,
+                    markers=True,
+                    dashes=True,
+                    errorbar=("ci", 95),
+                )
+                plt.title(slug + " " + env.upper() + " Size " + str(size))
+                x_label = x.replace("_", " ")
+                y_label = y.replace("_", " ")
+                ax.set_xlabel(x_label + " (logscale)", fontsize=16)
+                ax.set_ylabel(y_label + " (logscale)", fontsize=16)
+                ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
+                ax.set_yticklabels(ax.get_yticks(), fontsize=14)
+                plt.xscale("log")
+                plt.yscale("log")
+                plt.tight_layout()
+                plt.savefig(os.path.join(img_outdir, f"{slug}_size-{size}_{env}.png"))
+                plt.clf()
+                plt.close()
 
 
 if __name__ == "__main__":
