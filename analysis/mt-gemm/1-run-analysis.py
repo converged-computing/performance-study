@@ -135,34 +135,18 @@ def parse_data(indir, outdir, files):
         # but would not work anywhere else, so we can't use it.
         if "mt-gemm-9k" in filename:
             continue
-        # All of these are consistent across studies
-        parts = filename.replace(indir + os.sep, "").split(os.sep)
 
-        # These are consistent across studies
-        cloud = parts.pop(0)
-        env = parts.pop(0)
-        env_type = parts.pop(0)
-        size = parts.pop(0)
-
-        # Prefix is an identifier for parsed flux metadata, jobspec and events
-        prefix = os.path.join(cloud, env, env_type, size)
-        if prefix not in data:
-            data[prefix] = []
-
-        # If these are in the size, they are additional identifiers to indicate the
-        # environment type. Add to it instead of the size. I could skip some of these
-        # but I want to see the differences.
-        if "-" in size:
-            size, _ = size.split("-", 1)
-        size = int(size.replace("size", ""))
+        exp = ps.ExperimentNameParser(filename, indir)
+        if exp.prefix not in data:
+            data[exp.prefix] = []
 
         # Size 2 was typically testing
-        if size == 2:
+        if exp.size == 2:
             continue
 
         # Set the parsing context for the result data frame
-        p.set_context(cloud, env, env_type, size)
-        print(cloud, env, env_type, size)
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size)
+        exp.show()
 
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
@@ -181,7 +165,7 @@ def parse_data(indir, outdir, files):
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
-                data[prefix].append(metadata)
+                data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:

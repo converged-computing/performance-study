@@ -62,6 +62,36 @@ def write_file(text, filename):
     with open(filename, "w") as fd:
         fd.write(text)
 
+class ExperimentNameParser:
+    """
+    Shared parser to convert directory path into components.
+    """
+    def __init__(self, filename, indir):
+        self.filename = filename
+        self.indir = indir
+        self.parse()
+
+    def show(self):
+        print(self.cloud, self.env, self.env_type, self.size)
+
+    def parse(self):
+        parts = self.filename.replace(self.indir + os.sep, "").split(os.sep)
+        
+        # These are consistent across studies
+        self.cloud = parts.pop(0)
+        self.env = parts.pop(0)
+        self.env_type = parts.pop(0)
+        size = parts.pop(0)
+
+        # Prefix is an identifier for parsed flux metadata, jobspec and events
+        self.prefix = os.path.join(self.cloud, self.env, self.env_type, size)
+
+        # If these are in the size, they are additional identifiers to indicate the
+        # environment type. Add to it instead of the size. I could skip some of these
+        # but I want to see the differences.
+        if "-" in size:
+            size, _ = size.split("-", 1)
+        self.size = int(size.replace("size", ""))
 
 class ResultParser:
     """
@@ -119,6 +149,50 @@ class ResultParser:
             self.env_type,
             self.size,
             self.app,
+            metric,
+            value,
+        ]
+        self.idx += 1
+
+class ProblemSizeParser(ResultParser):
+    """
+    Extended ResultParser that includes a problem size.
+    """
+    def init_df(self):
+        """
+        Initialize an empty data frame for the application
+        """
+        self.df = pandas.DataFrame(
+            columns=[
+                "experiment",
+                "cloud",
+                "env",
+                "env_type",
+                "nodes",
+                "application",
+                "problem_size",
+                "metric",
+                "value",
+            ]
+        )
+
+    def add_result(self, metric, value, problem_size):
+        """
+        Add a result to the table
+        """
+        # Unique identifier for the experiment plot
+        # is everything except for size
+        experiment = os.path.join(self.cloud, self.env, self.env_type)
+        if self.qualifier is not None:
+            experiment = os.path.join(experiment, self.qualifier)
+        self.df.loc[self.idx, :] = [
+            experiment,
+            self.cloud,
+            self.env,
+            self.env_type,
+            self.size,
+            self.app,
+            problem_size,
             metric,
             value,
         ]
@@ -237,7 +311,7 @@ def make_plot(
         )
 
     if do_round is True:
-        ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+        ax.yaxis.set_major_formatter(FormatStrFormatter('%.3f'))
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
     plt.clf()
