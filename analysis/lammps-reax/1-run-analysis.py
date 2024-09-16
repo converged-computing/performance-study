@@ -79,54 +79,12 @@ def main():
     plot_results(df, outdir)
 
 
-class LAMMPSParser(ps.ResultParser):
-    def init_df(self):
-        """
-        Initialize an empty data frame for the application
-        """
-        self.df = pandas.DataFrame(
-            columns=[
-                "experiment",
-                "cloud",
-                "env",
-                "env_type",
-                "nodes",
-                "application",
-                "problem_size",
-                "metric",
-                "value",
-            ]
-        )
-
-    def add_result(self, metric, value, problem_size):
-        """
-        Add a result to the table
-        """
-        # Unique identifier for the experiment plot
-        # is everything except for size
-        experiment = os.path.join(self.cloud, self.env, self.env_type)
-        if self.qualifier is not None:
-            experiment = os.path.join(experiment, self.qualifier)
-        self.df.loc[self.idx, :] = [
-            experiment,
-            self.cloud,
-            self.env,
-            self.env_type,
-            self.size,
-            self.app,
-            problem_size,
-            metric,
-            value,
-        ]
-        self.idx += 1
-
-
 def parse_data(indir, outdir, files):
     """
     Parse filepaths for environment, etc., and results files for data.
     """
     # metrics here will be wall time and wrapped time
-    p = LAMMPSParser("lammps")
+    p = ps.ProblemSizeParser("lammps")
 
     # For flux we can save jobspecs and other event data
     data = {}
@@ -140,40 +98,22 @@ def parse_data(indir, outdir, files):
         if ps.skip_result(dirname, filename):
             continue
 
-        # All of these are consistent across studies
-        parts = filename.replace(indir + os.sep, "").split(os.sep)
-
-        # These are consistent across studies
-        cloud = parts.pop(0)
-        env = parts.pop(0)
-        env_type = parts.pop(0)
-        size = parts.pop(0)
-
-        # Prefix is an identifier for parsed flux metadata, jobspec and events
-        prefix = os.path.join(cloud, env, env_type, size)
-        if prefix not in data:
-            data[prefix] = []
-
         # I don't know if these are results or testing, skipping for now
         # They are from aws parallel-cluster CPU
         if os.path.join("experiment", "data") in filename:
             continue
 
-        # If these are in the size, they are additional identifiers to indicate the
-        # environment type. Add to it instead of the size. I could skip some of these
-        # but I want to see the differences.
-        if "-" in size:
-            print(filename)
-            size, _ = size.split("-", 1)
-        size = int(size.replace("size", ""))
+        exp = ps.ExperimentNameParser(filename, indir)
+        if exp.prefix not in data:
+            data[exp.prefix] = []
 
         # Size 2 was typically testing
-        if size == 2:
+        if exp.size == 2:
             continue
 
         # Set the parsing context for the result data frame
-        p.set_context(cloud, env, env_type, size)
-        print(cloud, env, env_type, size)
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size)
+        exp.show()
 
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
@@ -192,7 +132,7 @@ def parse_data(indir, outdir, files):
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
-                data[prefix].append(metadata)
+                data[exp.prefix].append(metadata)
                 problem_size = metadata["jobspec"]["tasks"][0]["command"]
 
                 # Kind of janky, but looks ok!
@@ -215,7 +155,7 @@ def parse_data(indir, outdir, files):
                 duration = ps.parse_slurm_duration(item)
 
             # Add the duration in seconds
-            p.add_result("seconds", duration, problem_size)
+            p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
 
             # We want this to fail if there is an issue!
             lammps_result = parse_lammps(item)

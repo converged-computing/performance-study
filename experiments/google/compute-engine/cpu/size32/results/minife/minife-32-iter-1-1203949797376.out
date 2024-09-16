@@ -1,4 +1,0 @@
-0.023s: job.exception type=alloc severity=0 alloc denied due to type="unsatisfiable"
-START OF JOBSPEC
-{"resources": [{"type": "node", "count": 32, "with": [{"type": "slot", "count": 96, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--env", "OMPI_MCA_btl_vader_single_copy_mechanism=none", "/opt/containers/metric-minife_rocky-8.sif", "miniFE.x", "nx=230", "ny=230", "nz=230", "use_locking=1", "elem_group_size=10", "use_elem_mat_fields=300", "verify_solution=0"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/home/sochat1_llnl_gov", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 262144, "as": -1, "rss": -1, "nproc": 1803560}, "cpu-affinity": "per-task"}}}, "user": {"study_id": "minife-32-iter-1"}}, "version": 1}
-START OF EVENTLOG

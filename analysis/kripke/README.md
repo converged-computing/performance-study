@@ -55,14 +55,14 @@ These are sanity checks I think that we ran the same thing - looks good.
 
 This shows what we've seen before - there is a huge wrapper time (likely the hookup) for Azure.
 
-![data/img/kripke-seconds-cpu.png](data/img/kripke-seconds-cpu.png)
+![data/img/kripke-workload_manager_wrapper_seconds-cpu.png](data/img/kripke-workload_manager_wrapper_seconds-cpu.png)
 
 #### Workload Manager Wrapper Time GPU
 
 We don't have results for size 4 cyclecloud (no successful runs) but we see the hookup time when we do.
 We don't have results for EKS 32 because we couldn't get that many GPU nodes.
 
-![data/img/kripke-seconds-gpu.png](data/img/kripke-seconds-gpu.png)
+![data/img/kripke-workload_manager_wrapper_seconds-gpu.png](data/img/kripke-workload_manager_wrapper_seconds-gpu.png)
 
 #### Sweet Efficiency for CPU
 

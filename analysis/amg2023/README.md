@@ -60,9 +60,9 @@ For slurm this is the job wrapping time, and for flux it is shell.start to done
 
 #### Wall Time CPU
 
-![data/img/amg2023-seconds-cpu.png](data/img/amg2023-seconds-cpu.png)
+![data/img/amg2023-workload_manager_wrapper_seconds-cpu.png](data/img/amg2023-workload_manager_wrapper_seconds-cpu.png)
 
 #### Wall Time GPU
 
-![data/img/amg2023-seconds-gpu.png](data/img/amg2023-seconds-gpu.png)
+![data/img/amg2023-workload_manager_wrapper_seconds-gpu.png](data/img/amg2023-workload_manager_wrapper_seconds-gpu.png)
 
