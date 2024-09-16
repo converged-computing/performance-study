@@ -83,8 +83,11 @@ class ExperimentNameParser:
         self.env_type = parts.pop(0)
         size = parts.pop(0)
 
+        # Experiment is the plot label
+        self.experiment = os.path.join(self.cloud, self.env, self.env_type)
+
         # Prefix is an identifier for parsed flux metadata, jobspec and events
-        self.prefix = os.path.join(self.cloud, self.env, self.env_type, size)
+        self.prefix = os.path.join(self.experiment, size)
 
         # If these are in the size, they are additional identifiers to indicate the
         # environment type. Add to it instead of the size. I could skip some of these
