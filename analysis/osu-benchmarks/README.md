@@ -23,11 +23,17 @@ and in the script comments.
 
 #### AllReduce CPU
 
-![data/img/osu_allreduce_cpu.png](data/img/osu_allreduce_cpu.png)
+![data/img/osu_allreduce_size-256_cpu.png](data/img/osu_allreduce_size-256_cpu.png)
+![data/img/osu_allreduce_size-128_cpu.png](data/img/osu_allreduce_size-128_cpu.png)
+![data/img/osu_allreduce_size-64_cpu.png](data/img/osu_allreduce_size-64_cpu.png)
+![data/img/osu_allreduce_size-32_cpu.png](data/img/osu_allreduce_size-32_cpu.png)
 
 #### AllReduce GPU
 
-![data/img/osu_allreduce_gpu.png](data/img/osu_allreduce_gpu.png)
+![data/img/osu_allreduce_size-32_gpu.png](data/img/osu_allreduce_size-32_gpu.png)
+![data/img/osu_allreduce_size-16_gpu.png](data/img/osu_allreduce_size-16_gpu.png)
+![data/img/osu_allreduce_size-8_gpu.png](data/img/osu_allreduce_size-8_gpu.png)
+![data/img/osu_allreduce_size-4_gpu.png](data/img/osu_allreduce_size-4_gpu.png)
 
 ### Bandwidth
 
@@ -35,13 +41,19 @@ and in the script comments.
 
 #### Bandwidth CPU
 
-![data/img/osu_bw_cpu.png](data/img/osu_bw_cpu.png)
+![data/img/osu_bw_size-256_cpu.png](data/img/osu_bw_size-256_cpu.png)
+![data/img/osu_bw_size-128_cpu.png](data/img/osu_bw_size-128_cpu.png)
+![data/img/osu_bw_size-64_cpu.png](data/img/osu_bw_size-64_cpu.png)
+![data/img/osu_bw_size-32_cpu.png](data/img/osu_bw_size-32_cpu.png)
 
 #### Bandwidth GPU
 
 Note that Google GKE was run without the cuda flags, didn't work. Those results do not use the GPU.
 
-![data/img/osu_bw_gpu.png](data/img/osu_bw_gpu.png)
+![data/img/osu_bw_size-32_gpu.png](data/img/osu_bw_size-32_gpu.png)
+![data/img/osu_bw_size-16_gpu.png](data/img/osu_bw_size-16_gpu.png)
+![data/img/osu_bw_size-8_gpu.png](data/img/osu_bw_size-8_gpu.png)
+![data/img/osu_bw_size-4_gpu.png](data/img/osu_bw_size-4_gpu.png)
 
 ### Latency
 
@@ -49,10 +61,18 @@ Note that Google GKE was run without the cuda flags, didn't work. Those results 
 
 #### Latency CPU
 
-![data/img/osu_latency_cpu.png](data/img/osu_latency_cpu.png)
+![data/img/osu_latency_size-256_cpu.png](data/img/osu_latency_size-256_cpu.png)
+![data/img/osu_latency_size-128_cpu.png](data/img/osu_latency_size-128_cpu.png)
+![data/img/osu_latency_size-64_cpu.png](data/img/osu_latency_size-64_cpu.png)
+![data/img/osu_latency_size-32_cpu.png](data/img/osu_latency_size-32_cpu.png)
 
 #### Latency GPU
 
+![data/img/osu_latency_size-16_gpu.png](data/img/osu_latency_size-16_gpu.png)
+![data/img/osu_latency_size-32_gpu.png](data/img/osu_latency_size-32_gpu.png)
+![data/img/osu_latency_size-4_gpu.png](data/img/osu_latency_size-4_gpu.png)
+![data/img/osu_latency_size-8_gpu.png](data/img/osu_latency_size-8_gpu.png)
+
 Note that Google GKE was run without the cuda flags, didn't work. Those results do not use the GPU.
 
-![data/img/osu_latency_gpu.png](data/img/osu_latency_gpu.png)
+
