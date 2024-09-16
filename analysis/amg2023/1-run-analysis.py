@@ -168,7 +168,7 @@ def parse_data(indir, outdir, files):
                 duration = ps.parse_slurm_duration(item)
 
             # Add the duration in seconds
-            p.add_result("seconds", duration)
+            p.add_result("workload_manager_wrapper_seconds", duration)
 
             # Parse the FOM from the item - I see three.
             # This needs to throw an error if we can't find it - indicates the result file is wonky
@@ -237,6 +237,7 @@ def plot_results(df, outdir):
                 ylabel=title,
                 log_scale=log_scale,
             )
+
 
 if __name__ == "__main__":
     main()

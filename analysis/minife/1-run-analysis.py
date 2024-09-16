@@ -118,7 +118,7 @@ def parse_data(indir, outdir, files):
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
-                if "640" in metadata['jobspec']['tasks'][0]['command'][1]:
+                if "640" in metadata["jobspec"]["tasks"][0]["command"][1]:
                     problem_size = "640nx-ny-nz"
 
             # Slurm has the item output, and then just the start/end of the job
@@ -128,8 +128,8 @@ def parse_data(indir, outdir, files):
                 item = ps.remove_slurm_duration(item)
 
             # Get the last metric - this should throw an error if we don't have it
-            resid_norm = [x for x in item.split('\n') if "Final Resid Norm:" in x][0]
-            resid_norm = float(resid_norm.split(':')[-1])            
+            resid_norm = [x for x in item.split("\n") if "Final Resid Norm:" in x][0]
+            resid_norm = float(resid_norm.split(":")[-1])
             p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
             p.add_result("resid_norm", resid_norm, problem_size)
 
@@ -180,6 +180,7 @@ def plot_results(df, outdir):
                     do_round=True,
                     log_scale=True,
                 )
+
 
 if __name__ == "__main__":
     main()
