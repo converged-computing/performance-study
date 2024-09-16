@@ -53,8 +53,7 @@ def main():
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
-    # Find input directories (anything with lammps-reax)
-    # lammps directories are usually snap
+    # Find input directories
     files = ps.find_inputs(indir, "mt-gemm")
     if not files:
         raise ValueError(f"There are no input files in {indir}")
