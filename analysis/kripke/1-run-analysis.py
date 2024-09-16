@@ -162,7 +162,7 @@ def parse_data(indir, outdir, files):
             # CycleCloud GPU size 4 doesn't have any successful runs
             if not metrics:
                 continue
-            p.add_result("seconds", duration)
+            p.add_result("workload_manager_wrapper_seconds", duration)
 
     print("Done parsing kripke results!")
     p.df.to_csv(os.path.join(outdir, "kripke-results.csv"))
