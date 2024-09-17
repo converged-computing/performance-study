@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
 import argparse
+import collections
 import os
 import re
 import sys
+import pandas
+import matplotlib.pylab as plt
 
 import seaborn as sns
 
@@ -43,6 +46,61 @@ def get_parser():
     return parser
 
 
+def parse_metric(line):
+    """
+    Extract a key/value pair from a line,
+    accounting for specific units
+    """
+    parts = line.split(":", 1)
+    key = parts[0].strip()
+    value = parts[1].strip()
+    parse_int = [
+        "total_memory",
+        "WarpSize",
+        "Elements per thread",
+        "Thread fusion degree",
+    ]
+    parse_float = ["CUDA driver version", "Compute Capability"]
+    spaced_unit = [
+        "GPU clock rate",
+        "Memory clock rate",
+        "Memory bus width",
+        "L2 cache size",
+        "Total global mem",
+        "Memory bandwidth",
+    ]
+    spaced_unit_float = [
+        "Memory bandwidth",
+    ]
+    if key in parse_int:
+        return key, int(value)
+    elif key in parse_float:
+        return key, float(value)
+    elif key == "Total SPs":
+        value = value.split(" ")[0]
+        return key, float(value)
+    elif key == "Compute throughput":
+        value = value.split(" ")[0]
+        key += "_gflops"
+        return key, float(value)
+    elif "Buffer size" in key:
+        key = "buffer_size_mb"
+        value = int(value.replace("MB", ""))
+        return key, value
+    elif key in spaced_unit:
+        value, unit = value.split(" ")
+        value = value.strip()
+        unit = unit.strip()
+        if "/" in unit:
+            unit = unit.replace("/", "_per_")
+        if key in spaced_unit_float:
+            value = float(value)
+        else:
+            value = int(value)
+        return key + "_" + unit, value
+    return key, value
+
+
 def parse_gpu_devices(item):
     """
     If the run was done without -l (for single lines) we can only
@@ -53,9 +111,8 @@ def parse_gpu_devices(item):
     metrics = {"total_memory": {}}
     for line in item.split("\n"):
         if ":" in line:
-            parts = line.split(":", 1)
-            key = parts[0].strip()
-            value = parts[1].strip()
+            key, value = parse_metric(line)
+            key = key.lower().replace(" ", "_")
             if key not in metrics:
                 metrics[key] = {}
             if value not in metrics[key]:
@@ -131,8 +188,12 @@ def parse_data(indir, outdir, files):
             parsed[exp.prefix][exp.env_type] = {}
             csvs[exp.prefix][exp.env_type] = {}
         if exp.size not in parsed[exp.prefix][exp.env_type]:
-            parsed[exp.prefix][exp.env_type][exp.size] = []
+            parsed[exp.prefix][exp.env_type][exp.size] = {}
             csvs[exp.prefix][exp.env_type][exp.size] = []
+
+        # Kind of redundant, but works to parse.
+        if exp.prefix not in parsed[exp.prefix][exp.env_type][exp.size]:
+            parsed[exp.prefix][exp.env_type][exp.size][exp.prefix] = []
 
         # Set the parsing context for the result data frame
         exp.show()
@@ -153,14 +214,7 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                try:
-                    item, duration, metadata = ps.parse_flux_metadata(item)
-                except:
-                    print(item)
-                    import IPython
-
-                    IPython.embed()
-                    sys.exit()
+                item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
@@ -168,12 +222,22 @@ def parse_data(indir, outdir, files):
                 metadata = {}
                 item = ps.remove_slurm_duration(item)
 
+            # These are cancelled
+            if "job.exception type=cancel" in item:
+                continue
             # Total runtime not comparable given different ways we ran.
             # p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
             # Metrics are counts across gpus. csv is the interleaved data with headers
             metrics, csv = parse_gpu_devices(item)
-            parsed[exp.prefix][exp.env_type][exp.size].append(metrics)
+            parsed[exp.prefix][exp.env_type][exp.size][exp.prefix].append(metrics)
             csvs[exp.prefix][exp.env_type][exp.size].append(csv)
+
+            # Sanity check that all GPU are the same
+            for metric, value in metrics.items():
+                if len(value) > 1:
+                    print(
+                        f"WARNING {exp.prefix} has GPUs that are different for {metric}: {value}"
+                    )
 
             # What data looks like
             # https://github.com/ekondis/mixbench
@@ -197,13 +261,118 @@ def parse_data(indir, outdir, files):
 
 def plot_results(results, outdir):
     """
-    Plot analysis results
+    Plot analysis results. We are only going to look at breakdown
+    of attributes for each.
     """
-    # TODO plotting
-    import IPython
+    img_outdir = os.path.join(outdir, "img")
+    if not os.path.exists(img_outdir):
+        os.makedirs(img_outdir)
 
-    IPython.embed()
-    sys.exit()
+    # Create a data frame with everything flattened
+    df = pandas.DataFrame(
+        columns=["experiment", "env_type", "nodes", "metric", "value", "percentage"]
+    )
+    idx = 0
+
+    # Within a setup, compare between experiments for GPU and cpu
+    for label, env_types in results.items():
+        for env_type, sizes in env_types.items():
+            size_list = list(sizes.keys())
+
+            # This size list (sorted) is the ticks for the plots
+            size_list.sort()
+
+            for size in size_list:
+                for cloud_env, values in sizes[size].items():
+                    # Truncate the size - we just need <cloud>/<env>/<env_type>
+                    experiment = os.path.dirname(cloud_env)
+
+                    # This isn't perfect, but calculate percentages
+                    totals = {}
+                    counts = {}
+                    for entry in values:
+                        for k, vals in entry.items():
+                            if k not in totals:
+                                totals[k] = {}
+                                counts[k] = 0
+                            for v in vals:
+                                if v not in totals[k]:
+                                    totals[k][v] = 0
+                                totals[k][v] += vals[v]
+                                counts[k] += vals[v]
+
+                    # Add summary counts to data frame
+                    for key, values in totals.items():
+                        for k, count in values.items():
+                            percentage = count / counts[key]
+                            df.loc[idx, :] = [
+                                experiment,
+                                env_type,
+                                size,
+                                key,
+                                k,
+                                percentage,
+                            ]
+                            idx += 1
+
+    df.to_csv(os.path.join(outdir, "mixbench-data-frame.csv"))
+
+    # This is all GPU for now, but might as well be pedantic
+    for env in df.env_type.unique():
+        subset = df[df.env_type == env]
+
+        # Make a plot for each metric - percentage of gpu that have a feature
+        for metric in subset.metric.unique():
+            metric_df = subset[subset.metric == metric]
+            colors = sns.color_palette("hls", 16)
+            hexcolors = colors.as_hex()
+            types = list(metric_df.experiment.unique())
+            palette = collections.OrderedDict()
+            for t in types:
+                palette[t] = hexcolors.pop(0)
+            title = " ".join([x.capitalize() for x in metric.split("_")])
+
+            if len(metric_df.value.unique()) == 1:
+                print(
+                    f"{env_type} for {metric} are all the same, {metric_df.value.unique()}"
+                )
+            else:
+                print(f"{env_type} for {metric} have differences, {metric_df}")
+
+            continue
+
+            # Not a good way to plot this here
+            plt.figure(figsize=(12, 6))
+            sns.set_style("dark")
+            ax = sns.scatterplot(
+                x="nodes", y="value", hue="experiment", data=metric_df, palette=palette
+            )
+
+            plt.title(title)
+            ax.set_xlabel("Nodes", fontsize=16)
+            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
+            ax.set_yticklabels(ax.get_yticks(), fontsize=14)
+
+            plt.tight_layout()
+            plotname = f"mixbench-{metric}-{env}"
+            plt.savefig(os.path.join(img_outdir, f"{plotname}.png"))
+            plt.clf()
+            continue
+
+            # Skipping this - barplots don't make sense
+            ps.make_plot(
+                metric_df,
+                title=f"Mixbench {title} for {env.upper()}",
+                ydimension="value",
+                plotname=f"mixbench-{metric}-{env}",
+                xdimension="nodes",
+                palette=palette,
+                outdir=img_outdir,
+                hue="experiment",
+                xlabel="Nodes",
+                ylabel=title,
+                do_round=False,
+            )
 
 
 if __name__ == "__main__":
