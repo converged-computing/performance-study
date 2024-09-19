@@ -131,6 +131,32 @@ def parse_gpu_devices(item):
     return metrics, header + "\n".join(csv)
 
 
+def parse_cpu_lines(item):
+    """
+    CPU just has the csv output, no GPU devices
+    """
+    csv = []
+    metrics = {}
+    for line in item.split("\n"):
+        if not line.strip():
+            continue
+        if "Working memory size" in line:
+            metrics["working_memory_size_mb"] = int(
+                line.split(":", 1)[-1].replace("MB", "")
+            )
+        elif "Total threads" in line:
+            metrics["total_threads"] = int(line.split(":", 1)[-1])
+        # These are lines to ignore, headers to ignore, errors for a single run
+        elif re.search("^(---|Use|flux-job|mixbench-cpu|Experiment|Compute)", line):
+            continue
+        elif line.startswith("         "):
+            csv.append(line)
+        else:
+            raise ValueError(f"Unexpected line in csv data: {line}")
+
+    return metrics, header + "\n".join(csv)
+
+
 def main():
     """
     Find application result files to parse.
@@ -176,10 +202,6 @@ def parse_data(indir, outdir, files):
 
         # Size 2 was typically testing
         if exp.size == 2:
-            continue
-
-        # We don't have a good way to compare for cpu, just gpu for now
-        if exp.env_type != "gpu":
             continue
         if exp.prefix not in data:
             data[exp.prefix] = []
@@ -229,16 +251,20 @@ def parse_data(indir, outdir, files):
             # Total runtime not comparable given different ways we ran.
             # p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
             # Metrics are counts across gpus. csv is the interleaved data with headers
-            metrics, csv = parse_gpu_devices(item)
-            parsed[exp.prefix][exp.env_type][exp.size][exp.prefix].append(metrics)
+            if exp.env_type == "gpu":
+                metrics, csv = parse_gpu_devices(item)
+            else:
+                metrics, csv = parse_cpu_lines(item)
             csvs[exp.prefix][exp.env_type][exp.size].append(csv)
+            parsed[exp.prefix][exp.env_type][exp.size][exp.prefix].append(metrics)
 
             # Sanity check that all GPU are the same
-            for metric, value in metrics.items():
-                if len(value) > 1:
-                    print(
-                        f"WARNING {exp.prefix} has GPUs that are different for {metric}: {value}"
-                    )
+            if exp.env_type == "gpu":
+                for metric, value in metrics.items():
+                    if len(value) > 1:
+                        print(
+                            f"WARNING {exp.prefix} has GPUs that are different for {metric}: {value}"
+                        )
 
             # What data looks like
             # https://github.com/ekondis/mixbench
@@ -251,9 +277,8 @@ def parse_data(indir, outdir, files):
     for experiment, env_types in csvs.items():
         for env_type, sizes in env_types.items():
             for size, csv in sizes.items():
-                outfile = os.path.join(
-                    csv_outdir, experiment.replace(os.sep, "-") + ".csv"
-                )
+                experiment = experiment.replace("-placement", "").replace(os.sep, "-")
+                outfile = os.path.join(csv_outdir, experiment + ".csv")
                 ps.write_file("\n".join(csv), outfile)
     ps.write_json(parsed, os.path.join(outdir, "mixbench-parsed.json"))
     ps.write_json(data, os.path.join(outdir, "mixbench-flux-events.json"))
@@ -263,7 +288,7 @@ def parse_data(indir, outdir, files):
 def plot_results(results, outdir):
     """
     Plot analysis results. We are only going to look at breakdown
-    of attributes for each.
+    of attributes for each. This is just for GPU for now.
     """
     img_outdir = os.path.join(outdir, "img")
     if not os.path.exists(img_outdir):
@@ -278,6 +303,8 @@ def plot_results(results, outdir):
     # Within a setup, compare between experiments for GPU and cpu
     for label, env_types in results.items():
         for env_type, sizes in env_types.items():
+            if env_type != "gpu":
+                continue
             size_list = list(sizes.keys())
 
             # This size list (sorted) is the ticks for the plots
@@ -339,41 +366,6 @@ def plot_results(results, outdir):
                 )
             else:
                 print(f"{env_type} for {metric} have differences, {metric_df}")
-
-            continue
-
-            # Not a good way to plot this here
-            plt.figure(figsize=(12, 6))
-            sns.set_style("dark")
-            ax = sns.scatterplot(
-                x="nodes", y="value", hue="experiment", data=metric_df, palette=palette
-            )
-
-            plt.title(title)
-            ax.set_xlabel("Nodes", fontsize=16)
-            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-            ax.set_yticklabels(ax.get_yticks(), fontsize=14)
-
-            plt.tight_layout()
-            plotname = f"mixbench-{metric}-{env}"
-            plt.savefig(os.path.join(img_outdir, f"{plotname}.png"))
-            plt.clf()
-            continue
-
-            # Skipping this - barplots don't make sense
-            ps.make_plot(
-                metric_df,
-                title=f"Mixbench {title} for {env.upper()}",
-                ydimension="value",
-                plotname=f"mixbench-{metric}-{env}",
-                xdimension="nodes",
-                palette=palette,
-                outdir=img_outdir,
-                hue="experiment",
-                xlabel="Nodes",
-                ylabel=title,
-                do_round=False,
-            )
 
 
 if __name__ == "__main__":

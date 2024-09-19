@@ -12,7 +12,9 @@ and we first needed to [catalog](#catalog) how each was done. It's still not cle
 
 These are easier to share as written content (I didn't know a good way to plot) so I'll do that.
 
-### GPU Over Precisions
+### GPU
+
+> Plots over precisions
 
 I struggled with these plots - if you look at the [mixbench](https://github.com/ekondis/mixbench) repository he does it totally differently.
 We had a different way to run each CPU experiment, and the result files were interleaved. The best I could do is associate a line (with values across single, double, half, and integer precision) for flops or iops per second and then associated GFLOPS and make a distribution for each environment at a particular flops per byte. I think this is supposed to be a line plot, but when I tried that it looked horrendeous because I had no idea about the order. This is my best effort for now!
@@ -34,7 +36,11 @@ We had a different way to run each CPU experiment, and the result files were int
 ![data/img/mixbench-single_precision-gpu-size-4.png](data/img/mixbench-single_precision-gpu-size-4.png)
 ![data/img/mixbench-single_precision-gpu-size-8.png](data/img/mixbench-single_precision-gpu-size-8.png)
 
-### GPU
+Metric details are below, compressed.
+
+<details>
+
+<summary>Metric Details</summary>
 
 What I did in the parsing script is to:
 
@@ -191,7 +197,35 @@ gpu for ecc_enabled have differences,                     experiment env_type no
 340              azure/aks/gpu      gpu     4  ecc_enabled   Yes        1.0
 ```
 
-## Catalog
+</details>
+
+## CPU
+
+Note that the CPU results don't have integer values. We also have the threads per core and working memory size and I'm not plotting them - but we might need to consider them, e.g., here is an entry for Google compute engine:
+
+```json
+{
+   "working_memory_size_mb": 256,
+   "total_threads": 56
+},
+```
+
+If that explains the larger variation in some of the plots it might be important to see!
+
+![data/img/mixbench-double_precision-cpu-size-128.png](data/img/mixbench-double_precision-cpu-size-128.png)
+![data/img/mixbench-double_precision-cpu-size-256.png](data/img/mixbench-double_precision-cpu-size-256.png)
+![data/img/mixbench-double_precision-cpu-size-32.png](data/img/mixbench-double_precision-cpu-size-32.png)
+![data/img/mixbench-double_precision-cpu-size-64.png](data/img/mixbench-double_precision-cpu-size-64.png)
+![data/img/mixbench-half_precision-cpu-size-128.png](data/img/mixbench-half_precision-cpu-size-128.png)
+![data/img/mixbench-half_precision-cpu-size-256.png](data/img/mixbench-half_precision-cpu-size-256.png)
+![data/img/mixbench-half_precision-cpu-size-32.png](data/img/mixbench-half_precision-cpu-size-32.png)
+![data/img/mixbench-half_precision-cpu-size-64.png](data/img/mixbench-half_precision-cpu-size-64.png)
+![data/img/mixbench-single_precision-cpu-size-128.png](data/img/mixbench-single_precision-cpu-size-128.png)
+![data/img/mixbench-single_precision-cpu-size-256.png](data/img/mixbench-single_precision-cpu-size-256.png)
+![data/img/mixbench-single_precision-cpu-size-32.png](data/img/mixbench-single_precision-cpu-size-32.png)
+![data/img/mixbench-single_precision-cpu-size-64.png](data/img/mixbench-single_precision-cpu-size-64.png)
+
+### Catalog
 
 I'll group these based on similarity. Note that the setting of the attribute of the study id is removed for easier readability.
 
