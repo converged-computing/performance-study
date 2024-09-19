@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import re
 import matplotlib.pylab as plt
 import csv
 import seaborn as sns
@@ -86,7 +87,6 @@ def parse_metric_type(indir, outdir, files, metric_type):
         size = parts.pop()
         env_type = parts.pop()
         env = "-".join(parts)
-
         size = int(size.replace("size", ""))
         prefix = os.path.join(cloud, env, env_type)
 
@@ -130,11 +130,15 @@ def parse_metric_type(indir, outdir, files, metric_type):
                 gb_per_second_half_precision = float(values.pop(0))
 
                 # integer_ops
-                iops_per_byte_integer = float(values.pop(0))
-                values.pop(0)
-                gflops_integer = float(values.pop(0))
-                gb_per_second_integer = float(values.pop(0))
-                # Within each group: compute_iters (common index), flops_per_byte, ex.time (ignore), gflops, gb_per_sec, flops_per_byte
+                # CPU doesn't seem to have these
+                has_integer_values = True
+                if not values:
+                    has_integer_values = False
+                else:
+                    iops_per_byte_integer = float(values.pop(0))
+                    values.pop(0)
+                    gflops_integer = float(values.pop(0))
+                    gb_per_second_integer = float(values.pop(0))
 
                 # Save data based on type we are parsing
                 if metric_type == "single_precision":
@@ -174,7 +178,7 @@ def parse_metric_type(indir, outdir, files, metric_type):
                     data[env_type][size][flops_per_byte_half_precision][prefix].append(
                         gflops_half_precision
                     )
-                elif metric_type == "integer":
+                elif metric_type == "integer" and has_integer_values:
                     if iops_per_byte_integer not in data[env_type][size]:
                         data[env_type][size][iops_per_byte_integer] = {}
                     if prefix not in data[env_type][size][iops_per_byte_integer]:
@@ -182,6 +186,8 @@ def parse_metric_type(indir, outdir, files, metric_type):
                     data[env_type][size][iops_per_byte_integer][prefix].append(
                         gflops_integer
                     )
+                elif metric_type == "integer" and not has_integer_values:
+                    continue
                 else:
                     raise ValueError(f"{metric_type} is an unknown type")
 
@@ -211,6 +217,10 @@ def plot_results(results, metric_type, outdir):
     # Within a setup, compare between experiments for GPU and cpu
     for env_type, sizes in results.items():
         size_list = list(sizes.keys())
+
+        # CPU does not have integer precision
+        if env_type == "cpu" and metric_type == "integer":
+            continue
 
         # This size list (sorted) is the ticks for the plots
         size_list.sort()
