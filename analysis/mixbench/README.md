@@ -12,7 +12,7 @@ and we first needed to [catalog](#catalog) how each was done. It's still not cle
 
 These are easier to share as written content (I didn't know a good way to plot) so I'll do that.
 
-### CPU
+### GPU Over Precisions
 
 I struggled with these plots - if you look at the [mixbench](https://github.com/ekondis/mixbench) repository he does it totally differently.
 We had a different way to run each CPU experiment, and the result files were interleaved. The best I could do is associate a line (with values across single, double, half, and integer precision) for flops or iops per second and then associated GFLOPS and make a distribution for each environment at a particular flops per byte. I think this is supposed to be a line plot, but when I tried that it looked horrendeous because I had no idea about the order. This is my best effort for now!
