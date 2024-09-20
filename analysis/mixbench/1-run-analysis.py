@@ -20,9 +20,14 @@ import performance_study as ps
 sns.set_theme(style="whitegrid", palette="pastel")
 
 # header for mixbench-cuda
-header = """Experiment ID, Single Precision ops,,,,              Double precision ops,,,,              Half precision ops,,,,                Integer operations,,, 
+gpu_header = """Experiment ID, Single Precision ops,,,,              Double precision ops,,,,              Half precision ops,,,,                Integer operations,,, 
 Compute iters, Flops/byte, ex.time,  GFLOPS, GB/sec, Flops/byte, ex.time,  GFLOPS, GB/sec, Flops/byte, ex.time,  GFLOPS, GB/sec, Iops/byte, ex.time,   GIOPS, GB/sec
 """
+
+cpu_header = """Experiment ID, Single Precision ops,,,,              Double precision ops,,,,              Integer operations,,, 
+Compute iters, Flops/byte, ex.time,  GFLOPS, GB/sec, Flops/byte, ex.time,  GFLOPS, GB/sec, Iops/byte, ex.time,   GIOPS, GB/sec
+"""
+
 
 # These are files I found erroneous - no result, or incomplete result
 errors = []
@@ -128,7 +133,7 @@ def parse_gpu_devices(item):
             # Just save total for now, free at index 5
         elif line.startswith("         "):
             csv.append(line)
-    return metrics, header + "\n".join(csv)
+    return metrics, gpu_header + "\n".join(csv)
 
 
 def parse_cpu_lines(item):
@@ -154,7 +159,7 @@ def parse_cpu_lines(item):
         else:
             raise ValueError(f"Unexpected line in csv data: {line}")
 
-    return metrics, header + "\n".join(csv)
+    return metrics, cpu_header + "\n".join(csv)
 
 
 def main():

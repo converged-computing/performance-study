@@ -123,22 +123,19 @@ def parse_metric_type(indir, outdir, files, metric_type):
                 gflops_double_precision = float(values.pop(0))
                 gb_per_second_double_precision = float(values.pop(0))
 
-                # half_precision_ops
-                flops_per_byte_half_precision = float(values.pop(0))
-                values.pop(0)
-                gflops_half_precision = float(values.pop(0))
-                gb_per_second_half_precision = float(values.pop(0))
+                # CPU does not have half-precision ops
+                if env_type == "gpu":
+                    # half_precision_ops
+                    flops_per_byte_half_precision = float(values.pop(0))
+                    values.pop(0)
+                    gflops_half_precision = float(values.pop(0))
+                    gb_per_second_half_precision = float(values.pop(0))
 
                 # integer_ops
-                # CPU doesn't seem to have these
-                has_integer_values = True
-                if not values:
-                    has_integer_values = False
-                else:
-                    iops_per_byte_integer = float(values.pop(0))
-                    values.pop(0)
-                    gflops_integer = float(values.pop(0))
-                    gb_per_second_integer = float(values.pop(0))
+                iops_per_byte_integer = float(values.pop(0))
+                values.pop(0)
+                gflops_integer = float(values.pop(0))
+                gb_per_second_integer = float(values.pop(0))
 
                 # Save data based on type we are parsing
                 if metric_type == "single_precision":
@@ -167,7 +164,7 @@ def parse_metric_type(indir, outdir, files, metric_type):
                     data[env_type][size][flops_per_byte_double_precision][
                         prefix
                     ].append(gflops_double_precision)
-                elif metric_type == "half_precision":
+                elif metric_type == "half_precision" and env_type == "gpu":
                     if flops_per_byte_half_precision not in data[env_type][size]:
                         data[env_type][size][flops_per_byte_half_precision] = {}
                     if (
@@ -178,7 +175,7 @@ def parse_metric_type(indir, outdir, files, metric_type):
                     data[env_type][size][flops_per_byte_half_precision][prefix].append(
                         gflops_half_precision
                     )
-                elif metric_type == "integer" and has_integer_values:
+                elif metric_type == "integer":
                     if iops_per_byte_integer not in data[env_type][size]:
                         data[env_type][size][iops_per_byte_integer] = {}
                     if prefix not in data[env_type][size][iops_per_byte_integer]:
@@ -186,7 +183,7 @@ def parse_metric_type(indir, outdir, files, metric_type):
                     data[env_type][size][iops_per_byte_integer][prefix].append(
                         gflops_integer
                     )
-                elif metric_type == "integer" and not has_integer_values:
+                elif metric_type == "half_precision" and env_type == "cpu":
                     continue
                 else:
                     raise ValueError(f"{metric_type} is an unknown type")
@@ -219,7 +216,7 @@ def plot_results(results, metric_type, outdir):
         size_list = list(sizes.keys())
 
         # CPU does not have integer precision
-        if env_type == "cpu" and metric_type == "integer":
+        if env_type == "cpu" and metric_type == "half_precision":
             continue
 
         # This size list (sorted) is the ticks for the plots

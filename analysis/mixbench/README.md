@@ -201,7 +201,7 @@ gpu for ecc_enabled have differences,                     experiment env_type no
 
 ## CPU
 
-Note that the CPU results don't have integer values. We also have the threads per core and working memory size and I'm not plotting them - but we might need to consider them, e.g., here is an entry for Google compute engine:
+Note that the CPU results don't have half precision values. We also have the threads per core and working memory size and I'm not plotting them - but we might need to consider them, e.g., here is an entry for Google compute engine:
 
 ```json
 {
@@ -216,10 +216,10 @@ If that explains the larger variation in some of the plots it might be important
 ![data/img/mixbench-double_precision-cpu-size-256.png](data/img/mixbench-double_precision-cpu-size-256.png)
 ![data/img/mixbench-double_precision-cpu-size-32.png](data/img/mixbench-double_precision-cpu-size-32.png)
 ![data/img/mixbench-double_precision-cpu-size-64.png](data/img/mixbench-double_precision-cpu-size-64.png)
-![data/img/mixbench-half_precision-cpu-size-128.png](data/img/mixbench-half_precision-cpu-size-128.png)
-![data/img/mixbench-half_precision-cpu-size-256.png](data/img/mixbench-half_precision-cpu-size-256.png)
-![data/img/mixbench-half_precision-cpu-size-32.png](data/img/mixbench-half_precision-cpu-size-32.png)
-![data/img/mixbench-half_precision-cpu-size-64.png](data/img/mixbench-half_precision-cpu-size-64.png)
+![data/img/mixbench-integer-cpu-size-128.png](data/img/mixbench-integer-cpu-size-128.png)
+![data/img/mixbench-integer-cpu-size-256.png](data/img/mixbench-integer-cpu-size-256.png)
+![data/img/mixbench-integer-cpu-size-32.png](data/img/mixbench-integer-cpu-size-32.png)
+![data/img/mixbench-integer-cpu-size-64.png](data/img/mixbench-integer-cpu-size-64.png)
 ![data/img/mixbench-single_precision-cpu-size-128.png](data/img/mixbench-single_precision-cpu-size-128.png)
 ![data/img/mixbench-single_precision-cpu-size-256.png](data/img/mixbench-single_precision-cpu-size-256.png)
 ![data/img/mixbench-single_precision-cpu-size-32.png](data/img/mixbench-single_precision-cpu-size-32.png)
