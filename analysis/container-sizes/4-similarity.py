@@ -157,6 +157,8 @@ def calculate_similarity(df, outdir, outfile):
 
     # Update sims index and columns to make them shorter (they will render on the plot)
     names = [x.replace('ghcr.io/converged-computing/', '').replace('metric-', '') for x in sims.index.tolist()]
+    # Also remove hash
+    names = [x.split('@', 1)[0] for x in names]
     sims.index = names
     sims.columns = names
 
@@ -171,7 +173,7 @@ def calculate_similarity(df, outdir, outfile):
     plt.clf()
 
     m = sns.clustermap(sims, annot=False, cmap="BrBG")
-    plt.title("Container similarity by digest")
+    plt.title("Container similarity by content of digest")
     plt.savefig(os.path.join(outdir, f"cluster-{outfile}.png"))
     plt.savefig(os.path.join(outdir, f"cluster-{outfile}.svg"))
     plt.clf()
