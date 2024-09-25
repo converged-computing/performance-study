@@ -167,13 +167,11 @@ def calculate_similarity(df, outdir, outfile):
     sims = sims.astype(float)
     m = sns.heatmap(sims, annot=True, cmap="BrBG", mask=(sims == 0.0))
     m.set_facecolor("black")
-    plt.title("Container similarity by digest")
     plt.savefig(os.path.join(outdir, f"{outfile}.png"))
     plt.savefig(os.path.join(outdir, f"{outfile}.svg"))
     plt.clf()
 
     m = sns.clustermap(sims, annot=False, cmap="BrBG")
-    plt.title("Container similarity by content of digest")
     plt.savefig(os.path.join(outdir, f"cluster-{outfile}.png"))
     plt.savefig(os.path.join(outdir, f"cluster-{outfile}.svg"))
     plt.clf()
