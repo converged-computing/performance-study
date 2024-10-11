@@ -159,6 +159,16 @@ def plot_times(df, outdir):
     """
     plot_containers(df, outdir)
 
+    # Show total pulling time across sizes, so we can estimate cost
+    for cloud in df.cloud.unique():
+        subset = df[df.cloud == cloud]
+        for environment in subset.environment.unique():
+            subset = subset[subset.environment == environment]
+            for typ in subset.exp_type.unique():
+                typset = subset[subset.exp_type == typ]
+                total_duration = typset.duration.sum()
+                print(f"Cloud {cloud} for {environment} {typ}: {total_duration} seconds")
+
     # Save unique containers for each
     uniques = {}
     # Filter to different apps.

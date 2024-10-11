@@ -375,6 +375,54 @@ The above makes sense, and I'll explain a few.
 
 The above saves images and data frames in [data/img](data/img). Details for the processing script are included below. First, there is a bit of decision making in how to choose times. Here are my thoughts / my process:
 
+### Total cost of pulling
+
+Here are the times that are summed for each cloud and environment for pulling:
+
+```console
+Cloud google for gke cpu: 32053.72599999996 seconds
+Cloud google for gke gpu: 34604.34300000001 seconds
+Cloud aws for eks cpu: 30458.620232943016 seconds
+Cloud aws for eks gpu: 15093.876228883 seconds
+Cloud azure for aks cpu: 71354.42499999997 seconds
+Cloud azure for aks gpu: 24044.926000000007 seconds
+```
+
+Given these costs that we recorded before the study (to estimate):
+
+- Google cost / NVIDIA 100 GPU	    2.48
+- Google cost / n1-standard-32	    3.52
+- Google cost / c2d-standard-112	5.09
+- AWS 200GB EBS Cost per instance hour	0.16
+- AWS cost / p3dn.24xlarge	            34.333
+- AWS cost / hpc6a	                    2.88
+- Azure 200GB EBS Cost per instance hour	0
+- Azure Cost / ND40rs v2	                22.032
+- Azure Cost / HB120rs v3	                3.6
+
+That means:
+
+- Google: a CPU node is 5.09/hour, and a GPU node is 2.48*8 + 3.52 / hour == 23.36
+- AWS: a CPU node is 3.04/hour, and a GPU node is 34.49/hour
+- Azure: a CPU node is 3.60/hour, and a GPU node is 22.032/hour
+
+In practice these weren't the exact costs (we had middlemen) but we can use them as an example.
+This is across nodes, so we can take into account an estimated cost of the cluster (and multiply the time by the cost per node):
+Remember that we are doing pulls across nodes, so while the study itself wasn't this many hours, this is accumulated node hours.
+
+- Cloud google for gke cpu: 32053.72599999996 seconds == 8.9 hours * 5.09 == 45.301
+- Cloud google for gke gpu: 34604.34300000001 seconds == 9.6 hours * 23.36 == 224.256
+- Cloud aws for eks cpu: 30458.620232943016 seconds == 8.46 hours * 3.04 == 25.718
+- Cloud aws for eks gpu: 15093.876228883 seconds == 4.19 hours * 34.49 == 144.5131
+- Cloud azure for aks cpu: 71354.42499999997 seconds == 19.83 hours * 3.60 == 71.39
+- Cloud azure for aks gpu: 24044.926000000007 seconds == 6.68 hours * 22.032 == 147.17
+
+Total: 658.3481
+
+This is not a robust pulling study in that we cannot say the same procedure was done across clouds and environments. We can only
+say that this is what we spent on container pulling. I'm also not convinced that (relative to the cost of the entire study) that
+is a significant amount. That said, an optimized strategy could still be useful.
+
 ### Kubernetes Event Collection
 
 The Kubernetes events aren't perfect, nor was collection of data - we would sometimes miss events due to human error or the collection pod cutting. Only events that happen in the last 5 seconds are recorded (and the rest are thrown away) so we can consider the dataset imperfect.
