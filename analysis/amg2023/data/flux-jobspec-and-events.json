@@ -28130,6 +28130,1320 @@
             ]
         }
     ],
+    "azure/aks/cpu/size128": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "16",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-128-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724911954.7712846,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724911954.7724438,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724911954.84826,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2G7wzYnj",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724911954.9683497,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724912065.20696,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 31,
+                        "rank": 255,
+                        "state": "Exited",
+                        "pid": 307,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912065.5139549,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912065.5139887,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "16",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-128-iter-5"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724912280.7572844,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724912280.7583232,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724912280.8202837,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f4jnWwz3h",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724912280.9354193,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724912387.7081046,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 31,
+                        "rank": 255,
+                        "state": "Exited",
+                        "pid": 789,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912388.0060399,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912388.0060773,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "16",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-128-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724912173.220495,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724912173.221582,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724912173.284722,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f3vPj1b3d",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724912173.4014251,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724912280.1133046,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 31,
+                        "rank": 4095,
+                        "state": "Exited",
+                        "pid": 466,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912280.3869722,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912280.3870153,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "16",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-128-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724912065.872214,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724912065.8732708,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724912065.9386973,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f375qip9m",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724912066.0587208,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724912172.5745447,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 3,
+                        "rank": 3843,
+                        "state": "Exited",
+                        "pid": 251,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912172.8416338,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724912172.841671,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "16",
+                            "16",
+                            "8",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-64-iter-i"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724911861.0691047,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724911861.0703282,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724911861.1343932,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fYpwxmHR",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724911861.2513087,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724911944.2154136,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 16,
+                        "rank": 2032,
+                        "state": "Exited",
+                        "pid": 112,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911944.4926302,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911944.4926615,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "azure/aks/cpu/size256": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "32",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-256-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724961238.7843244,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724961238.785915,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724961238.9339077,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f3qr63JV5",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724961239.0834708,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724961399.1684728,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 0,
+                        "state": "Exited",
+                        "pid": 485,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961399.6085777,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961399.6086407,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "32",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-256-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724961079.4389145,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724961079.440446,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724961079.5838554,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2dcwxTm9",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724961079.730487,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724961237.884117,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 31,
+                        "rank": 543,
+                        "state": "Exited",
+                        "pid": 305,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961238.3193216,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961238.3193724,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "32",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-256-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724961400.0767598,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724961400.07839,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724961400.227623,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f54vsE6Uf",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724961400.3771026,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724961561.314718,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 0,
+                        "state": "Exited",
+                        "pid": 649,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961561.783553,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961561.783601,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "32",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-256-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724960909.717049,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724960909.7187257,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724960909.8729568,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fLpmN1yh",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724960910.0218463,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724961069.2679508,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 31,
+                        "rank": 511,
+                        "state": "Exited",
+                        "pid": 143,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961069.711133,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961069.7111843,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "32",
+                            "16",
+                            "16",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/spack-environment",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-256-iter-5"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724961562.2728305,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724961562.274259,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724961562.4041758,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f6JQhfifH",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724961562.5516703,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724961722.6107152,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 0,
+                        "state": "Exited",
+                        "pid": 813,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961723.1039078,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724961723.1039417,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
     "azure/aks/cpu/size64-placement": [
         {
             "jobspec": {
