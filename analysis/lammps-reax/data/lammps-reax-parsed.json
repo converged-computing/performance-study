@@ -51384,6 +51384,1042 @@
             }
         }
     ],
+    "azure/aks/cpu/size128": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/usr/bin/lmp",
+                            "-v",
+                            "x",
+                            "64",
+                            "-v",
+                            "y",
+                            "64",
+                            "-v",
+                            "z",
+                            "32",
+                            "-in",
+                            "in.reaxff.hns",
+                            "-nocite"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/code",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "lammps-reax-128-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724911056.971751,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724911056.97285,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724911057.0354922,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f4586EHef",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724911057.419363,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724911356.8350527,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 95,
+                        "rank": 5087,
+                        "state": "Exited",
+                        "pid": 638,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911357.5739746,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911357.5740397,
+                    "name": "done"
+                }
+            ],
+            "lammps": {
+                "processor_grids": [
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 16
+                        },
+                        {
+                            "z": 24
+                        }
+                    ],
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 24
+                        },
+                        {
+                            "z": 16
+                        }
+                    ]
+                ],
+                "atoms": 304,
+                "velocities": 304,
+                "read_data_cpu_seconds": 0.131,
+                "bounding_box_extra_memory_mb": 0.03,
+                "replicate_cpu_seconds": 0.157,
+                "performance_ns_per_day": 0.008,
+                "performance_hours_per_ns": 2980.64,
+                "timesteps_per_second": 0.932,
+                "ranks": 12288,
+                "times": {
+                    "matrix": [
+                        [
+                            "Pair",
+                            20.424,
+                            23.314,
+                            36.474,
+                            12.1,
+                            21.73
+                        ],
+                        [
+                            "Neigh",
+                            0.35611,
+                            0.37408,
+                            0.57671,
+                            1.4,
+                            0.35
+                        ],
+                        [
+                            "Comm",
+                            0.066424,
+                            2.0615,
+                            15.662,
+                            90.4,
+                            1.92
+                        ],
+                        [
+                            "Output",
+                            0.56821,
+                            1.8694,
+                            1.9715,
+                            5.8,
+                            1.74
+                        ],
+                        [
+                            "Modify",
+                            69.675,
+                            79.675,
+                            80.534,
+                            12.4,
+                            74.25
+                        ],
+                        [
+                            "Other",
+                            0.008986,
+                            0.01
+                        ]
+                    ],
+                    "header": [
+                        "min time",
+                        "avg time",
+                        "max time",
+                        "%varavg",
+                        "%total"
+                    ]
+                },
+                "nghost_avg": 12107.8,
+                "nghost_min": 12063.0,
+                "nghost_max": 12146.0,
+                "nghost_hist": [
+                    61,
+                    401,
+                    1227,
+                    1688,
+                    1299,
+                    1933,
+                    3079,
+                    1959,
+                    573,
+                    68
+                ],
+                "neighs_avg": 1070250.0,
+                "neighs_min": 1060220.0,
+                "neighs_max": 1077890.0,
+                "neighs_hist": [
+                    40,
+                    602,
+                    2069,
+                    1230,
+                    171,
+                    520,
+                    2842,
+                    3728,
+                    1040,
+                    46
+                ],
+                "neighbors": 13151174000.0,
+                "average_neighbors_per_atom": 330.05097,
+                "neighbor_list_builds": 5,
+                "total_wall_time_raw": "0:01:50",
+                "total_wall_time_seconds": 110.0
+            }
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/usr/bin/lmp",
+                            "-v",
+                            "x",
+                            "64",
+                            "-v",
+                            "y",
+                            "64",
+                            "-v",
+                            "z",
+                            "32",
+                            "-in",
+                            "in.reaxff.hns",
+                            "-nocite"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/code",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "lammps-reax-128-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724911358.2533967,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724911358.2543817,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724911358.314398,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f6MuDscRM",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724911358.6992326,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724911653.930268,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 94,
+                        "rank": 5086,
+                        "state": "Exited",
+                        "pid": 1021,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911654.7339315,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911654.7339673,
+                    "name": "done"
+                }
+            ],
+            "lammps": {
+                "processor_grids": [
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 16
+                        },
+                        {
+                            "z": 24
+                        }
+                    ],
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 24
+                        },
+                        {
+                            "z": 16
+                        }
+                    ]
+                ],
+                "atoms": 304,
+                "velocities": 304,
+                "read_data_cpu_seconds": 0.152,
+                "bounding_box_extra_memory_mb": 0.03,
+                "replicate_cpu_seconds": 0.25,
+                "performance_ns_per_day": 0.008,
+                "performance_hours_per_ns": 2864.405,
+                "timesteps_per_second": 0.97,
+                "ranks": 12288,
+                "times": {
+                    "matrix": [
+                        [
+                            "Pair",
+                            20.665,
+                            23.315,
+                            31.819,
+                            12.0,
+                            22.61
+                        ],
+                        [
+                            "Neigh",
+                            0.35723,
+                            0.37406,
+                            0.47772,
+                            1.3,
+                            0.36
+                        ],
+                        [
+                            "Comm",
+                            0.15181,
+                            2.0182,
+                            10.481,
+                            68.7,
+                            1.96
+                        ],
+                        [
+                            "Output",
+                            0.90033,
+                            1.6718,
+                            1.7764,
+                            5.1,
+                            1.62
+                        ],
+                        [
+                            "Modify",
+                            69.836,
+                            75.729,
+                            76.671,
+                            8.5,
+                            73.44
+                        ],
+                        [
+                            "Other",
+                            0.01026,
+                            0.01
+                        ]
+                    ],
+                    "header": [
+                        "min time",
+                        "avg time",
+                        "max time",
+                        "%varavg",
+                        "%total"
+                    ]
+                },
+                "nghost_avg": 12107.8,
+                "nghost_min": 12063.0,
+                "nghost_max": 12146.0,
+                "nghost_hist": [
+                    61,
+                    401,
+                    1227,
+                    1688,
+                    1299,
+                    1933,
+                    3079,
+                    1959,
+                    573,
+                    68
+                ],
+                "neighs_avg": 1070250.0,
+                "neighs_min": 1060220.0,
+                "neighs_max": 1077890.0,
+                "neighs_hist": [
+                    40,
+                    602,
+                    2069,
+                    1230,
+                    171,
+                    520,
+                    2842,
+                    3728,
+                    1040,
+                    46
+                ],
+                "neighbors": 13151174000.0,
+                "average_neighbors_per_atom": 330.05097,
+                "neighbor_list_builds": 5,
+                "total_wall_time_raw": "0:01:46",
+                "total_wall_time_seconds": 106.0
+            }
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/usr/bin/lmp",
+                            "-v",
+                            "x",
+                            "64",
+                            "-v",
+                            "y",
+                            "64",
+                            "-v",
+                            "z",
+                            "32",
+                            "-in",
+                            "in.reaxff.hns",
+                            "-nocite"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/code",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "lammps-reax-128-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724910740.0088494,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724910740.009857,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724910740.1086488,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-ffSEj5z7",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724910740.4830513,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724911035.291024,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 8,
+                        "rank": 1256,
+                        "state": "Exited",
+                        "pid": 74,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911036.1895423,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724911036.1895976,
+                    "name": "done"
+                }
+            ],
+            "lammps": {
+                "processor_grids": [
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 16
+                        },
+                        {
+                            "z": 24
+                        }
+                    ],
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 24
+                        },
+                        {
+                            "z": 16
+                        }
+                    ]
+                ],
+                "atoms": 304,
+                "velocities": 304,
+                "read_data_cpu_seconds": 0.128,
+                "bounding_box_extra_memory_mb": 0.03,
+                "replicate_cpu_seconds": 0.208,
+                "performance_ns_per_day": 0.008,
+                "performance_hours_per_ns": 2861.323,
+                "timesteps_per_second": 0.971,
+                "ranks": 12288,
+                "times": {
+                    "matrix": [
+                        [
+                            "Pair",
+                            20.487,
+                            23.29,
+                            31.701,
+                            12.1,
+                            22.61
+                        ],
+                        [
+                            "Neigh",
+                            0.3546,
+                            0.37389,
+                            0.49266,
+                            1.4,
+                            0.36
+                        ],
+                        [
+                            "Comm",
+                            0.058156,
+                            2.0152,
+                            8.9522,
+                            69.6,
+                            1.96
+                        ],
+                        [
+                            "Output",
+                            0.56066,
+                            1.3041,
+                            1.4127,
+                            5.8,
+                            1.27
+                        ],
+                        [
+                            "Modify",
+                            70.224,
+                            76.013,
+                            76.92,
+                            8.8,
+                            73.79
+                        ],
+                        [
+                            "Other",
+                            0.01073,
+                            0.01
+                        ]
+                    ],
+                    "header": [
+                        "min time",
+                        "avg time",
+                        "max time",
+                        "%varavg",
+                        "%total"
+                    ]
+                },
+                "nghost_avg": 12107.8,
+                "nghost_min": 12063.0,
+                "nghost_max": 12146.0,
+                "nghost_hist": [
+                    61,
+                    401,
+                    1227,
+                    1688,
+                    1299,
+                    1933,
+                    3079,
+                    1959,
+                    573,
+                    68
+                ],
+                "neighs_avg": 1070250.0,
+                "neighs_min": 1060220.0,
+                "neighs_max": 1077890.0,
+                "neighs_hist": [
+                    40,
+                    602,
+                    2069,
+                    1230,
+                    171,
+                    520,
+                    2842,
+                    3728,
+                    1040,
+                    46
+                ],
+                "neighbors": 13151174000.0,
+                "average_neighbors_per_atom": 330.05097,
+                "neighbor_list_builds": 5,
+                "total_wall_time_raw": "0:01:46",
+                "total_wall_time_seconds": 106.0
+            }
+        }
+    ],
+    "azure/aks/cpu/size256": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/usr/bin/lmp",
+                            "-v",
+                            "x",
+                            "64",
+                            "-v",
+                            "y",
+                            "64",
+                            "-v",
+                            "z",
+                            "32",
+                            "-in",
+                            "in.reaxff.hns",
+                            "-nocite"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/code",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "lammps-reax-256-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724960167.6832235,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724960167.684457,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724960167.8332145,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fGAE75L3",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724960168.2225595,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724960695.053581,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 48,
+                        "rank": 912,
+                        "state": "Exited",
+                        "pid": 156,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724960696.7795873,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724960696.7796273,
+                    "name": "done"
+                }
+            ],
+            "lammps": {
+                "processor_grids": [
+                    [
+                        {
+                            "x": 32
+                        },
+                        {
+                            "y": 24
+                        },
+                        {
+                            "z": 32
+                        }
+                    ],
+                    [
+                        {
+                            "x": 48
+                        },
+                        {
+                            "y": 32
+                        },
+                        {
+                            "z": 16
+                        }
+                    ]
+                ],
+                "atoms": 304,
+                "velocities": 304,
+                "read_data_cpu_seconds": 0.219,
+                "bounding_box_extra_memory_mb": 0.03,
+                "replicate_cpu_seconds": 0.36,
+                "performance_ns_per_day": 0.009,
+                "performance_hours_per_ns": 2757.333,
+                "timesteps_per_second": 1.007,
+                "ranks": 24576,
+                "times": {
+                    "matrix": [
+                        [
+                            "Pair",
+                            10.772,
+                            12.825,
+                            18.095,
+                            13.0,
+                            12.92
+                        ],
+                        [
+                            "Neigh",
+                            0.21969,
+                            0.23608,
+                            0.38775,
+                            1.2,
+                            0.24
+                        ],
+                        [
+                            "Comm",
+                            0.048024,
+                            1.6316,
+                            6.3522,
+                            49.4,
+                            1.64
+                        ],
+                        [
+                            "Output",
+                            0.87359,
+                            1.3782,
+                            1.4553,
+                            3.0,
+                            1.39
+                        ],
+                        [
+                            "Modify",
+                            79.719,
+                            83.15,
+                            83.806,
+                            4.2,
+                            83.77
+                        ],
+                        [
+                            "Other",
+                            0.04349,
+                            0.04
+                        ]
+                    ],
+                    "header": [
+                        "min time",
+                        "avg time",
+                        "max time",
+                        "%varavg",
+                        "%total"
+                    ]
+                },
+                "nghost_avg": 8636.03,
+                "nghost_min": 8524.0,
+                "nghost_max": 8813.0,
+                "nghost_hist": [
+                    5794,
+                    10029,
+                    561,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2617,
+                    5575
+                ],
+                "neighs_avg": 562784.0,
+                "neighs_min": 550985.0,
+                "neighs_max": 578427.0,
+                "neighs_hist": [
+                    937,
+                    6809,
+                    6178,
+                    2443,
+                    17,
+                    0,
+                    0,
+                    302,
+                    6538,
+                    1352
+                ],
+                "neighbors": 13830972000.0,
+                "average_neighbors_per_atom": 347.11164,
+                "neighbor_list_builds": 5,
+                "total_wall_time_raw": "0:01:43",
+                "total_wall_time_seconds": 103.0
+            }
+        }
+    ],
     "azure/aks/cpu/size64-placement": [
         {
             "jobspec": {

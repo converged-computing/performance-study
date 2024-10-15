@@ -254,7 +254,7 @@ def skip_result(dirname, filename):
         return False
 
     # These were redone with a placement group
-    if "aks/cpu/size" in filename and "placement" not in filename:
+    if "aks/cpu/size" in filename and "placement" not in filename and "256" not in filename and "128" not in filename:
         return True
 
     return (

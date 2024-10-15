@@ -88,12 +88,10 @@ def parse_data(indir, outdir, files):
 
     # For flux we can save jobspecs and other event data
     data = {}
+    print(files)
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
-
-        # Underscore means skip, also skip configs and runs without efa
-        # runs with google and shared memory were actually slower...
         dirname = os.path.basename(filename)
         if ps.skip_result(dirname, filename):
             continue
@@ -118,7 +116,7 @@ def parse_data(indir, outdir, files):
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
-
+         
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
