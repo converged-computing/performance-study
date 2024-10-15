@@ -88,7 +88,6 @@ def parse_data(indir, outdir, files):
 
     # For flux we can save jobspecs and other event data
     data = {}
-    print(files)
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
