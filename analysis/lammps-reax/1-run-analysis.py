@@ -115,7 +115,6 @@ def parse_data(indir, outdir, files):
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
-         
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
@@ -156,6 +155,14 @@ def parse_data(indir, outdir, files):
 
             # We want this to fail if there is an issue!
             lammps_result = parse_lammps(item)
+
+            # Add in Matom steps - what is considered the LAMMPS FOM
+            # https://asc.llnl.gov/sites/asc/files/2020-09/CORAL2_Benchmark_Summary_LAMMPS.pdf
+            # Not parsed by metrics operator so we find the line here
+            line = [x for x in item.split("\n") if "Matom-step/s" in x][0]
+            matom_steps_per_second = float(line.split(",")[-1].strip().split(" ")[0])
+            p.add_result("matom_steps_per_second", matom_steps_per_second, problem_size)
+
             wall_time = lammps_result["total_wall_time_seconds"]
             metadata["lammps"] = lammps_result
             p.add_result("wall_time", wall_time, problem_size)
