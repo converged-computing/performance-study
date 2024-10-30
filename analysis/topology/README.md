@@ -62,6 +62,8 @@ Includes 10 files
 
 ![data/gif/cpu-parallel-cluster-size-32-count-10.gif](data/gif/cpu-parallel-cluster-size-32-count-10.gif)
 
+<details>
+
 ##### Static
 
 ![data/img/topology-size-32-kripke-aws-parallel-cluster-cpu-size32-0-hops.png](data/img/topology-size-32-kripke-aws-parallel-cluster-cpu-size32-0-hops.png)
@@ -75,6 +77,9 @@ Includes 10 files
 ![data/img/topology-size-32-quicksilver-aws-parallel-cluster-cpu-size32-0-hops.png](data/img/topology-size-32-quicksilver-aws-parallel-cluster-cpu-size32-0-hops.png)
 ![data/img/topology-size-32-stream-aws-parallel-cluster-cpu-size32-0-hops.png](data/img/topology-size-32-stream-aws-parallel-cluster-cpu-size32-0-hops.png)
 
+</details>
+
+
 #### Parallel Cluster Size 64
 
 ##### Animation 1
@@ -82,6 +87,8 @@ Includes 10 files
 Includes 9 files
 
 ![data/gif/cpu-parallel-cluster-size-64-count-9.gif](data/gif/cpu-parallel-cluster-size-64-count-9.gif)
+
+<details>
 
 ##### Static
 
@@ -95,6 +102,8 @@ Includes 9 files
 ![data/img/topology-size-64-nekrs-aws-parallel-cluster-cpu-size64-0-hops.png](data/img/topology-size-64-nekrs-aws-parallel-cluster-cpu-size64-0-hops.png)
 ![data/img/topology-size-64-osu-aws-parallel-cluster-cpu-size64-0-hops.png](data/img/topology-size-64-osu-aws-parallel-cluster-cpu-size64-0-hops.png)
 
+</details>
+
 #### Parallel Cluster Size 128
 
 ##### Animation 2
@@ -102,6 +111,8 @@ Includes 9 files
 Includes 9 files
 
 ![data/gif/cpu-parallel-cluster-size-128-count-9.gif](data/gif/cpu-parallel-cluster-size-128-count-9.gif)
+
+<details>
 
 ##### Static
 
@@ -115,6 +126,8 @@ Includes 9 files
 ![data/img/topology-size-128-osu-aws-parallel-cluster-cpu-size128-0-hops.png](data/img/topology-size-128-osu-aws-parallel-cluster-cpu-size128-0-hops.png)
 ![data/img/topology-size-128-quicksilver-aws-parallel-cluster-cpu-size128-0-hops.png](data/img/topology-size-128-quicksilver-aws-parallel-cluster-cpu-size128-0-hops.png)
 
+</details>
+
 #### Parallel Cluster Size 256
 
 ##### Animation 3
@@ -122,6 +135,8 @@ Includes 9 files
 Includes 8 files
 
 ![data/gif/cpu-parallel-cluster-size-256-count-8.gif](data/gif/cpu-parallel-cluster-size-256-count-8.gif)
+
+<details>
 
 ##### Static
 
@@ -133,6 +148,8 @@ Includes 8 files
 ![data/img/topology-size-256-mt-gemm-aws-parallel-cluster-cpu-size256-0-hops.png](data/img/topology-size-256-mt-gemm-aws-parallel-cluster-cpu-size256-0-hops.png)
 ![data/img/topology-size-256-osu-aws-parallel-cluster-cpu-size256-0-hops.png](data/img/topology-size-256-osu-aws-parallel-cluster-cpu-size256-0-hops.png)
 ![data/img/topology-size-256-quicksilver-aws-parallel-cluster-cpu-size256-0-hops.png](data/img/topology-size-256-quicksilver-aws-parallel-cluster-cpu-size256-0-hops.png)
+
+</details>
 
 
 ### EKS
@@ -151,6 +168,8 @@ Includes 6 files
 
 ![data/gif/cpu-eks-size-32-count-6.gif](data/gif/cpu-eks-size-32-count-6.gif)
 
+<details>
+
 ##### Static 
 
 ![data/img/topology-32-aws-eks-cpu-size32-0-hops.png](data/img/topology-32-aws-eks-cpu-size32-0-hops.png)
@@ -160,6 +179,8 @@ Includes 6 files
 ![data/img/topology-lammps-32-aws-eks-cpu-size32-0-hops.png](data/img/topology-lammps-32-aws-eks-cpu-size32-0-hops.png)
 ![data/img/topology-quicksilver-32-aws-eks-cpu-size32-0-hops.png](data/img/topology-quicksilver-32-aws-eks-cpu-size32-0-hops.png)
 
+</details>
+
 #### EKS CPU 64
 
 ##### Animation 6
@@ -168,11 +189,15 @@ Includes 3 files
 
 ![data/gif/cpu-eks-size-64-count-3.gif](data/gif/cpu-eks-size-64-count-3.gif)
 
+<details>
+
 ##### Static
 
 ![data/img/topology-64-aws-eks-cpu-size64-0-hops.png](data/img/topology-64-aws-eks-cpu-size64-0-hops.png)
 ![data/img/topology-64-aws-eks-cpu-size64-noefa-0-hops.png](data/img/topology-64-aws-eks-cpu-size64-noefa-0-hops.png)
 ![data/img/topology-lammps-64-aws-eks-cpu-size64-0-hops.png](data/img/topology-lammps-64-aws-eks-cpu-size64-0-hops.png)
+
+</details>
 
 #### EKS CPU 128
 
@@ -182,11 +207,15 @@ Includes 3 files
 
 ![data/gif/cpu-eks-size-128-count-3.gif](data/gif/cpu-eks-size-128-count-3.gif)
 
+<details>
+
 ##### Static
 
 ![data/img/topology-128-aws-eks-cpu-size128-0-hops.png](data/img/topology-128-aws-eks-cpu-size128-0-hops.png)
 ![data/img/topology-128-aws-eks-cpu-size128-broken-0-hops.png](data/img/topology-128-aws-eks-cpu-size128-broken-0-hops.png)
 ![data/img/topology-lammps-128-aws-eks-cpu-size128-0-hops.png](data/img/topology-lammps-128-aws-eks-cpu-size128-0-hops.png)
+
+</details>
 
 #### EKS CPU 256
 
@@ -196,9 +225,14 @@ Includes 4 files
 
 ![data/gif/cpu-eks-size-256-count-4.gif](data/gif/cpu-eks-size-256-count-4.gif)
 
+<details>
+
 ##### Static
 
 ![data/img/topology-2-256-aws-eks-cpu-size256-0-hops.png](data/img/topology-2-256-aws-eks-cpu-size256-0-hops.png)
 ![data/img/topology-256-aws-eks-cpu-size256-0-hops.png](data/img/topology-256-aws-eks-cpu-size256-0-hops.png)
 ![data/img/topology-256-aws-eks-cpu-size256-broken-0-hops.png](data/img/topology-256-aws-eks-cpu-size256-broken-0-hops.png)
 ![data/img/topology-3-256-aws-eks-cpu-size256-0-hops.png](data/img/topology-3-256-aws-eks-cpu-size256-0-hops.png)
+
+</details>
+
