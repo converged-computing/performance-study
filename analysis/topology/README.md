@@ -56,7 +56,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### Parallel Cluster Size 32
 
+##### Animation 0
+
+Includes 10 files
+
 ![data/gif/cpu-parallel-cluster-size-32-count-10.gif](data/gif/cpu-parallel-cluster-size-32-count-10.gif)
+
+##### Static
 
 ![data/img/topology-size-32-kripke-aws-parallel-cluster-cpu-size32-0-hops.png](data/img/topology-size-32-kripke-aws-parallel-cluster-cpu-size32-0-hops.png)
 ![data/img/topology-size-32-laghos-aws-parallel-cluster-cpu-size32-0-hops.png](data/img/topology-size-32-laghos-aws-parallel-cluster-cpu-size32-0-hops.png)
@@ -71,7 +77,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### Parallel Cluster Size 64
 
+##### Animation 1
+
+Includes 9 files
+
 ![data/gif/cpu-parallel-cluster-size-64-count-9.gif](data/gif/cpu-parallel-cluster-size-64-count-9.gif)
+
+##### Static
 
 ![data/img/topology-size-64-amg2023-aws-parallel-cluster-cpu-size64-0-hops.png](data/img/topology-size-64-amg2023-aws-parallel-cluster-cpu-size64-0-hops.png)
 ![data/img/topology-size-64-kripke-aws-parallel-cluster-cpu-size64-0-hops.png](data/img/topology-size-64-kripke-aws-parallel-cluster-cpu-size64-0-hops.png)
@@ -85,7 +97,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### Parallel Cluster Size 128
 
+##### Animation 2
+
+Includes 9 files
+
 ![data/gif/cpu-parallel-cluster-size-128-count-9.gif](data/gif/cpu-parallel-cluster-size-128-count-9.gif)
+
+##### Static
 
 ![data/img/topology-size-128-amg2023-aws-parallel-cluster-cpu-size128-0-hops.png](data/img/topology-size-128-amg2023-aws-parallel-cluster-cpu-size128-0-hops.png)
 ![data/img/topology-size-128-kripke-aws-parallel-cluster-cpu-size128-0-hops.png](data/img/topology-size-128-kripke-aws-parallel-cluster-cpu-size128-0-hops.png)
@@ -99,7 +117,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### Parallel Cluster Size 256
 
+##### Animation 3
+
+Includes 8 files
+
 ![data/gif/cpu-parallel-cluster-size-256-count-8.gif](data/gif/cpu-parallel-cluster-size-256-count-8.gif)
+
+##### Static
 
 ![data/img/topology-size-256-amg2023-aws-parallel-cluster-cpu-size256-0-hops.png](data/img/topology-size-256-amg2023-aws-parallel-cluster-cpu-size256-0-hops.png)
 ![data/img/topology-size-256-kripke-aws-parallel-cluster-cpu-size256-0-hops.png](data/img/topology-size-256-kripke-aws-parallel-cluster-cpu-size256-0-hops.png)
@@ -115,12 +139,19 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### EKS GPU 16
 
-![data/gif/gpu-eks-size-16-count-1.gif](data/gif/gpu-eks-size-16-count-1.gif)
+This animation isn't super useful (so I'm leaving out) because it's just one image :)
+
 ![data/img/topology-16-aws-eks-gpu-size16-0-hops.png](data/img/topology-16-aws-eks-gpu-size16-0-hops.png)
 
 #### EKS CPU 32
 
+##### Animation 5
+
+Includes 6 files
+
 ![data/gif/cpu-eks-size-32-count-6.gif](data/gif/cpu-eks-size-32-count-6.gif)
+
+##### Static 
 
 ![data/img/topology-32-aws-eks-cpu-size32-0-hops.png](data/img/topology-32-aws-eks-cpu-size32-0-hops.png)
 ![data/img/topology-32-aws-eks-cpu-size32-noefa-0-hops.png](data/img/topology-32-aws-eks-cpu-size32-noefa-0-hops.png)
@@ -131,7 +162,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### EKS CPU 64
 
+##### Animation 6
+
+Includes 3 files
+
 ![data/gif/cpu-eks-size-64-count-3.gif](data/gif/cpu-eks-size-64-count-3.gif)
+
+##### Static
 
 ![data/img/topology-64-aws-eks-cpu-size64-0-hops.png](data/img/topology-64-aws-eks-cpu-size64-0-hops.png)
 ![data/img/topology-64-aws-eks-cpu-size64-noefa-0-hops.png](data/img/topology-64-aws-eks-cpu-size64-noefa-0-hops.png)
@@ -139,7 +176,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### EKS CPU 128
 
+##### Animation 7
+
+Includes 3 files
+
 ![data/gif/cpu-eks-size-128-count-3.gif](data/gif/cpu-eks-size-128-count-3.gif)
+
+##### Static
 
 ![data/img/topology-128-aws-eks-cpu-size128-0-hops.png](data/img/topology-128-aws-eks-cpu-size128-0-hops.png)
 ![data/img/topology-128-aws-eks-cpu-size128-broken-0-hops.png](data/img/topology-128-aws-eks-cpu-size128-broken-0-hops.png)
@@ -147,7 +190,13 @@ Note that the only reason we have duplicates of any EKS sizes is because we had 
 
 #### EKS CPU 256
 
+##### Animation 8
+
+Includes 4 files
+
 ![data/gif/cpu-eks-size-256-count-4.gif](data/gif/cpu-eks-size-256-count-4.gif)
+
+##### Static
 
 ![data/img/topology-2-256-aws-eks-cpu-size256-0-hops.png](data/img/topology-2-256-aws-eks-cpu-size256-0-hops.png)
 ![data/img/topology-256-aws-eks-cpu-size256-0-hops.png](data/img/topology-256-aws-eks-cpu-size256-0-hops.png)
