@@ -13,6 +13,10 @@ import seaborn as sns
 
 sns.set_theme(style="whitegrid", palette="pastel")
 
+def read_json(filename):
+    with open(filename, 'r') as fd:
+        content = json.loads(fd.read())
+    return content
 
 def recursive_find(base, pattern="*.*"):
     """
@@ -23,6 +27,16 @@ def recursive_find(base, pattern="*.*"):
             if not re.search(pattern, dirname):
                 continue
             yield os.path.join(root, dirname)
+
+def recursive_find_files(base, pattern="*.*"):
+    """
+    Recursively find and yield directories matching a glob pattern.
+    """
+    for root, _, filenames in os.walk(base):
+        for filename in filenames:
+            if not re.search(pattern, filename):
+                continue
+            yield os.path.join(root, filename)
 
 
 def find_inputs(input_dir, pattern="*.*"):
