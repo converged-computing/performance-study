@@ -264,7 +264,7 @@ def plot_results(results, outdir):
 
             # set the x label values, the sizes
             plt.xticks(np.arange(0, len(size_list) * 2, 2), size_list)
-            plt.title(f'MiniFE Best Rate "{label}" MB/s {env_type}')
+            plt.title(f'Stream Best Rate "{label}" MB/s {env_type}')
             plt.savefig(
                 os.path.join(
                     img_outdir, f"best-rate-{label}-{env_type}-mb-per-second.png"
