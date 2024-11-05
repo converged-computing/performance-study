@@ -313,7 +313,7 @@ def make_plot(
         hue=hue,
         data=df,
         # gap=.1,
-        linewidth=0.0,
+        linewidth=0.4,
         palette=palette,
         whis=[5, 95],
         # dodge=False,
