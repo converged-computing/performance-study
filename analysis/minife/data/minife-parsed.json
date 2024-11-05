@@ -31942,6 +31942,645 @@
             ]
         }
     ],
+    "azure/aks/cpu/size128": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "miniFE.x",
+                            "nx=230",
+                            "ny=230",
+                            "nz=230",
+                            "use_locking=1",
+                            "elem_group_size=10",
+                            "use_elem_mat_fields=300",
+                            "verify_solution=0"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/minife",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "minife-128-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724914342.4230173,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724914342.4238598,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724914342.4918983,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f4VEMtvMm",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724914342.883203,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724914536.1057696,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 37,
+                        "rank": 3205,
+                        "state": "Exited",
+                        "pid": 616,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914536.9167206,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914536.9167588,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "miniFE.x",
+                            "nx=230",
+                            "ny=230",
+                            "nz=230",
+                            "use_locking=1",
+                            "elem_group_size=10",
+                            "use_elem_mat_fields=300",
+                            "verify_solution=0"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/minife",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "minife-128-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724914537.5442994,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724914537.5454447,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724914537.617709,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f5yDu4oBD",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724914538.0045812,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724914730.013871,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 4,
+                        "rank": 1828,
+                        "state": "Exited",
+                        "pid": 1032,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914730.7748148,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914730.774874,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "miniFE.x",
+                            "nx=230",
+                            "ny=230",
+                            "nz=230",
+                            "use_locking=1",
+                            "elem_group_size=10",
+                            "use_elem_mat_fields=300",
+                            "verify_solution=0"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/minife",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "minife-128-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724913922.535697,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724913922.5367792,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724913922.630682,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fJBaUE79",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724913923.0175152,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724914118.1195529,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 64,
+                        "rank": 1888,
+                        "state": "Exited",
+                        "pid": 191,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914118.9983592,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914118.998402,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "miniFE.x",
+                            "nx=230",
+                            "ny=230",
+                            "nz=230",
+                            "use_locking=1",
+                            "elem_group_size=10",
+                            "use_elem_mat_fields=300",
+                            "verify_solution=0"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/minife",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "minife-128-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724914731.4635334,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724914731.4645238,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724914731.5206087,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f7SgjhYYX",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724914731.9116955,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724914923.0606952,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 38,
+                        "rank": 1862,
+                        "state": "Exited",
+                        "pid": 1582,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914923.931148,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724914923.931202,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "azure/aks/cpu/size256": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "miniFE.x",
+                            "nx=230",
+                            "ny=230",
+                            "nz=230",
+                            "use_locking=1",
+                            "elem_group_size=10",
+                            "use_elem_mat_fields=300",
+                            "verify_solution=0"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/minife",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "minife-256-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724962685.2804766,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724962685.2818103,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724962685.4330008,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fb5PPaM5",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724962685.8327093,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724963116.1105843,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 32,
+                        "rank": 3776,
+                        "state": "Exited",
+                        "pid": 124,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724963117.5977871,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724963117.597826,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
     "azure/aks/cpu/size64-placement": [
         {
             "jobspec": {

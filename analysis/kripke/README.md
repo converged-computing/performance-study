@@ -46,10 +46,8 @@ We have all runs for CycleCloud for GPU size 4, but they are killed before we ge
 
 #### Number of Unknowns (GPU and CPU)
 
-These are sanity checks I think that we ran the same thing - looks good.
-
-![data/img/kripke-number_of_unknowns-cpu.png](data/img/kripke-number_of_unknowns-cpu.png)
-![data/img/kripke-number_of_unknowns-gpu.png](data/img/kripke-number_of_unknowns-gpu.png)
+Note from V: number of unknowns for CPU and GPU were both the same flat lines (values) for each of CPU and GPU and don't appear with
+our plot style that has line width 0.
 
 #### Workload Manager Wrapper Time CPU
 

@@ -13991,6 +13991,578 @@
             ]
         }
     ],
+    "azure/aks/cpu/size128": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "qs",
+                            "--inputFile",
+                            "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp",
+                            "-X",
+                            "256",
+                            "-Y",
+                            "128",
+                            "-Z",
+                            "128",
+                            "-x",
+                            "256",
+                            "-y",
+                            "128",
+                            "-z",
+                            "128",
+                            "-I",
+                            "16",
+                            "-J",
+                            "16",
+                            "-K",
+                            "16",
+                            "-n",
+                            "1342117280"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/quicksilver/Examples",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                }
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "quicksilver-128-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724915519.8706152,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724915519.871539,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724915519.929559,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f4oFCQmWw",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724915520.0030172,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724915889.9322548,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 4,
+                        "rank": 2820,
+                        "state": "Exited",
+                        "pid": 263,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724915890.2034297,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724915890.2034695,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 128,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "qs",
+                            "--inputFile",
+                            "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp",
+                            "-X",
+                            "256",
+                            "-Y",
+                            "128",
+                            "-Z",
+                            "128",
+                            "-x",
+                            "256",
+                            "-y",
+                            "128",
+                            "-z",
+                            "128",
+                            "-I",
+                            "16",
+                            "-J",
+                            "16",
+                            "-K",
+                            "16",
+                            "-n",
+                            "1342117280"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/quicksilver/Examples",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                }
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "quicksilver-128-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724915111.6739526,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724915111.6749878,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724915111.7657166,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fhMDwKbM",
+                        "leader-rank": 0,
+                        "size": 128
+                    }
+                },
+                {
+                    "timestamp": 1724915111.8377776,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    128,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724915507.900523,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 27,
+                        "rank": 3867,
+                        "state": "Exited",
+                        "pid": 113,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724915508.1639478,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724915508.1639817,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "azure/aks/cpu/size256": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "qs",
+                            "--inputFile",
+                            "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp",
+                            "-X",
+                            "256",
+                            "-Y",
+                            "256",
+                            "-Z",
+                            "128",
+                            "-x",
+                            "256",
+                            "-y",
+                            "256",
+                            "-z",
+                            "128",
+                            "-I",
+                            "32",
+                            "-J",
+                            "16",
+                            "-K",
+                            "16",
+                            "-n",
+                            "2684354560"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/quicksilver/Examples",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                }
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "quicksilver-256-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724964150.3662417,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724964150.3676882,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724964150.5000577,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f57ir7dHq",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724964150.6096702,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724964598.0895412,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 17,
+                        "rank": 5137,
+                        "state": "Exited",
+                        "pid": 287,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724964598.598098,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724964598.5981667,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 256,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 32,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 3
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "qs",
+                            "--inputFile",
+                            "/opt/quicksilver/Examples/CORAL2_Benchmark/Problem1/Coral2_P1.inp",
+                            "-X",
+                            "256",
+                            "-Y",
+                            "256",
+                            "-Z",
+                            "128",
+                            "-x",
+                            "256",
+                            "-y",
+                            "256",
+                            "-z",
+                            "128",
+                            "-I",
+                            "32",
+                            "-J",
+                            "16",
+                            "-K",
+                            "16",
+                            "-n",
+                            "2684354560"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/quicksilver/Examples",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                }
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "quicksilver-256-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724963651.5506535,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724963651.552285,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724963651.7028615,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fKtbrFq1",
+                        "leader-rank": 0,
+                        "size": 256
+                    }
+                },
+                {
+                    "timestamp": 1724963651.8094616,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    256,
+                                    32,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724964137.2562847,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 14,
+                        "rank": 878,
+                        "state": "Exited",
+                        "pid": 85,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724964137.7825527,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724964137.7825966,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
     "azure/aks/cpu/size64-placement": [
         {
             "jobspec": {

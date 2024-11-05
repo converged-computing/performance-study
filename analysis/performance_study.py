@@ -303,13 +303,17 @@ def make_plot(
     ext = ext.strip(".")
     plt.figure(figsize=(12, 6))
     sns.set_style("dark")
+    flierprops = dict(
+        marker=".", markerfacecolor="None", markersize=10, markeredgecolor="black"
+    )
     ax = sns.boxplot(
         x=xdimension,
         y=ydimension,
+        flierprops=flierprops,
         hue=hue,
         data=df,
         # gap=.1,
-        linewidth=0.8,
+        linewidth=0.4,
         palette=palette,
         whis=[5, 95],
         # dodge=False,
