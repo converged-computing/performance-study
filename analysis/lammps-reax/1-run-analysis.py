@@ -207,7 +207,8 @@ def plot_results(df, outdir):
                 metric_df = ps_df[ps_df.metric == metric]
 
                 # Note that some of these will be eventually removed / filtered
-                colors = sns.color_palette("hls", 16)
+                colors = sns.color_palette("hls", len(metric_df.experiment.unique()))
+                
                 hexcolors = colors.as_hex()
                 types = list(metric_df.experiment.unique())
                 palette = collections.OrderedDict()

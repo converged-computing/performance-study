@@ -192,7 +192,7 @@ def plot_results(df, outdir):
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
 
-            colors = sns.color_palette("hls", 16)
+            colors = sns.color_palette("hls", len(metric_df.experiment.unique()))
             hexcolors = colors.as_hex()
             types = list(metric_df.experiment.unique())
             palette = collections.OrderedDict()

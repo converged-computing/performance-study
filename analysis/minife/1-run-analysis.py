@@ -115,6 +115,8 @@ def parse_data(indir, outdir, files):
             problem_size = "230nx-ny-nz"
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
+                if "type=cancel" in item:
+                    continue
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
                 if "640" in metadata["jobspec"]["tasks"][0]["command"][1]:
@@ -156,8 +158,7 @@ def plot_results(df, outdir):
             # Make a plot for each metric
             for metric in ps_df.metric.unique():
                 metric_df = ps_df[ps_df.metric == metric]
-
-                colors = sns.color_palette("hls", 16)
+                colors = sns.color_palette("hls", len(metric_df.experiment.unique()))
                 hexcolors = colors.as_hex()
                 types = list(metric_df.experiment.unique())
                 palette = collections.OrderedDict()

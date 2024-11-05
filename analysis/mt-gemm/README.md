@@ -40,6 +40,7 @@ python 1-run-analysis.py
 ```
 
 Note that the [1-run-analysis.py](1-run-analysis.py) has a listing of erroneous runs at the top that can be further investigated, most on CycleCloud. 
+Note from V: when we remove the plot outlines, we remove a lot of the single line (same value across cloud environment) results. These likely aren't interesting to look at so I've removed them from below.
 
 ## Results
 
@@ -51,26 +52,6 @@ I can't find any results for mt-gemm on CycleCloud CPU.
 > A sanity check - alpha and beta, memory, matrix size, and the final sum should always be the same.
 
 If they were different we ran different problems, etc.
-
-#### Alpha GPU
-
-![data/img/mt-gemm-alpha-gpu.png](data/img/mt-gemm-alpha-gpu.png)
-
-#### Beta GPU
-
-![data/img/mt-gemm-beta-gpu.png](data/img/mt-gemm-beta-gpu.png)
-
-#### Final Sum
-
-![data/img/mt-gemm-final_sum-gpu.png](data/img/mt-gemm-final_sum-gpu.png)
-
-#### Matrix Size Input GPU
-
-![data/img/mt-gemm-matrix_size_input-gpu.png](data/img/mt-gemm-matrix_size_input-gpu.png)
-
-#### Memory GPU (GB)
-
-![data/img/mt-gemm-memory_for_matrices_mb-gpu.png](data/img/mt-gemm-memory_for_matrices_mb-gpu.png)
 
 ### GFlops per Second GPU
 
@@ -101,12 +82,6 @@ I can't explain this result, but at size 256 for AWS EKS Flux took longer to do 
 This is similar to the above, but CycleCloud GPU has (likely the hookup time included in the job) that makes it take a really long time. These would have been calculated from the timestamps in the job runs, so anything like errors or just slow hookup could cause that.
 
 ![data/img/mt-gemm-workload_manager_wrapper_seconds-gpu.png](data/img/mt-gemm-workload_manager_wrapper_seconds-gpu.png)
-
-### Metric Size Ops for CPU
-
-This is just a sanity check  - these all need to be the same to indicate we ran the same thing.
-
-![data/img/mt-gemm-size_ops-cpu.png](data/img/mt-gemm-size_ops-cpu.png)
 
 ### Time in Msecs
 
