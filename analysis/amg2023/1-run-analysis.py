@@ -129,14 +129,7 @@ def parse_data(indir, outdir, files):
         # that we can skip.
         if exp.cloud == "google" and exp.env == "gke" and exp.env_type == "gpu":
             # amg was run at different sizes and decompositions. amg2023-large is the correct one
-            if "amg2023" in filename and not filename.endswith(
-                os.path.join("final", "amg2023-large")
-            ):
-                print(f"Skipping {filename}, not correct result to use.")
-                continue
-
-            # attempt-1 needed a redo, so don't use it
-            if "final" not in filename:
+            if "amg2023-large" not in filename:
                 print(f"Skipping {filename}, not correct result to use.")
                 continue
 
