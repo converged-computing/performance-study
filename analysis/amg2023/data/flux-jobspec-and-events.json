@@ -2229,7 +2229,818 @@
             ]
         }
     ],
-    "google/gke/gpu/size32": [],
+    "google/gke/gpu/size32": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "8",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-32-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726315465.0273952,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726315465.0284224,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726315465.0587554,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2BNnPr8f",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1726315465.0914419,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726315478.3229403,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 7,
+                        "rank": 199,
+                        "state": "Exited",
+                        "pid": 200,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315478.7970817,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315478.7971206,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "8",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-32-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726315437.1245406,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726315437.1256506,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726315437.1557853,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fy5YwMrw",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1726315437.17532,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726315449.7459245,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 8,
+                        "state": "Exited",
+                        "pid": 111,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315450.1748798,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315450.1749103,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "8",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-32-iter-5"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726315492.5150452,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726315492.5162125,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726315492.54719,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2PVQbUTH",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1726315492.5670176,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726315505.8320277,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 3,
+                        "rank": 11,
+                        "state": "Exited",
+                        "pid": 278,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315506.339828,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315506.3398547,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "8",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-32-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726315479.0730662,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726315479.0741723,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726315479.1038647,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2HZpDvQ7",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1726315479.1268542,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726315491.7821174,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 5,
+                        "rank": 197,
+                        "state": "Exited",
+                        "pid": 239,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315492.2396317,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315492.2396572,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "8",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-32-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726315450.4512668,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726315450.4522915,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726315450.4820964,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f24xEJKno",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1726315450.5017934,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726315464.0612054,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 1,
+                        "rank": 25,
+                        "state": "Exited",
+                        "pid": 153,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315464.7487493,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315464.7487864,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "8",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-32-iter-"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726315414.8546944,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726315414.8557343,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726315414.8899567,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-foGJf81d",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1726315414.923336,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726315428.21162,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 3,
+                        "rank": 3,
+                        "state": "Exited",
+                        "pid": 166,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315428.5852134,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726315428.5852425,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
     "google/gke/gpu/size8": [
         {
             "jobspec": {
@@ -2905,11 +3716,2038 @@
                     "name": "done"
                 }
             ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 8,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-8-iter-5"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726186757.6341543,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726186757.6350203,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726186757.6537347,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f3Hnik3Fd",
+                        "leader-rank": 0,
+                        "size": 8
+                    }
+                },
+                {
+                    "timestamp": 1726186757.6833375,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    8,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726186768.8459558,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 6,
+                        "rank": 54,
+                        "state": "Exited",
+                        "pid": 240,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186769.524311,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186769.5243418,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 8,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-8-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726186693.7248955,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726186693.7259166,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726186693.7449377,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2od7HQwh",
+                        "leader-rank": 0,
+                        "size": 8
+                    }
+                },
+                {
+                    "timestamp": 1726186693.7753925,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    8,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726186704.86313,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 1,
+                        "rank": 25,
+                        "state": "Exited",
+                        "pid": 71,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186705.384981,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186705.3850102,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 8,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-8-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726186733.6760364,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726186733.6769507,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726186733.6942823,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f37EKvhiF",
+                        "leader-rank": 0,
+                        "size": 8
+                    }
+                },
+                {
+                    "timestamp": 1726186733.712867,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    8,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726186744.8503168,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 3,
+                        "rank": 43,
+                        "state": "Exited",
+                        "pid": 155,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186745.4231052,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186745.423145,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 8,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-8-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726186745.6967342,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726186745.6976907,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726186745.7149496,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f3CXa7s35",
+                        "leader-rank": 0,
+                        "size": 8
+                    }
+                },
+                {
+                    "timestamp": 1726186745.7335103,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    8,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726186756.555614,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 3,
+                        "rank": 59,
+                        "state": "Exited",
+                        "pid": 196,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186757.3571124,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186757.35714,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 8,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-8-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726186721.2527559,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726186721.2537146,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726186721.2717023,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f31kknYY7",
+                        "leader-rank": 0,
+                        "size": 8
+                    }
+                },
+                {
+                    "timestamp": 1726186721.381315,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    8,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726186732.5750759,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 1,
+                        "rank": 41,
+                        "state": "Exited",
+                        "pid": 112,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186733.408057,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726186733.4080865,
+                    "name": "done"
+                }
+            ]
         }
     ],
     "google/gke/gpu/size2": [],
-    "google/gke/gpu/size16": [],
-    "google/gke/gpu/size4": [],
+    "google/gke/gpu/size16": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 16,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-16-iter-5"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726188645.8008661,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726188645.8019178,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726188645.8235822,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2xRr1zjh",
+                        "leader-rank": 0,
+                        "size": 16
+                    }
+                },
+                {
+                    "timestamp": 1726188645.8426504,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    16,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726188658.8160987,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 1,
+                        "rank": 25,
+                        "state": "Exited",
+                        "pid": 341,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188659.3122625,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188659.3122947,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 16,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-16-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726188583.2768087,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726188583.2777874,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726188583.301861,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2UsfND1h",
+                        "leader-rank": 0,
+                        "size": 16
+                    }
+                },
+                {
+                    "timestamp": 1726188583.368449,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    16,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726188595.597983,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 2,
+                        "rank": 90,
+                        "state": "Exited",
+                        "pid": 178,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188596.3543484,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188596.3543828,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 16,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-16-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726188632.5576575,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726188632.5586188,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726188632.5795312,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2rbN9y3V",
+                        "leader-rank": 0,
+                        "size": 16
+                    }
+                },
+                {
+                    "timestamp": 1726188632.5984964,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    16,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726188644.947055,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 4,
+                        "rank": 12,
+                        "state": "Exited",
+                        "pid": 303,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188645.5281036,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188645.528141,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 16,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-16-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726188605.5873368,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726188605.5882921,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726188605.6104496,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2ehxRwR9",
+                        "leader-rank": 0,
+                        "size": 16
+                    }
+                },
+                {
+                    "timestamp": 1726188605.6300797,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    16,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726188617.8636236,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 7,
+                        "rank": 31,
+                        "state": "Exited",
+                        "pid": 224,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188618.4936965,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188618.4937265,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 16,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "8",
+                            "4",
+                            "4",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-16-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726188618.762698,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726188618.763699,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726188618.7857125,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2kWkSnWb",
+                        "leader-rank": 0,
+                        "size": 16
+                    }
+                },
+                {
+                    "timestamp": 1726188618.8053155,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    16,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726188631.7777467,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 1,
+                        "rank": 17,
+                        "state": "Exited",
+                        "pid": 259,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188632.2873855,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726188632.2874188,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "google/gke/gpu/size4": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 4,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "4",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-4-iter-5"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726185189.2869933,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726185189.2880154,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726185189.3045335,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2imFFxTH",
+                        "leader-rank": 0,
+                        "size": 4
+                    }
+                },
+                {
+                    "timestamp": 1726185189.3230634,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    4,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726185200.0158324,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 1,
+                        "rank": 17,
+                        "state": "Exited",
+                        "pid": 235,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185200.4805322,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185200.4805636,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 4,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "4",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-4-iter-3"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726185166.6091037,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726185166.6100132,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726185166.6265829,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2Ymbakud",
+                        "leader-rank": 0,
+                        "size": 4
+                    }
+                },
+                {
+                    "timestamp": 1726185166.6447723,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    4,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726185177.2110076,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 2,
+                        "rank": 10,
+                        "state": "Exited",
+                        "pid": 154,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185177.6236515,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185177.6236837,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 4,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "4",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-4-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726185128.6287804,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726185128.6297035,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726185128.6476417,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2G2m34aj",
+                        "leader-rank": 0,
+                        "size": 4
+                    }
+                },
+                {
+                    "timestamp": 1726185128.6656277,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    4,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726185137.6677988,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 0,
+                        "state": "Exited",
+                        "pid": 143,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185137.9994812,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185137.9995046,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 4,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "4",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-4-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726185155.2083514,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726185155.2092857,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726185155.2261775,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2TkB5w2F",
+                        "leader-rank": 0,
+                        "size": 4
+                    }
+                },
+                {
+                    "timestamp": 1726185155.2831917,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    4,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726185165.9106832,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 24,
+                        "state": "Exited",
+                        "pid": 111,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185166.3406925,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185166.340724,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 4,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    },
+                                    {
+                                        "type": "gpu",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "amg",
+                            "-n",
+                            "256",
+                            "256",
+                            "128",
+                            "-P",
+                            "4",
+                            "4",
+                            "2",
+                            "-problem",
+                            "2"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "gpu-affinity": "per-task",
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "amg2023-large-4-iter-4"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1726185177.890695,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1726185177.891507,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1726185177.9082296,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f2djyf4Fy",
+                        "leader-rank": 0,
+                        "size": 4
+                    }
+                },
+                {
+                    "timestamp": 1726185177.9267538,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    4,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1726185188.5797565,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 0,
+                        "rank": 24,
+                        "state": "Exited",
+                        "pid": 193,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185189.0180888,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1726185189.0181227,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
     "google/compute-engine/cpu/size64": [
         {
             "jobspec": {
