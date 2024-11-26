@@ -193,16 +193,6 @@ def parse_metric_type(indir, outdir, files, metric_type):
     return metric_type, data
 
 
-def set_group_color_properties(plot_name, color_code, label):
-    # https://www.geeksforgeeks.org/how-to-create-boxplots-by-group-in-matplotlib/
-    for k, v in plot_name.items():
-        plt.setp(plot_name.get(k), color=color_code)
-
-    # use plot function to draw a small line to name the legend.
-    plt.plot([], c=color_code, label=label)
-    plt.legend()
-
-
 def plot_results(results, metric_type, outdir):
     """
     Plot analysis results.
@@ -248,7 +238,7 @@ def plot_results(results, metric_type, outdir):
                     patch_artist=True,
                     showfliers=False,
                 )
-                set_group_color_properties(plot, colors.pop(0), experiment)
+                ps.set_group_color_properties(plot, colors.pop(0), experiment)
 
             # set the x label values, the sizes
             xlabel = "flops/byte"
