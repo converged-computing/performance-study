@@ -2,14 +2,19 @@
 
 import argparse
 import os
-import re
 import matplotlib.pylab as plt
 import csv
 import seaborn as sns
 import numpy as np
+import sys
 
 here = os.path.dirname(os.path.abspath(__file__))
 sns.set_theme(style="whitegrid", palette="pastel")
+analysis_root = os.path.dirname(here)
+root = os.path.dirname(analysis_root)
+sys.path.insert(0, analysis_root)
+
+import performance_study as ps
 
 
 def get_parser():
@@ -227,7 +232,8 @@ def plot_results(results, metric_type, outdir):
             # side
             plt.figure(figsize=(20, 6))
             offsets = [-0.75, -0.5, -0.25, 0.25, 0.5, 0.75]
-            colors = ["#003f5c", "#58508d", "#bc5090", "#de5a79", "#ff6361", "#ffa600"]
+            palette = sns.color_palette("hls", 6)
+            colors = palette.as_hex()
             for experiment, values in vectors.items():
                 # TODO figure this out...
                 positions = np.array(np.arange(len(values))) * 2.0 + offsets.pop(0)
