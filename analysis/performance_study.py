@@ -281,6 +281,15 @@ def skip_result(dirname, filename):
         or "shared-memory" in filename
     )
 
+def set_group_color_properties(plot_name, color_code, label):
+    # https://www.geeksforgeeks.org/how-to-create-boxplots-by-group-in-matplotlib/
+    for k, v in plot_name.items():
+        plt.setp(plot_name.get(k), color=color_code)
+
+    # use plot function to draw a small line to name the legend.
+    plt.plot([], c=color_code, label=label)
+    plt.legend()
+
 
 def make_plot(
     df,
