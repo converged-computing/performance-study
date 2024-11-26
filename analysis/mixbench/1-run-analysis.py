@@ -6,7 +6,6 @@ import os
 import re
 import sys
 import pandas
-import matplotlib.pylab as plt
 
 import seaborn as sns
 
@@ -196,7 +195,6 @@ def parse_data(indir, outdir, files):
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
-
         # Underscore means skip, also skip configs and runs without efa
         # runs with google and shared memory were actually slower...
         dirname = os.path.basename(filename)
@@ -229,7 +227,6 @@ def parse_data(indir, outdir, files):
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
-
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
@@ -363,7 +360,6 @@ def plot_results(results, outdir):
             palette = collections.OrderedDict()
             for t in types:
                 palette[t] = hexcolors.pop(0)
-            title = " ".join([x.capitalize() for x in metric.split("_")])
 
             if len(metric_df.value.unique()) == 1:
                 print(

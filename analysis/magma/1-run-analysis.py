@@ -246,7 +246,8 @@ def plot_results(results, df, outdir):
         plt.figure(figsize=(10, 6))
 
         offsets = [-0.75, -0.5, -0.25, 0.25, 0.5, 0.75]
-        colors = ["#003f5c", "#58508d", "#bc5090", "#de5a79", "#ff6361", "#ffa600"]
+        palette = sns.color_palette("hls", 6)
+        colors = palette.as_hex()
         for experiment, values in ms_vectors.items():
             positions = np.array(np.arange(len(values))) * 2.0 + offsets.pop(0)
             plot = plt.boxplot(
