@@ -39,6 +39,12 @@ def get_parser():
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
     )
+    parser.add_argument(
+        "--on-premises",
+        help="save results that also parse on-premises data.",
+        default=False,
+        action="store_true",        
+    )
     return parser
 
 
@@ -52,11 +58,15 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
+
+    # If flag is added, also parse on premises data
+    if args.on_premises:
+        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
     # Find input directories
-    files = ps.find_inputs(indir, "osu")
+    files = ps.find_inputs(indir, "osu", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 

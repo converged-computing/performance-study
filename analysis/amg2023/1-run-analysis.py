@@ -43,6 +43,11 @@ errors = [
     "azure/cyclecloud/gpu/size32/results/amg2023/amg-32n-503-iter-4.out",
     # This partially ran but was killed. Error file hypre throwup (Segmentation fault)
     "azure/cyclecloud/gpu/size32/results/amg2023/amg-32n-502-iter-3.out",
+    # Incomplete result
+    "on-premises/dane/cpu/size256/amg2023/amg2023-256-4threads-1020030-iter-1-256n.out",
+    "on-premises/dane/cpu/size256/amg2023/amg2023-256-4threads-1020031-iter-2-256n.out",
+    "on-premises/dane/cpu/size256/amg2023/amg2023-256-4threads-1020032-iter-3-256n.out",
+    "on-premises/lassen/gpu/size64/amg2023/6169223-iter-1-64n.out",
 ]
 error_regex = "(%s)" % "|".join(errors)
 
@@ -62,6 +67,12 @@ def get_parser():
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
     )
+    parser.add_argument(
+        "--on-premises",
+        help="save results that also parse on-premises data.",
+        default=False,
+        action="store_true",        
+    )
     return parser
 
 
@@ -75,11 +86,15 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
+
+    # If flag is added, also parse on premises data
+    if args.on_premises:
+        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
     # Find input files (skip anything with test)
-    files = ps.find_inputs(indir, "amg2023")
+    files = ps.find_inputs(indir, "amg2023", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
@@ -123,6 +138,11 @@ def parse_data(indir, outdir, files):
         if exp.size == 2:
             continue
 
+        # Calculate number of gpus from nodes
+        number_gpus = 0
+        if exp.env_type == "gpu":
+            number_gpus = (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
+    
         # TODO we should check to make sure problem decompositions are the same.
         # If the cloud is google, gke, gpu size 8, we want final/amg2023-large
         # there is another attempt-1 and the wrong decomposition (amg2023-large-8-4-2)
@@ -134,7 +154,7 @@ def parse_data(indir, outdir, files):
                 continue
 
         # Set the parsing context for the result data frame
-        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size)
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size, gpu_count=number_gpus)
         exp.show()
 
         # Now we can read each AMG result file and get the FOM.
@@ -152,16 +172,18 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
+            duration = None
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
-            else:
+            elif "on-premises" not in filename:
                 duration = ps.parse_slurm_duration(item)
 
             # Add the duration in seconds
-            p.add_result("workload_manager_wrapper_seconds", duration)
+            if duration is not None:
+                p.add_result("workload_manager_wrapper_seconds", duration)
 
             # Parse the FOM from the item - I see three.
             # This needs to throw an error if we can't find it - indicates the result file is wonky
@@ -176,7 +198,7 @@ def parse_data(indir, outdir, files):
             # FOM_Setup: nnz_AP / Setup Phase Time: 4.743429e+09
             fom_setup = get_fom_line(item, "FOM_Setup")
             p.add_result("fom_setup", fom_setup)
-
+            
     print("Done parsing amg2023 results!")
 
     # Save stuff to file first
@@ -198,6 +220,13 @@ def plot_results(df, outdir):
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
+
+        # x axis is by gpu count for gpus
+        x_by = "nodes"
+        x_label = "Nodes"
+        if env == "gpu":
+            x_by = "gpu_count"
+            x_label = "Number of GPU"
 
         # Make a plot for seconds runtime, and each FOM set.
         # We can look at the metric across sizes, colored by experiment
@@ -222,11 +251,11 @@ def plot_results(df, outdir):
                 title=f"AMG2023 Metric {title} for {env.upper()}",
                 ydimension="value",
                 plotname=f"amg2023-{metric}-{env}",
-                xdimension="nodes",
+                xdimension=x_by,
                 palette=palette,
                 outdir=img_outdir,
                 hue="experiment",
-                xlabel="Nodes",
+                xlabel=x_label,
                 ylabel=title,
                 log_scale=log_scale,
             )
