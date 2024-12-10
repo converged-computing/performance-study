@@ -13,10 +13,12 @@ import seaborn as sns
 
 sns.set_theme(style="whitegrid", palette="pastel")
 
+
 def read_json(filename):
-    with open(filename, 'r') as fd:
+    with open(filename, "r") as fd:
         content = json.loads(fd.read())
     return content
+
 
 def recursive_find(base, pattern="*.*"):
     """
@@ -27,6 +29,7 @@ def recursive_find(base, pattern="*.*"):
             if not re.search(pattern, dirname):
                 continue
             yield os.path.join(root, dirname)
+
 
 def recursive_find_files(base, pattern="*.*"):
     """
@@ -39,13 +42,15 @@ def recursive_find_files(base, pattern="*.*"):
             yield os.path.join(root, filename)
 
 
-def find_inputs(input_dir, pattern="*.*"):
+def find_inputs(input_dir, pattern="*.*", include_on_premises=False):
     """
     Find inputs (times results files)
     """
     files = []
     for filename in recursive_find(input_dir, pattern):
         # We only have data for small
+        if not include_on_premises and "on-premises" in filename:
+            continue
         files.append(filename)
     return files
 
@@ -76,10 +81,12 @@ def write_file(text, filename):
     with open(filename, "w") as fd:
         fd.write(text)
 
+
 class ExperimentNameParser:
     """
     Shared parser to convert directory path into components.
     """
+
     def __init__(self, filename, indir):
         self.filename = filename
         self.indir = indir
@@ -90,7 +97,6 @@ class ExperimentNameParser:
 
     def parse(self):
         parts = self.filename.replace(self.indir + os.sep, "").split(os.sep)
-        
         # These are consistent across studies
         self.cloud = parts.pop(0)
         self.env = parts.pop(0)
@@ -109,6 +115,7 @@ class ExperimentNameParser:
         if "-" in size:
             size, _ = size.split("-", 1)
         self.size = int(size.replace("size", ""))
+
 
 class ResultParser:
     """
@@ -134,10 +141,11 @@ class ResultParser:
                 "application",
                 "metric",
                 "value",
+                "gpu_count",
             ]
         )
 
-    def set_context(self, cloud, env, env_type, size, qualifier=None):
+    def set_context(self, cloud, env, env_type, size, qualifier=None, gpu_count=0):
         """
         Set the context for the next stream of results.
 
@@ -149,6 +157,7 @@ class ResultParser:
         self.size = size
         # Extra metadata to add to experiment name
         self.qualifier = qualifier
+        self.gpu_count = gpu_count
 
     def add_result(self, metric, value):
         """
@@ -168,13 +177,16 @@ class ResultParser:
             self.app,
             metric,
             value,
+            self.gpu_count,
         ]
         self.idx += 1
+
 
 class ProblemSizeParser(ResultParser):
     """
     Extended ResultParser that includes a problem size.
     """
+
     def init_df(self):
         """
         Initialize an empty data frame for the application
@@ -190,6 +202,7 @@ class ProblemSizeParser(ResultParser):
                 "problem_size",
                 "metric",
                 "value",
+                "gpu_count",
             ]
         )
 
@@ -212,6 +225,7 @@ class ProblemSizeParser(ResultParser):
             problem_size,
             metric,
             value,
+            self.gpu_count,
         ]
         self.idx += 1
 
@@ -247,12 +261,14 @@ def parse_slurm_duration(item):
     done = int([x for x in item.split("\n") if "End time" in x][0].rsplit(" ", 1)[-1])
     return done - start
 
+
 def remove_slurm_duration(item):
     """
     Remove the start and end time from the slurm output.
     """
     keepers = [x for x in item.split("\n") if not re.search("^(Start|End) time", x)]
     return "\n".join(keepers)
+
 
 def skip_result(dirname, filename):
     """
@@ -268,7 +284,12 @@ def skip_result(dirname, filename):
         return False
 
     # These were redone with a placement group
-    if "aks/cpu/size" in filename and "placement" not in filename and "256" not in filename and "128" not in filename:
+    if (
+        "aks/cpu/size" in filename
+        and "placement" not in filename
+        and "256" not in filename
+        and "128" not in filename
+    ):
         return True
 
     return (
@@ -280,6 +301,7 @@ def skip_result(dirname, filename):
         or "no-placement" in filename
         or "shared-memory" in filename
     )
+
 
 def set_group_color_properties(plot_name, color_code, label):
     # https://www.geeksforgeeks.org/how-to-create-boxplots-by-group-in-matplotlib/
@@ -341,7 +363,7 @@ def make_plot(
         )
 
     if do_round is True:
-        ax.yaxis.set_major_formatter(FormatStrFormatter('%.3f'))
+        ax.yaxis.set_major_formatter(FormatStrFormatter("%.3f"))
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
     plt.clf()

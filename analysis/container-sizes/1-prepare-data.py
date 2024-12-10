@@ -83,7 +83,6 @@ def write_json(obj, filename):
 
 
 def parse_data(indir, outdir, files):
-
     # Assemble results across filenames - we will have mixing
     lookup = {}
     for filename in files:

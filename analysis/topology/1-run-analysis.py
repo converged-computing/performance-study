@@ -156,6 +156,7 @@ def main():
     # if you want to regenerate it!
     # parse_data(indir, outdir, files)
 
+
 def make_animation(images, outfile):
     """
     Make a gif with imageio! Damn this was easy.
@@ -165,11 +166,10 @@ def make_animation(images, outfile):
         image = imageio.imread(filename)
         frames.append(image)
     # One frame per second - duration doesn't do it
-    iio.imwrite(outfile, frames, fps=1, loop=0) 
+    iio.imwrite(outfile, frames, fps=1, loop=0)
 
 
 def parse_data(indir, outdir, files):
-
     """
     Parse filepaths for environment, etc., and results files for data.
     """
@@ -253,6 +253,7 @@ def parse_data(indir, outdir, files):
             names = [f"data/{x}" for x in names]
             outfile = f"{env_name}-size-{size}-count-{count}.gif"
             make_animation(names, os.path.join(gif_outdir, outfile))
+
 
 if __name__ == "__main__":
     main()

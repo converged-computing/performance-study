@@ -53,13 +53,13 @@ def main():
         sys.exit(f"Raw containers {containers} does not exist.")
 
     containers = read_json(containers)
-    
+
     # Also add in "all containers" set that includes those that were just pulled with singularity
     # (eg., compute engine CPU used rocky bases)
-    all_containers = set(read_json(all_containers)) 
-    
+    all_containers = set(read_json(all_containers))
+
     # There are 90 in all containers, including those not in kubernetes events
-    # There are 80 application containers in containers, those we have k8s events for 
+    # There are 80 application containers in containers, those we have k8s events for
     # This does not include the flux-view
     # Let's get metadata for the union set
     containers = list(set(all_containers).union(set(containers)))

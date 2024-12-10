@@ -167,7 +167,9 @@ def plot_times(df, outdir):
             for typ in subset.exp_type.unique():
                 typset = subset[subset.exp_type == typ]
                 total_duration = typset.duration.sum()
-                print(f"Cloud {cloud} for {environment} {typ}: {total_duration} seconds")
+                print(
+                    f"Cloud {cloud} for {environment} {typ}: {total_duration} seconds"
+                )
 
     # Save unique containers for each
     uniques = {}
