@@ -156,9 +156,12 @@ def calculate_similarity(df, outdir, outfile):
     sims.to_csv(os.path.join(outdir, f"{outfile}-similarity.csv"))
 
     # Update sims index and columns to make them shorter (they will render on the plot)
-    names = [x.replace('ghcr.io/converged-computing/', '').replace('metric-', '') for x in sims.index.tolist()]
+    names = [
+        x.replace("ghcr.io/converged-computing/", "").replace("metric-", "")
+        for x in sims.index.tolist()
+    ]
     # Also remove hash
-    names = [x.split('@', 1)[0] for x in names]
+    names = [x.split("@", 1)[0] for x in names]
     sims.index = names
     sims.columns = names
 

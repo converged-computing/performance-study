@@ -71,7 +71,7 @@ def get_parser():
         "--on-premises",
         help="save results that also parse on-premises data.",
         default=False,
-        action="store_true",        
+        action="store_true",
     )
     return parser
 
@@ -123,7 +123,6 @@ def parse_data(indir, outdir, files):
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
-
         # Underscore means skip, also skip configs and runs without efa
         # runs with google and shared memory were actually slower...
         dirname = os.path.basename(filename)
@@ -141,8 +140,10 @@ def parse_data(indir, outdir, files):
         # Calculate number of gpus from nodes
         number_gpus = 0
         if exp.env_type == "gpu":
-            number_gpus = (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
-    
+            number_gpus = (
+                (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
+            )
+
         # TODO we should check to make sure problem decompositions are the same.
         # If the cloud is google, gke, gpu size 8, we want final/amg2023-large
         # there is another attempt-1 and the wrong decomposition (amg2023-large-8-4-2)
@@ -160,7 +161,6 @@ def parse_data(indir, outdir, files):
         # Now we can read each AMG result file and get the FOM.
         results = list(ps.get_outfiles(filename))
         for result in results:
-
             # Skip over found erroneous results
             if re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
@@ -198,7 +198,7 @@ def parse_data(indir, outdir, files):
             # FOM_Setup: nnz_AP / Setup Phase Time: 4.743429e+09
             fom_setup = get_fom_line(item, "FOM_Setup")
             p.add_result("fom_setup", fom_setup)
-            
+
     print("Done parsing amg2023 results!")
 
     # Save stuff to file first

@@ -10,6 +10,9 @@ Then:
 
 ```bash
 python 1-run-analysis.py
+
+# Parse (currently private) on-premises results too
+python 1-run-analysis.py --on-premises
 ```
 
 Note that the [1-run-analysis.py](1-run-analysis.py) has a listing of erroneous runs at the top that can be further investigated, most on CycleCloud. 

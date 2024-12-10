@@ -43,7 +43,7 @@ def get_parser():
         "--on-premises",
         help="save results that also parse on-premises data.",
         default=False,
-        action="store_true",        
+        action="store_true",
     )
     return parser
 
@@ -166,6 +166,56 @@ def clean_cyclecloud(item):
     return "\n".join(lines)
 
 
+def split_combined_file_on_premises(item, host_prefix):
+    """
+    split combinations of OSU
+    """
+    # Job info
+    skip_regex = "(PST|PDT|JobID|Hosts)"
+    lines = [
+        x
+        for x in item.split("\n")
+        if x and host_prefix not in x and not re.search(skip_regex, x)
+    ]
+
+    # Each section has a last entry for size 4194304
+    sections = []
+    section = []
+    last_line = None
+    while lines:
+        line = lines.pop(0)
+        if not line.strip():
+            continue
+
+        # Get rid of these labels, not helpful
+        if "Allreduce iteration" in line:
+            continue
+        # This is the start of an error and we need to stop parsing
+        if "failed" in line:
+            break
+        section.append(line)
+
+        if (
+            line.startswith("#")
+            and last_line
+            and re.search("(1048576|4096|262144)", last_line)
+        ):
+            section.pop()
+            sections.append(section)
+            section = [line]
+
+        # Reset when we get to the end (largest size)
+        if re.search("4194304", line) and section:
+            sections.append(section)
+            section = []
+        last_line = line
+
+    # Last hanging section, often has partial data
+    if section:
+        sections.append(section)
+    return sections
+
+
 def parse_data(indir, outdir, files):
     """
     Parse filepaths for environment, etc., and results files for data.
@@ -176,7 +226,6 @@ def parse_data(indir, outdir, files):
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
-
         # Underscore means skip, also skip configs and runs without efa
         # runs with google and shared memory were actually slower...
         dirname = os.path.basename(filename)
@@ -199,7 +248,6 @@ def parse_data(indir, outdir, files):
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
-
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
@@ -209,6 +257,25 @@ def parse_data(indir, outdir, files):
             if os.path.basename(result).startswith("_"):
                 continue
             item = ps.read_file(result)
+
+            # On premises results have a totally different format
+            if "on-premises" in filename:
+                item = item.split(
+                    "------------------------------------------------------------", 1
+                )[0]
+
+                # These are combined files with OSU that have all the results in one file
+                for section in split_combined_file_on_premises(item, "lassen"):
+                    remove_cuda_line(section)
+                    command = "osu_latency"
+                    if "Bandwidth" in "\n".join(section):
+                        command = "osu_bw"
+                    elif "Allreduce" in "\n".join(section):
+                        command = "osu_allreduce"
+                    matrix = parse_multi_section([command] + section)
+                    matrix["context"] = [exp.cloud, exp.env, exp.env_type, exp.size]
+                    parsed.append(matrix)
+                continue
 
             # compute engine GPU had smcuda bugs for our first try, and we ran anyway with DD/HH
             # these were ultimately fixed, and we want to skip these runs in osu. The fixed
@@ -342,25 +409,35 @@ def plot_results(results, outdir):
             idxs[title] = {}
             lookup[title] = {}
         size = entry["context"][-1]
-        if size not in dfs[title]:
+
+        # Calculate number of gpus from nodes
+        number_gpus = 0
+        if entry["context"][2] == "gpu":
+            number_gpus = (size * 4) if "lassen" in entry["context"][0] else (size * 8)
+
+        dimension = size
+        if entry["context"][2] == "gpu":
+            dimension = number_gpus
+        if dimension not in dfs[title]:
             columns = get_columns(title) + [
                 "experiment",
                 "cloud",
                 "env",
                 "env_type",
                 "nodes",
+                "gpu_count",
             ]
-            dfs[title][size] = pandas.DataFrame(columns=columns)
-            idxs[title][size] = 0
-            lookup[title][size] = {"x": columns[0], "y": columns[1]}
+            dfs[title][dimension] = pandas.DataFrame(columns=columns)
+            idxs[title][dimension] = 0
+            lookup[title][dimension] = {"x": columns[0], "y": columns[1]}
 
         # Add command to experiment id since it includes unique command
         experiment = os.sep.join(entry["context"][:-1] + [command])
         for datum in entry["matrix"]:
-            dfs[title][size].loc[idxs[title][size], :] = (
-                datum + [experiment] + entry["context"]
+            dfs[title][dimension].loc[idxs[title][dimension], :] = (
+                datum + [experiment] + entry["context"] + [number_gpus]
             )
-            idxs[title][size] += 1
+            idxs[title][dimension] += 1
 
     # Save each completed data frame to file and plot!
     for slug, sizes in dfs.items():
