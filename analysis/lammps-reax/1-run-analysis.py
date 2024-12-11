@@ -263,7 +263,7 @@ def plot_results(df, outdir):
                         palette=palette,
                         outdir=img_outdir,
                         hue="experiment",
-                        xlabel="Nodes",
+                        xlabel="GPU Count",
                         ylabel=title,
                         do_round=True,
                     )
