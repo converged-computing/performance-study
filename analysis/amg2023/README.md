@@ -10,6 +10,9 @@ Then:
 
 ```bash
 python 1-run-analysis.py
+
+# Add on premises data (for local only)
+python 1-run-analysis.py --on-premises
 ```
 
 Note that the [1-run-analysis.py](1-run-analysis.py) has a listing of erroneous runs at the top that can be further investigated, most on CycleCloud. I was conservative to not remove extra runs - including runs that were done without the shared memory fix or a placement group or efa (and later redone). We can adjust these for paper figures, but I'm leaving now out of interest for what it looks like.

@@ -10,6 +10,9 @@ Then:
 
 ```bash
 python 1-run-analysis.py
+
+# On premises
+python 1-run-analysis.py --on-premises
 ```
 
 This was immensely hard to parse, but I did my best. Nuances of the different runs are included below

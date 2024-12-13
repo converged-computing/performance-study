@@ -33,6 +33,7 @@ errors = [
     # Huge stream of UCX errors, not available or found, no lammps output
     "azure/cyclecloud/cpu/size256/results/lammps-reax/lammps-256n-4826-iter-5.out",
     "azure/cyclecloud/cpu/size256/results/lammps-reax/lammps-256n-4829-iter-3.out",
+    "on-premises/lassen/gpu/size8/lammps-reax/6348824-iter-1-8n-gpuon.out",
 ]
 error_regex = "(%s)" % "|".join(errors)
 
@@ -52,6 +53,12 @@ def get_parser():
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
     )
+    parser.add_argument(
+        "--on-premises",
+        help="save results that also parse on-premises data.",
+        default=False,
+        action="store_true",
+    )
     return parser
 
 
@@ -65,12 +72,14 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
+    if args.on_premises:
+        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
     # Find input directories (anything with lammps-reax)
     # lammps directories are usually snap
-    files = ps.find_inputs(indir, "lammps-reax")
+    files = ps.find_inputs(indir, "lammps-reax", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
@@ -108,8 +117,15 @@ def parse_data(indir, outdir, files):
         if exp.size == 2:
             continue
 
+        # Calculate number of gpus from nodes
+        number_gpus = 0
+        if exp.env_type == "gpu":
+            number_gpus = (
+                (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
+            )
+
         # Set the parsing context for the result data frame
-        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size)
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size, gpu_count=number_gpus)
         exp.show()
 
         # Now we can read each result file to get metrics.
@@ -126,6 +142,7 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
+            duration = None
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
@@ -143,15 +160,21 @@ def parse_data(indir, outdir, files):
                 )
 
             # Slurm has the item output, and then just the start/end of the job
-            else:
+            elif "on-premises" not in filename:
                 # We assume all other sizes were 256 256 128
                 # TODO check this is true
                 metadata = {}
                 problem_size = "64x64x32"
                 duration = ps.parse_slurm_duration(item)
 
+            elif "on-premises" in filename:
+                print(filename)
+                metadata = {}
+                problem_size = "64x64x32"
+
             # Add the duration in seconds
-            p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
+            if duration is not None:
+                p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
 
             # We want this to fail if there is an issue!
             lammps_result = parse_lammps(item)
@@ -169,8 +192,9 @@ def parse_data(indir, outdir, files):
             p.add_result("ranks", metadata["lammps"]["ranks"], problem_size)
 
             # Calculate the hookup time - wrapper time minus wall time
-            hookup_time = duration - wall_time
-            p.add_result("hookup_time", hookup_time, problem_size)
+            if duration is not None:
+                hookup_time = duration - wall_time
+                p.add_result("hookup_time", hookup_time, problem_size)
 
             # CPU utilization
             line = [x for x in item.split("\n") if "CPU use" in x][0]
@@ -208,7 +232,7 @@ def plot_results(df, outdir):
 
                 # Note that some of these will be eventually removed / filtered
                 colors = sns.color_palette("hls", len(metric_df.experiment.unique()))
-                
+
                 hexcolors = colors.as_hex()
                 types = list(metric_df.experiment.unique())
                 palette = collections.OrderedDict()
@@ -229,6 +253,20 @@ def plot_results(df, outdir):
                     ylabel=title,
                     do_round=True,
                 )
+                if env == "gpu":
+                    ps.make_plot(
+                        metric_df,
+                        title=f"LAMMPS Metric {title} {problem_size} for {env.upper()}",
+                        ydimension="value",
+                        plotname=f"lammps-reax-{metric}-{problem_size}-{env}-gpu-count",
+                        xdimension="gpu_count",
+                        palette=palette,
+                        outdir=img_outdir,
+                        hue="experiment",
+                        xlabel="GPU Count",
+                        ylabel=title,
+                        do_round=True,
+                    )
 
 
 if __name__ == "__main__":
