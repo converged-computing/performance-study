@@ -450,6 +450,8 @@ We can then choose applications that we know are unique, layers-wise, or we know
 
 This is the most holistic view of the study (includes partial).
 
+![data/img/pull_times_experiment_type_all_clouds_cpu.png](data/img/pull_times_experiment_type_all_clouds_cpu.png)
+
 While we could say that pull times increase as the cluster size gets larger, the size 256 for AWS CPU is not entirely reflective of that because there was a bug in their CNI that delayed a lot of pulls, and the extra time reflects the time that I took to fix it.
 ![data/img/pull_times_experiment_type_aws_eks_cpu.png](data/img/pull_times_experiment_type_aws_eks_cpu.png)
 

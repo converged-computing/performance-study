@@ -217,14 +217,65 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
     """
     Given an output directory, plot image to show pull times.
     """
-    colors = sns.color_palette("hls", 16)
     save_prefix = save_prefix or "pull_times_experiment_type"
 
     # Assume containers need at least 20 seconds to pull
     if filter_below is not None:
         df = df[df.duration > filter_below]
 
-    # Let's first plot pull times by cloud and experiment environment, and break into sizes
+    # Let's first plot cloud and experiment pull times for CPU, anonymized
+    # Make up cloud names
+    cloud_names = {"google": "Cloud C", "aws": "Cloud B", "azure": "Cloud A"}
+    # Let's just plot CPU since we have partial GPU for aws
+    subset = df[df.exp_type == "cpu"]
+    cnames = [cloud_names[x] for x in cpu_df.cloud.tolist()]
+    subset.loc[:, "cloud"] = cnames
+
+    sizes = [
+        int(x.replace("-placement", "").replace("-shared-memory", "").split("size")[-1])
+        for x in subset.exp_size
+    ]
+    subset.loc[:, "experiment_size"] = sizes
+
+    # Break into our experiment containers vs others
+    container_types = []
+    for x in subset.container.tolist():
+        if "converged-computing" in x:
+            container_types.append("experiment-container")
+        else:
+            container_types.append("kubernetes-container")
+
+    # Let's first plot pull times by experiment
+    colors = sns.color_palette("hls", len(types))
+    subset.loc[:, "container_type"] = container_types
+    subset = subset[subset.container_type == "experiment-container"]
+    hexcolors = colors.as_hex()
+    types = list(subset.cloud.unique())
+    types.sort()
+    palette = collections.OrderedDict()
+    for t in types:
+        palette[t] = hexcolors.pop(0)
+
+    make_plot(
+        subset,
+        title="Pull times for CPU Containers Across Cluster Sizes",
+        ydimension="duration",
+        xdimension="experiment_size",
+        outdir=outdir,
+        ext="png",
+        plotname=f"{save_prefix}_all_clouds_cpu",
+        hue="cloud",
+        palette=palette,
+        plot_type="bar",
+        xlabel="Size (Nodes)",
+        ylabel="Pull time (seconds)",
+        dodge=True,
+        width=12,
+        height=6,
+    )
+    colors = sns.color_palette("hls", 16)
+
+    # Let's next plot pull times by cloud and experiment environment, and break into sizes
     # Are there differences depending on size?
     for cloud in df.cloud.unique():
         subset = df[df.cloud == cloud]
@@ -302,6 +353,9 @@ def make_plot(
     plot_type="violin",
     hue=None,
     outdir="img",
+    dodge=False,
+    width=12,
+    height=8,
 ):
     """
     Helper function to make common plots.
@@ -311,7 +365,7 @@ def make_plot(
         plotfunc = sns.violinplot
 
     ext = ext.strip(".")
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(width, height))
     sns.set_style("dark")
     if plot_type == "violin":
         ax = plotfunc(
@@ -326,7 +380,7 @@ def make_plot(
             linewidth=0.8,
             palette=palette,
             whis=[5, 95],
-            dodge=False,
+            dodge=dodge,
         )
 
     plt.title(title)
