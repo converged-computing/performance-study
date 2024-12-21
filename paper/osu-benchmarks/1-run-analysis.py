@@ -5,6 +5,7 @@ import os
 import re
 import sys
 
+import plotly.graph_objects as go
 import matplotlib.pylab as plt
 import pandas
 import seaborn as sns
@@ -58,8 +59,6 @@ def main():
 
     # If flag is added, also parse on premises data
     args.on_premises = True
-    if args.on_premises:
-        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
@@ -263,8 +262,10 @@ def parse_data(indir, outdir, files):
                 )[0]
 
                 # These are combined files with OSU that have all the results in one file
-                for section in split_combined_file_on_premises(item, "lassen"):
-                    remove_cuda_line(section)
+                cluster_name = "lassen" if "lassen" in filename else "dane"
+                for section in split_combined_file_on_premises(item, cluster_name):
+                    if "lassen" in filename:
+                        remove_cuda_line(section)
                     command = "osu_latency"
                     if "Bandwidth" in "\n".join(section):
                         command = "osu_bw"
@@ -482,7 +483,7 @@ def plot_results(results, outdir):
             y = lookup_cpu[slug][size]["y"]
 
             # Make each figure a little bigger
-            plt.figure(figsize=(7, 6))
+            plt.figure(figsize=(8, 6))
 
             # for sty in plt.style.available:
             ax = sns.lineplot(
@@ -494,7 +495,7 @@ def plot_results(results, outdir):
                 dashes=True,
                 errorbar=("ci", 95),
             )
-            plt.title(slug + " CPU Size " + str(size))
+            plt.title(slug + " CPU " + str(size) + " Nodes")
             y_label = y.replace("_", " ")
             ax.set_xlabel(xlabel + " (logscale)", fontsize=16)
             ax.set_ylabel(y_label + " (logscale)", fontsize=16)
@@ -502,6 +503,7 @@ def plot_results(results, outdir):
             ax.set_yticklabels(ax.get_yticks(), fontsize=14)
             plt.xscale("log")
             plt.yscale("log")
+            plt.legend(facecolor="white")
             plt.tight_layout()
             plt.savefig(os.path.join(plots_by_size, f"{slug}_size-{size}_cpu.png"))
             plt.clf()
@@ -521,7 +523,7 @@ def plot_results(results, outdir):
             y = lookup_gpu[slug][size]["y"]
 
             # Make each figure a little bigger
-            plt.figure(figsize=(7, 6))
+            plt.figure(figsize=(8, 6))
 
             # for sty in plt.style.available:
             ax = sns.lineplot(
@@ -533,7 +535,7 @@ def plot_results(results, outdir):
                 dashes=True,
                 errorbar=("ci", 95),
             )
-            plt.title(slug + " GPU Size " + str(size))
+            plt.title(slug + " " + str(size) + " GPUs")
             y_label = y.replace("_", " ")
             ax.set_xlabel(xlabel + " (logscale)", fontsize=16)
             ax.set_ylabel(y_label + " (logscale)", fontsize=16)
@@ -541,6 +543,7 @@ def plot_results(results, outdir):
             ax.set_yticklabels(ax.get_yticks(), fontsize=14)
             plt.xscale("log")
             plt.yscale("log")
+            plt.legend(facecolor="white")
             plt.tight_layout()
             plt.savefig(os.path.join(plots_by_size, f"{slug}_size-{size}_gpu.png"))
             plt.clf()
@@ -576,8 +579,14 @@ def plot_results(results, outdir):
                 exp_df[dimension] = exp_df[dimension].astype(float)
 
                 # Note that these currently aren't used
-                lower = exp_df.groupby("size")[dimension].quantile(0.25)
-                upper = exp_df.groupby("size")[dimension].quantile(0.75)
+                # lower = exp_df.groupby("size")[dimension].quantile(0.25)
+                # upper = exp_df.groupby("size")[dimension].quantile(0.75)
+                if "aws" in experiment:
+                    slug = "aws"
+                elif "google" in experiment:
+                    slug = "gcp"
+                else:
+                    slug = "azure"
 
                 # Median we will save as the row for the experiment size
                 median = exp_df.groupby("size")[dimension].median()
@@ -585,13 +594,122 @@ def plot_results(results, outdir):
                     surfaces[experiment] = {
                         "x": np.log(bytes_sizes),
                         "y": y,
+                        "slug": slug,
                         "z": [],
+                        "y_labels": [],
                         "title": dimension,
                     }
                 # This is the data going backward - the medians across sizes
                 surfaces[experiment]["z"].append(np.log(median.values))
+                surfaces[experiment]["y_labels"].append(size)
 
     # Generate a surface plot for each
+    # Path for html needs to be relative
+    relpath = os.path.relpath(img_outdir, here)
+    html_path = os.path.join(relpath, "web")
+    if not os.path.exists(html_path):
+        os.makedirs(html_path)
+    for experiment, meta in surfaces.items():
+        x_bytes = meta["x"]
+        slug = meta["slug"]
+        cloud = "-".join(experiment.split(os.sep)[0:2])
+        label = os.sep.join(experiment.split(os.sep, 2)[0:2])
+        y_labels = meta["y_labels"]
+        z_nodes = meta["z"]
+        if slug == "aws":
+            color = "YlOrBr"
+        elif slug == "azure":
+            color = "PuBu"
+        else:
+            color = "RdYlBu"
+        trace = go.Surface(
+            x=x_bytes,
+            y=y_labels,
+            z=z_nodes,
+            colorscale=color,
+            cauto=False,
+            showscale=False,
+        )
+        data = [trace]
+        fig = go.Figure(data=data)
+        if meta["title"] == "bandwidth_mb_s":
+            fig.update_scenes(
+                xaxis_title_text="Message Size in Bytes (logscale)",
+                yaxis_title_text="Nodes",
+                zaxis_title_text="Bandwidth Average Latency MB/s (logscale)",
+                xaxis_autorange="reversed",
+            )
+            fig.update_layout(
+                width=1000,
+                height=1000,
+                # margin=dict(l=0, r=0, t=0, b=0),
+                title=f"OSU Bandwidth (CPU) for {label}",
+                scene_camera={
+                    "eye": {"x": 0.0, "y": 2.0, "z": 0.75},
+                    "up": {"x": 0, "y": 0, "z": 0},
+                    "center": {"x": 0, "y": 0, "z": 0},
+                },
+            )
+            fig.write_image(
+                os.path.join(img_outdir, f"{cloud}-bandwidth-surface-plot.png")
+            )
+            fig.write_html(
+                os.path.join(html_path, f"{cloud}-bandwidth-surface-plot.html")
+            )
+
+        elif meta["title"] == "avg_latency_us":
+            fig.update_scenes(
+                xaxis_title_text="Message Size in Bytes (logscale)",
+                yaxis_title_text="Nodes",
+                zaxis_title_text="Average Latency MB/s (logscale)",
+                xaxis_autorange="reversed",
+            )
+            fig.update_layout(
+                width=1000,
+                height=1000,
+                # margin=dict(l=0, r=0, t=0, b=0),
+                title=f"OSU All Reduce (CPU) for {label}",
+                scene_camera={
+                    "eye": {"x": 0.0, "y": 2.0, "z": 0.75},
+                    "up": {"x": 0, "y": 0, "z": 0},
+                    "center": {"x": 0, "y": 0, "z": 0},
+                },
+            )
+            fig.write_image(
+                os.path.join(img_outdir, f"{cloud}-allreduce-surface-plot.png")
+            )
+            fig.write_html(
+                os.path.join(html_path, f"{cloud}-allreduce-surface-plot.html")
+            )
+
+        else:
+            fig.update_scenes(
+                xaxis_title_text="Message Size in Bytes (logscale)",
+                yaxis_title_text="Nodes",
+                zaxis_title_text="Average Latency MB/s (logscale)",
+                xaxis_autorange="reversed",
+            )
+            fig.update_layout(
+                width=1000,
+                height=1000,
+                # margin=dict(l=0, r=0, t=0, b=0),
+                title=f"OSU Latency (CPU) for {label}",
+                scene_camera={
+                    "eye": {"x": 0.0, "y": 2.0, "z": 0.75},
+                    "up": {"x": 0, "y": 0, "z": 0},
+                    "center": {"x": 0, "y": 0, "z": 0},
+                },
+            )
+            fig.write_image(
+                os.path.join(img_outdir, f"{cloud}-latency-surface-plot.png")
+            )
+            fig.write_html(
+                os.path.join(html_path, f"{cloud}-latency-surface-plot.html")
+            )
+
+    # fig.show()
+    return
+
     start_index = 0
     z_nodes = None
     for experiment, meta in surfaces.items():
@@ -601,7 +719,10 @@ def plot_results(results, outdir):
             if z_nodes is None:
                 z_nodes = np.zeros((len(x_bytes), len(y_latency)))
             for row in meta["z"]:
-                z_nodes[start_index, :] = row
+                try:
+                    z_nodes[start_index, :] = row
+                except:
+                    pass
                 start_index += 1
 
     z_nodes = np.array(z_nodes)
@@ -629,7 +750,10 @@ def plot_results(results, outdir):
             y_latency = meta["y"]
             z_nodes = np.zeros((len(x_bytes), len(y_latency)))
             for row in meta["z"]:
-                z_nodes[start_index, :] = row
+                try:
+                    z_nodes[start_index, :] = row
+                except:
+                    pass
                 start_index += 1
             z_nodes = np.array(z_nodes)
             X, Y = np.meshgrid(x_bytes, y_latency)
@@ -664,7 +788,7 @@ def plot_results(results, outdir):
     X, Y = np.meshgrid(x_bytes, y_latency)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
-    ax.set_title("OSU AllReduce")
+    ax.set_title("OSU All_Reduce")
     surf = ax.plot_surface(X, Y, z_nodes, cmap="viridis")
     ax.set_zlabel("Avg Latency in ms (logscale)", fontsize=10)
     ax.set_xlabel("Message Size in bytes (logscale)", fontsize=10)

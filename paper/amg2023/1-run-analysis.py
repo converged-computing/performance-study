@@ -83,10 +83,6 @@ def main():
     
     # We absolutely want on premises results here
     args.on_premises = True
-
-    # If flag is added, also parse on premises data
-    if args.on_premises:
-        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 

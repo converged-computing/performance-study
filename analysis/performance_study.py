@@ -10,8 +10,15 @@ from matplotlib.ticker import FormatStrFormatter
 import matplotlib.pylab as plt
 import pandas
 import seaborn as sns
+import yaml
 
 sns.set_theme(style="whitegrid", palette="pastel")
+
+
+def read_yaml(filename):
+    with open(filename, "r") as fd:
+        content = yaml.safe_load(fd)
+    return content
 
 
 def read_json(filename):
