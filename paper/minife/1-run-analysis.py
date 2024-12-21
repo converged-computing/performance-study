@@ -15,7 +15,7 @@ sys.path.insert(0, analysis_root)
 
 import performance_study as ps
 
-sns.set_theme(style="whitegrid", palette="pastel")
+sns.set_theme(style="dark", palette="muted")
 
 # These are files I found erroneous - no result, or incomplete result
 errors = [
@@ -40,12 +40,6 @@ def get_parser():
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
     )
-    parser.add_argument(
-        "--on-premises",
-        help="save results that also parse on-premises data.",
-        default=False,
-        action="store_true",
-    )
     return parser
 
 
@@ -59,8 +53,7 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
-    if args.on_premises:
-        outdir = os.path.join(outdir, "on-premises")
+    args.on_premises = True
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
@@ -112,7 +105,7 @@ def parse_data(indir, outdir, files):
         exp.show()
 
         # Now we can read each result file to get metrics.
-        results = list(ps.get_outfiles(filename))
+        # results = list(ps.get_outfiles(filename))
 
         # The FOMs are in these yaml files
         # We mostly care about the foms, the output (terminal) isn't as relevant.
@@ -135,42 +128,6 @@ def parse_data(indir, outdir, files):
             problem_size = "230nx-ny-nz"
             fom = item["CG solve"]["Total"]["Total CG Mflops"]
             p.add_result("total_cg_mflops", fom, problem_size)
-
-        for result in results:
-            # Skip over found erroneous results
-            if errors and re.search(error_regex, result):
-                print(f"Skipping {result} due to known missing result or error.")
-                continue
-
-            # Basename that start with underscore are test or otherwise should not be included
-            if os.path.basename(result).startswith("_"):
-                continue
-            item = ps.read_file(result)
-
-            # assume problem size 230, unless we find otherwise in command
-            problem_size = "230nx-ny-nz"
-            metadata = {}
-
-            # If this is a flux run, we have a jobspec and events here
-            if "JOBSPEC" in item:
-                if "type=cancel" in item:
-                    continue
-                item, duration, metadata = ps.parse_flux_metadata(item)
-                data[exp.prefix].append(metadata)
-                if "640" in metadata["jobspec"]["tasks"][0]["command"][1]:
-                    problem_size = "640nx-ny-nz"
-
-            # Slurm has the item output, and then just the start/end of the job
-            elif "on-premises" not in filename:
-                metadata = {}
-                duration = ps.parse_slurm_duration(item)
-                item = ps.remove_slurm_duration(item)
-
-            # Get the last metric - this should throw an error if we don't have it
-            resid_norm = [x for x in item.split("\n") if "Final Resid Norm:" in x][0]
-            resid_norm = float(resid_norm.split(":")[-1])
-            p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
-            p.add_result("resid_norm", resid_norm, problem_size)
 
     print("Done parsing minife results!")
     p.df.to_csv(os.path.join(outdir, "minife-results.csv"))
@@ -196,7 +153,7 @@ def plot_results(df, outdir):
             # Make a plot for each metric
             for metric in ps_df.metric.unique():
                 metric_df = ps_df[ps_df.metric == metric]
-                colors = sns.color_palette("hls", len(metric_df.experiment.unique()))
+                colors = sns.color_palette("muted", len(metric_df.experiment.unique()))
                 hexcolors = colors.as_hex()
                 types = list(metric_df.experiment.unique())
                 palette = collections.OrderedDict()
@@ -207,7 +164,7 @@ def plot_results(df, outdir):
                 if env == "cpu":
                     ps.make_plot(
                         metric_df,
-                        title=f"MiniFE Metric {title} {problem_size} for {env.upper()}",
+                        title=f"MiniFE Total CG Mflops {problem_size} for {env.upper()}",
                         ydimension="value",
                         plotname=f"minife-{metric}-{problem_size}-{env}",
                         xdimension="nodes",
@@ -222,7 +179,7 @@ def plot_results(df, outdir):
                 else:
                     ps.make_plot(
                         metric_df,
-                        title=f"MiniFE Metric {title} {problem_size} for {env.upper()}",
+                        title=f"MiniFE Total CG Mflops {problem_size} for {env.upper()}",
                         ydimension="value",
                         plotname=f"minife-{metric}-{problem_size}-{env}",
                         xdimension="gpu_count",

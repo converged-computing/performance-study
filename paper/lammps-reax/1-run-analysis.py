@@ -2,10 +2,14 @@
 
 import argparse
 import collections
+import json
 import os
 import re
 import sys
 
+from metricsoperator.metrics.app.lammps import parse_lammps
+import matplotlib.pylab as plt
+import pandas
 import seaborn as sns
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -19,8 +23,17 @@ sns.set_theme(style="whitegrid", palette="pastel")
 
 # These are files I found erroneous - no result, or incomplete result
 errors = [
-    # Partial result with no end time (and no final value)
-    "azure/cyclecloud/cpu/size256/results/minife/minife-256n-4859-iter-3.out",
+    # Only start time, module load error, and Mounting with FUSE
+    "azure/cyclecloud/cpu/size32/results/lammps-reax/lammps-32n-223-iter-5.out",
+    # Only start time, error shows loading module and then CANCELLED
+    "azure/cyclecloud/cpu/size128/results/lammps-reax/lammps-128n-85-iter-1.out",
+    "azure/cyclecloud/cpu/size128/results/lammps-reax/lammps-128n-96-iter-1.out",
+    # CANCELLED, empty log except for start timestamp
+    "azure/cyclecloud/cpu/size128/results/lammps-reax/lammps-128n-91-iter-2.out",
+    # Huge stream of UCX errors, not available or found, no lammps output
+    "azure/cyclecloud/cpu/size256/results/lammps-reax/lammps-256n-4826-iter-5.out",
+    "azure/cyclecloud/cpu/size256/results/lammps-reax/lammps-256n-4829-iter-3.out",
+    "on-premises/lassen/gpu/size8/lammps-reax/6348824-iter-1-8n-gpuon.out",
 ]
 error_regex = "(%s)" % "|".join(errors)
 
@@ -40,12 +53,6 @@ def get_parser():
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
     )
-    parser.add_argument(
-        "--on-premises",
-        help="save results that also parse on-premises data.",
-        default=False,
-        action="store_true",
-    )
     return parser
 
 
@@ -56,16 +63,18 @@ def main():
     parser = get_parser()
     args, _ = parser.parse_known_args()
 
+    # We absolutely want on premises results here
+    args.on_premises = True
+
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
-    if args.on_premises:
-        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
-    # Find input directories
-    files = ps.find_inputs(indir, "minife", args.on_premises)
+    # Find input directories (anything with lammps-reax)
+    # lammps directories are usually snap
+    files = ps.find_inputs(indir, "lammps-reax", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
@@ -74,22 +83,39 @@ def main():
     plot_results(df, outdir)
 
 
+def parse_matom_steps(item):
+    """
+    Parse matom steps
+
+    We separated this into a function because cyclecloud submits have
+    two problem sizes in one file.
+    """
+    # Add in Matom steps - what is considered the LAMMPS FOM
+    # https://asc.llnl.gov/sites/asc/files/2020-09/CORAL2_Benchmark_Summary_LAMMPS.pdf
+    # Not parsed by metrics operator so we find the line here
+    line = [x for x in item.split("\n") if "Matom-step/s" in x][0]
+    return float(line.split(",")[-1].strip().split(" ")[0])
+
+
 def parse_data(indir, outdir, files):
     """
     Parse filepaths for environment, etc., and results files for data.
     """
     # metrics here will be wall time and wrapped time
-    p = ps.ProblemSizeParser("minife")
+    p = ps.ProblemSizeParser("lammps")
 
     # For flux we can save jobspecs and other event data
     data = {}
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
-        # Underscore means skip, also skip configs and runs without efa
-        # runs with google and shared memory were actually slower...
         dirname = os.path.basename(filename)
         if ps.skip_result(dirname, filename):
+            continue
+
+        # I don't know if these are results or testing, skipping for now
+        # They are from aws parallel-cluster CPU
+        if os.path.join("experiment", "data") in filename:
             continue
 
         exp = ps.ExperimentNameParser(filename, indir)
@@ -113,29 +139,6 @@ def parse_data(indir, outdir, files):
 
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
-
-        # The FOMs are in these yaml files
-        # We mostly care about the foms, the output (terminal) isn't as relevant.
-        result_foms = list(ps.get_outfiles(filename, pattern="[.]yaml"))
-
-        for result in result_foms:
-            if errors and re.search(error_regex, result):
-                print(f"Skipping {result} due to known missing result or error.")
-                continue
-
-            # miniFE writes results to a YAML file which should be saved for reporting
-            # the figure of merit (FOM). From the YAML files, report "Total CG Mflops" as the FOM for miniFE.
-            item = ps.read_yaml(result)
-
-            # Just parse smaller problem size
-            dims = item["Global Run Parameters"]["dimensions"]
-            if dims["nx"] != 230:
-                continue
-
-            problem_size = "230nx-ny-nz"
-            fom = item["CG solve"]["Total"]["Total CG Mflops"]
-            p.add_result("total_cg_mflops", fom, problem_size)
-
         for result in results:
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
@@ -143,38 +146,62 @@ def parse_data(indir, outdir, files):
                 continue
 
             # Basename that start with underscore are test or otherwise should not be included
-            if os.path.basename(result).startswith("_"):
+            if os.path.basename(result).startswith("_") or "missing-sif-log" in result:
                 continue
             item = ps.read_file(result)
 
-            # assume problem size 230, unless we find otherwise in command
-            problem_size = "230nx-ny-nz"
-            metadata = {}
-
             # If this is a flux run, we have a jobspec and events here
+            duration = None
             if "JOBSPEC" in item:
-                if "type=cancel" in item:
-                    continue
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
-                if "640" in metadata["jobspec"]["tasks"][0]["command"][1]:
-                    problem_size = "640nx-ny-nz"
+                problem_size = "64x64x32" if "64x64x32" in item else "64x32x32"
+                assert problem_size in item
+                p.add_result(
+                    "matom_steps_per_second", parse_matom_steps(item), problem_size
+                )
 
             # Slurm has the item output, and then just the start/end of the job
+            # IMPORTANT: cyclecloud was run two problem sizes one job!
             elif "on-premises" not in filename:
                 metadata = {}
-                duration = ps.parse_slurm_duration(item)
-                item = ps.remove_slurm_duration(item)
+                if item.count("Total wall time") > 1:
+                    items = item.split("Total wall time", 1)
+                    # Larger problem size is first (slower wall time)
+                    problem_size = "64x64x32"
+                    assert problem_size in items[0]
+                    p.add_result(
+                        "matom_steps_per_second",
+                        parse_matom_steps(items[0]),
+                        problem_size,
+                    )
+                    # Smaller problem size is second
+                    problem_size = "64x32x32"
+                    assert problem_size in items[1]
+                    p.add_result(
+                        "matom_steps_per_second",
+                        parse_matom_steps(items[1]),
+                        problem_size,
+                    )
+                else:
+                    problem_size = "64x64x32"
+                    assert problem_size in item
+                    p.add_result(
+                        "matom_steps_per_second", parse_matom_steps(item), problem_size
+                    )
 
-            # Get the last metric - this should throw an error if we don't have it
-            resid_norm = [x for x in item.split("\n") if "Final Resid Norm:" in x][0]
-            resid_norm = float(resid_norm.split(":")[-1])
-            p.add_result("workload_manager_wrapper_seconds", duration, problem_size)
-            p.add_result("resid_norm", resid_norm, problem_size)
+            # I think we only ran this problem size on premises
+            elif "on-premises" in filename:
+                metadata = {}
+                problem_size = "64x64x32" if "64x64x32" in item else "64x32x32"
+                assert problem_size in item
+                p.add_result(
+                    "matom_steps_per_second", parse_matom_steps(item), problem_size
+                )
 
-    print("Done parsing minife results!")
-    p.df.to_csv(os.path.join(outdir, "minife-results.csv"))
-    ps.write_json(data, os.path.join(outdir, "minife-parsed.json"))
+    print("Done parsing lammps results!")
+    p.df.to_csv(os.path.join(outdir, "lammps-reax-results.csv"))
+    ps.write_json(data, os.path.join(outdir, "lammps-reax-parsed.json"))
     return p.df
 
 
@@ -182,6 +209,7 @@ def plot_results(df, outdir):
     """
     Plot analysis results
     """
+    # Let's get some shoes! Err, plots.
     # Make an image outdir
     img_outdir = os.path.join(outdir, "img")
     if not os.path.exists(img_outdir):
@@ -193,10 +221,14 @@ def plot_results(df, outdir):
         for problem_size in subset.problem_size.unique():
             ps_df = subset[subset.problem_size == problem_size]
 
-            # Make a plot for each metric
+            # Make a plot for seconds runtime, and each FOM set.
+            # We can look at the metric across sizes, colored by experiment
             for metric in ps_df.metric.unique():
                 metric_df = ps_df[ps_df.metric == metric]
-                colors = sns.color_palette("hls", len(metric_df.experiment.unique()))
+
+                # Note that some of these will be eventually removed / filtered
+                colors = sns.color_palette("deep", len(metric_df.experiment.unique()))
+
                 hexcolors = colors.as_hex()
                 types = list(metric_df.experiment.unique())
                 palette = collections.OrderedDict()
@@ -207,32 +239,30 @@ def plot_results(df, outdir):
                 if env == "cpu":
                     ps.make_plot(
                         metric_df,
-                        title=f"MiniFE Metric {title} {problem_size} for {env.upper()}",
+                        title=f"LAMMPS M/Atom Steps per Second {problem_size} ({env.upper()})",
                         ydimension="value",
-                        plotname=f"minife-{metric}-{problem_size}-{env}",
+                        plotname=f"lammps-reax-{metric}-{problem_size}-{env}",
                         xdimension="nodes",
                         palette=palette,
                         outdir=img_outdir,
                         hue="experiment",
                         xlabel="Nodes",
-                        ylabel=title,
-                        do_round=True,
-                        log_scale=True,
+                        ylabel="Millions of Atom Steps per Second",
+                        do_round=False,
                     )
-                else:
+                if env == "gpu":
                     ps.make_plot(
                         metric_df,
-                        title=f"MiniFE Metric {title} {problem_size} for {env.upper()}",
+                        title=f"LAMMPS M/Atom Steps per Second {problem_size} ({env.upper()})",
                         ydimension="value",
-                        plotname=f"minife-{metric}-{problem_size}-{env}",
+                        plotname=f"lammps-reax-{metric}-{problem_size}-{env}-gpu-count",
                         xdimension="gpu_count",
                         palette=palette,
                         outdir=img_outdir,
                         hue="experiment",
                         xlabel="GPU Count",
-                        ylabel=title,
-                        do_round=True,
-                        log_scale=True,
+                        ylabel="Millions of Atom Steps per Second",
+                        do_round=False,
                     )
 
 

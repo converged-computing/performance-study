@@ -12,7 +12,8 @@ import pandas
 import seaborn as sns
 import yaml
 
-sns.set_theme(style="whitegrid", palette="pastel")
+sns.set_theme(style="whitegrid", palette="muted")
+sns.set_style("whitegrid", {"legend.frameon": True})
 
 
 def read_yaml(filename):
@@ -286,6 +287,8 @@ def skip_result(dirname, filename):
     if os.path.join("experiment", "data") in filename:
         return True
 
+    if "compute-toolkit" in filename:
+        return True
     # These are OK
     if "aks/cpu/size" in filename and "kripke" in filename:
         return False
@@ -334,43 +337,117 @@ def make_plot(
     outdir="img",
     log_scale=False,
     do_round=False,
+    round_by=3,
 ):
     """
     Helper function to make common plots.
+
+    This also adds the normalized version
+
+    Speedup: typically we do it in a way that takes into account serial/parallel.
+    Speedup definition - normalize by performance at smallest size tested.
+      This means taking each value and dividing by result at smallest test size (relative speed up)
+      to see if conveys information better.
     """
     ext = ext.strip(".")
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(7, 6))
     sns.set_style("dark")
-    flierprops = dict(
-        marker=".", markerfacecolor="None", markersize=10, markeredgecolor="black"
-    )
-    ax = sns.boxplot(
+    ax = sns.stripplot(
         x=xdimension,
         y=ydimension,
-        flierprops=flierprops,
         hue=hue,
         data=df,
-        # gap=.1,
-        linewidth=0.4,
         palette=palette,
-        whis=[5, 95],
-        # dodge=False,
     )
 
     plt.title(title)
-    print(log_scale)
     ax.set_xlabel(xlabel, fontsize=16)
     ax.set_ylabel(ylabel, fontsize=16)
-    ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-    ax.set_yticklabels(ax.get_yticks(), fontsize=14)
-    # plt.xticks(rotation=90)
     if log_scale is True:
         plt.gca().yaxis.set_major_formatter(
             plt.ScalarFormatter(useOffset=True, useMathText=True)
         )
 
     if do_round is True:
-        ax.yaxis.set_major_formatter(FormatStrFormatter("%.3f"))
+        ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{round_by}f"))
+    plt.legend(facecolor="white")
+
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
+    plt.clf()
+
+    # If we have more than one node size, normalize by smallest
+    if len(df.experiment.unique()) <= 1:
+        return
+
+    # We will assemble a column of speedups.
+    #  1. Take smallest size for the experiment environment
+    #  2. Calculate median metric for that size
+    #  3. Calculate how many times that size goes into larger sizes (e.g., 32 goes into 64 twice)
+    #  4. Multiply the median metric by that multiplier to get expected speedup
+    # First, normalize the index so we can reliably reference it later
+    df.index = list(range(0, df.shape[0]))
+    df.loc[:, "speedup"] = [None] * df.shape[0]
+
+    # We have to do by each experiment separately, because they don't all have the smallest size...
+    # We can reassemble after with the indices
+    for experiment in df.experiment.unique():
+        # Subset of data frame just for that cloud and environment
+        subset = df[df.experiment == experiment]
+
+        # The smallest size (important, not all cloud/environments have the very smallest)
+        # And get multiplier for all sizes based on the smallest. "column" would be a column
+        # of multipliers, one specific to each row (that has a size)
+        smallest = sorted(subset[xdimension].unique())[0]
+        multipliers = {x: x / smallest for x in subset[xdimension].unique()}
+        original_values = subset[ydimension].values
+
+        # xdimension here is usually nodes or gpu_count
+        column = [multipliers[x] for x in subset[xdimension].values]
+
+        # Get the median for the smallest sizes, organized by experiment
+        medians = (
+            subset[subset[xdimension] == smallest]
+            .groupby("experiment")[ydimension]
+            .median()
+        )
+        medians = medians.to_dict()
+        experiments = list(subset.experiment.values)
+
+        # And we want to divide each experiment by its median at the smallest size
+        speedup = []
+        for i, experiment in enumerate(experiments):
+            multiplier = column[i]
+            original_value = original_values[i]
+            # divide by the median of the smallest size, not the multiplier
+            speedup.append(original_value / medians[experiment])
+
+        # Fill the speedup in back at the experiment indices
+        df.loc[subset.index, "speedup"] = speedup
+
+    # Replace the initial value of interest with the speedup (this gets thrown away after plot)
+    df[ydimension] = df["speedup"]
+    plt.figure(figsize=(7, 6))
+    sns.set_style("dark")
+    ax = sns.stripplot(
+        x=xdimension,
+        y=ydimension,
+        hue=hue,
+        data=df,
+        palette=palette,
+    )
+
+    plt.title(title + " Speedup")
+    ax.set_xlabel(xlabel, fontsize=14)
+    ax.set_ylabel(ylabel + " (Speedup)", fontsize=14)
+    if log_scale is True:
+        plt.gca().yaxis.set_major_formatter(
+            plt.ScalarFormatter(useOffset=True, useMathText=True)
+        )
+
+    if do_round is True:
+        ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{round_by}f"))
+    plt.legend(facecolor="white")
+    plt.tight_layout()
+    plt.savefig(os.path.join(outdir, f"{plotname}-speedup-scaled.{ext}"))
     plt.clf()
