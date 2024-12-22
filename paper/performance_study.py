@@ -15,6 +15,37 @@ import yaml
 sns.set_theme(style="whitegrid", palette="muted")
 sns.set_style("whitegrid", {"legend.frameon": True})
 
+# Manually created color palette
+cloud_prefixes = [
+    "azure/aks",
+    "aws/eks",
+    "google/gke",
+    "google/compute-engine",
+    "aws/parallel-cluster",
+    "on-premises/dane",
+    "azure/cyclecloud",
+    "on-premises/lassen",
+]
+
+cloud_prefixes.sort()
+colors = sns.color_palette("muted", len(cloud_prefixes))
+hexcolors = colors.as_hex()
+colors = {}
+for cloud in cloud_prefixes:
+    colors[cloud] = hexcolors.pop(0)
+
+
+def match_color(cloud):
+    """
+    Match the color for an environment
+    """
+    # We assume the environ name (e.g., azure/aks) is shorter than
+    # the one provided (e.g., azure/aks/cpu)
+    for environ, color in colors.items():
+        if environ in cloud:
+            return color
+    raise ValueError(f"Did not find color for {cloud}")
+
 
 def read_yaml(filename):
     with open(filename, "r") as fd:

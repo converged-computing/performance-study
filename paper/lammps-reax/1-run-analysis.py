@@ -215,6 +215,11 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
@@ -225,17 +230,7 @@ def plot_results(df, outdir):
             # We can look at the metric across sizes, colored by experiment
             for metric in ps_df.metric.unique():
                 metric_df = ps_df[ps_df.metric == metric]
-
-                # Note that some of these will be eventually removed / filtered
-                colors = sns.color_palette("deep", len(metric_df.experiment.unique()))
-
-                hexcolors = colors.as_hex()
-                types = list(metric_df.experiment.unique())
-                palette = collections.OrderedDict()
-                for t in types:
-                    palette[t] = hexcolors.pop(0)
                 title = " ".join([x.capitalize() for x in metric.split("_")])
-
                 if env == "cpu":
                     ps.make_plot(
                         metric_df,
@@ -243,7 +238,7 @@ def plot_results(df, outdir):
                         ydimension="value",
                         plotname=f"lammps-reax-{metric}-{problem_size}-{env}",
                         xdimension="nodes",
-                        palette=palette,
+                        palette=cloud_colors,
                         outdir=img_outdir,
                         hue="experiment",
                         xlabel="Nodes",
@@ -257,7 +252,7 @@ def plot_results(df, outdir):
                         ydimension="value",
                         plotname=f"lammps-reax-{metric}-{problem_size}-{env}-gpu-count",
                         xdimension="gpu_count",
-                        palette=palette,
+                        palette=cloud_colors,
                         outdir=img_outdir,
                         hue="experiment",
                         xlabel="GPU Count",

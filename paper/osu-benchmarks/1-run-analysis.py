@@ -389,6 +389,9 @@ def plot_results(results, outdir):
     """
     Plot result images to file
     """
+    # Make consistent color schemes across plots
+    clouds = set()
+
     img_outdir = os.path.join(outdir, "img")
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
@@ -439,6 +442,8 @@ def plot_results(results, outdir):
 
         dimension = number_gpus if is_gpu else size
         experiment = os.sep.join(entry["context"][:-1] + [command])
+        # E.g., azure/aks. We don't want to include cpu/gpu or the command
+        clouds.add(experiment)
 
         if is_gpu and number_gpus not in dfs_gpu[title]:
             dfs_gpu[title][number_gpus] = pandas.DataFrame(columns=columns)
@@ -464,6 +469,11 @@ def plot_results(results, outdir):
                 )
                 idxs_cpu[title][size] += 1
 
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in clouds:
+        cloud_colors[cloud] = ps.match_color(cloud)
+
     # Make an output directory for plots by size
     plots_by_size = os.path.join(img_outdir, "by_size")
     if not os.path.exists(plots_by_size):
@@ -475,7 +485,7 @@ def plot_results(results, outdir):
             print(f"Preparing plot for {slug} size {size}")
 
             # Save entire (unsplit) data frame to file
-            subset.to_csv(os.path.join(outdir, f"{slug}-{size}-cpu-dataframe.csv"))
+            # subset.to_csv(os.path.join(outdir, f"{slug}-{size}-cpu-dataframe.csv"))
 
             # Separate x and y - latency (y) is a function of size (x)
             xlabel = "Message size in bytes"
@@ -492,6 +502,7 @@ def plot_results(results, outdir):
                 x=x,
                 y=y,
                 markers=True,
+                palette=cloud_colors,
                 dashes=True,
                 errorbar=("ci", 95),
             )
@@ -531,6 +542,7 @@ def plot_results(results, outdir):
                 hue="experiment",
                 x=x,
                 y=y,
+                palette=cloud_colors,
                 markers=True,
                 dashes=True,
                 errorbar=("ci", 95),
@@ -708,6 +720,7 @@ def plot_results(results, outdir):
             )
 
     # fig.show()
+    # The plots below were my first effort - still usable, but I haven't fixed them.
     return
 
     start_index = 0
@@ -801,8 +814,6 @@ def plot_results(results, outdir):
     start_index = 0
     fig = plt.figure()
     ax = None
-    colors = sns.color_palette("muted", 8)
-    hexcolors = colors.as_hex()
     for experiment, meta in surfaces.items():
         if meta["title"] == "avg_latency_us":
             x_bytes = meta["x"]
