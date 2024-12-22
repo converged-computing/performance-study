@@ -10,9 +10,9 @@ This study tested HPC application performance across three clouds and on-premise
   - [azure](docker/azure): includes Microsoft Azure builds for each of CPU and GPU, targeting infiniband.
 
 - [experiments](experiments): are organized first by cloud, and then the underlying environment. In each, a README with the full experiment protocol (and usually commands to run) are included.
- - [Google Cloud](experiments/google) includes HPC Toolkit (Compute Engine), and GKE (Kubernetes) for each of CPU and GPU
- - [Amazon Web Services](experiments/aws) includes Parallel Cluster (EC2), and EKS (KUbernetes) for each of CPU and GPU
- - [Microsoft Azure](experiments/azure) includes CycleCloud (VMs), and AKS (Kubernetes) for each of CPU and GPU.
+  - [Google Cloud](experiments/google) includes HPC Toolkit (Compute Engine), and GKE (Kubernetes) for each of CPU and GPU
+  - [Amazon Web Services](experiments/aws) includes Parallel Cluster (EC2), and EKS (KUbernetes) for each of CPU and GPU
+  - [Microsoft Azure](experiments/azure) includes CycleCloud (VMs), and AKS (Kubernetes) for each of CPU and GPU.
 - [analysis](analysis): includes preliminary plots for data exploration. Note that not all are finalized.
 - [paper](paper): includes a subset of cleaned up and further worked on plots intended for use in publications, etc.
 
