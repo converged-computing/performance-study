@@ -19,7 +19,7 @@ sys.path.insert(0, analysis_root)
 
 import performance_study as ps
 
-sns.set_theme(style="whitegrid", palette="pastel")
+sns.set_theme(style="whitegrid", palette="muted")
 
 # These are files I found erroneous - no result, or incomplete result
 errors = [

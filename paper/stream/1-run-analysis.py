@@ -16,6 +16,7 @@ sys.path.insert(0, analysis_root)
 import performance_study as ps
 
 sns.set_theme(style="whitegrid", palette="muted")
+flierprops = {"marker": "o", "markersize": 1}
 
 
 def get_parser():
@@ -199,16 +200,19 @@ def plot_stream_metric(v, label, img_outdir, save_prefix):
     """
     # Create the figure and axes
     plt.figure(figsize=(8, 6))
-    palette = sns.color_palette("muted", len(v))
-    colors = palette.as_hex()
     fig, ax = plt.subplots()
     bplot = ax.boxplot(
         list(v.values()),
         positions=list(range(1, len(v) + 1)),
+        flierprops=flierprops,
         widths=0.6,
         patch_artist=True,
     )
 
+    colors = {}
+    for cloud in v.keys():
+        colors[cloud] = ps.match_color(cloud)
+    colors = list(colors.values())
     for patch, color in zip(bplot["boxes"], colors):
         patch.set_facecolor(color)
 
@@ -284,7 +288,7 @@ def plot_results(results, outdir):
                             continue
                         if experiment not in vectors_single:
                             vectors_single[experiment] = []
-                        # This will add sizes 64 and 128 to the same list
+                        # This will add only size 64
                         vectors_single[experiment] += values
 
                     # 1. GPU: Azure CycleCloud, Lassen, Azure AKS, Google GKE, and Google Compute Engine all
@@ -306,24 +310,25 @@ def plot_results(results, outdir):
                 plot_stream_metric(vectors_single, label, img_outdir, save_prefix)
 
                 # This should be only 2 environments, size 32
-                palette = sns.color_palette("muted", len(vectors_single_threads))
                 fig, ax = plt.subplots()
-                colors = palette.as_hex()
                 offsets = [-0.25, 0.25]
                 for experiment, values in vectors_single_threads.items():
                     positions = np.array(np.arange(len(values))) * 2.0 + offsets.pop(0)
                     plot = plt.boxplot(
                         values,
                         positions=positions,
+                        flierprops=flierprops,
                         widths=0.3,
                         patch_artist=True,
                         showfliers=False,
                     )
-                    ps.set_group_color_properties(plot, colors.pop(0), experiment)
+                    ps.set_group_color_properties(
+                        plot, ps.match_color(experiment), experiment
+                    )
 
                 # set the x label values, the sizes
                 ax.set_xticklabels(list(vectors_single_threads.keys()))
-                plt.title(f'Stream Best Rate "{label}" MB/s {env_type}')
+                plt.title(f'Stream Best Rate "{label}" MB/s {env_type}', fontsize=16)
                 frame = plt.gca()
                 frame.axes.xaxis.set_ticklabels([])
                 plt.tight_layout()
@@ -356,8 +361,6 @@ def plot_stream_gpu(vectors, label, img_outdir, size_list, exclude=None):
     offsets = [-0.75, -0.5, -0.25, 0.25, 0.5, 0.75]
     if exclude is not None:
         offsets = offsets[len(exclude) :]
-    palette = sns.color_palette("muted", len(vectors))
-    colors = palette.as_hex()
     for experiment, values in vectors.items():
         if exclude is not None and experiment in exclude:
             continue
@@ -366,14 +369,15 @@ def plot_stream_gpu(vectors, label, img_outdir, size_list, exclude=None):
             values,
             positions=positions,
             widths=0.3,
+            flierprops=flierprops,
             patch_artist=True,
             showfliers=False,
         )
-        ps.set_group_color_properties(plot, colors.pop(0), experiment)
+        ps.set_group_color_properties(plot, ps.match_color(experiment), experiment)
 
     # set the x label values, the sizes
     plt.xticks(np.arange(0, len(size_list) * 2, 2), size_list)
-    plt.title(f'Stream Best Rate "{label}" GB/s GPU')
+    plt.title(f'Stream Best Rate "{label}" GB/s GPU', fontsize=16)
     if exclude is not None:
         excluded = "+".join([x.replace("/", "-") for x in exclude])
         label = f"{label}-without-{excluded}"

@@ -382,7 +382,7 @@ def make_plot(
     """
     ext = ext.strip(".")
     plt.figure(figsize=(7, 6))
-    sns.set_style("dark")
+    sns.set_style("whitegrid")
     ax = sns.stripplot(
         x=xdimension,
         y=ydimension,
@@ -391,7 +391,7 @@ def make_plot(
         palette=palette,
     )
 
-    plt.title(title)
+    plt.title(title, fontsize=16)
     ax.set_xlabel(xlabel, fontsize=16)
     ax.set_ylabel(ylabel, fontsize=16)
     if log_scale is True:
@@ -459,7 +459,7 @@ def make_plot(
     # Replace the initial value of interest with the speedup (this gets thrown away after plot)
     df[ydimension] = df["speedup"]
     plt.figure(figsize=(7, 6))
-    sns.set_style("dark")
+    sns.set_style("whitegrid")
     ax = sns.stripplot(
         x=xdimension,
         y=ydimension,
@@ -468,7 +468,7 @@ def make_plot(
         palette=palette,
     )
 
-    plt.title(title + " Speedup")
+    plt.title(title + " Speedup", fontsize=16)
     ax.set_xlabel(xlabel, fontsize=14)
     ax.set_ylabel(ylabel + " (Speedup)", fontsize=14)
     if log_scale is True:

@@ -80,7 +80,7 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
-    
+
     # We absolutely want on premises results here
     args.on_premises = True
     if not os.path.exists(outdir):

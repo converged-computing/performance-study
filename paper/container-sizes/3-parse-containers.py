@@ -14,6 +14,9 @@ import seaborn as sns
 
 here = os.path.abspath(os.path.dirname(__file__))
 root = os.path.dirname(here)
+sys.path.insert(0, root)
+
+import performance_study as ps
 
 timestamp_format = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -223,14 +226,8 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
     if filter_below is not None:
         df = df[df.duration > filter_below]
 
-    # Let's first plot cloud and experiment pull times for CPU, anonymized
-    # Make up cloud names
-    cloud_names = {"google": "Cloud C", "aws": "Cloud B", "azure": "Cloud A"}
     # Let's just plot CPU since we have partial GPU for aws
     subset = df[df.exp_type == "cpu"]
-    cnames = [cloud_names[x] for x in subset.cloud.tolist()]
-    subset.loc[:, "cloud"] = cnames
-
     sizes = [
         int(x.replace("-placement", "").replace("-shared-memory", "").split("size")[-1])
         for x in subset.exp_size
@@ -246,16 +243,20 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
             container_types.append("kubernetes-container")
 
     # Let's first plot pull times by experiment
-    colors = sns.color_palette("hls", len(container_types))
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
+    # Ensure we have the color for just the cloud
+    # E.g., an experiment azure/aks needs just the lookup of azure for the plot palette
+    updates = {}
+    for cloud, color in cloud_colors.items():
+        cloud = cloud.split("/", 1)[0]
+        updates[cloud] = color
+    cloud_colors.update(updates)
+
     subset.loc[:, "container_type"] = container_types
     subset = subset[subset.container_type == "experiment-container"]
-    hexcolors = colors.as_hex()
-    types = list(subset.cloud.unique())
-    types.sort()
-    palette = collections.OrderedDict()
-    for t in types:
-        palette[t] = hexcolors.pop(0)
-
     make_plot(
         subset,
         title="Pull times for CPU Containers Across Cluster Sizes",
@@ -265,7 +266,7 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
         ext="png",
         plotname=f"{save_prefix}_all_clouds_cpu",
         hue="cloud",
-        palette=palette,
+        palette=cloud_colors,
         plot_type="bar",
         xlabel="Size (Nodes)",
         ylabel="Pull time (seconds)",
@@ -273,71 +274,6 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
         width=12,
         height=6,
     )
-    colors = sns.color_palette("hls", 16)
-
-    # Let's next plot pull times by cloud and experiment environment, and break into sizes
-    # Are there differences depending on size?
-    for cloud in df.cloud.unique():
-        subset = df[df.cloud == cloud]
-        for environment in subset.environment.unique():
-            subset = subset[subset.environment == environment]
-            title = f"Pull times for {cloud.capitalize()}: {environment}"
-            if suffix:
-                title += " " + suffix
-
-            # Under 10 seconds means it isn't a full pull.
-            # For aks, we had to re-run to add placement, and have two runs
-            # for each of sizes 32 and 64 cpu.
-            # Pull times should be okay to still use.
-            sizes = [
-                int(
-                    x.replace("-placement", "")
-                    .replace("-shared-memory", "")
-                    .split("size")[-1]
-                )
-                for x in subset.exp_size
-            ]
-            subset["experiment_size"] = sizes
-
-            for typ in subset.exp_type.unique():
-                typset = subset[subset.exp_type == typ]
-
-                # Skip empty sets
-                if typset.shape[0] == 0:
-                    continue
-
-                # Break into our experiment containers vs others
-                container_types = []
-                for x in typset.container.tolist():
-                    if "converged-computing" in x:
-                        container_types.append("experiment-container")
-                    else:
-                        container_types.append("kubernetes-container")
-
-                # Let's first plot pull times by experiment
-                typset["container_type"] = container_types
-                typset = typset[typset.container_type == "experiment-container"]
-                hexcolors = colors.as_hex()
-                types = list(typset.experiment_size.unique())
-                types.sort()
-                palette = collections.OrderedDict()
-                for t in types:
-                    palette[t] = hexcolors.pop(0)
-
-                make_plot(
-                    typset,
-                    title=title + " " + typ,
-                    ydimension="duration",
-                    xdimension="experiment_size",
-                    outdir=outdir,
-                    ext="png",
-                    plotname=f"{save_prefix}_{cloud}_{environment}_{typ}",
-                    hue="experiment_size",
-                    palette=palette,
-                    plot_type="bar",
-                    xlabel="Experiment",
-                    ylabel="Pull time (seconds)",
-                )
 
 
 def make_plot(
@@ -383,7 +319,7 @@ def make_plot(
             dodge=dodge,
         )
 
-    plt.title(title)
+    plt.title(title, fontsize=16)
     ax.set_xlabel(xlabel, fontsize=16)
     ax.set_ylabel(ylabel, fontsize=16)
     ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=16)

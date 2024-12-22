@@ -18,7 +18,7 @@ sys.path.insert(0, analysis_root)
 
 import performance_study as ps
 
-sns.set_theme(style="dark", palette="muted")
+sns.set_theme(style="whitegrid", palette="muted")
 
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
@@ -506,12 +506,12 @@ def plot_results(results, outdir):
                 dashes=True,
                 errorbar=("ci", 95),
             )
-            plt.title(slug + " CPU " + str(size) + " Nodes")
+            plt.title(slug + " CPU " + str(size) + " Nodes", fontsize=16)
             y_label = y.replace("_", " ")
             ax.set_xlabel(xlabel + " (logscale)", fontsize=16)
             ax.set_ylabel(y_label + " (logscale)", fontsize=16)
-            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-            ax.set_yticklabels(ax.get_yticks(), fontsize=14)
+            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=16)
+            ax.set_yticklabels(ax.get_yticks(), fontsize=16)
             plt.xscale("log")
             plt.yscale("log")
             plt.legend(facecolor="white")
@@ -547,12 +547,12 @@ def plot_results(results, outdir):
                 dashes=True,
                 errorbar=("ci", 95),
             )
-            plt.title(slug + " " + str(size) + " GPUs")
+            plt.title(slug + " " + str(size) + " GPUs", fontsize=16)
             y_label = y.replace("_", " ")
             ax.set_xlabel(xlabel + " (logscale)", fontsize=16)
             ax.set_ylabel(y_label + " (logscale)", fontsize=16)
-            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-            ax.set_yticklabels(ax.get_yticks(), fontsize=14)
+            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=16)
+            ax.set_yticklabels(ax.get_yticks(), fontsize=16)
             plt.xscale("log")
             plt.yscale("log")
             plt.legend(facecolor="white")
