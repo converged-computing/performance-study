@@ -80,7 +80,7 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
-    
+
     # We absolutely want on premises results here
     args.on_premises = True
     if not os.path.exists(outdir):
@@ -198,6 +198,11 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
@@ -213,15 +218,6 @@ def plot_results(df, outdir):
         # We can look at the metric across sizes, colored by experiment
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
-
-            # Note that some of these will be eventually removed / filtered
-            colors = sns.color_palette("muted", len(metric_df.experiment.unique()))
-            hexcolors = colors.as_hex()
-            types = list(metric_df.experiment.unique())
-            palette = collections.OrderedDict()
-            for t in types:
-                palette[t] = hexcolors.pop(0)
-
             log_scale = False if metric == "seconds" else True
             title = " ".join([x.capitalize() for x in metric.split("_")])
 
@@ -233,7 +229,7 @@ def plot_results(df, outdir):
                 ydimension="value",
                 plotname=f"amg2023-{metric}-{env}",
                 xdimension=x_by,
-                palette=palette,
+                palette=cloud_colors,
                 outdir=img_outdir,
                 hue="experiment",
                 xlabel=x_label,

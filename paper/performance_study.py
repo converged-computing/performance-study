@@ -15,6 +15,37 @@ import yaml
 sns.set_theme(style="whitegrid", palette="muted")
 sns.set_style("whitegrid", {"legend.frameon": True})
 
+# Manually created color palette
+cloud_prefixes = [
+    "azure/aks",
+    "aws/eks",
+    "google/gke",
+    "google/compute-engine",
+    "aws/parallel-cluster",
+    "on-premises/dane",
+    "azure/cyclecloud",
+    "on-premises/lassen",
+]
+
+cloud_prefixes.sort()
+colors = sns.color_palette("muted", len(cloud_prefixes))
+hexcolors = colors.as_hex()
+colors = {}
+for cloud in cloud_prefixes:
+    colors[cloud] = hexcolors.pop(0)
+
+
+def match_color(cloud):
+    """
+    Match the color for an environment
+    """
+    # We assume the environ name (e.g., azure/aks) is shorter than
+    # the one provided (e.g., azure/aks/cpu)
+    for environ, color in colors.items():
+        if environ in cloud:
+            return color
+    raise ValueError(f"Did not find color for {cloud}")
+
 
 def read_yaml(filename):
     with open(filename, "r") as fd:
@@ -351,7 +382,7 @@ def make_plot(
     """
     ext = ext.strip(".")
     plt.figure(figsize=(7, 6))
-    sns.set_style("dark")
+    sns.set_style("whitegrid")
     ax = sns.stripplot(
         x=xdimension,
         y=ydimension,
@@ -360,7 +391,7 @@ def make_plot(
         palette=palette,
     )
 
-    plt.title(title)
+    plt.title(title, fontsize=16)
     ax.set_xlabel(xlabel, fontsize=16)
     ax.set_ylabel(ylabel, fontsize=16)
     if log_scale is True:
@@ -428,7 +459,7 @@ def make_plot(
     # Replace the initial value of interest with the speedup (this gets thrown away after plot)
     df[ydimension] = df["speedup"]
     plt.figure(figsize=(7, 6))
-    sns.set_style("dark")
+    sns.set_style("whitegrid")
     ax = sns.stripplot(
         x=xdimension,
         y=ydimension,
@@ -437,7 +468,7 @@ def make_plot(
         palette=palette,
     )
 
-    plt.title(title + " Speedup")
+    plt.title(title + " Speedup", fontsize=16)
     ax.set_xlabel(xlabel, fontsize=14)
     ax.set_ylabel(ylabel + " (Speedup)", fontsize=14)
     if log_scale is True:

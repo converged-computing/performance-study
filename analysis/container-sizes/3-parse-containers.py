@@ -228,7 +228,7 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
     cloud_names = {"google": "Cloud C", "aws": "Cloud B", "azure": "Cloud A"}
     # Let's just plot CPU since we have partial GPU for aws
     subset = df[df.exp_type == "cpu"]
-    cnames = [cloud_names[x] for x in cpu_df.cloud.tolist()]
+    cnames = [cloud_names[x] for x in subset.cloud.tolist()]
     subset.loc[:, "cloud"] = cnames
 
     sizes = [
@@ -246,7 +246,7 @@ def plot_containers(df, outdir, save_prefix=None, filter_below=None, suffix=None
             container_types.append("kubernetes-container")
 
     # Let's first plot pull times by experiment
-    colors = sns.color_palette("hls", len(types))
+    colors = sns.color_palette("hls", len(container_types))
     subset.loc[:, "container_type"] = container_types
     subset = subset[subset.container_type == "experiment-container"]
     hexcolors = colors.as_hex()
@@ -366,7 +366,7 @@ def make_plot(
 
     ext = ext.strip(".")
     plt.figure(figsize=(width, height))
-    sns.set_style("dark")
+    sns.set_style("whitegrid")
     if plot_type == "violin":
         ax = plotfunc(
             x=xdimension, y=ydimension, hue=hue, data=df, linewidth=0.8, palette=palette
@@ -386,8 +386,8 @@ def make_plot(
     plt.title(title)
     ax.set_xlabel(xlabel, fontsize=16)
     ax.set_ylabel(ylabel, fontsize=16)
-    ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=14)
-    ax.set_yticklabels(ax.get_yticks(), fontsize=14)
+    ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=16)
+    ax.set_yticklabels(ax.get_yticks(), fontsize=16)
     plt.xticks(rotation=90)
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))

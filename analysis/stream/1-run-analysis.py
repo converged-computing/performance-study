@@ -59,6 +59,12 @@ def get_parser():
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
     )
+    parser.add_argument(
+        "--on-premises",
+        help="save results that also parse on-premises data.",
+        default=False,
+        action="store_true",
+    )
     return parser
 
 
@@ -72,11 +78,13 @@ def main():
     # Output images and data
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
+    if args.on_premises:
+        outdir = os.path.join(outdir, "on-premises")
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
-    # Find input directories
-    files = ps.find_inputs(indir, "stream")
+    # Find input directories (this will include stream-cuda)
+    files = ps.find_inputs(indir, "stream", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
@@ -143,8 +151,27 @@ def parse_data(indir, outdir, files):
         if exp.size == 2:
             continue
 
+        # Calculate number of gpus from nodes
+        number_gpus = 0
+        if exp.env_type == "gpu":
+            number_gpus = (
+                (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
+            )
+
+        # If gpu and lassen, must be stream-cuda
+        if (
+            exp.env_type == "gpu"
+            and "lassen" in filename
+            and "stream-cuda" not in filename
+        ):
+            continue
+
+        # We can't use Dane for comparison to anything now
+        if "dane" in filename:
+            continue
+
         # Set the parsing context for the result data frame
-        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size)
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size, gpu_count=number_gpus)
         exp.show()
 
         # Now we can read each result file to get metrics.
@@ -153,6 +180,10 @@ def parse_data(indir, outdir, files):
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
+                continue
+
+            # EKS CPU had single runs except for largest had multiple at size 256, 32
+            if exp.env_type == "cpu" and "eks" in filename and "-node-" not in result:
                 continue
 
             # Basename that start with underscore are test or otherwise should not be included
@@ -166,6 +197,9 @@ def parse_data(indir, outdir, files):
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
+            elif "on-premises" in filename:
+                metadata = {}
+
             else:
                 metadata = {}
                 duration = ps.parse_slurm_duration(item)
@@ -198,6 +232,51 @@ def parse_data(indir, outdir, files):
     return items
 
 
+def plot_stream_metric(v, label, img_outdir, save_prefix):
+    """
+    Common function to generate boxplot and histogram
+    """
+    # This should be 4 environments
+    palette = sns.color_palette("muted", len(v))
+    colors = palette.as_hex()
+
+    plt.figure(figsize=(7, 6))
+    for experiment, values in v.items():
+        plt.hist(values, bins=20, alpha=0.5, label=experiment, color=colors.pop())
+
+    title = f'Stream Best Rate "{label}" MB/s CPU'
+    plt.title(title)
+    plt.savefig(os.path.join(img_outdir, f"{save_prefix}.png"))
+    plt.clf()
+    plt.close()
+
+    # Create the figure and axes
+    plt.figure(figsize=(8, 6))
+    palette = sns.color_palette("muted", len(v))
+    colors = palette.as_hex()
+    fig, ax = plt.subplots()
+    bplot = ax.boxplot(
+        list(v.values()),
+        positions=list(range(1, len(v) + 1)),
+        widths=0.6,
+        patch_artist=True,
+    )
+
+    for patch, color in zip(bplot["boxes"], colors):
+        patch.set_facecolor(color)
+
+    # Important: this assumes the listing of keys/values lines up
+    labels = [x.rsplit("/", 1)[0] for x in v.keys()]
+    ax.set_xticklabels(labels)
+    ax.set_ylabel(label)
+    ax.set_title(title)
+    plt.xticks(rotation=20)
+    plt.tight_layout()
+    plt.savefig(os.path.join(img_outdir, f"{save_prefix}-boxplot.png"))
+    plt.clf()
+    plt.close()
+
+
 def plot_results(results, outdir):
     """
     Plot analysis results
@@ -220,47 +299,135 @@ def plot_results(results, outdir):
             # a size from least to greatest.
             vectors = {}
 
+            # CPU gets split into two groups
+            # Other single runs (sizes 64/128 combined) that don't have threads set
+            vectors_single = {}
+
+            # Azure and CycleCloud with OMP_NUM_THREADS at size 32
+            vectors_single_threads = {}
+
             for size in size_list:
                 for cloud_env, values in sizes[size].items():
                     # Truncate the size - we just need <cloud>/<env>/<env_type>
                     experiment = os.path.dirname(cloud_env)
-                    if experiment not in vectors:
-                        vectors[experiment] = []
-                    # This would be, for example, all the values for
-                    # a specific environment and size. Then the
-                    # next append will be the next size
-                    vectors[experiment].append(values)
 
-            # Make a boxplot for each environment, and space apart so we
-            # can then plot them together and they look like they are side by
-            # side
-            plt.figure(figsize=(10, 6))
+                    # 2. CPU: We can compare Azure CycleCloud with AWS Parallel Cluster, but only size 32. That should be OK if we just are running on single nodes anyway, but we would want to choose size 32 for CycleCloud to be consistent. Both map 1 ppr per node and use `OMP_NUM_THREADS=96`
+                    if env_type == "cpu" and (
+                        "cyclecloud" in experiment or "parallel-cluster" in experiment
+                    ):
+                        if size != 32:
+                            continue
+                        if experiment not in vectors_single:
+                            vectors_single_threads[experiment] = []
+                        # This should only be one list
+                        vectors_single_threads[experiment].append(values)
 
-            offsets = [-0.75, -0.5, -0.25, 0.25, 0.5, 0.75]
-            palette = sns.color_palette("hls", 6)
-            colors = palette.as_hex()
+                    # 3. CPU: AWS EKS, Azure AKS, Google Compute Engine, and Google GKE also run on one node,
+                    # but without `OMP_NUM_THREADS` and also specifying `-n`. Note that the little n is different
+                    # it is 56 for Google and 96 for AWS. I'm not sure if that makes this set not comparable.
+                    # For this setup, we are missing EKS single node at size 256 and 32. Let's JUST
+                    # use sizes 64 across environments to be consistent.
+                    elif env_type == "cpu" and re.search(
+                        "(eks|aks|compute-engine|gke)", experiment
+                    ):
+                        if size != 64:
+                            continue
+                        if experiment not in vectors_single:
+                            vectors_single[experiment] = []
+                        # This will add sizes 64 and 128 to the same list
+                        vectors_single[experiment] += values
 
-            for experiment, values in vectors.items():
-                # TODO figure this out...
-                positions = np.array(np.arange(len(values))) * 2.0 + offsets.pop(0)
-                plot = plt.boxplot(
-                    values,
-                    positions=positions,
-                    widths=0.3,
-                    patch_artist=True,
-                    showfliers=False,
+                    # 1. GPU: Azure CycleCloud, Lassen, Azure AKS, Google GKE, and Google Compute Engine all run across nodes and specify -n so I think we can compare them. I don't see OMP_NUM_THREADS anywhere.
+                    elif env_type == "gpu" and re.search(
+                        "(lassen|aks|cyclecloud|gke|compute-engine)", experiment
+                    ):
+                        # This would be, for example, all the values for
+                        # a specific environment and size. Then the
+                        # next append will be the next size
+                        if experiment not in vectors:
+                            vectors[experiment] = []
+                        vectors[experiment].append(values)
+
+            if env_type == "cpu":
+                suffix = "single-node-no-omp-threads-mb-per-second"
+                save_prefix = f"best-rate-{label}-{env_type}-{suffix}"
+                # This handles a histogram and boxplot (second is better I think)
+                plot_stream_metric(vectors_single, label, img_outdir, save_prefix)
+
+                # This should be only 2 environments, size 32
+                palette = sns.color_palette("muted", len(vectors_single_threads))
+                fig, ax = plt.subplots()
+                colors = palette.as_hex()
+                offsets = [-0.25, 0.25]
+                for experiment, values in vectors_single_threads.items():
+                    positions = np.array(np.arange(len(values))) * 2.0 + offsets.pop(0)
+                    plot = plt.boxplot(
+                        values,
+                        positions=positions,
+                        widths=0.3,
+                        patch_artist=True,
+                        showfliers=False,
+                    )
+                    ps.set_group_color_properties(plot, colors.pop(0), experiment)
+
+                # set the x label values, the sizes
+                ax.set_xticklabels(list(vectors_single_threads.keys()))
+                plt.title(f'Stream Best Rate "{label}" MB/s {env_type}')
+                frame = plt.gca()
+                frame.axes.xaxis.set_ticklabels([])
+                plt.tight_layout()
+                plt.savefig(
+                    os.path.join(
+                        img_outdir,
+                        f"best-rate-{label}-{env_type}-single-node-omp-threads-mb-per-second.png",
+                    )
                 )
-                ps.set_group_color_properties(plot, colors.pop(0), experiment)
+                plt.close()
 
-            # set the x label values, the sizes
-            plt.xticks(np.arange(0, len(size_list) * 2, 2), size_list)
-            plt.title(f'Stream Best Rate "{label}" MB/s {env_type}')
-            plt.savefig(
-                os.path.join(
-                    img_outdir, f"best-rate-{label}-{env_type}-mb-per-second.png"
+            elif env_type == "gpu":
+                # We do one plot excluding azure cyclecloud because (we think) the GPU setting
+                # being inconsistent led to huge variation, and you can't see the others in
+                # the plot
+                plot_stream_gpu(vectors, label, img_outdir, size_list)
+                plot_stream_gpu(
+                    vectors,
+                    label,
+                    img_outdir,
+                    size_list,
+                    exclude=["azure/cyclecloud/gpu"],
                 )
-            )
-            plt.close()
+
+
+def plot_stream_gpu(vectors, label, img_outdir, size_list, exclude=None):
+    """
+    Plot stream GPU can handle removing
+    """
+    offsets = [-0.75, -0.5, -0.25, 0.25, 0.5, 0.75]
+    if exclude is not None:
+        offsets = offsets[len(exclude) :]
+    palette = sns.color_palette("muted", len(vectors))
+    colors = palette.as_hex()
+    for experiment, values in vectors.items():
+        if exclude is not None and experiment in exclude:
+            continue
+        positions = np.array(np.arange(len(values))) * 2.0 + offsets.pop(0)
+        plot = plt.boxplot(
+            values,
+            positions=positions,
+            widths=0.3,
+            patch_artist=True,
+            showfliers=False,
+        )
+        ps.set_group_color_properties(plot, colors.pop(0), experiment)
+
+    # set the x label values, the sizes
+    plt.xticks(np.arange(0, len(size_list) * 2, 2), size_list)
+    plt.title(f'Stream Best Rate "{label}" GB/s GPU')
+    if exclude is not None:
+        excluded = "+".join([x.replace("/", "-") for x in exclude])
+        label = f"{label}-without-{excluded}"
+    plt.savefig(os.path.join(img_outdir, f"best-rate-{label}-gpu-mb-per-second.png"))
+    plt.close()
 
 
 if __name__ == "__main__":

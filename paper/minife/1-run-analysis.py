@@ -15,7 +15,7 @@ sys.path.insert(0, analysis_root)
 
 import performance_study as ps
 
-sns.set_theme(style="dark", palette="muted")
+sns.set_theme(style="whitegrid", palette="muted")
 
 # These are files I found erroneous - no result, or incomplete result
 errors = [
@@ -144,6 +144,11 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
@@ -153,12 +158,6 @@ def plot_results(df, outdir):
             # Make a plot for each metric
             for metric in ps_df.metric.unique():
                 metric_df = ps_df[ps_df.metric == metric]
-                colors = sns.color_palette("muted", len(metric_df.experiment.unique()))
-                hexcolors = colors.as_hex()
-                types = list(metric_df.experiment.unique())
-                palette = collections.OrderedDict()
-                for t in types:
-                    palette[t] = hexcolors.pop(0)
                 title = " ".join([x.capitalize() for x in metric.split("_")])
 
                 if env == "cpu":
@@ -168,7 +167,7 @@ def plot_results(df, outdir):
                         ydimension="value",
                         plotname=f"minife-{metric}-{problem_size}-{env}",
                         xdimension="nodes",
-                        palette=palette,
+                        palette=cloud_colors,
                         outdir=img_outdir,
                         hue="experiment",
                         xlabel="Nodes",
@@ -183,7 +182,7 @@ def plot_results(df, outdir):
                         ydimension="value",
                         plotname=f"minife-{metric}-{problem_size}-{env}",
                         xdimension="gpu_count",
-                        palette=palette,
+                        palette=cloud_colors,
                         outdir=img_outdir,
                         hue="experiment",
                         xlabel="GPU Count",

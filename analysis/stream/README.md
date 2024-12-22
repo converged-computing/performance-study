@@ -38,38 +38,16 @@ Then:
 python 1-run-analysis.py
 ```
 
-## Results
+See the issue [here](https://lc.llnl.gov/gitlab/converged-computing/cross-platform-study/-/issues/1) for discussion of the plots and comparisons to make. TLDR, the differences come down to:
+        
+- Running on one node vs. an entire set
+- Running with -n (processes) specified or not
+- Running with OMP_NUM_THREADS or not
+- Having data across all sizes, or just one size
+- When -n is used, the number being the same (or different) across environments.
 
-I made these plots from scratch with matplotlib and spacing from raw vectors (it was too slow to assemble into pandas) - they came out great!
+I've removed extra environment variables and kept things related to nodes, processes, and threads. From the groups below, here is my proposal for what we can plot / group together:
 
-### Best Rate Add MB/s for CPU
-
-![data/img/best-rate-Add-cpu-mb-per-second.png](data/img/best-rate-Add-cpu-mb-per-second.png)
-
-### Best Rate Add MB/s for GPU
-
-![data/img/best-rate-Add-gpu-mb-per-second.png](data/img/best-rate-Add-gpu-mb-per-second.png)
-
-### Best Rate Copy MB/s for CPU
-
-![data/img/best-rate-Copy-cpu-mb-per-second.png](data/img/best-rate-Copy-cpu-mb-per-second.png)
-
-### Best Rate Copy MB/s for GPU
-
-![data/img/best-rate-Copy-gpu-mb-per-second.png](data/img/best-rate-Copy-gpu-mb-per-second.png)
-
-### Best Rate Scale MB/s for CPU
-
-![data/img/best-rate-Scale-cpu-mb-per-second.png](data/img/best-rate-Scale-cpu-mb-per-second.png)
-
-### Best Rate Scale MB/s for GPU
-
-![data/img/best-rate-Scale-gpu-mb-per-second.png](data/img/best-rate-Scale-gpu-mb-per-second.png)
-
-### Best Rate Triad MB/s for CPU
-
-![data/img/best-rate-Triad-cpu-mb-per-second.png](data/img/best-rate-Triad-cpu-mb-per-second.png)
-
-### Best Rate Triad MB/s for GPU
-
-![data/img/best-rate-Triad-gpu-mb-per-second.png](data/img/best-rate-Triad-gpu-mb-per-second.png)
+1. GPU: Azure CycleCloud, Lassen, Azure AKS, Google GKE, and Google Compute Engine all run across nodes and specify -n so I think we can compare them. I don't see OMP_NUM_THREADS anywhere.
+2. CPU: We can compare Azure CycleCloud with AWS Parallel Cluster, but only size 32. That should be OK if we just are running on single nodes anyway, but we would want to choose size 32 for CycleCloud to be consistent. Both map 1 ppr per node and use OMP_NUM_THREADS=96
+3. CPU: AWS EKS, Azure AKS, Google Compute Engine, and Google GKE also run on one node, but without OMP_NUM_THREADS and also specifying -n. Note that the little n is different - it is 56 for Google and 96 for AWS. I'm not sure if that makes this set not comparable.

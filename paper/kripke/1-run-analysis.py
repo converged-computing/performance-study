@@ -120,7 +120,6 @@ def parse_data(indir, outdir, files):
 
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
-        print(results)
         for result in results:
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
@@ -162,6 +161,11 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
@@ -169,13 +173,6 @@ def plot_results(df, outdir):
         # Make a plot for each metric
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
-
-            colors = sns.color_palette("muted", len(metric_df.experiment.unique()))
-            hexcolors = colors.as_hex()
-            types = list(metric_df.experiment.unique())
-            palette = collections.OrderedDict()
-            for t in types:
-                palette[t] = hexcolors.pop(0)
             title = " ".join([x.capitalize() for x in metric.split("_")])
 
             # Note that the Y label is hard coded because we just have one metric
@@ -185,7 +182,7 @@ def plot_results(df, outdir):
                 ydimension="value",
                 plotname=f"kripke-{metric}-{env}",
                 xdimension="nodes",
-                palette=palette,
+                palette=cloud_colors,
                 outdir=img_outdir,
                 hue="experiment",
                 xlabel="Nodes",
