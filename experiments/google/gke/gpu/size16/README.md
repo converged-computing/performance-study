@@ -42,6 +42,13 @@ gpu-cluster-16  us-central1-c  1.30.3-gke.1639000  104.197.1.182  n1-standard-32
 real	6m2.252s
 user	0m2.336s
 sys	0m0.182s
+
+# OSU redo in March 25, 2025
+gpu-cluster-16  us-central1-a  1.31.6-gke.1020000  104.197.112.156  n1-standard-32  1.31.6-gke.1020000  16         RUNNING
+
+real	5m17.189s
+user	0m1.077s
+sys	0m0.173s
 ```
 
 Sanity check installed on all nodes
@@ -538,7 +545,7 @@ time kubectl wait --for=condition=ready pod -l job-name=flux-sample --timeout=60
 flux proxy local:///mnt/flux/view/run/flux/local bash
 ```
 
-Write this script to the filesystem:
+Write this script to the filesystem. Note that for our first experiments in August we used flux submit, and that isn't blocking (and would lead to both running at once, an erroneous result) so we changed and re-did to flux run on March 25, 2025. The result directory to use for OSU latency and bandwidth is marked.
 
 ```bash
 #/bin/bash
@@ -560,14 +567,14 @@ for i in $hosts; do
   dequeue_from_list $list
   for j in $list; do
     echo "${i} ${j}"
-    flux submit -N 2 -n 2 \
+    flux run -N 2 -n 2 \
       --setattr=user.study_id=$app-2-iter-$iter \
       --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
       --requires="hosts:${i},${j}" \
       -o gpu-affinity=per-task \
       -o cpu-affinity=per-task \
       /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency
-    flux submit -N 2 -n 2 \
+    flux run -N 2 -n 2 \
       --setattr=user.study_id=$app-2-iter-$iter \
       --env CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
       --requires="hosts:${i},${j}" \
@@ -611,7 +618,11 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
     flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
+# Study in August
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-gpu-16-$app $output
+
+# Fixed data in March, 2025
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:gke-gpu-16-$app-fixed $output
 ```
 ```bash
 kubectl delete -f ./crd/osu.yaml

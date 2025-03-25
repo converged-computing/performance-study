@@ -237,6 +237,7 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:c
 #### OSU
 
 Write this script to the filesystem `flux-run-combinations.sh`
+Note that the initial study in August 2024 used flux submit, which isn't blocking (and erroneous since they run at the same time). We redid this size in March 2025 with flux run, ensuring it would be blocking.
 
 ```bash
 #/bin/bash
@@ -258,13 +259,13 @@ for i in $hosts; do
   dequeue_from_list $list
   for j in $list; do
     echo "${i} ${j}"
-    flux submit -N 2 -n 2 \
+    flux run -N 2 -n 2 \
       --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o cpu-affinity=per-task \
       -g 1 -o gpu-affinity=per-task \
       singularity exec --nv /opt/containers/metric-osu-gpu_google-gpu.sif /opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency -d cuda H H
-    flux submit -N 2 -n 2 \
+    flux run -N 2 -n 2 \
       --setattr=user.study_id=$app-2-iter-$iter \
       --requires="hosts:${i},${j}" \
       -o cpu-affinity=per-task \
@@ -298,7 +299,12 @@ done
 
 # When they are done:
 ./save.sh $output
+
+# August 2024
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-16-$app $output
+
+# March 2025 with fixed osu latency and osu bw
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:compute-engine-gpu-16-$app-fixed $output
 ```
 
 #### Quicksilver

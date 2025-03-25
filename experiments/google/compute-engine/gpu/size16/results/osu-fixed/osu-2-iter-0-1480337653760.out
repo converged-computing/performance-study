@@ -1,0 +1,43 @@
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+# OSU MPI-CUDA Bandwidth Test v5.8
+# Send Buffer on HOST (H) and Receive Buffer on HOST (H)
+# Size      Bandwidth (MB/s)
+1                       0.18
+2                       0.39
+4                       0.68
+8                       1.48
+16                      3.26
+32                      6.08
+64                     20.84
+128                    40.89
+256                    78.46
+512                   152.48
+1024                  295.84
+2048                  539.71
+4096                  878.73
+8192                 1315.63
+16384                1656.37
+32768                1967.43
+65536                2194.64
+131072               2150.22
+262144               2056.25
+524288               1924.40
+1048576              1853.76
+2097152              1761.99
+4194304              1715.88
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/metric-osu-gpu_google-gpu.sif", "/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/containers", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-009,flux-006"]}}, "user": {"study_id": "osu-2-iter-0"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1742925405.3776855,"name":"init"}
+{"timestamp":1742925405.3786778,"name":"starting"}
+{"timestamp":1742925405.3981018,"name":"shell.init","context":{"service":"501043911-shell-fftPNRGs","leader-rank":5,"size":2}}
+{"timestamp":1742925405.4020319,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1742925414.4804258,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":2525,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1742925414.4866488,"name":"complete","context":{"status":0}}
+{"timestamp":1742925414.4866798,"name":"done"}
+
