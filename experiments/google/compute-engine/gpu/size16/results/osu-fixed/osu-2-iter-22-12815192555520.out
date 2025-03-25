@@ -1,0 +1,43 @@
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+# OSU MPI-CUDA Bandwidth Test v5.8
+# Send Buffer on HOST (H) and Receive Buffer on HOST (H)
+# Size      Bandwidth (MB/s)
+1                       0.20
+2                       0.50
+4                       0.84
+8                       1.45
+16                      3.39
+32                      6.44
+64                     22.26
+128                    41.58
+256                    78.93
+512                   151.64
+1024                  294.27
+2048                  540.46
+4096                  892.96
+8192                 1367.09
+16384                1662.82
+32768                1947.83
+65536                2155.06
+131072               2127.10
+262144               2073.47
+524288               2007.76
+1048576              1907.89
+2097152              1885.20
+4194304              1847.36
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/metric-osu-gpu_google-gpu.sif", "/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_bw", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/containers", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-015,flux-007"]}}, "user": {"study_id": "osu-2-iter-22"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1742926080.9887705,"name":"init"}
+{"timestamp":1742926080.9900813,"name":"starting"}
+{"timestamp":1742926081.0100379,"name":"shell.init","context":{"service":"501043911-shell-f6odjgb9q","leader-rank":6,"size":2}}
+{"timestamp":1742926081.0141461,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1742926089.5299897,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":2757,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1742926089.5366409,"name":"complete","context":{"status":0}}
+{"timestamp":1742926089.5366726,"name":"done"}
+

@@ -1,0 +1,44 @@
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+Warning: OMB could not identify the local rank of the process.
+         This can lead to multiple processes using the same GPU.
+         Please use the get_local_rank script in the OMB repo for this.
+# OSU MPI-CUDA Latency Test v5.8
+# Send Buffer on HOST (H) and Receive Buffer on HOST (H)
+# Size          Latency (us)
+0                      23.45
+1                      23.36
+2                      23.78
+4                      23.88
+8                      23.76
+16                     23.51
+32                     23.83
+64                     23.80
+128                    23.82
+256                    23.52
+512                    24.04
+1024                   25.42
+2048                   29.08
+4096                   31.18
+8192                   36.30
+16384                  45.58
+32768                  72.69
+65536                 184.65
+131072                199.78
+262144                255.55
+524288                379.90
+1048576               596.18
+2097152              1006.20
+4194304              1824.08
+START OF JOBSPEC
+{"resources": [{"type": "node", "count": 2, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}, {"type": "gpu", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["singularity", "exec", "--nv", "/opt/containers/metric-osu-gpu_google-gpu.sif", "/opt/osu-benchmark/build.openmpi/mpi/pt2pt/osu_latency", "-d", "cuda", "H", "H"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/containers", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": 0, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}, "cpu-affinity": "per-task", "gpu-affinity": "per-task"}}, "constraints": {"hostlist": ["flux-001,flux-015"]}}, "user": {"study_id": "osu-2-iter-18"}}, "version": 1}
+START OF EVENTLOG
+{"timestamp":1742925946.7151394,"name":"init"}
+{"timestamp":1742925946.7163079,"name":"starting"}
+{"timestamp":1742925946.7371676,"name":"shell.init","context":{"service":"501043911-shell-f5nTYRFkT","leader-rank":0,"size":2}}
+{"timestamp":1742925946.7408869,"name":"shell.start","context":{"taskmap":{"version":1,"map":[[0,2,1,1]]}}}
+{"timestamp":1742925965.6181936,"name":"shell.task-exit","context":{"localid":0,"rank":0,"state":"Exited","pid":2736,"wait_status":0,"signaled":0,"exitcode":0}}
+{"timestamp":1742925965.6220899,"name":"complete","context":{"status":0}}
+{"timestamp":1742925965.6221209,"name":"done"}
+
