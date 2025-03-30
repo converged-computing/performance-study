@@ -29,6 +29,25 @@ az aks create \
 az aks get-credentials --resource-group aks-gpu-testing-west --name aks-gpu-testing-cluster
 ```
 
+And for the redo run in March 2025 for OSU:
+
+```bash
+az aks create \
+    --resource-group flux-usernetes \
+    --name performance-study-256 \
+    --ppg /subscriptions/3e173a37-8f81-492f-a234-ca727b72e6f8/resourceGroups/flux-usernetes/providers/Microsoft.Compute/proximityPlacementGroups/aks-placement-test \
+    --network-plugin azure \
+    --node-count 99 \
+    --node-vm-size standard_hb120-96rs_v3 \
+    --location southcentralus \
+    --enable-node-public-ip \
+    --vm-set-type VirtualMachineScaleSets \
+    --load-balancer-sku standard \
+    --generate-ssh-keys
+```
+
+You'll need to manually scale up to 256 for the VMSet.
+
 ### 1. Setup
 
 Note that I needed to create this entirely in the UI, and you can't do it automatically. We are required to have at least one node in the agent pool. For testing I used one static, and for production I allowed autoscaling 1-3, not knowing what might be needed. Once your deployment is ready and you can use the Connect -> cloud shell to connect, register the feature for AKSInfinibandSupport:
@@ -52,6 +71,12 @@ Run this final step:
 
 ```bash
 az provider register --namespace Microsoft.ContainerService
+```
+
+This was an extra command needed the second time to get the credentials:
+
+```bash
+az aks get-credentials --name performance-study-256 --resource-group flux-usernetes
 ```
 
 Note that if you shell in now and install `ibverbs-utils` and do `ibv_devices` it will be empty.
@@ -103,7 +128,7 @@ Now we are ready for different MiniCluster setups. For each of the below, to she
 ```bash
 kubectl exec -it flux-sample-0-xxx bash
 ```
-Next, choose a cluster size in one of the experiment folders.
+
 Monitoring:
 
 ```bash
@@ -112,12 +137,6 @@ cd kubernetes-event-exporter
 kubectl create namespace monitoring
 # edit deploy/<config> yaml
 kubectl apply -f deploy
-```
-
-Install the Flux Operator:
-
-```bash
-kubectl apply -f ./flux-operator.yaml
 ```
 
 Now we are ready for different MiniCluster setups. For each of the below, to shell in to the lead broker (index 0) you do:
@@ -184,6 +203,8 @@ kubectl delete -f crd/single-node.yaml
 
 #### OSU
 
+Note that this second time, the container pull took over 10 minutes.
+
 ```bash
 kubectl logs -n monitoring event-exporter-6bf9c87d4d-v4rtr -f  |& tee ./events-osu-$(date +%s).json
 kubectl apply -f ./crd/osu.yaml
@@ -236,11 +257,25 @@ export app=osu
 output=./results/$app
 mkdir -p $output
 
+chmod +x flux-run-combinations.sh
 ./flux-run-combinations.sh 256 $app
 
 for i in $(seq 1 5); do     
   echo "Running iteration $i"
     time flux run --setattr=user.study_id=$app-256-iter-$i -N256 -n 24576 -o cpu-affinity=per-task /opt/osu-benchmark/build.openmpi/mpi/collective/osu_allreduce
+done
+
+# Just successful ones
+for jobid in $(flux jobs --filter=completed --json | jq -r .jobs[].id)
+  do
+    # Get the job study id
+    study_id=$(flux job info $jobid jobspec | jq -r ".attributes.user.study_id")    
+    echo "Parsing jobid ${jobid} and study id ${study_id}"
+    flux job attach $jobid &> $output/${study_id}-${jobid}.out 
+    echo "START OF JOBSPEC" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid jobspec >> $output/${study_id}-${jobid}.out 
+    echo "START OF EVENTLOG" >> $output/${study_id}-${jobid}.out 
+    flux job info $jobid guest.exec.eventlog >> $output/${study_id}-${jobid}.out
 done
 
 # When they are done:
@@ -257,6 +292,7 @@ for jobid in $(flux jobs -a --json | jq -r .jobs[].id)
 done
 
 oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-infiniband-cpu-256-$app $output
+oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:aks-infiniband-cpu-256-$app-rerun $output
 ```
 ```bash
 kubectl delete -f ./crd/osu.yaml
@@ -578,6 +614,9 @@ oras push ghcr.io/converged-computing/metrics-operator-experiments/performance:a
 ```bash
 kubectl delete -f ./crd/quicksilver.yaml
 ```
+
+The second attempt was not successful. The creation was different (I had to manually ask for credentials) and all of the osu tests segfaulted except for one. I ran the script 4x to see if more successful results occurred and then gave up, as it's an expensive cluster.
+
 ### Clean Up
 
 When you are done, delete the cluster from the web interface.

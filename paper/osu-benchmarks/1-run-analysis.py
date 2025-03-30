@@ -237,6 +237,17 @@ def parse_data(indir, outdir, files):
         if exp.size == 2:
             continue
 
+        # We reran google cloud GPU size 16 with fixed results for latency and bw.
+        if (
+            exp.cloud == "google"
+            and exp.env_type == "gpu"
+            and exp.size == 16
+            and "osu-allreduce" not in filename
+            and "osu-fixed" not in filename
+        ):
+            print(f"Skipping old result {filename}")
+            continue
+
         # Cyclecloud GPU had multiple types, osu-dd and osu-hh
         # For Google Cloud GPU on GKE the point to point benchmarks
         # were run without GPU - never worked
