@@ -395,7 +395,8 @@ def make_plot(
     """
     Helper function to make common plots.
 
-    This also adds the normalized version
+    This is largely not used. I was too worried to have the generalized function
+    not work for a specific plot so I just redid them all manually. Ug.
 
     Speedup: typically we do it in a way that takes into account serial/parallel.
     Speedup definition - normalize by performance at smallest size tested.

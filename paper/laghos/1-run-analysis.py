@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import collections
-import json
 import os
 import re
 import sys
 
-from metricsoperator.metrics.app.lammps import parse_lammps
 import matplotlib.pylab as plt
-import pandas
 import seaborn as sns
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -23,9 +19,8 @@ sns.set_theme(style="whitegrid", palette="muted")
 
 # These are files I found erroneous - no result, or incomplete result
 errors = [
-   # No results (or run at all)
-  "azure/cyclecloud/cpu/size32/results/laghos/laghos-32n-174-iter-1.out",
-  
+    # No results (or run at all)
+    "azure/cyclecloud/cpu/size32/results/laghos/laghos-32n-174-iter-1.out",
 ]
 error_regex = "(%s)" % "|".join(errors)
 
@@ -39,6 +34,12 @@ def get_parser():
         "--root",
         help="root directory with experiments",
         default=os.path.join(root, "experiments"),
+    )
+    parser.add_argument(
+        "--non-anon",
+        help="Generate non-anon",
+        action="store_true",
+        default=False,
     )
     parser.add_argument(
         "--out",
@@ -72,7 +73,7 @@ def main():
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    plot_results(df, outdir, args.non_anon)
 
 
 def parse_data(indir, outdir, files):
@@ -122,7 +123,7 @@ def parse_data(indir, outdir, files):
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
                 continue
-             
+
             item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
@@ -154,7 +155,7 @@ def parse_data(indir, outdir, files):
     return p.df
 
 
-def plot_results(df, outdir):
+def plot_results(df, outdir, non_anon=True):
     """
     Plot analysis results
     """
@@ -164,37 +165,80 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
-    # We are going to put the plots together, and the colors need to match!
-    cloud_colors = ps.get_cloud_colors(df.experiment.unique())
+    # For anonymization
+    if not non_anon:
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/lassen", "on-premises/b"
+        )
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/dane", "on-premises/a"
+        )
 
+    # We are going to put the plots together, and the colors need to match!
+    # cloud_colors = ps.get_cloud_colors(df.experiment.unique())
+
+    data_frames = {}
     for env in df.env_type.unique():
+        # We could not build the gpu container
+        if env == "gpu":
+            continue
         subset = df[df.env_type == env]
         # Make a plot for seconds runtime, and each FOM set.
         # We can look at the metric across sizes, colored by experiment
         for metric in subset.metric.unique():
+            # We are only plotting total rate
+            if "total_rate" not in metric:
+                continue
             metric_df = subset[subset.metric == metric]
-            print(metric_df.groupby(['env_type', 'env', 'cloud', 'experiment']).value.mean())
-            print(metric_df.groupby(['env_type', 'env', 'cloud', 'experiment']).value.std())
+            data_frames[env] = metric_df
+            print(
+                metric_df.groupby(
+                    ["env_type", "env", "cloud", "experiment"]
+                ).value.mean()
+            )
+            print(
+                metric_df.groupby(
+                    ["env_type", "env", "cloud", "experiment"]
+                ).value.std()
+            )
             title = " ".join([x.capitalize() for x in metric.split("_")])
-            if env == "cpu":
-                ps.make_plot(
-                    metric_df,
-                    title=f"Laghos Major Kernels Total Rate ({env.upper()})",
-                    ydimension="value",
-                    plotname=f"laghos-{metric}-{env}",
-                    xdimension="nodes",
-                    palette=cloud_colors,
-                    outdir=img_outdir,
-                    hue="experiment",
-                    xlabel="Nodes",
-                    ylabel="megadofs x time steps / second",
-                    do_round=False,
-                    #legend_pos="center right",
-                    width=5,
-                    height=6.5,
-                )
+            print(title)
 
-            # Note that we couldn't build the laghos GPU container
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
+    fig, axes = plt.subplots(1, 1, sharey=True, figsize=(8, 6))
+    sns.set_style("whitegrid")
+    sns.barplot(
+        data_frames["cpu"],
+        ax=axes,
+        x="nodes",
+        y="value",
+        hue="experiment",
+        hue_order=[
+            "google/gke/cpu",
+            "azure/cyclecloud/cpu",
+            "aws/eks/cpu",
+            "google/compute-engine/cpu",
+            "aws/parallel-cluster/cpu",
+            "on-premises/a/cpu",
+        ],
+        palette=cloud_colors,
+        order=[32, 64],
+    )
+    axes.set_title("Laghos Major Kernels Total Rate (CPU)", fontsize=14)
+    axes.set_ylabel("Megadofs By Timesteps / Second", fontsize=14)
+    axes.set_xlabel("Nodes", fontsize=14)
+
+    # Remove legend title, don't need it
+    handles, labels = axes.get_legend_handles_labels()
+    axes.legend(handles=handles, labels=labels)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(img_outdir, "laghos-major-kernels-total-rate-cpu.svg"))
+    plt.clf()
 
 
 if __name__ == "__main__":

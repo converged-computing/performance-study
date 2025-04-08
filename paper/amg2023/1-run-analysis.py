@@ -246,7 +246,10 @@ def plot_results(df, outdir, non_anon=False, log=True):
         order=[32, 64, 128, 256],
     )
     axes[0].set_title("FOM Overall (CPU)", fontsize=14)
-    axes[0].set_ylabel("FOM Overall (logscale)", fontsize=14)
+    if log:
+        axes[0].set_ylabel("FOM Overall (logscale)", fontsize=14)
+    else:
+        axes[0].set_ylabel("FOM Overall", fontsize=14)
     axes[0].set_xlabel("Nodes", fontsize=14)
 
     # Log scale for FOM
