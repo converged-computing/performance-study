@@ -28,22 +28,40 @@ cloud_prefixes = [
 ]
 
 cloud_prefixes.sort()
-colors = sns.color_palette("muted", len(cloud_prefixes))
-hexcolors = colors.as_hex()
-colors = {}
-for cloud in cloud_prefixes:
-    colors[cloud] = hexcolors.pop(0)
+
+# colors = sns.color_palette("muted", len(cloud_prefixes))
+# hexcolors = colors.as_hex()
+# colors = {}
+# for cloud in cloud_prefixes:
+#    colors[cloud] = hexcolors.pop(0)
+colors = {
+    "azure/aks": "#004589",
+    "aws/parallel-cluster": "#FF9900",
+    "aws/eks": "#CC5500",
+    "google/gke": "#FBBC04",
+    "google/compute-engine": "#EA4335",
+    "on-premises/a": "gray",
+    "on-premises/dane": "gray",
+    "azure/cyclecloud": "#0080ff",
+    "on-premises/lassen": "gray",
+    "on-premises/b": "gray",
+}
 
 
 def match_color(cloud):
     """
     Match the color for an environment
     """
+    if "lassen" in cloud:
+        cloud = "on-premises/b"
+    if "dane" in cloud:
+        cloud = "on-premises/a"
     # We assume the environ name (e.g., azure/aks) is shorter than
     # the one provided (e.g., azure/aks/cpu)
     for environ, color in colors.items():
         if environ in cloud:
             return color
+        print(environ)
     raise ValueError(f"Did not find color for {cloud}")
 
 
@@ -366,8 +384,12 @@ def make_plot(
     plotname="lammps",
     hue=None,
     outdir="img",
+    order=None,
     log_scale=False,
     do_round=False,
+    no_legend=False,
+    hue_order=None,
+    bottom_legend=True,
     round_by=3,
 ):
     """
@@ -379,98 +401,22 @@ def make_plot(
     Speedup definition - normalize by performance at smallest size tested.
       This means taking each value and dividing by result at smallest test size (relative speed up)
       to see if conveys information better.
-    """
-    ext = ext.strip(".")
-    plt.figure(figsize=(7, 6))
-    sns.set_style("whitegrid")
-    ax = sns.stripplot(
-        x=xdimension,
-        y=ydimension,
-        hue=hue,
-        data=df,
-        palette=palette,
-    )
-
-    plt.title(title, fontsize=16)
-    ax.set_xlabel(xlabel, fontsize=16)
-    ax.set_ylabel(ylabel, fontsize=16)
-    if log_scale is True:
-        plt.gca().yaxis.set_major_formatter(
-            plt.ScalarFormatter(useOffset=True, useMathText=True)
-        )
-
-    if do_round is True:
-        ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{round_by}f"))
-    plt.legend(facecolor="white")
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
-    plt.clf()
-
-    # If we have more than one node size, normalize by smallest
-    if len(df.experiment.unique()) <= 1:
-        return
-
-    # We will assemble a column of speedups.
-    #  1. Take smallest size for the experiment environment
-    #  2. Calculate median metric for that size
-    #  3. Calculate how many times that size goes into larger sizes (e.g., 32 goes into 64 twice)
-    #  4. Multiply the median metric by that multiplier to get expected speedup
-    # First, normalize the index so we can reliably reference it later
-    df.index = list(range(0, df.shape[0]))
-    df.loc[:, "speedup"] = [None] * df.shape[0]
-
-    # We have to do by each experiment separately, because they don't all have the smallest size...
-    # We can reassemble after with the indices
-    for experiment in df.experiment.unique():
-        # Subset of data frame just for that cloud and environment
-        subset = df[df.experiment == experiment]
-
-        # The smallest size (important, not all cloud/environments have the very smallest)
-        # And get multiplier for all sizes based on the smallest. "column" would be a column
-        # of multipliers, one specific to each row (that has a size)
-        smallest = sorted(subset[xdimension].unique())[0]
-        multipliers = {x: x / smallest for x in subset[xdimension].unique()}
-        original_values = subset[ydimension].values
-
-        # xdimension here is usually nodes or gpu_count
-        column = [multipliers[x] for x in subset[xdimension].values]
-
-        # Get the median for the smallest sizes, organized by experiment
-        medians = (
-            subset[subset[xdimension] == smallest]
-            .groupby("experiment")[ydimension]
-            .median()
-        )
-        medians = medians.to_dict()
-        experiments = list(subset.experiment.values)
-
-        # And we want to divide each experiment by its median at the smallest size
-        speedup = []
-        for i, experiment in enumerate(experiments):
-            multiplier = column[i]
-            original_value = original_values[i]
-            # divide by the median of the smallest size, not the multiplier
-            speedup.append(original_value / medians[experiment])
-
-        # Fill the speedup in back at the experiment indices
-        df.loc[subset.index, "speedup"] = speedup
-
+    """    
     # Replace the initial value of interest with the speedup (this gets thrown away after plot)
-    df[ydimension] = df["speedup"]
-    plt.figure(figsize=(7, 6))
+    plt.figure(figsize=(12, 6))
     sns.set_style("whitegrid")
-    ax = sns.stripplot(
+    ax = sns.barplot(
+        df,
         x=xdimension,
         y=ydimension,
         hue=hue,
-        data=df,
+        hue_order=hue_order,
         palette=palette,
+        order=order,
     )
-
-    plt.title(title + " Speedup", fontsize=16)
+    plt.title(title, fontsize=14)
     ax.set_xlabel(xlabel, fontsize=14)
-    ax.set_ylabel(ylabel + " (Speedup)", fontsize=14)
+    ax.set_ylabel(ylabel, fontsize=14)
     if log_scale is True:
         plt.gca().yaxis.set_major_formatter(
             plt.ScalarFormatter(useOffset=True, useMathText=True)
@@ -478,7 +424,20 @@ def make_plot(
 
     if do_round is True:
         ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{round_by}f"))
-    plt.legend(facecolor="white")
+    if bottom_legend:
+        # Get the current x-axis label
+        xlabel = ax.get_xlabel()
+        x_min, x_max = ax.get_xlim()
+        x_pos = x_min + 0.2
+        # Remove the default x-axis label
+        ax.set_xlabel('')
+        # Add the new x-axis label at the desired position
+        ax.text(x_pos, ax.get_ylim()[0] - 30, xlabel, ha='left', va='top')
+        plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.2), ncol=3)
+    elif no_legend:
+        plt.legend().remove()    
+    else:
+        plt.legend(facecolor="white")
     plt.tight_layout()
-    plt.savefig(os.path.join(outdir, f"{plotname}-speedup-scaled.{ext}"))
+    plt.savefig(os.path.join(outdir, f"{plotname}-speedup-scaled.svg"))
     plt.clf()
