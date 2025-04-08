@@ -280,6 +280,7 @@ def plot_results(df, outdir, non_anon=False):
         hue_order=[
             "google/compute-engine/gpu",
             "google/gke/gpu",
+            "aws/eks/gpu",
             "azure/aks/gpu",
             "azure/cyclecloud/gpu",
             "on-premises/b/gpu",
