@@ -39,6 +39,12 @@ def get_parser():
         default=os.path.join(root, "experiments"),
     )
     parser.add_argument(
+        "--non-anon",
+        help="Generate non-anon",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
         "--out",
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
@@ -396,7 +402,7 @@ def get_columns(command):
     return ["size", "bandwidth_mb_s"]
 
 
-def plot_results(results, outdir):
+def plot_results(results, outdir, non_anon=False):
     """
     Plot result images to file
     """
@@ -490,9 +496,18 @@ def plot_results(results, outdir):
     if not os.path.exists(plots_by_size):
         os.makedirs(plots_by_size)
 
+    fig, axes = plt.subplots(3, 2, sharey=True, sharex=True, figsize=(18, 12))
+    i = 0
+
     # Save each completed data frame to file and plot!
-    for slug, sizes in dfs_cpu.items():
+    slugs = ["osu_latency", "osu_allreduce", "osu_bw"]
+    for slug in slugs:
+        sizes = dfs_cpu[slug]
         for size, subset in sizes.items():
+
+            # We are doing size 256 for the paper
+            if size != 256:
+                continue
             print(f"Preparing plot for {slug} size {size}")
 
             # Save entire (unsplit) data frame to file
@@ -503,75 +518,113 @@ def plot_results(results, outdir):
             x = lookup_cpu[slug][size]["x"]
             y = lookup_cpu[slug][size]["y"]
 
-            # Make each figure a little bigger
-            plt.figure(figsize=(8, 6))
-
             # for sty in plt.style.available:
-            ax = sns.lineplot(
-                data=subset,
-                hue="experiment",
-                x=x,
-                y=y,
-                markers=True,
-                palette=cloud_colors,
-                dashes=True,
-                errorbar=("ci", 95),
-            )
-            plt.title(slug + " CPU " + str(size) + " Nodes", fontsize=16)
+            if i != 2:
+                sns.lineplot(
+                    data=subset,
+                    ax=axes[i][0],
+                    hue="experiment",
+                    x=x,
+                    y=y,
+                    markers=True,
+                    palette=cloud_colors,
+                    dashes=True,
+                    errorbar=("ci", 95),
+                    legend=None,
+                )
+            else:
+                sns.lineplot(
+                    data=subset,
+                    ax=axes[i][0],
+                    hue="experiment",
+                    x=x,
+                    y=y,
+                    markers=True,
+                    palette=cloud_colors,
+                    dashes=True,
+                    errorbar=("ci", 95),
+                )
+                # Tweak the label to anonymize
+                if not non_anon:
+                    handles, labels = axes[i][0].get_legend_handles_labels()
+                    labels = ["/".join(x.split("/")[0:3]) for x in labels]
+                    labels = [x.replace("/dane/", "/a/") for x in labels]
+                    axes[i][0].legend(handles, labels)
+
+            axes[i][0].set_title(slug + " CPU " + str(size) + " Nodes", fontsize=14)
             y_label = y.replace("_", " ")
-            ax.set_xlabel(xlabel + " (logscale)", fontsize=16)
-            ax.set_ylabel(y_label + " (logscale)", fontsize=16)
-            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=16)
-            ax.set_yticklabels(ax.get_yticks(), fontsize=16)
+            axes[i][0].set_xlabel(xlabel + " (logscale)", fontsize=14)
+            axes[i][0].set_ylabel(y_label + " (logscale)", fontsize=14)
+            axes[i][0].set_xticklabels(axes[i][0].get_xmajorticklabels(), fontsize=14)
+            axes[i][0].set_yticklabels(axes[i][0].get_yticks(), fontsize=14)
+            i += 1
             plt.xscale("log")
             plt.yscale("log")
-            plt.legend(facecolor="white")
-            plt.tight_layout()
-            plt.savefig(os.path.join(plots_by_size, f"{slug}_size-{size}_cpu.png"))
-            plt.clf()
-            plt.close()
 
     # Save each completed data frame to file and plot!
-    for slug, sizes in dfs_gpu.items():
+    i = 0
+    for slug in slugs:
+        sizes = dfs_gpu[slug]
         for size, subset in sizes.items():
+            if size != 128:
+                continue
             print(f"Preparing plot for {slug} size {size}")
-
-            # Save entire (unsplit) data frame to file
-            subset.to_csv(os.path.join(outdir, f"{slug}-{size}-gpu-dataframe.csv"))
 
             # Separate x and y - latency (y) is a function of size (x)
             xlabel = "Message size in bytes"
             x = lookup_gpu[slug][size]["x"]
             y = lookup_gpu[slug][size]["y"]
 
-            # Make each figure a little bigger
-            plt.figure(figsize=(8, 6))
-
             # for sty in plt.style.available:
-            ax = sns.lineplot(
-                data=subset,
-                hue="experiment",
-                x=x,
-                y=y,
-                palette=cloud_colors,
-                markers=True,
-                dashes=True,
-                errorbar=("ci", 95),
-            )
-            plt.title(slug + " " + str(size) + " GPUs", fontsize=16)
+            if i != 2:
+                sns.lineplot(
+                    data=subset,
+                    ax=axes[i][1],
+                    hue="experiment",
+                    x=x,
+                    y=y,
+                    palette=cloud_colors,
+                    markers=True,
+                    dashes=True,
+                    errorbar=("ci", 95),
+                    legend=None,
+                )
+            else:
+                sns.lineplot(
+                    data=subset,
+                    ax=axes[i][1],
+                    hue="experiment",
+                    x=x,
+                    y=y,
+                    palette=cloud_colors,
+                    markers=True,
+                    dashes=True,
+                    errorbar=("ci", 95),
+                )
+                # Tweak the label to anonymize
+                if not non_anon:
+                    handles, labels = axes[i][1].get_legend_handles_labels()
+                    labels = ["/".join(x.split("/")[0:3]) for x in labels]
+                    labels = [x.replace("/lassen/", "/b/") for x in labels]
+                    axes[i][1].legend(handles, labels)
+
+            axes[i][1].set_title(slug + " " + str(size) + " GPUs", fontsize=14)
             y_label = y.replace("_", " ")
-            ax.set_xlabel(xlabel + " (logscale)", fontsize=16)
-            ax.set_ylabel(y_label + " (logscale)", fontsize=16)
-            ax.set_xticklabels(ax.get_xmajorticklabels(), fontsize=16)
-            ax.set_yticklabels(ax.get_yticks(), fontsize=16)
+            axes[i][1].set_xlabel(xlabel + " (logscale)", fontsize=14)
+            axes[i][1].set_ylabel(y_label + " (logscale)", fontsize=14)
+            axes[i][1].set_xticklabels(axes[i][1].get_xmajorticklabels(), fontsize=14)
+            axes[i][1].set_yticklabels(axes[i][1].get_yticks(), fontsize=14)
             plt.xscale("log")
             plt.yscale("log")
-            plt.legend(facecolor="white")
             plt.tight_layout()
-            plt.savefig(os.path.join(plots_by_size, f"{slug}_size-{size}_gpu.png"))
-            plt.clf()
-            plt.close()
+            i += 1
 
+    plt.tight_layout()
+    plt.savefig(os.path.join(plots_by_size, "osu-latency-bw-reduce-cpu-gpu.svg"))
+    plt.clf()
+    plt.close()
+
+    return
     # As we go through sizes, for all reduce and bw collect data in rows for surface plot
     # We can't keep all the values, so we will calculate the medium, and then top / lower quartile
     #   X dimension: will be message sizes (logscale)
