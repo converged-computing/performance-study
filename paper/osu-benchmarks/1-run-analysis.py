@@ -402,6 +402,16 @@ def get_columns(command):
     return ["size", "bandwidth_mb_s"]
 
 
+def get_osu_title(slug):
+    if slug == "osu_bw":
+        title = "OSU Bandwidth"
+    elif slug == "osu_latency":
+        title = "OSU Latency"
+    elif slug == "osu_allreduce":
+        title = "OSU AllReduce"
+    return title
+
+
 def plot_results(results, outdir, non_anon=False):
     """
     Plot result images to file
@@ -551,7 +561,9 @@ def plot_results(results, outdir, non_anon=False):
                     labels = [x.replace("/dane/", "/a/") for x in labels]
                     axes[i][0].legend(handles, labels)
 
-            axes[i][0].set_title(slug + " CPU " + str(size) + " Nodes", fontsize=14)
+            axes[i][0].set_title(
+                get_osu_title(slug) + " CPU " + str(size) + " Nodes", fontsize=14
+            )
             y_label = y.replace("_", " ")
             axes[i][0].set_xlabel(xlabel + " (logscale)", fontsize=14)
             axes[i][0].set_ylabel(y_label + " (logscale)", fontsize=14)
@@ -608,7 +620,9 @@ def plot_results(results, outdir, non_anon=False):
                     labels = [x.replace("/lassen/", "/b/") for x in labels]
                     axes[i][1].legend(handles, labels)
 
-            axes[i][1].set_title(slug + " " + str(size) + " GPUs", fontsize=14)
+            axes[i][1].set_title(
+                get_osu_title(slug) + " " + str(size) + " GPUs", fontsize=14
+            )
             y_label = y.replace("_", " ")
             axes[i][1].set_xlabel(xlabel + " (logscale)", fontsize=14)
             axes[i][1].set_ylabel(y_label + " (logscale)", fontsize=14)
