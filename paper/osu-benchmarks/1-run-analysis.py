@@ -5,7 +5,8 @@ import os
 import re
 import sys
 
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
+from matplotlib.font_manager import FontProperties
 import matplotlib.pylab as plt
 import pandas
 import seaborn as sns
@@ -20,8 +21,9 @@ import performance_study as ps
 
 sns.set_theme(style="whitegrid", palette="muted")
 
-import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
+# Not used for paper
+# import numpy as np
+# from mpl_toolkits.mplot3d import Axes3D
 
 # These are files I found erroneous - no result, or incomplete result
 errors = []
@@ -467,7 +469,6 @@ def plot_results(results, outdir, non_anon=False):
             "gpu_count",
         ]
 
-        dimension = number_gpus if is_gpu else size
         experiment = os.sep.join(entry["context"][:-1] + [command])
         # E.g., azure/aks. We don't want to include cpu/gpu or the command
         clouds.add(experiment)
@@ -506,7 +507,7 @@ def plot_results(results, outdir, non_anon=False):
     if not os.path.exists(plots_by_size):
         os.makedirs(plots_by_size)
 
-    fig, axes = plt.subplots(3, 2, sharey=True, sharex=True, figsize=(18, 12))
+    fig, axes = plt.subplots(1, 4, figsize=(19, 3))
     i = 0
 
     # Save each completed data frame to file and plot!
@@ -529,393 +530,53 @@ def plot_results(results, outdir, non_anon=False):
             y = lookup_cpu[slug][size]["y"]
 
             # for sty in plt.style.available:
-            if i != 2:
-                sns.lineplot(
-                    data=subset,
-                    ax=axes[i][0],
-                    hue="experiment",
-                    x=x,
-                    y=y,
-                    markers=True,
-                    palette=cloud_colors,
-                    dashes=True,
-                    errorbar=("ci", 95),
-                    legend=None,
-                )
-            else:
-                sns.lineplot(
-                    data=subset,
-                    ax=axes[i][0],
-                    hue="experiment",
-                    x=x,
-                    y=y,
-                    markers=True,
-                    palette=cloud_colors,
-                    dashes=True,
-                    errorbar=("ci", 95),
-                )
-                # Tweak the label to anonymize
-                if not non_anon:
-                    handles, labels = axes[i][0].get_legend_handles_labels()
-                    labels = ["/".join(x.split("/")[0:3]) for x in labels]
-                    labels = [x.replace("/dane/", "/a/") for x in labels]
-                    axes[i][0].legend(handles, labels)
-
-            axes[i][0].set_title(
-                get_osu_title(slug) + " CPU " + str(size) + " Nodes", fontsize=14
+            sns.lineplot(
+                data=subset,
+                ax=axes[i],
+                hue="experiment",
+                x=x,
+                y=y,
+                markers=True,
+                palette=cloud_colors,
+                dashes=True,
+                errorbar=("ci", 95),
             )
+
+            axes[i].set_title(get_osu_title(slug), fontsize=12)
+            axes[i].set_xticklabels(axes[i].get_xmajorticklabels(), fontsize=10)
+            axes[i].set_yticklabels(axes[i].get_yticks(), fontsize=12)
             y_label = y.replace("_", " ")
-            axes[i][0].set_xlabel(xlabel + " (logscale)", fontsize=14)
-            axes[i][0].set_ylabel(y_label + " (logscale)", fontsize=14)
-            axes[i][0].set_xticklabels(axes[i][0].get_xmajorticklabels(), fontsize=14)
-            axes[i][0].set_yticklabels(axes[i][0].get_yticks(), fontsize=14)
-            i += 1
-            plt.xscale("log")
-            plt.yscale("log")
-
-    # Save each completed data frame to file and plot!
-    i = 0
-    for slug in slugs:
-        sizes = dfs_gpu[slug]
-        for size, subset in sizes.items():
-            if size != 128:
-                continue
-            print(f"Preparing plot for {slug} size {size}")
-
-            # Separate x and y - latency (y) is a function of size (x)
-            xlabel = "Message size in bytes"
-            x = lookup_gpu[slug][size]["x"]
-            y = lookup_gpu[slug][size]["y"]
-
-            # for sty in plt.style.available:
-            if i != 2:
-                sns.lineplot(
-                    data=subset,
-                    ax=axes[i][1],
-                    hue="experiment",
-                    x=x,
-                    y=y,
-                    palette=cloud_colors,
-                    markers=True,
-                    dashes=True,
-                    errorbar=("ci", 95),
-                    legend=None,
-                )
-            else:
-                sns.lineplot(
-                    data=subset,
-                    ax=axes[i][1],
-                    hue="experiment",
-                    x=x,
-                    y=y,
-                    palette=cloud_colors,
-                    markers=True,
-                    dashes=True,
-                    errorbar=("ci", 95),
-                )
-                # Tweak the label to anonymize
-                if not non_anon:
-                    handles, labels = axes[i][1].get_legend_handles_labels()
-                    labels = ["/".join(x.split("/")[0:3]) for x in labels]
-                    labels = [x.replace("/lassen/", "/b/") for x in labels]
-                    axes[i][1].legend(handles, labels)
-
-            axes[i][1].set_title(
-                get_osu_title(slug) + " " + str(size) + " GPUs", fontsize=14
-            )
-            y_label = y.replace("_", " ")
-            axes[i][1].set_xlabel(xlabel + " (logscale)", fontsize=14)
-            axes[i][1].set_ylabel(y_label + " (logscale)", fontsize=14)
-            axes[i][1].set_xticklabels(axes[i][1].get_xmajorticklabels(), fontsize=14)
-            axes[i][1].set_yticklabels(axes[i][1].get_yticks(), fontsize=14)
-            plt.xscale("log")
-            plt.yscale("log")
-            plt.tight_layout()
+            axes[i].set_xlabel("", fontsize=12)
+            axes[i].set_ylabel(y_label + " (logscale)", fontsize=12)
+            axes[i].set_xscale("log")
+            axes[i].set_yscale("log")
             i += 1
 
+    font_prop = FontProperties(size=14)
+    fig.text(
+        0.50,
+        0.01,
+        xlabel + " (logscale)",
+        horizontalalignment="center",
+        wrap=True,
+        fontproperties=font_prop,
+    )
+    handles, labels = axes[0].get_legend_handles_labels()
+
+    # Tweak the label to anonymize
+    if not non_anon:
+        labels = ["/".join(x.split("/")[0:3]) for x in labels]
+        labels = [x.replace("/dane/", "/a/") for x in labels]
+
+    axes[3].legend(handles, labels)
+    for ax in axes[0:3]:
+        ax.get_legend().remove()
+    axes[3].axis("off")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.subplots_adjust(bottom=0.15)
     plt.tight_layout()
-    plt.savefig(os.path.join(plots_by_size, "osu-latency-bw-reduce-cpu-gpu.svg"))
-    plt.clf()
-    plt.close()
-
-    return
-    # As we go through sizes, for all reduce and bw collect data in rows for surface plot
-    # We can't keep all the values, so we will calculate the medium, and then top / lower quartile
-    #   X dimension: will be message sizes (logscale)
-    #   Y dimension: will be latency (also logscale)
-    #   Z dimension: goes across the number of nodes
-    surfaces = {}
-    for slug, sizes in dfs_cpu.items():
-        for size, subset in sizes.items():
-            if "latency_us" in subset:
-                continue
-
-            # X dimension: will be message sizes (logscale)
-            # Y dimension: will be latency (also logscale)
-            # We probably need this in log scale
-            dimension = "avg_latency_us"
-            if "avg_latency_us" not in subset:
-                dimension = "bandwidth_mb_s"
-            bytes_sizes = subset["size"].unique().tolist()
-            values = np.log(subset[dimension].tolist())
-            y = np.linspace(values.min(), values.max(), len(bytes_sizes))
-
-            # We need to do this for each environment since we are using matlab
-            for experiment in subset.experiment.unique():
-                # lower and upper will be used to calculate some kind of error bars
-                exp_df = subset[subset.experiment == experiment]
-
-                # Median, and upper and lower bounds (25th/75th quantile) for surface plot
-                exp_df[dimension] = exp_df[dimension].astype(float)
-
-                # Note that these currently aren't used
-                # lower = exp_df.groupby("size")[dimension].quantile(0.25)
-                # upper = exp_df.groupby("size")[dimension].quantile(0.75)
-                if "aws" in experiment:
-                    slug = "aws"
-                elif "google" in experiment:
-                    slug = "gcp"
-                else:
-                    slug = "azure"
-
-                # Median we will save as the row for the experiment size
-                median = exp_df.groupby("size")[dimension].median()
-                if experiment not in surfaces:
-                    surfaces[experiment] = {
-                        "x": np.log(bytes_sizes),
-                        "y": y,
-                        "slug": slug,
-                        "z": [],
-                        "y_labels": [],
-                        "title": dimension,
-                    }
-                # This is the data going backward - the medians across sizes
-                surfaces[experiment]["z"].append(np.log(median.values))
-                surfaces[experiment]["y_labels"].append(size)
-
-    # Generate a surface plot for each
-    # Path for html needs to be relative
-    relpath = os.path.relpath(img_outdir, here)
-    html_path = os.path.join(relpath, "web")
-    if not os.path.exists(html_path):
-        os.makedirs(html_path)
-    for experiment, meta in surfaces.items():
-        x_bytes = meta["x"]
-        slug = meta["slug"]
-        cloud = "-".join(experiment.split(os.sep)[0:2])
-        label = os.sep.join(experiment.split(os.sep, 2)[0:2])
-        y_labels = meta["y_labels"]
-        z_nodes = meta["z"]
-        if slug == "aws":
-            color = "YlOrBr"
-        elif slug == "azure":
-            color = "PuBu"
-        else:
-            color = "RdYlBu"
-        trace = go.Surface(
-            x=x_bytes,
-            y=y_labels,
-            z=z_nodes,
-            colorscale=color,
-            cauto=False,
-            showscale=False,
-        )
-        data = [trace]
-        fig = go.Figure(data=data)
-        if meta["title"] == "bandwidth_mb_s":
-            fig.update_scenes(
-                xaxis_title_text="Message Size in Bytes (logscale)",
-                yaxis_title_text="Nodes",
-                zaxis_title_text="Bandwidth Average Latency MB/s (logscale)",
-                xaxis_autorange="reversed",
-            )
-            fig.update_layout(
-                width=1000,
-                height=1000,
-                # margin=dict(l=0, r=0, t=0, b=0),
-                title=f"OSU Bandwidth (CPU) for {label}",
-                scene_camera={
-                    "eye": {"x": 0.0, "y": 2.0, "z": 0.75},
-                    "up": {"x": 0, "y": 0, "z": 0},
-                    "center": {"x": 0, "y": 0, "z": 0},
-                },
-            )
-            fig.write_image(
-                os.path.join(img_outdir, f"{cloud}-bandwidth-surface-plot.png")
-            )
-            fig.write_html(
-                os.path.join(html_path, f"{cloud}-bandwidth-surface-plot.html")
-            )
-
-        elif meta["title"] == "avg_latency_us":
-            fig.update_scenes(
-                xaxis_title_text="Message Size in Bytes (logscale)",
-                yaxis_title_text="Nodes",
-                zaxis_title_text="Average Latency MB/s (logscale)",
-                xaxis_autorange="reversed",
-            )
-            fig.update_layout(
-                width=1000,
-                height=1000,
-                # margin=dict(l=0, r=0, t=0, b=0),
-                title=f"OSU All Reduce (CPU) for {label}",
-                scene_camera={
-                    "eye": {"x": 0.0, "y": 2.0, "z": 0.75},
-                    "up": {"x": 0, "y": 0, "z": 0},
-                    "center": {"x": 0, "y": 0, "z": 0},
-                },
-            )
-            fig.write_image(
-                os.path.join(img_outdir, f"{cloud}-allreduce-surface-plot.png")
-            )
-            fig.write_html(
-                os.path.join(html_path, f"{cloud}-allreduce-surface-plot.html")
-            )
-
-        else:
-            fig.update_scenes(
-                xaxis_title_text="Message Size in Bytes (logscale)",
-                yaxis_title_text="Nodes",
-                zaxis_title_text="Average Latency MB/s (logscale)",
-                xaxis_autorange="reversed",
-            )
-            fig.update_layout(
-                width=1000,
-                height=1000,
-                # margin=dict(l=0, r=0, t=0, b=0),
-                title=f"OSU Latency (CPU) for {label}",
-                scene_camera={
-                    "eye": {"x": 0.0, "y": 2.0, "z": 0.75},
-                    "up": {"x": 0, "y": 0, "z": 0},
-                    "center": {"x": 0, "y": 0, "z": 0},
-                },
-            )
-            fig.write_image(
-                os.path.join(img_outdir, f"{cloud}-latency-surface-plot.png")
-            )
-            fig.write_html(
-                os.path.join(html_path, f"{cloud}-latency-surface-plot.html")
-            )
-
-    # fig.show()
-    # The plots below were my first effort - still usable, but I haven't fixed them.
-    return
-
-    start_index = 0
-    z_nodes = None
-    for experiment, meta in surfaces.items():
-        if meta["title"] == "bandwidth_mb_s":
-            x_bytes = meta["x"]
-            y_latency = meta["y"]
-            if z_nodes is None:
-                z_nodes = np.zeros((len(x_bytes), len(y_latency)))
-            for row in meta["z"]:
-                try:
-                    z_nodes[start_index, :] = row
-                except:
-                    pass
-                start_index += 1
-
-    z_nodes = np.array(z_nodes)
-    X, Y = np.meshgrid(x_bytes, y_latency)
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection="3d")
-    ax.set_title("Bandwidth MB/s")
-    surf = ax.plot_surface(X, Y, z_nodes, cmap="viridis")
-    ax.set_zlabel("Avg Latency in ms (logscale)", fontsize=10)
-    ax.set_xlabel("Message Size in bytes (logscale)", fontsize=10)
-    ax.set_ylabel("Nodes")
-    plt.savefig(os.path.join(img_outdir, f"osu_bw_surface-cpu.png"))
-    plt.clf()
-    plt.close()
-
-    # Generate a surface plot for each
-    start_index = 0
-    fig = plt.figure()
-    ax = None
-    colors = sns.color_palette("muted", 8)
-    hexcolors = colors.as_hex()
-    for experiment, meta in surfaces.items():
-        if meta["title"] == "bandwidth_mb_s":
-            x_bytes = meta["x"]
-            y_latency = meta["y"]
-            z_nodes = np.zeros((len(x_bytes), len(y_latency)))
-            for row in meta["z"]:
-                try:
-                    z_nodes[start_index, :] = row
-                except:
-                    pass
-                start_index += 1
-            z_nodes = np.array(z_nodes)
-            X, Y = np.meshgrid(x_bytes, y_latency)
-            if ax is None:
-                ax = fig.add_subplot(111, projection="3d")
-            surf = ax.plot_surface(X, Y, z_nodes, facecolor=colors.pop(0))
-
-    ax.set_title("Bandwidth MB/s")
-    ax.set_zlabel("Avg Latency in ms (logscale)", fontsize=10)
-    ax.set_xlabel("Message Size in bytes (logscale)", fontsize=10)
-    ax.set_ylabel("Nodes")
-    plt.savefig(os.path.join(img_outdir, f"osu_bw_surface_colored-cpu.png"))
-    plt.clf()
-    plt.close()
-
-    start_index = 0
-    z_nodes = None
-    for experiment, meta in surfaces.items():
-        if meta["title"] == "avg_latency_us":
-            x_bytes = meta["x"]
-            y_latency = meta["y"]
-            if z_nodes is None:
-                z_nodes = np.zeros((len(x_bytes), len(y_latency)))
-            for row in meta["z"]:
-                try:
-                    z_nodes[start_index, :] = row
-                except:
-                    break
-                start_index += 1
-
-    z_nodes = np.array(z_nodes)
-    X, Y = np.meshgrid(x_bytes, y_latency)
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection="3d")
-    ax.set_title("OSU All_Reduce")
-    surf = ax.plot_surface(X, Y, z_nodes, cmap="viridis")
-    ax.set_zlabel("Avg Latency in ms (logscale)", fontsize=10)
-    ax.set_xlabel("Message Size in bytes (logscale)", fontsize=10)
-    ax.set_ylabel("Nodes")
-    plt.savefig(os.path.join(img_outdir, f"osu_allreduce_surface-cpu.png"))
-    plt.clf()
-    plt.close()
-
-    # Generate a surface plot for each
-    start_index = 0
-    fig = plt.figure()
-    ax = None
-    for experiment, meta in surfaces.items():
-        if meta["title"] == "avg_latency_us":
-            x_bytes = meta["x"]
-            y_latency = meta["y"]
-            z_nodes = np.zeros((len(x_bytes), len(y_latency)))
-
-            # This is like this because we need N sizes X environments,
-            # and there isn't enough space in the z dimension
-            for row in meta["z"]:
-                try:
-                    z_nodes[start_index, :] = row
-                except:
-                    break
-                start_index += 1
-            z_nodes = np.array(z_nodes)
-            X, Y = np.meshgrid(x_bytes, y_latency)
-            if ax is None:
-                ax = fig.add_subplot(111, projection="3d")
-            surf = ax.plot_surface(X, Y, z_nodes, facecolor=colors.pop(0))
-    ax.set_title("OSU AllReduce")
-    ax.set_zlabel("Avg Latency in ms (logscale)", fontsize=10)
-    ax.set_xlabel("Message Size in bytes (logscale)", fontsize=10)
-    ax.set_ylabel("Nodes")
-    plt.savefig(os.path.join(img_outdir, f"osu_allreduce_surface_colored-cpu.png"))
+    plt.savefig(os.path.join(plots_by_size, "osu-latency-bw-reduce-cpu.svg"))
     plt.clf()
     plt.close()
 
