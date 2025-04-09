@@ -209,7 +209,7 @@ def plot_results(df, outdir, non_anon=True):
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
-    fig, axes = plt.subplots(1, 1, sharey=True, figsize=(8, 6))
+    fig, axes = plt.subplots(1, 1, sharey=True, figsize=(6, 5))
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"],

@@ -15,13 +15,27 @@ sys.path.insert(0, analysis_root)
 
 import performance_study as ps
 
-sns.set_theme(style="whitegrid", palette="muted")
+sns.set_theme(style="whitegrid", palette="pastel")
 
 # These are files I found erroneous - no result, or incomplete result
 errors = [
-    # Only a start time and in error file, mount with fuse, then CANCELLED
-    "azure/cyclecloud/cpu/size32/results/kripke/kripke-32n-173-iter-5.out",
+    # Stopped at 15 min, only reached step 15
+    "google/gke/cpu/size256/results/quicksilver-3-threads/quicksilver-256-iter-1-791918149632.out",
+    # Stopped at step 10, no ending timestamp
+    "azure/cyclecloud/gpu/size32/results/quicksilver/quicksilver-32n-517-iter-2.out",
+    # Stopped at step 3 ERROR
+    "azure/cyclecloud/gpu/size32/results/quicksilver/quicksilver-32n-516-iter-1.out",
+    # Stopped at step 76
+    "azure/cyclecloud/gpu/size8/results/quicksilver/quicksilver-8n-197-iter-1.out",
+    "azure/cyclecloud/gpu/size16/results/quicksilver/quicksilver-16n-305-iter-1.out",
+    # Stopped at step 75
+    "azure/cyclecloud/gpu/size8/results/quicksilver/quicksilver-8n-207-iter-1-ucxall.out",
+    # Stopped at step 79
+    "azure/cyclecloud/gpu/size4/results/quicksilver/quicksilver-4n-89-iter-1.out",
+    # Stopped at step 40
+    "azure/cyclecloud/gpu/size16/results/quicksilver/quicksilver-16n-306-iter-2.out",
 ]
+
 error_regex = "(%s)" % "|".join(errors)
 
 
@@ -63,31 +77,13 @@ def main():
         os.makedirs(outdir)
 
     # Find input directories
-    files = ps.find_inputs(indir, "kripke")
+    files = ps.find_inputs(indir, "quicksilver")
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir, non_anon=args.non_anon)
-
-
-def parse_kripke_foms(item):
-    """
-    Figures of Merit
-    ================
-
-      Throughput:         2.683674e+10 [unknowns/(second/iteration)]
-      Grind time :        3.726235e-11 [(seconds/iteration)/unknowns]
-      Sweep efficiency :  17.43900 [100.0 * SweepSubdomain time / SweepSolver time]
-      Number of unknowns: 4932501504
-    """
-    metrics = {}
-    for line in item.split("\n"):
-        if "Grind time" in line:
-            parts = [x for x in line.replace(":", "").split(" ") if x]
-            metrics["grind_time_seconds"] = float(parts[2])
-    return metrics
+    plot_results(df, outdir, args.non_anon)
 
 
 def parse_data(indir, outdir, files):
@@ -95,7 +91,7 @@ def parse_data(indir, outdir, files):
     Parse filepaths for environment, etc., and results files for data.
     """
     # metrics here will be wall time and wrapped time
-    p = ps.ResultParser("kripke")
+    p = ps.ResultParser("quicksilver")
 
     # For flux we can save jobspecs and other event data
     data = {}
@@ -108,16 +104,12 @@ def parse_data(indir, outdir, files):
         if ps.skip_result(dirname, filename):
             continue
 
-        # Note that aws eks has kripke-8gpu directories, that just
-        # distinguishes when we ran a first set of runs just with 8 and
-        # then had the larger cluster working. Both data are good.
-        # All of these are consistent across studies
         exp = ps.ExperimentNameParser(filename, indir)
         if exp.prefix not in data:
             data[exp.prefix] = []
 
-        # Size 2 was typically testing, and we are only processing GPU
-        if exp.size == 2 or exp.env_type == "gpu":
+        # Size 2 was typically testing
+        if exp.size == 2:
             continue
 
         # Set the parsing context for the result data frame
@@ -139,22 +131,46 @@ def parse_data(indir, outdir, files):
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, duration, metadata = ps.parse_flux_metadata(item)
+                try:
+                    item, duration, metadata = ps.parse_flux_metadata(item)
+                except:
+                    print(item)
+                    print(result)
+                    import IPython
+
+                    IPython.embed()
+                    sys.exit()
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
                 metadata = {}
-                duration = ps.parse_slurm_duration(item)
+                try:
+                    duration = ps.parse_slurm_duration(item)
+                except:
+                    print(item)
+                    print(result)
+                    import IPython
+
+                    IPython.embed()
+                    sys.exit()
                 item = ps.remove_slurm_duration(item)
 
-            metrics = parse_kripke_foms(item)
-            for metric, value in metrics.items():
-                p.add_result(metric, value)
+            # Let's just parse figure of merit for now
+            # Figure Of Merit              9.519e+08 [Num Segments / Cycle Tracking Time]
+            fom = [x for x in item.split("\n") if x.startswith("Figure Of Merit")]
+            if not fom:
+                print(
+                    f"Filename {result} is missing a figure of merit - likely did not finish."
+                )
+                continue
+            fom = float([x for x in fom[0].split(" ") if x][3])
+            p.add_result("num_segments_over_cycle_tracking_time", fom)
+            p.add_result("workload_manager_wrapper_seconds", duration)
 
-    print("Done parsing kripke results!")
-    p.df.to_csv(os.path.join(outdir, "kripke-cpu-grind-time-results.csv"))
-    ps.write_json(data, os.path.join(outdir, "kripke-cpu-grind-time-parsed.json"))
+    print("Done parsing quicksilver results!")
+    p.df.to_csv(os.path.join(outdir, "quicksilver-results.csv"))
+    ps.write_json(data, os.path.join(outdir, "quicksilver-parsed.json"))
     return p.df
 
 
@@ -181,20 +197,25 @@ def plot_results(df, outdir, non_anon=False):
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
-    # Within a setup, compare between experiments for GPU and cpu
+    # Scientific Notation for prettier plot
     data_frames = {}
-    print(df.env_type.unique())
+    # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
 
         # Make a plot for each metric
         for metric in subset.metric.unique():
-            if "grind" not in metric:
+            if "segments" not in metric:
                 continue
             metric_df = subset[subset.metric == metric]
             data_frames[env] = metric_df
 
-    print(cloud_colors)
+    print(df.experiment.unique())
+    # We are going to put the plots together, and the colors need to match!
+    cloud_colors = {}
+    for cloud in df.experiment.unique():
+        cloud_colors[cloud] = ps.match_color(cloud)
+
     fig, axes = plt.subplots(1, 1, figsize=(6, 4))
     sns.set_style("whitegrid")
     sns.barplot(
@@ -204,27 +225,26 @@ def plot_results(df, outdir, non_anon=False):
         y="value",
         hue="experiment",
         hue_order=[
-            "aws/parallel-cluster/cpu",
-            "aws/eks/cpu",
-            "azure/cyclecloud/cpu",
-            "google/compute-engine/cpu",
-            "azure/aks/cpu",
             "google/gke/cpu",
+            "google/compute-engine/cpu",
+            "aws/eks/cpu",
+            "azure/aks/cpu",
+            "azure/cyclecloud/cpu",
+            "aws/parallel-cluster/cpu",
         ],
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
-    axes.set_title("Kripke Grind Time (CPU)", fontsize=14)
-    axes.set_ylabel("Grind Time (Seconds)", fontsize=14)
+    axes.set_title("Quicksilver Segments Over Cycle Tracking Time (CPU)", fontsize=12)
+    axes.set_ylabel("Segments", fontsize=14)
     axes.set_xlabel("Nodes", fontsize=14)
-    # plt.yscale('log')
 
     # Remove legend title, don't need it
     handles, labels = axes.get_legend_handles_labels()
     axes.legend(handles=handles, labels=labels)
 
     plt.tight_layout()
-    plt.savefig(os.path.join(img_outdir, "kripke-grind-time-cpu.svg"))
+    plt.savefig(os.path.join(img_outdir, "quicksilver-cpu-gpu.svg"))
     plt.clf()
 
 
