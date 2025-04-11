@@ -3,6 +3,33 @@
 We are wanting to group data in the following way. Let's sanity check commands to validate that.
 Note that I'm removing extra submit flags to just show resources and primary stuff.
 
+```
+Size 32 for gpu and google/gke/gpu has mean 750.1485805989585 std 0.37348539557033583
+Size 32 for gpu and google/gke/gpu has mean 750.1059611197918 std 0.37641504522559294
+Size 32 for gpu and google/gke/gpu has mean 783.2419981770834 std 0.7375524548801826
+Size 32 for gpu and google/gke/gpu has mean 783.2313540104167 std 0.7215141688047312
+
+Size 32 for gpu and google/compute-engine/gpu has mean 750.630135703125 std 0.407641969407827
+Size 32 for gpu and google/compute-engine/gpu has mean 750.5987651822917 std 0.415537045616782
+Size 32 for gpu and google/compute-engine/gpu has mean 783.6078768489584 std 0.7388091132708243
+Size 32 for gpu and google/compute-engine/gpu has mean 783.5981991406251 std 0.7281968467033578
+
+Size 32 for gpu and on-premises/lassen/gpu has mean 748.0749856250001 std 0.6165676986194168
+Size 32 for gpu and on-premises/lassen/gpu has mean 747.79568 std 0.5847717983111008
+Size 32 for gpu and on-premises/lassen/gpu has mean 782.8576925 std 0.9441393092090529
+Size 32 for gpu and on-premises/lassen/gpu has mean 782.86138875 std 0.9604636951745984
+
+Size 32 for gpu and azure/cyclecloud/gpu has mean 381.196374296875 std 223.00634298676016
+Size 32 for gpu and azure/cyclecloud/gpu has mean 385.293107109375 std 223.94044410697012
+Size 32 for gpu and azure/cyclecloud/gpu has mean 412.562054375 std 219.28104795530766
+Size 32 for gpu and azure/cyclecloud/gpu has mean 420.34996710937503 std 221.8607557368494
+
+Size 32 for gpu and azure/aks/gpu has mean 744.3368044010417 std 3.3962514648650193
+Size 32 for gpu and azure/aks/gpu has mean 744.3075466666667 std 3.4343721102254015
+Size 32 for gpu and azure/aks/gpu has mean 751.1072061458334 std 4.317116319584966
+Size 32 for gpu and azure/aks/gpu has mean 750.7898853906249 std 4.628462181451039
+```
+
 ## 1.a Runs across all nodes (GPU)
 
 ```bash

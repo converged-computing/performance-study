@@ -243,10 +243,7 @@ def plot_results(results, outdir):
     for label, env_types in results.items():
         for env_type, sizes in env_types.items():
             size_list = list(sizes.keys())
-
-            # This size list (sorted) is the ticks for the plots
-            size_list.sort()
-
+            
             # Create a vector for each environment, with each entry (list)
             # a size from least to greatest.
             vectors = {}
@@ -302,6 +299,7 @@ def plot_results(results, outdir):
                         if experiment not in vectors:
                             vectors[experiment] = []
                         vectors[experiment].append(values)
+                        print(f"Size {size} for {env_type} and {experiment} has mean {np.mean(values)} std {np.std(values)}")
 
             if env_type == "cpu":
                 suffix = "single-node-no-omp-threads-mb-per-second"

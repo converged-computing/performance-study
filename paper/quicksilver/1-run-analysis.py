@@ -76,8 +76,11 @@ def main():
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
+    # We absolutely want on premises results here
+    args.on_premises = True
+
     # Find input directories
-    files = ps.find_inputs(indir, "quicksilver")
+    files = ps.find_inputs(indir, "quicksilver", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
@@ -129,33 +132,6 @@ def parse_data(indir, outdir, files):
                 continue
             item = ps.read_file(result)
 
-            # If this is a flux run, we have a jobspec and events here
-            if "JOBSPEC" in item:
-                try:
-                    item, duration, metadata = ps.parse_flux_metadata(item)
-                except:
-                    print(item)
-                    print(result)
-                    import IPython
-
-                    IPython.embed()
-                    sys.exit()
-                data[exp.prefix].append(metadata)
-
-            # Slurm has the item output, and then just the start/end of the job
-            else:
-                metadata = {}
-                try:
-                    duration = ps.parse_slurm_duration(item)
-                except:
-                    print(item)
-                    print(result)
-                    import IPython
-
-                    IPython.embed()
-                    sys.exit()
-                item = ps.remove_slurm_duration(item)
-
             # Let's just parse figure of merit for now
             # Figure Of Merit              9.519e+08 [Num Segments / Cycle Tracking Time]
             fom = [x for x in item.split("\n") if x.startswith("Figure Of Merit")]
@@ -166,7 +142,6 @@ def parse_data(indir, outdir, files):
                 continue
             fom = float([x for x in fom[0].split(" ") if x][3])
             p.add_result("num_segments_over_cycle_tracking_time", fom)
-            p.add_result("workload_manager_wrapper_seconds", duration)
 
     print("Done parsing quicksilver results!")
     p.df.to_csv(os.path.join(outdir, "quicksilver-results.csv"))
@@ -210,10 +185,9 @@ def plot_results(df, outdir, non_anon=False):
             metric_df = subset[subset.metric == metric]
             data_frames[env] = metric_df
 
-    print(df.experiment.unique())
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
-    for cloud in df.experiment.unique():
+    for cloud in data_frames['cpu'].experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
     fig, axes = plt.subplots(1, 1, figsize=(6, 4))
@@ -231,6 +205,7 @@ def plot_results(df, outdir, non_anon=False):
             "azure/aks/cpu",
             "azure/cyclecloud/cpu",
             "aws/parallel-cluster/cpu",
+            "on-premises/a/cpu",
         ],
         palette=cloud_colors,
         order=[32, 64, 128, 256],

@@ -61,7 +61,6 @@ def match_color(cloud):
     for environ, color in colors.items():
         if environ in cloud:
             return color
-        print(environ)
     raise ValueError(f"Did not find color for {cloud}")
 
 
