@@ -190,7 +190,7 @@ def plot_results(df, outdir, non_anon=False):
     for cloud in data_frames['cpu'].experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
-    fig, axes = plt.subplots(1, 1, figsize=(6, 4))
+    fig, axes = plt.subplots(1, 1, figsize=(10, 3.5))
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"],

@@ -246,7 +246,7 @@ def plot_results(df, outdir, non_anon=False):
                 metric_df = ps_df[ps_df.metric == metric]
                 data_frames[env] = [metric_df, problem_size]
 
-    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(20, 5))
+    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"][0],
@@ -268,7 +268,7 @@ def plot_results(df, outdir, non_anon=False):
     )
     axes[0].set_title("LAMMPS M/Atom Steps per Second (CPU)", fontsize=14)
     problem_size = data_frames["cpu"][1]
-    axes[0].set_ylabel("Millions of Atom Steps Per Second", fontsize=14)
+    axes[0].set_ylabel("M/Atom Steps Per Second", fontsize=14)
     axes[0].set_xlabel("Nodes", fontsize=14)
 
     sns.barplot(

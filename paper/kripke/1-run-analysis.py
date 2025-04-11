@@ -143,6 +143,7 @@ def parse_data(indir, outdir, files):
             elif "on-premises" in item:
                 print(item)
                 import IPython
+
                 IPython.embed()
             else:
                 metadata = {}
@@ -175,27 +176,43 @@ def plot_results(df, outdir):
 
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
+        if env != "cpu":
+            continue
         subset = df[df.env_type == env]
 
         # Make a plot for each metric
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
             title = " ".join([x.capitalize() for x in metric.split("_")])
+            if "grind" not in metric.lower():
+                continue
 
             # Note that the Y label is hard coded because we just have one metric
             ps.make_plot(
                 metric_df,
                 title=f"Kripke {title} ({env.upper()})",
                 ydimension="value",
-                plotname=f"kripke-{metric}-{env}",
+                plotname=f"kripke-grind-time-{env}",
                 xdimension="nodes",
                 palette=cloud_colors,
                 outdir=img_outdir,
                 hue="experiment",
                 xlabel="Nodes",
+                hue_order=[
+                    "aws/parallel-cluster/cpu",
+                    "aws/eks/cpu",
+                    #            "on-premises/a/cpu",
+                    "azure/cyclecloud/cpu",
+                    "google/compute-engine/cpu",
+                    "azure/aks/cpu",
+                    "google/gke/cpu",
+                ],
+                order=[32, 64, 128, 256],
                 ylabel="Grind Time (Seconds)",
                 do_round=False,
                 log_scale=True,
+                height=3.8,
+                width=10,
             )
 
 

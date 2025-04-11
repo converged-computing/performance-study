@@ -388,8 +388,10 @@ def make_plot(
     do_round=False,
     no_legend=False,
     hue_order=None,
-    bottom_legend=True,
+    bottom_legend=False,
     round_by=3,
+    width=12,
+    height=6,
 ):
     """
     Helper function to make common plots.
@@ -403,7 +405,7 @@ def make_plot(
       to see if conveys information better.
     """    
     # Replace the initial value of interest with the speedup (this gets thrown away after plot)
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(width, height))
     sns.set_style("whitegrid")
     ax = sns.barplot(
         df,

@@ -224,7 +224,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
             title = title.replace("Fom", "FOM")
             data_frames[env] = metric_df
 
-    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(20, 5))
+    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
 
     sns.set_style("whitegrid")
     sns.barplot(

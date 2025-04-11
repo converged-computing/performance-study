@@ -6,6 +6,7 @@ import os
 import re
 import sys
 
+import matplotlib.pylab as plt
 import seaborn as sns
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,12 @@ def get_parser():
         default=os.path.join(root, "experiments"),
     )
     parser.add_argument(
+        "--non-anon",
+        help="Generate non-anon",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
         "--out",
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
@@ -64,7 +71,7 @@ def main():
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    plot_results(df, outdir, args.non_anon)
 
 
 def parse_data(indir, outdir, files):
@@ -135,7 +142,7 @@ def parse_data(indir, outdir, files):
     return p.df
 
 
-def plot_results(df, outdir):
+def plot_results(df, outdir, non_anon=False):
     """
     Plot analysis results
     """
@@ -144,52 +151,88 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # For anonymization
+    if not non_anon:
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/lassen", "on-premises/b"
+        )
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/dane", "on-premises/a"
+        )
+
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
     # Within a setup, compare between experiments for GPU and cpu
+    data_frames = {}
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
         for problem_size in subset.problem_size.unique():
+            if "230" not in problem_size:
+                continue
             ps_df = subset[subset.problem_size == problem_size]
 
             # Make a plot for each metric
             for metric in ps_df.metric.unique():
+                if "mflops" not in metric.lower():
+                    continue
                 metric_df = ps_df[ps_df.metric == metric]
-                title = " ".join([x.capitalize() for x in metric.split("_")])
+                data_frames[env] = metric_df
 
-                if env == "cpu":
-                    ps.make_plot(
-                        metric_df,
-                        title=f"MiniFE Total CG Mflops {problem_size} for {env.upper()}",
-                        ydimension="value",
-                        plotname=f"minife-{metric}-{problem_size}-{env}",
-                        xdimension="nodes",
-                        palette=cloud_colors,
-                        outdir=img_outdir,
-                        hue="experiment",
-                        xlabel="Nodes",
-                        ylabel=title,
-                        do_round=True,
-                        log_scale=True,
-                    )
-                else:
-                    ps.make_plot(
-                        metric_df,
-                        title=f"MiniFE Total CG Mflops {problem_size} for {env.upper()}",
-                        ydimension="value",
-                        plotname=f"minife-{metric}-{problem_size}-{env}",
-                        xdimension="gpu_count",
-                        palette=cloud_colors,
-                        outdir=img_outdir,
-                        hue="experiment",
-                        xlabel="GPU Count",
-                        ylabel=title,
-                        do_round=True,
-                        log_scale=True,
-                    )
+    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3))
+    sns.set_style("whitegrid")
+    sns.barplot(
+        data_frames["cpu"],
+        ax=axes[0],
+        x="nodes",
+        y="value",
+        hue="experiment",
+        hue_order=[
+            "azure/aks/cpu",
+            "google/gke/cpu",
+            "azure/cyclecloud/cpu",
+            "aws/parallel-cluster/cpu",
+            "google/compute-engine/cpu",
+            "aws/eks/cpu",
+#            "on-premises/a/cpu",
+        ],
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+    )
+    axes[0].set_title("MiniFE Total CG Mflops for CPU", fontsize=14)
+    axes[0].set_ylabel("Total CG Mflops", fontsize=14)
+    axes[0].set_xlabel("Nodes", fontsize=14)
+
+    sns.barplot(
+        data_frames["gpu"],
+        ax=axes[1],
+        x="gpu_count",
+        y="value",
+        hue="experiment",
+        hue_order=[
+            "azure/cyclecloud/gpu",
+#            "on-premises/b/gpu",
+            "google/compute-engine/gpu",
+            "google/gke/gpu",
+            "aws/eks/gpu",
+            "azure/aks/gpu",
+        ],
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+    )
+    axes[1].set_title("MiniFE Total CG Mflops for GPU", fontsize=14)
+    axes[1].set_xlabel("GPU Count", fontsize=14)
+
+    # Remove legend title, don't need it
+    for ax in axes:
+        handles, labels = ax.get_legend_handles_labels()
+        ax.legend(handles=handles, labels=labels)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(img_outdir, "minife-cpu-gpu.svg"))
+    plt.clf()
 
 
 if __name__ == "__main__":
