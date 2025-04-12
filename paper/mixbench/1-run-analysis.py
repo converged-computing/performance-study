@@ -193,6 +193,7 @@ def parse_data(indir, outdir, files):
     data = {}
     parsed = {}
     csvs = {}
+    result_counts = set()
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
@@ -237,11 +238,12 @@ def parse_data(indir, outdir, files):
             if os.path.basename(result).startswith("_"):
                 continue
 
+            result_counts.add(result)
             item = ps.read_file(result)
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, duration, metadata = ps.parse_flux_metadata(item)
-                data[exp.prefix].append(metadata)
+               item, duration, metadata = ps.parse_flux_metadata(item)
+               data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
@@ -272,7 +274,7 @@ def parse_data(indir, outdir, files):
             # What data looks like
             # https://github.com/ekondis/mixbench
 
-    print("Done parsing mixbench results!")
+    print(f"Done parsing mixbench {len(result_counts)} results!")
     # Write output directory for each
     csv_outdir = os.path.join(outdir, "csv")
     if not os.path.exists(csv_outdir):
@@ -361,6 +363,8 @@ def plot_results(results, outdir):
                 )
             else:
                 print(f"{env_type} for {metric} have differences, {metric_df}")
+                if env_type == "gpu" and "ecc" in metric.lower():
+                    print(f"ECC has {metric_df.nodes.sum()} nodes that we get data from.")
 
 
 if __name__ == "__main__":

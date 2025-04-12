@@ -61,6 +61,7 @@ def main():
     outdir = os.path.abspath(args.out)
     indir = os.path.abspath(args.root)
     args.on_premises = True
+
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
@@ -181,7 +182,13 @@ def plot_results(df, outdir, non_anon=False):
                 metric_df = ps_df[ps_df.metric == metric]
                 data_frames[env] = metric_df
 
-    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3))
+    fig = plt.figure(figsize=(18, 3))
+    gs = plt.GridSpec(1, 3, width_ratios=[2, 2, 1])
+    axes = []
+    axes.append(fig.add_subplot(gs[0, 0]))
+    axes.append(fig.add_subplot(gs[0, 1]))
+    axes.append(fig.add_subplot(gs[0, 2]))
+
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"],
@@ -198,6 +205,7 @@ def plot_results(df, outdir, non_anon=False):
             "aws/eks/cpu",
 #            "on-premises/a/cpu",
         ],
+        err_kws={'color': 'darkred'},   
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
@@ -205,6 +213,7 @@ def plot_results(df, outdir, non_anon=False):
     axes[0].set_ylabel("Total CG Mflops", fontsize=14)
     axes[0].set_xlabel("Nodes", fontsize=14)
 
+    print(data_frames['gpu'].experiment.unique())
     sns.barplot(
         data_frames["gpu"],
         ax=axes[1],
@@ -216,23 +225,31 @@ def plot_results(df, outdir, non_anon=False):
 #            "on-premises/b/gpu",
             "google/compute-engine/gpu",
             "google/gke/gpu",
-            "aws/eks/gpu",
             "azure/aks/gpu",
+            "aws/eks/gpu",
         ],
         palette=cloud_colors,
+        err_kws={'color': 'darkred'},   
         order=[32, 64, 128, 256],
     )
     axes[1].set_title("MiniFE Total CG Mflops for GPU", fontsize=14)
     axes[1].set_xlabel("GPU Count", fontsize=14)
+    axes[1].set_ylabel("")
 
-    # Remove legend title, don't need it
-    for ax in axes:
-        handles, labels = ax.get_legend_handles_labels()
-        ax.legend(handles=handles, labels=labels)
+    handles, labels = axes[1].get_legend_handles_labels()
+    labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    axes[2].legend(
+        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+    )
+    for ax in axes[0:2]:
+        ax.get_legend().remove()
+    axes[2].axis("off")
 
     plt.tight_layout()
     plt.savefig(os.path.join(img_outdir, "minife-cpu-gpu.svg"))
     plt.clf()
+    print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
+    print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
 
 
 if __name__ == "__main__":

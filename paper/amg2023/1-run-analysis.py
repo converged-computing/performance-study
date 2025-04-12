@@ -114,7 +114,7 @@ def parse_data(indir, outdir, files):
     """
     # metrics here will be figures of merit, and seconds runtime
     p = ps.ResultParser("amg2023")
-
+    
     # For flux we can save jobspecs and other event data
     data = {}
 
@@ -226,6 +226,13 @@ def plot_results(df, outdir, non_anon=False, log=True):
 
     fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
 
+    fig = plt.figure(figsize=(18, 3.3))
+    gs = plt.GridSpec(1, 3, width_ratios=[2, 2, 1])
+    axes = []
+    axes.append(fig.add_subplot(gs[0, 0]))
+    axes.append(fig.add_subplot(gs[0, 1]))
+    axes.append(fig.add_subplot(gs[0, 2]))
+
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"],
@@ -233,6 +240,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
         x="nodes",
         y="value",
         hue="experiment",
+        err_kws={'color': 'darkred'},   
         hue_order=[
             "google/gke/cpu",
             "google/compute-engine/cpu",
@@ -261,6 +269,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
         ax=axes[1],
         x="gpu_count",
         y="value",
+        err_kws={'color': 'darkred'},   
         hue="experiment",
         hue_order=[
             "google/compute-engine/gpu",
@@ -275,13 +284,18 @@ def plot_results(df, outdir, non_anon=False, log=True):
     )
     axes[1].set_title("FOM Overall (GPU)", fontsize=14)
     axes[1].set_xlabel("GPU Count", fontsize=14)
+    axes[1].set_ylabel("")
     if log:
         axes[1].set_yscale("log")
 
-    # Remove legend title, don't need it
-    for ax in axes:
-        handles, labels = ax.get_legend_handles_labels()
-        ax.legend(handles=handles, labels=labels)
+    handles, labels = axes[1].get_legend_handles_labels()
+    labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    axes[2].legend(
+        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+    )
+    for ax in axes[0:2]:
+        ax.get_legend().remove()
+    axes[2].axis("off")
 
     plt.tight_layout()
     if log:
@@ -290,6 +304,9 @@ def plot_results(df, outdir, non_anon=False, log=True):
         plt.savefig(os.path.join(img_outdir, "amg-fom-overall-cpu-gpu.svg"))
     plt.clf()
 
+    # Print the total number of data points
+    print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
+    print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
 
 if __name__ == "__main__":
     main()

@@ -198,6 +198,7 @@ def plot_results(df, outdir, non_anon=False):
         x="nodes",
         y="value",
         hue="experiment",
+        err_kws={'color': 'darkred'},   
         hue_order=[
             "google/gke/cpu",
             "google/compute-engine/cpu",
@@ -221,6 +222,8 @@ def plot_results(df, outdir, non_anon=False):
     plt.tight_layout()
     plt.savefig(os.path.join(img_outdir, "quicksilver-cpu-gpu.svg"))
     plt.clf()
+
+    print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
 
 
 if __name__ == "__main__":

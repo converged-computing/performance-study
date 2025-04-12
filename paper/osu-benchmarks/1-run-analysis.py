@@ -228,6 +228,7 @@ def parse_data(indir, outdir, files):
     # For flux we can save jobspecs and other event data
     data = {}
     parsed = []
+    result_count = set()
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
@@ -273,6 +274,10 @@ def parse_data(indir, outdir, files):
             if os.path.basename(result).startswith("_"):
                 continue
             item = ps.read_file(result)
+
+            # We only count CPU results
+            if exp.env_type == "cpu":
+                result_count.add(result)
 
             # On premises results have a totally different format
             if "on-premises" in filename:
@@ -384,7 +389,7 @@ def parse_data(indir, outdir, files):
             else:
                 raise ValueError(f"Unexpected result to parse: {item}")
 
-    print("Done parsing OSU results!")
+    print(f"Done parsing OSU {len(result_count)} results!")
     ps.write_json(parsed, os.path.join(outdir, "osu-parsed.json"))
     ps.write_json(data, os.path.join(outdir, "flux-jobspec-events.json"))
     return parsed
@@ -587,7 +592,6 @@ def plot_results(results, outdir, non_anon=False):
     plt.savefig(os.path.join(plots_by_size, "osu-latency-bw-reduce-cpu.svg"))
     plt.clf()
     plt.close()
-
 
 if __name__ == "__main__":
     main()

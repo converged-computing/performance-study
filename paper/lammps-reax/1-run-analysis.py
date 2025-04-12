@@ -246,7 +246,15 @@ def plot_results(df, outdir, non_anon=False):
                 metric_df = ps_df[ps_df.metric == metric]
                 data_frames[env] = [metric_df, problem_size]
 
-    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
+    fig = plt.figure(figsize=(18, 3.3))
+    gs = plt.GridSpec(1, 3, width_ratios=[2, 2, 1])
+    axes = []
+    cpu_ax = fig.add_subplot(gs[0, 0])
+    axes.append(cpu_ax)
+    axes.append(fig.add_subplot(gs[0, 1], sharey=cpu_ax))
+    axes.append(fig.add_subplot(gs[0, 2]))
+
+    # fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"][0],
@@ -263,6 +271,7 @@ def plot_results(df, outdir, non_anon=False):
             "aws/parallel-cluster/cpu",
             "on-premises/a/cpu",
         ],
+        err_kws={'color': 'darkred'},   
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
@@ -285,20 +294,28 @@ def plot_results(df, outdir, non_anon=False):
             "azure/cyclecloud/gpu",
             "on-premises/b/gpu",
         ],
+        err_kws={'color': 'darkred'},   
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
     axes[1].set_title("LAMMPS M/Atom Steps per Second (GPU)", fontsize=14)
     axes[1].set_xlabel("GPU Count", fontsize=14)
+    axes[1].set_ylabel("")
 
-    # Remove legend title, don't need it
-    for ax in axes:
-        handles, labels = ax.get_legend_handles_labels()
-        ax.legend(handles=handles, labels=labels)
+    handles, labels = axes[1].get_legend_handles_labels()
+    labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    axes[2].legend(
+        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+    )
+    for ax in axes[0:2]:
+        ax.get_legend().remove()
+    axes[2].axis("off")
 
     plt.tight_layout()
     plt.savefig(os.path.join(img_outdir, "lammps-matom-steps-cpu-gpu.svg"))
     plt.clf()
+    print(f'Total number of CPU datum: {data_frames["cpu"][0].shape[0]}')
+    print(f'Total number of GPU datum: {data_frames["gpu"][0].shape[0]}')
 
 
 if __name__ == "__main__":

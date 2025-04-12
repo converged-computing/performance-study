@@ -415,6 +415,7 @@ def make_plot(
         hue_order=hue_order,
         palette=palette,
         order=order,
+        err_kws={'color': 'darkred'},   
     )
     plt.title(title, fontsize=14)
     ax.set_xlabel(xlabel, fontsize=14)

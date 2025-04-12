@@ -99,6 +99,7 @@ def parse_data(indir, outdir, files):
 
     # For flux we can save jobspecs and other event data
     data = {}
+    result_counts = set()
 
     # Since the data is huge, saving to dfs as we go is really slow
     items = {}
@@ -153,6 +154,10 @@ def parse_data(indir, outdir, files):
             if os.path.basename(result).startswith("_"):
                 continue
             item = ps.read_file(result)
+            
+            # These are what we use in our paper
+            if (exp.size == 32 and exp.env_type == "cpu") or (exp.size == 64 and exp.env_type == "gpu"):
+                result_counts.add(result)
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
@@ -188,7 +193,7 @@ def parse_data(indir, outdir, files):
                 # label -> env -> size -> experiment -> lists of values
                 items[label][exp.env_type][exp.size][exp.prefix].append(result["value"])
 
-    print("Done parsing stream results!")
+    print(f"Done parsing {len(result_counts)} stream results!")
     ps.write_json(items, os.path.join(outdir, "stream-results.json"))
     ps.write_json(data, os.path.join(outdir, "stream-parsed.json"))
     return items
