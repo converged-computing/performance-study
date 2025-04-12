@@ -1,34 +1,51 @@
 # Stream Paper Analysis
 
 We are wanting to group data in the following way. Let's sanity check commands to validate that.
-Note that I'm removing extra submit flags to just show resources and primary stuff.
+Note that I'm removing extra submit flags to just show resources and primary stuff. These are medians,
+and they were printed in a different order and I organized them.
 
 ```
-Size 32 for gpu and google/gke/gpu has mean 750.1485805989585 std 0.37348539557033583
-Size 32 for gpu and google/gke/gpu has mean 750.1059611197918 std 0.37641504522559294
-Size 32 for gpu and google/gke/gpu has mean 783.2419981770834 std 0.7375524548801826
-Size 32 for gpu and google/gke/gpu has mean 783.2313540104167 std 0.7215141688047312
+CPU for Copy size 64 experiment google/gke/cpu: 7652.2: std 2650.5119017203856
+CPU for Copy size 64 experiment google/compute-engine/cpu: 4235.7: std 2022.5997565734058
+CPU for Copy size 64 experiment aws/eks/cpu: 3840.0: std 421.83444927017104
+CPU for Copy size 64 experiment azure/aks/cpu: 4010.6499999999996: std 570.8951663998799
+CPU for Copy size 32 experiment aws/parallel-cluster/cpu: 38082.45: std 480.16554855745824
+CPU for Copy size 32 experiment azure/cyclecloud/cpu: 48513.6: std 366.9498240430622
 
-Size 32 for gpu and google/compute-engine/gpu has mean 750.630135703125 std 0.407641969407827
-Size 32 for gpu and google/compute-engine/gpu has mean 750.5987651822917 std 0.415537045616782
-Size 32 for gpu and google/compute-engine/gpu has mean 783.6078768489584 std 0.7388091132708243
-Size 32 for gpu and google/compute-engine/gpu has mean 783.5981991406251 std 0.7281968467033578
+CPU for Scale size 64 experiment google/gke/cpu: 4815.4: std 1862.2623529244706
+CPU for Scale size 64 experiment google/compute-engine/cpu: 4626.45: std 1912.485849686873
+CPU for Scale size 64 experiment aws/eks/cpu: 2668.1: std 459.90621362490066
+CPU for Scale size 64 experiment azure/aks/cpu: 2264.1: std 399.0602222397505
+CPU for Scale size 32 experiment aws/parallel-cluster/cpu: 26240.050000000003: std 614.650544488683
+CPU for Scale size 32 experiment azure/cyclecloud/cpu: 38049.0: std 918.7562970906649
 
-Size 32 for gpu and on-premises/lassen/gpu has mean 748.0749856250001 std 0.6165676986194168
-Size 32 for gpu and on-premises/lassen/gpu has mean 747.79568 std 0.5847717983111008
-Size 32 for gpu and on-premises/lassen/gpu has mean 782.8576925 std 0.9441393092090529
-Size 32 for gpu and on-premises/lassen/gpu has mean 782.86138875 std 0.9604636951745984
+CPU for Add size 64 experiment google/gke/cpu: 5626.799999999999: std 2282.6288006857276
+CPU for Add size 64 experiment google/compute-engine/cpu: 5265.4: std 2250.778995919312
+CPU for Add size 64 experiment aws/eks/cpu: 2822.4: std 549.9957806314385
+CPU for Add size 64 experiment azure/aks/cpu: 2448.2: std 476.11369413747786
+CPU for Add size 32 experiment aws/parallel-cluster/cpu: 30017.4: std 834.1587939428016
+CPU for Add size 32 experiment azure/cyclecloud/cpu: 41537.2: std 302.48844264853756
 
-Size 32 for gpu and azure/cyclecloud/gpu has mean 381.196374296875 std 223.00634298676016
-Size 32 for gpu and azure/cyclecloud/gpu has mean 385.293107109375 std 223.94044410697012
-Size 32 for gpu and azure/cyclecloud/gpu has mean 412.562054375 std 219.28104795530766
-Size 32 for gpu and azure/cyclecloud/gpu has mean 420.34996710937503 std 221.8607557368494
+CPU for Triad size 64 experiment google/gke/cpu: 6800.9: std 2402.2923925913333
+CPU for Triad size 64 experiment google/compute-engine/cpu: 6239.35: std 2326.0915394353747
+CPU for Triad size 64 experiment aws/eks/cpu: 3013.25: std 880.3020352757017
+CPU for Triad size 64 experiment azure/aks/cpu: 2579.5: std 907.5778246577137
 
-Size 32 for gpu and azure/aks/gpu has mean 744.3368044010417 std 3.3962514648650193
-Size 32 for gpu and azure/aks/gpu has mean 744.3075466666667 std 3.4343721102254015
-Size 32 for gpu and azure/aks/gpu has mean 751.1072061458334 std 4.317116319584966
-Size 32 for gpu and azure/aks/gpu has mean 750.7898853906249 std 4.628462181451039
+# These were run differently
+CPU for Triad size 32 experiment aws/parallel-cluster/cpu: 30399.0: std 1094.7181338676867
+CPU for Triad size 32 experiment azure/cyclecloud/cpu: 44102.2: std 473.60566782884825
 ```
+
+```console
+GPU for Triad size 32 for gpu and google/gke/gpu has median 782.9089 std 0.7215141688047312
+GPU for Triad size 32 for gpu and google/compute-engine/gpu has median 783.2988 std 0.7281968467033578
+GPU for Triad size 32 for gpu and on-premises/lassen/gpu has median 782.5194 std 0.9604636951745984
+GPU for Triad size 32 for gpu and azure/cyclecloud/gpu has median 331.7054 std 221.8607557368494
+GPU for Triad size 32 for gpu and azure/aks/gpu has median 748.5373 std 4.628462181451039
+```
+
+For the GPU Triad we report results from the largest size cluster, 32 nodes, for GB/s. We found comparable results across sizes for \gls*{gke} (Mdn 782.91, SD 0.72), Compute Engine (Mdn 783.3 SD 0.73), \gls*{aks} (Mdn 748.54 SD 4.63), and on-premises \emph{B} (Mdn 782.52 SD 0.96), and Azure CycleCloud presented with a large range of variation (Mdn 748.54 SD 4.63).
+
 
 ## 1.a Runs across all nodes (GPU)
 

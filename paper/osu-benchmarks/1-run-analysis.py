@@ -507,7 +507,13 @@ def plot_results(results, outdir, non_anon=False):
     if not os.path.exists(plots_by_size):
         os.makedirs(plots_by_size)
 
-    fig, axes = plt.subplots(1, 4, figsize=(19, 3))
+    fig = plt.figure(figsize=(19, 3))
+    gs = plt.GridSpec(1, 4, width_ratios=[2, 2, 2, 0.8])
+    axes = []
+    axes.append(fig.add_subplot(gs[0, 0]))
+    axes.append(fig.add_subplot(gs[0, 1]))
+    axes.append(fig.add_subplot(gs[0, 2]))
+    axes.append(fig.add_subplot(gs[0, 3]))
     i = 0
 
     # Save each completed data frame to file and plot!
@@ -568,7 +574,9 @@ def plot_results(results, outdir, non_anon=False):
         labels = ["/".join(x.split("/")[0:3]) for x in labels]
         labels = [x.replace("/dane/", "/a/") for x in labels]
 
-    axes[3].legend(handles, labels)
+    axes[3].legend(
+        handles, labels, loc="center left", bbox_to_anchor=(-0.25, 0.5), frameon=False
+    )
     for ax in axes[0:3]:
         ax.get_legend().remove()
     axes[3].axis("off")

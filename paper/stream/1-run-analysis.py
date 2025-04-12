@@ -272,6 +272,8 @@ def plot_results(results, outdir):
                             vectors_single_threads[experiment] = []
                         # This should only be one list
                         vectors_single_threads[experiment].append(values)
+                        if label == "Triad":
+                            print(f"CPU for {label} size {size} experiment {experiment}: {np.median(values)}: std {np.std(values)}")
 
                     # 3. CPU: AWS EKS, Azure AKS, Google Compute Engine, and Google GKE also run on one node,
                     # but without `OMP_NUM_THREADS` and also specifying `-n`. Note that the little n is different
@@ -287,6 +289,8 @@ def plot_results(results, outdir):
                             vectors_single[experiment] = []
                         # This will add only size 64
                         vectors_single[experiment] += values
+                        if label == "Triad":
+                            print(f"CPU for {label} size {size} experiment {experiment}: {np.median(values)}: std {np.std(values)}")
 
                     # 1. GPU: Azure CycleCloud, Lassen, Azure AKS, Google GKE, and Google Compute Engine all
                     # run across nodes and specify -n so I think we can compare them. I don't see OMP_NUM_THREADS anywhere.
@@ -299,7 +303,10 @@ def plot_results(results, outdir):
                         if experiment not in vectors:
                             vectors[experiment] = []
                         vectors[experiment].append(values)
-                        print(f"Size {size} for {env_type} and {experiment} has mean {np.mean(values)} std {np.std(values)}")
+                        
+                        # Reporting size 32 in paper
+                        if size == 32 and label == "Triad":
+                            print(f"GPU for {label} size {size} for {env_type} and {experiment} has median {np.median(values)} std {np.std(values)}")
 
             if env_type == "cpu":
                 suffix = "single-node-no-omp-threads-mb-per-second"
