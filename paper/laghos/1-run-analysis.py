@@ -217,7 +217,7 @@ def plot_results(df, outdir, non_anon=True):
         x="nodes",
         y="value",
         hue="experiment",
-        err_kws={'color': 'darkred'},           
+        err_kws={"color": "darkred"},
         hue_order=[
             "google/gke/cpu",
             "azure/cyclecloud/cpu",
@@ -242,6 +242,7 @@ def plot_results(df, outdir, non_anon=True):
     plt.clf()
 
     print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
+
 
 if __name__ == "__main__":
     main()

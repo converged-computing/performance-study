@@ -187,7 +187,7 @@ def plot_results(df, outdir, non_anon=False):
 
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
-    for cloud in data_frames['cpu'].experiment.unique():
+    for cloud in data_frames["cpu"].experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
     fig, axes = plt.subplots(1, 1, figsize=(10, 3.5))
@@ -198,7 +198,7 @@ def plot_results(df, outdir, non_anon=False):
         x="nodes",
         y="value",
         hue="experiment",
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         hue_order=[
             "google/gke/cpu",
             "google/compute-engine/cpu",

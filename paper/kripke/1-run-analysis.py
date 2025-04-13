@@ -206,7 +206,7 @@ def plot_results(df, outdir, non_anon=False):
                 palette=cloud_colors,
                 outdir=img_outdir,
                 hue="experiment",
-                xlabel="Nodes",                
+                xlabel="Nodes",
                 hue_order=[
                     "on-premises/a/cpu",
                     "aws/parallel-cluster/cpu",
@@ -224,7 +224,7 @@ def plot_results(df, outdir, non_anon=False):
                 width=10,
             )
 
-        print(f'Total number of CPU datum: {metric_df.shape[0]}')
+        print(f"Total number of CPU datum: {metric_df.shape[0]}")
 
 
 if __name__ == "__main__":

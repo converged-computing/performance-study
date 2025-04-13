@@ -55,13 +55,14 @@ def main():
     read_aws_data(indir)
     read_google_data(indir)
 
+
 def read_azure_data(indir):
     """
-    Read in and parse azure cost data.    
+    Read in and parse azure cost data.
     """
     azure_df = pandas.read_csv(os.path.join(indir, "azure-cost-data-usage.csv"))
     print("Total cost of Azure is %s" % azure_df["LLNL Cost"].sum())
-    
+
 
 def read_aws_data(indir):
     """
@@ -73,12 +74,16 @@ def read_aws_data(indir):
     print(f"line item unblended cost {aws_df.line_item_unblended_cost.sum()}")
     print(f"pricing public on-demand cost {aws_df.pricing_public_on_demand_cost.sum()}")
 
+
 def read_google_data(indir):
     """
     Read in and parse google cost data.
     """
-    google_df = pandas.read_csv(os.path.join(indir, "google-cost-data-2024-08-01-2024-08-31.csv"))
+    google_df = pandas.read_csv(
+        os.path.join(indir, "google-cost-data-2024-08-01-2024-08-31.csv")
+    )
     print(f"Google Cloud Total {google_df['Subtotal ($)'].sum()}")
+
 
 def parse_matom_steps(item):
     """

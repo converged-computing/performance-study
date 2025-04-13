@@ -241,7 +241,7 @@ def plot_results(df, outdir, non_anon=False):
             "azure/aks/cpu",
             "google/compute-engine/cpu",
         ],
-        err_kws={'color': 'darkred'},           
+        err_kws={"color": "darkred"},
         palette=cloud_colors,
         dodge=True,
         order=[32, 64, 128, 256],
@@ -256,7 +256,7 @@ def plot_results(df, outdir, non_anon=False):
         x="gpu_count",
         y="value",
         hue="experiment",
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         hue_order=[
             "azure/cyclecloud/gpu",
             "on-premises/b/gpu",
@@ -289,6 +289,7 @@ def plot_results(df, outdir, non_anon=False):
 
     print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
     print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
+
 
 if __name__ == "__main__":
     main()

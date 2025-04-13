@@ -114,7 +114,7 @@ def parse_data(indir, outdir, files):
     """
     # metrics here will be figures of merit, and seconds runtime
     p = ps.ResultParser("amg2023")
-    
+
     # For flux we can save jobspecs and other event data
     data = {}
 
@@ -170,14 +170,24 @@ def parse_data(indir, outdir, files):
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, _, metadata = ps.parse_flux_metadata(item)
+                item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
+
+            elif "on-premises" in filename:
+                # Get the runtime from the err file
+                err_file = ps.read_file(result.replace(".out", ".err"))
+                duration = float(
+                    [x for x in err_file.split("\n") if "real" in x][0].split(" ")[-1]
+                )
+            else:
+                duration = ps.parse_slurm_duration(item)
 
             # Parse the FOM from the item - I see three.
             # This needs to throw an error if we can't find it - indicates the result file is wonky
             # Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 1.148604e+09
             fom_overall = get_fom_line(item, "Figure of Merit (FOM)")
             p.add_result("fom_overall", fom_overall)
+            p.add_result("duration", duration)
 
     print("Done parsing amg2023 results!")
 
@@ -196,6 +206,8 @@ def plot_results(df, outdir, non_anon=False, log=True):
     img_outdir = os.path.join(outdir, "img")
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
+
+    ps.print_experiment_cost(df, outdir)
 
     # For anonymization
     if not non_anon:
@@ -240,7 +252,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
         x="nodes",
         y="value",
         hue="experiment",
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         hue_order=[
             "google/gke/cpu",
             "google/compute-engine/cpu",
@@ -269,7 +281,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
         ax=axes[1],
         x="gpu_count",
         y="value",
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         hue="experiment",
         hue_order=[
             "google/compute-engine/gpu",
@@ -307,6 +319,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
     # Print the total number of data points
     print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
     print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
+
 
 if __name__ == "__main__":
     main()

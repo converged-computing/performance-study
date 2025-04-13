@@ -203,9 +203,9 @@ def plot_results(df, outdir, non_anon=False):
             "aws/parallel-cluster/cpu",
             "google/compute-engine/cpu",
             "aws/eks/cpu",
-#            "on-premises/a/cpu",
+            #            "on-premises/a/cpu",
         ],
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
@@ -213,7 +213,7 @@ def plot_results(df, outdir, non_anon=False):
     axes[0].set_ylabel("Total CG Mflops", fontsize=14)
     axes[0].set_xlabel("Nodes", fontsize=14)
 
-    print(data_frames['gpu'].experiment.unique())
+    print(data_frames["gpu"].experiment.unique())
     sns.barplot(
         data_frames["gpu"],
         ax=axes[1],
@@ -222,14 +222,14 @@ def plot_results(df, outdir, non_anon=False):
         hue="experiment",
         hue_order=[
             "azure/cyclecloud/gpu",
-#            "on-premises/b/gpu",
+            #            "on-premises/b/gpu",
             "google/compute-engine/gpu",
             "google/gke/gpu",
             "azure/aks/gpu",
             "aws/eks/gpu",
         ],
         palette=cloud_colors,
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         order=[32, 64, 128, 256],
     )
     axes[1].set_title("MiniFE Total CG Mflops for GPU", fontsize=14)

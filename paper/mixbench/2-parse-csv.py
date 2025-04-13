@@ -242,7 +242,9 @@ def plot_results(results, metric_type, outdir):
                     patch_artist=True,
                     showfliers=False,
                 )
-                ps.set_group_color_properties(plot, ps.match_color(experiment), experiment)
+                ps.set_group_color_properties(
+                    plot, ps.match_color(experiment), experiment
+                )
 
             # set the x label values, the sizes
             xlabel = "flops/byte"

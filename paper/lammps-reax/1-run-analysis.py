@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import pandas
 import argparse
 import os
 import re
@@ -153,7 +154,6 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
-            duration = None
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
@@ -162,11 +162,18 @@ def parse_data(indir, outdir, files):
                 p.add_result(
                     "matom_steps_per_second", parse_matom_steps(item), problem_size
                 )
+                p.add_result("duration", duration, problem_size)
 
             # Slurm has the item output, and then just the start/end of the job
             # IMPORTANT: cyclecloud was run two problem sizes one job!
             elif "on-premises" not in filename:
                 metadata = {}
+                # Wall times are here
+                durations = [
+                    ps.convert_walltime_to_seconds(x.rsplit(" ", 1)[-1])
+                    for x in item.split("\n")
+                    if "Total wall time" in x
+                ]
                 if item.count("Total wall time") > 1:
                     items = item.split("Total wall time", 1)
                     # Larger problem size is first (slower wall time)
@@ -177,6 +184,7 @@ def parse_data(indir, outdir, files):
                         parse_matom_steps(items[0]),
                         problem_size,
                     )
+                    p.add_result("duration", durations[0], problem_size)
                     # Smaller problem size is second
                     problem_size = "64x32x32"
                     assert problem_size in items[1]
@@ -185,21 +193,34 @@ def parse_data(indir, outdir, files):
                         parse_matom_steps(items[1]),
                         problem_size,
                     )
+                    p.add_result("duration", durations[1], problem_size)
                 else:
                     problem_size = "64x64x32"
                     assert problem_size in item
                     p.add_result(
                         "matom_steps_per_second", parse_matom_steps(item), problem_size
                     )
+                    durations = [
+                        ps.convert_walltime_to_seconds(x.rsplit(" ", 1)[-1])
+                        for x in item.split("\n")
+                        if "Total wall time" in x
+                    ]
+                    p.add_result("duration", durations[0], problem_size)
 
             # I think we only ran this problem size on premises
             elif "on-premises" in filename:
                 metadata = {}
                 problem_size = "64x64x32" if "64x64x32" in item else "64x32x32"
+                durations = [
+                    ps.convert_walltime_to_seconds(x.rsplit(" ", 1)[-1])
+                    for x in item.split("\n")
+                    if "Total wall time" in x
+                ]
                 assert problem_size in item
                 p.add_result(
                     "matom_steps_per_second", parse_matom_steps(item), problem_size
                 )
+                p.add_result("duration", durations[0], problem_size)
 
     print("Done parsing lammps results!")
     p.df.to_csv(os.path.join(outdir, "lammps-reax-results.csv"))
@@ -216,6 +237,20 @@ def plot_results(df, outdir, non_anon=False):
     img_outdir = os.path.join(outdir, "img")
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
+
+    # Calculate cost for running lammps!
+    ps.print_experiment_cost(df, outdir)
+    # azure/cyclecloud/gpu          84.081167
+    # aws/parallel-cluster/cpu         93.312
+    # aws/eks/gpu                   96.525686
+    # azure/aks/gpu                 97.891336
+    # google/gke/gpu               133.417111
+    # google/compute-engine/gpu    135.256841
+    # aws/eks/cpu                  266.731258
+    # azure/cyclecloud/cpu            348.832
+    # azure/aks/cpu                358.192452
+    # google/compute-engine/cpu    396.780725
+    # google/gke/cpu               487.407771
 
     # For anonymization
     if not non_anon:
@@ -243,6 +278,8 @@ def plot_results(df, outdir, non_anon=False):
             # Make a plot for seconds runtime, and each FOM set.
             # We can look at the metric across sizes, colored by experiment
             for metric in ps_df.metric.unique():
+                if "matom" not in metric:
+                    continue
                 metric_df = ps_df[ps_df.metric == metric]
                 data_frames[env] = [metric_df, problem_size]
 
@@ -271,7 +308,7 @@ def plot_results(df, outdir, non_anon=False):
             "aws/parallel-cluster/cpu",
             "on-premises/a/cpu",
         ],
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
@@ -294,7 +331,7 @@ def plot_results(df, outdir, non_anon=False):
             "azure/cyclecloud/gpu",
             "on-premises/b/gpu",
         ],
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )

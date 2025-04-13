@@ -371,6 +371,80 @@ def set_group_color_properties(plot_name, color_code, label):
     plt.legend()
 
 
+def print_experiment_cost(df, outdir, duration_field="duration"):
+    """
+    Based on costs of instances, calculate the cost for runs
+    """
+    # Lookup for prices.
+    # This is not saying on-premises costs nothing, but rather that
+    # we cannot share / disclose (and we aren't entirely sure)
+    instance_costs = {
+       'google/gke/cpu': 5.06,
+       'google/gke/gpu': 23.36,
+       'google/compute-engine/cpu': 5.06,
+       'google/compute-engine/gpu': 23.36,
+       'aws/eks/cpu': 2.88,
+       'aws/eks/gpu': 34.33,
+       'on-premises/a/cpu': None,
+       'on-premises/b/gpu': None,
+       'on-premises/dane/cpu': None,
+       'on-premises/lassen/gpu': None,
+       'aws/parallel-cluster/cpu': 2.88,
+       'azure/cyclecloud/cpu': 3.60,
+       'azure/cyclecloud/gpu': 22.03,
+       'azure/aks/cpu': 3.60,
+       'azure/aks/gpu': 22.03, 
+    }
+    
+    cost_df = pandas.DataFrame(columns=["experiment", "cost", "size"])
+    idx = 0
+
+    # This is OK to use node and discount the on prem GPU counts, we
+    # aren't calculating on prem costs because we can't
+    for size in df.nodes.unique():
+        subset = df[(df.metric=='duration') & (df.nodes == size)]    
+        subset['cost_per_hour'] = [instance_costs[x] for x in subset.experiment.values]
+
+        # This converts seconds to hours
+        hourly_cost_node = (subset['value'] / 60 / 60) * subset['cost_per_hour']
+        
+        # Multiply by number of nodes        
+        subset['cost'] = hourly_cost_node * size 
+        for idx, row in subset.iterrows():
+            cost_df.loc[idx, :] = [row.experiment, row.cost, row.nodes]
+            idx +=1 
+
+    print(cost_df.groupby(['experiment']).cost.sum().sort_values())
+    cost_df.to_csv(os.path.join(outdir, 'cost-by-environment.csv'))
+
+
+def convert_walltime_to_seconds(walltime):
+    """
+    This is from flux and the function could be shared
+    """
+    # An integer or float was provided
+    if isinstance(walltime, int) or isinstance(walltime, float):
+        return int(float(walltime) * 60.0)
+
+    # A string was provided that will convert to numeric
+    elif isinstance(walltime, str) and walltime.isnumeric():
+        return int(float(walltime) * 60.0)
+
+    # A string was provided that needs to be parsed
+    elif ":" in walltime:
+        seconds = 0.0
+        for i, value in enumerate(walltime.split(":")[::-1]):
+            seconds += float(value) * (60.0**i)
+        return seconds
+
+    # Don't set a wall time
+    elif not walltime or (isinstance(walltime, str) and walltime == "inf"):
+        return 0
+
+    # If we get here, we have an error
+    msg = f"Walltime value '{walltime}' is not an integer or colon-" f"separated string."
+    raise ValueError(msg)
+
 def make_plot(
     df,
     title,

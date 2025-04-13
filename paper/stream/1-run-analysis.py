@@ -154,9 +154,11 @@ def parse_data(indir, outdir, files):
             if os.path.basename(result).startswith("_"):
                 continue
             item = ps.read_file(result)
-            
+
             # These are what we use in our paper
-            if (exp.size == 32 and exp.env_type == "cpu") or (exp.size == 64 and exp.env_type == "gpu"):
+            if (exp.size == 32 and exp.env_type == "cpu") or (
+                exp.size == 64 and exp.env_type == "gpu"
+            ):
                 result_counts.add(result)
 
             # If this is a flux run, we have a jobspec and events here
@@ -248,7 +250,7 @@ def plot_results(results, outdir):
     for label, env_types in results.items():
         for env_type, sizes in env_types.items():
             size_list = list(sizes.keys())
-            
+
             # Create a vector for each environment, with each entry (list)
             # a size from least to greatest.
             vectors = {}
@@ -278,7 +280,9 @@ def plot_results(results, outdir):
                         # This should only be one list
                         vectors_single_threads[experiment].append(values)
                         if label == "Triad":
-                            print(f"CPU for {label} size {size} experiment {experiment}: {np.median(values)}: std {np.std(values)}")
+                            print(
+                                f"CPU for {label} size {size} experiment {experiment}: {np.median(values)}: std {np.std(values)}"
+                            )
 
                     # 3. CPU: AWS EKS, Azure AKS, Google Compute Engine, and Google GKE also run on one node,
                     # but without `OMP_NUM_THREADS` and also specifying `-n`. Note that the little n is different
@@ -295,7 +299,9 @@ def plot_results(results, outdir):
                         # This will add only size 64
                         vectors_single[experiment] += values
                         if label == "Triad":
-                            print(f"CPU for {label} size {size} experiment {experiment}: {np.median(values)}: std {np.std(values)}")
+                            print(
+                                f"CPU for {label} size {size} experiment {experiment}: {np.median(values)}: std {np.std(values)}"
+                            )
 
                     # 1. GPU: Azure CycleCloud, Lassen, Azure AKS, Google GKE, and Google Compute Engine all
                     # run across nodes and specify -n so I think we can compare them. I don't see OMP_NUM_THREADS anywhere.
@@ -308,10 +314,12 @@ def plot_results(results, outdir):
                         if experiment not in vectors:
                             vectors[experiment] = []
                         vectors[experiment].append(values)
-                        
+
                         # Reporting size 32 in paper
                         if size == 32 and label == "Triad":
-                            print(f"GPU for {label} size {size} for {env_type} and {experiment} has median {np.median(values)} std {np.std(values)}")
+                            print(
+                                f"GPU for {label} size {size} for {env_type} and {experiment} has median {np.median(values)} std {np.std(values)}"
+                            )
 
             if env_type == "cpu":
                 suffix = "single-node-no-omp-threads-mb-per-second"

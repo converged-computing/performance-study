@@ -242,8 +242,8 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-               item, duration, metadata = ps.parse_flux_metadata(item)
-               data[exp.prefix].append(metadata)
+                item, duration, metadata = ps.parse_flux_metadata(item)
+                data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
@@ -364,7 +364,9 @@ def plot_results(results, outdir):
             else:
                 print(f"{env_type} for {metric} have differences, {metric_df}")
                 if env_type == "gpu" and "ecc" in metric.lower():
-                    print(f"ECC has {metric_df.nodes.sum()} nodes that we get data from.")
+                    print(
+                        f"ECC has {metric_df.nodes.sum()} nodes that we get data from."
+                    )
 
 
 if __name__ == "__main__":

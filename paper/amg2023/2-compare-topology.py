@@ -80,7 +80,7 @@ def parse_data(indir, outdir, files):
     Parse filepaths for environment, etc., and results files for data.
     """
     # metrics here will be figures of merit, and seconds runtime
-    p = ps.ProblemSizeParser('amg2023')
+    p = ps.ProblemSizeParser("amg2023")
 
     # For flux we can save jobspecs and other event data
     data = {}
@@ -129,8 +129,13 @@ def parse_data(indir, outdir, files):
             item, duration, metadata = ps.parse_flux_metadata(item)
             data[exp.prefix].append(metadata)
 
-            pline = ' '.join(metadata['jobspec']['tasks'][0]['command']).split('-P')[-1].split('-problem')[0].split(' ')
-            pline = ' '.join([x for x in pline if x.strip()])
+            pline = (
+                " ".join(metadata["jobspec"]["tasks"][0]["command"])
+                .split("-P")[-1]
+                .split("-problem")[0]
+                .split(" ")
+            )
+            pline = " ".join([x for x in pline if x.strip()])
             fom_overall = get_fom_line(item, "Figure of Merit (FOM)")
             p.add_result("fom_overall", fom_overall, pline)
 
@@ -147,6 +152,7 @@ def plot_results(df, outdir):
     Plot analysis results
     """
     import IPython
+
     IPython.embed()
     sys.exit()
     # Let's get some shoes! Err, plots.
@@ -176,7 +182,7 @@ def plot_results(df, outdir):
             for metric in exp_df.metric.unique():
                 metric_df = exp_df[exp_df.metric == metric]
                 title = " ".join([x.capitalize() for x in metric.split("_")])
-            
+
             # Make sure fom is always capitalized
             title = title.replace("Fom", "FOM")
             ps.make_plot(

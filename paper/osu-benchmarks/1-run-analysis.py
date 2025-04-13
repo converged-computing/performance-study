@@ -593,5 +593,6 @@ def plot_results(results, outdir, non_anon=False):
     plt.clf()
     plt.close()
 
+
 if __name__ == "__main__":
     main()
