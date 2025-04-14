@@ -1,4 +1,0 @@
-781.968s: job.exception type=cancel severity=0 
-START OF JOBSPEC
-{"resources": [{"type": "node", "count": 1, "with": [{"type": "slot", "count": 1, "with": [{"type": "core", "count": 1}], "label": "task"}]}], "tasks": [{"command": ["mixbench-cpu", "32"], "slot": "task", "count": {"per_slot": 1}}], "attributes": {"system": {"duration": 0, "cwd": "/opt/mixbench", "shell": {"options": {"rlimit": {"cpu": -1, "fsize": -1, "data": -1, "stack": 8388608, "core": -1, "nofile": 1048576, "as": -1, "rss": -1, "nproc": -1}}}, "constraints": {"hostlist": ["flux-sample-127"]}}, "user": {"study_id": "mixbench-iter-1"}}, "version": 1}
-START OF EVENTLOG

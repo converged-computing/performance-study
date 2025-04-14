@@ -28,17 +28,34 @@ cloud_prefixes = [
 ]
 
 cloud_prefixes.sort()
-colors = sns.color_palette("muted", len(cloud_prefixes))
-hexcolors = colors.as_hex()
-colors = {}
-for cloud in cloud_prefixes:
-    colors[cloud] = hexcolors.pop(0)
+
+# colors = sns.color_palette("muted", len(cloud_prefixes))
+# hexcolors = colors.as_hex()
+# colors = {}
+# for cloud in cloud_prefixes:
+#    colors[cloud] = hexcolors.pop(0)
+colors = {
+    "azure/aks": "#004589",
+    "aws/parallel-cluster": "#FF9900",
+    "aws/eks": "#CC5500",
+    "google/gke": "#FBBC04",
+    "google/compute-engine": "#EA4335",
+    "on-premises/a": "gray",
+    "on-premises/dane": "gray",
+    "azure/cyclecloud": "#0080ff",
+    "on-premises/lassen": "gray",
+    "on-premises/b": "gray",
+}
 
 
 def match_color(cloud):
     """
     Match the color for an environment
     """
+    if "lassen" in cloud:
+        cloud = "on-premises/b"
+    if "dane" in cloud:
+        cloud = "on-premises/a"
     # We assume the environ name (e.g., azure/aks) is shorter than
     # the one provided (e.g., azure/aks/cpu)
     for environ, color in colors.items():
@@ -354,6 +371,80 @@ def set_group_color_properties(plot_name, color_code, label):
     plt.legend()
 
 
+def print_experiment_cost(df, outdir, duration_field="duration"):
+    """
+    Based on costs of instances, calculate the cost for runs
+    """
+    # Lookup for prices.
+    # This is not saying on-premises costs nothing, but rather that
+    # we cannot share / disclose (and we aren't entirely sure)
+    instance_costs = {
+       'google/gke/cpu': 5.06,
+       'google/gke/gpu': 23.36,
+       'google/compute-engine/cpu': 5.06,
+       'google/compute-engine/gpu': 23.36,
+       'aws/eks/cpu': 2.88,
+       'aws/eks/gpu': 34.33,
+       'on-premises/a/cpu': None,
+       'on-premises/b/gpu': None,
+       'on-premises/dane/cpu': None,
+       'on-premises/lassen/gpu': None,
+       'aws/parallel-cluster/cpu': 2.88,
+       'azure/cyclecloud/cpu': 3.60,
+       'azure/cyclecloud/gpu': 22.03,
+       'azure/aks/cpu': 3.60,
+       'azure/aks/gpu': 22.03, 
+    }
+    
+    cost_df = pandas.DataFrame(columns=["experiment", "cost", "size"])
+    idx = 0
+
+    # This is OK to use node and discount the on prem GPU counts, we
+    # aren't calculating on prem costs because we can't
+    for size in df.nodes.unique():
+        subset = df[(df.metric=='duration') & (df.nodes == size)]    
+        subset['cost_per_hour'] = [instance_costs[x] for x in subset.experiment.values]
+
+        # This converts seconds to hours
+        hourly_cost_node = (subset['value'] / 60 / 60) * subset['cost_per_hour']
+        
+        # Multiply by number of nodes        
+        subset['cost'] = hourly_cost_node * size 
+        for idx, row in subset.iterrows():
+            cost_df.loc[idx, :] = [row.experiment, row.cost, row.nodes]
+            idx +=1 
+
+    print(cost_df.groupby(['experiment']).cost.sum().sort_values())
+    cost_df.to_csv(os.path.join(outdir, 'cost-by-environment.csv'))
+
+
+def convert_walltime_to_seconds(walltime):
+    """
+    This is from flux and the function could be shared
+    """
+    # An integer or float was provided
+    if isinstance(walltime, int) or isinstance(walltime, float):
+        return int(float(walltime) * 60.0)
+
+    # A string was provided that will convert to numeric
+    elif isinstance(walltime, str) and walltime.isnumeric():
+        return int(float(walltime) * 60.0)
+
+    # A string was provided that needs to be parsed
+    elif ":" in walltime:
+        seconds = 0.0
+        for i, value in enumerate(walltime.split(":")[::-1]):
+            seconds += float(value) * (60.0**i)
+        return seconds
+
+    # Don't set a wall time
+    elif not walltime or (isinstance(walltime, str) and walltime == "inf"):
+        return 0
+
+    # If we get here, we have an error
+    msg = f"Walltime value '{walltime}' is not an integer or colon-" f"separated string."
+    raise ValueError(msg)
+
 def make_plot(
     df,
     title,
@@ -366,111 +457,43 @@ def make_plot(
     plotname="lammps",
     hue=None,
     outdir="img",
+    order=None,
     log_scale=False,
     do_round=False,
+    no_legend=False,
+    hue_order=None,
+    bottom_legend=False,
     round_by=3,
+    width=12,
+    height=6,
 ):
     """
     Helper function to make common plots.
 
-    This also adds the normalized version
+    This is largely not used. I was too worried to have the generalized function
+    not work for a specific plot so I just redid them all manually. Ug.
 
     Speedup: typically we do it in a way that takes into account serial/parallel.
     Speedup definition - normalize by performance at smallest size tested.
       This means taking each value and dividing by result at smallest test size (relative speed up)
       to see if conveys information better.
-    """
-    ext = ext.strip(".")
-    plt.figure(figsize=(7, 6))
-    sns.set_style("whitegrid")
-    ax = sns.stripplot(
-        x=xdimension,
-        y=ydimension,
-        hue=hue,
-        data=df,
-        palette=palette,
-    )
-
-    plt.title(title, fontsize=16)
-    ax.set_xlabel(xlabel, fontsize=16)
-    ax.set_ylabel(ylabel, fontsize=16)
-    if log_scale is True:
-        plt.gca().yaxis.set_major_formatter(
-            plt.ScalarFormatter(useOffset=True, useMathText=True)
-        )
-
-    if do_round is True:
-        ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{round_by}f"))
-    plt.legend(facecolor="white")
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(outdir, f"{plotname}.{ext}"))
-    plt.clf()
-
-    # If we have more than one node size, normalize by smallest
-    if len(df.experiment.unique()) <= 1:
-        return
-
-    # We will assemble a column of speedups.
-    #  1. Take smallest size for the experiment environment
-    #  2. Calculate median metric for that size
-    #  3. Calculate how many times that size goes into larger sizes (e.g., 32 goes into 64 twice)
-    #  4. Multiply the median metric by that multiplier to get expected speedup
-    # First, normalize the index so we can reliably reference it later
-    df.index = list(range(0, df.shape[0]))
-    df.loc[:, "speedup"] = [None] * df.shape[0]
-
-    # We have to do by each experiment separately, because they don't all have the smallest size...
-    # We can reassemble after with the indices
-    for experiment in df.experiment.unique():
-        # Subset of data frame just for that cloud and environment
-        subset = df[df.experiment == experiment]
-
-        # The smallest size (important, not all cloud/environments have the very smallest)
-        # And get multiplier for all sizes based on the smallest. "column" would be a column
-        # of multipliers, one specific to each row (that has a size)
-        smallest = sorted(subset[xdimension].unique())[0]
-        multipliers = {x: x / smallest for x in subset[xdimension].unique()}
-        original_values = subset[ydimension].values
-
-        # xdimension here is usually nodes or gpu_count
-        column = [multipliers[x] for x in subset[xdimension].values]
-
-        # Get the median for the smallest sizes, organized by experiment
-        medians = (
-            subset[subset[xdimension] == smallest]
-            .groupby("experiment")[ydimension]
-            .median()
-        )
-        medians = medians.to_dict()
-        experiments = list(subset.experiment.values)
-
-        # And we want to divide each experiment by its median at the smallest size
-        speedup = []
-        for i, experiment in enumerate(experiments):
-            multiplier = column[i]
-            original_value = original_values[i]
-            # divide by the median of the smallest size, not the multiplier
-            speedup.append(original_value / medians[experiment])
-
-        # Fill the speedup in back at the experiment indices
-        df.loc[subset.index, "speedup"] = speedup
-
+    """    
     # Replace the initial value of interest with the speedup (this gets thrown away after plot)
-    df[ydimension] = df["speedup"]
-    plt.figure(figsize=(7, 6))
+    plt.figure(figsize=(width, height))
     sns.set_style("whitegrid")
-    ax = sns.stripplot(
+    ax = sns.barplot(
+        df,
         x=xdimension,
         y=ydimension,
         hue=hue,
-        data=df,
+        hue_order=hue_order,
         palette=palette,
+        order=order,
+        err_kws={'color': 'darkred'},   
     )
-
-    plt.title(title + " Speedup", fontsize=16)
+    plt.title(title, fontsize=14)
     ax.set_xlabel(xlabel, fontsize=14)
-    ax.set_ylabel(ylabel + " (Speedup)", fontsize=14)
+    ax.set_ylabel(ylabel, fontsize=14)
     if log_scale is True:
         plt.gca().yaxis.set_major_formatter(
             plt.ScalarFormatter(useOffset=True, useMathText=True)
@@ -478,7 +501,20 @@ def make_plot(
 
     if do_round is True:
         ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{round_by}f"))
-    plt.legend(facecolor="white")
+    if bottom_legend:
+        # Get the current x-axis label
+        xlabel = ax.get_xlabel()
+        x_min, x_max = ax.get_xlim()
+        x_pos = x_min + 0.2
+        # Remove the default x-axis label
+        ax.set_xlabel('')
+        # Add the new x-axis label at the desired position
+        ax.text(x_pos, ax.get_ylim()[0] - 30, xlabel, ha='left', va='top')
+        plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.2), ncol=3)
+    elif no_legend:
+        plt.legend().remove()    
+    else:
+        plt.legend(facecolor="white")
     plt.tight_layout()
-    plt.savefig(os.path.join(outdir, f"{plotname}-speedup-scaled.{ext}"))
+    plt.savefig(os.path.join(outdir, f"{plotname}-speedup-scaled.svg"))
     plt.clf()

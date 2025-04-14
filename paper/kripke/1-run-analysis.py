@@ -31,6 +31,12 @@ def get_parser():
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
+        "--non-anon",
+        help="Generate non-anon",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
         "--root",
         help="root directory with experiments",
         default=os.path.join(root, "experiments"),
@@ -56,14 +62,17 @@ def main():
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
+    # We absolutely want on premises results here
+    args.on_premises = True
+
     # Find input directories
-    files = ps.find_inputs(indir, "kripke")
+    files = ps.find_inputs(indir, "kripke", args.on_premises)
     if not files:
         raise ValueError(f"There are no input files in {indir}")
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    plot_results(df, outdir, args.non_anon)
 
 
 def parse_kripke_foms(item):
@@ -133,13 +142,12 @@ def parse_data(indir, outdir, files):
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, duration, metadata = ps.parse_flux_metadata(item)
+                item, _, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
                 metadata = {}
-                duration = ps.parse_slurm_duration(item)
                 item = ps.remove_slurm_duration(item)
 
             metrics = parse_kripke_foms(item)
@@ -152,7 +160,7 @@ def parse_data(indir, outdir, files):
     return p.df
 
 
-def plot_results(df, outdir):
+def plot_results(df, outdir, non_anon=False):
     """
     Plot analysis results
     """
@@ -161,6 +169,15 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # For anonymization
+    if not non_anon:
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/lassen", "on-premises/b"
+        )
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/dane", "on-premises/a"
+        )
+
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
     for cloud in df.experiment.unique():
@@ -168,28 +185,46 @@ def plot_results(df, outdir):
 
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
+        if env != "cpu":
+            continue
         subset = df[df.env_type == env]
 
         # Make a plot for each metric
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
             title = " ".join([x.capitalize() for x in metric.split("_")])
+            if "grind" not in metric.lower():
+                continue
 
             # Note that the Y label is hard coded because we just have one metric
             ps.make_plot(
                 metric_df,
                 title=f"Kripke {title} ({env.upper()})",
                 ydimension="value",
-                plotname=f"kripke-{metric}-{env}",
+                plotname=f"kripke-grind-time-{env}",
                 xdimension="nodes",
                 palette=cloud_colors,
                 outdir=img_outdir,
                 hue="experiment",
                 xlabel="Nodes",
+                hue_order=[
+                    "on-premises/a/cpu",
+                    "aws/parallel-cluster/cpu",
+                    "aws/eks/cpu",
+                    "azure/cyclecloud/cpu",
+                    "google/compute-engine/cpu",
+                    "azure/aks/cpu",
+                    "google/gke/cpu",
+                ],
+                order=[32, 64, 128, 256],
                 ylabel="Grind Time (Seconds)",
                 do_round=False,
                 log_scale=True,
+                height=3.8,
+                width=10,
             )
+
+        print(f"Total number of CPU datum: {metric_df.shape[0]}")
 
 
 if __name__ == "__main__":

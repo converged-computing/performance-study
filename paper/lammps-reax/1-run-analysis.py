@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 
+import pandas
 import argparse
-import collections
-import json
 import os
 import re
 import sys
 
-from metricsoperator.metrics.app.lammps import parse_lammps
 import matplotlib.pylab as plt
-import pandas
 import seaborn as sns
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -49,6 +46,12 @@ def get_parser():
         default=os.path.join(root, "experiments"),
     )
     parser.add_argument(
+        "--non-anon",
+        help="Generate non-anon",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
         "--out",
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
@@ -80,7 +83,7 @@ def main():
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    plot_results(df, outdir, args.non_anon)
 
 
 def parse_matom_steps(item):
@@ -151,7 +154,6 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
-            duration = None
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
@@ -160,11 +162,18 @@ def parse_data(indir, outdir, files):
                 p.add_result(
                     "matom_steps_per_second", parse_matom_steps(item), problem_size
                 )
+                p.add_result("duration", duration, problem_size)
 
             # Slurm has the item output, and then just the start/end of the job
             # IMPORTANT: cyclecloud was run two problem sizes one job!
             elif "on-premises" not in filename:
                 metadata = {}
+                # Wall times are here
+                durations = [
+                    ps.convert_walltime_to_seconds(x.rsplit(" ", 1)[-1])
+                    for x in item.split("\n")
+                    if "Total wall time" in x
+                ]
                 if item.count("Total wall time") > 1:
                     items = item.split("Total wall time", 1)
                     # Larger problem size is first (slower wall time)
@@ -175,6 +184,7 @@ def parse_data(indir, outdir, files):
                         parse_matom_steps(items[0]),
                         problem_size,
                     )
+                    p.add_result("duration", durations[0], problem_size)
                     # Smaller problem size is second
                     problem_size = "64x32x32"
                     assert problem_size in items[1]
@@ -183,21 +193,34 @@ def parse_data(indir, outdir, files):
                         parse_matom_steps(items[1]),
                         problem_size,
                     )
+                    p.add_result("duration", durations[1], problem_size)
                 else:
                     problem_size = "64x64x32"
                     assert problem_size in item
                     p.add_result(
                         "matom_steps_per_second", parse_matom_steps(item), problem_size
                     )
+                    durations = [
+                        ps.convert_walltime_to_seconds(x.rsplit(" ", 1)[-1])
+                        for x in item.split("\n")
+                        if "Total wall time" in x
+                    ]
+                    p.add_result("duration", durations[0], problem_size)
 
             # I think we only ran this problem size on premises
             elif "on-premises" in filename:
                 metadata = {}
                 problem_size = "64x64x32" if "64x64x32" in item else "64x32x32"
+                durations = [
+                    ps.convert_walltime_to_seconds(x.rsplit(" ", 1)[-1])
+                    for x in item.split("\n")
+                    if "Total wall time" in x
+                ]
                 assert problem_size in item
                 p.add_result(
                     "matom_steps_per_second", parse_matom_steps(item), problem_size
                 )
+                p.add_result("duration", durations[0], problem_size)
 
     print("Done parsing lammps results!")
     p.df.to_csv(os.path.join(outdir, "lammps-reax-results.csv"))
@@ -205,7 +228,7 @@ def parse_data(indir, outdir, files):
     return p.df
 
 
-def plot_results(df, outdir):
+def plot_results(df, outdir, non_anon=False):
     """
     Plot analysis results
     """
@@ -215,50 +238,121 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    # Calculate cost for running lammps!
+    ps.print_experiment_cost(df, outdir)
+    # azure/cyclecloud/gpu          84.081167
+    # aws/parallel-cluster/cpu         93.312
+    # aws/eks/gpu                   96.525686
+    # azure/aks/gpu                 97.891336
+    # google/gke/gpu               133.417111
+    # google/compute-engine/gpu    135.256841
+    # aws/eks/cpu                  266.731258
+    # azure/cyclecloud/cpu            348.832
+    # azure/aks/cpu                358.192452
+    # google/compute-engine/cpu    396.780725
+    # google/gke/cpu               487.407771
+
+    # For anonymization
+    if not non_anon:
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/lassen", "on-premises/b"
+        )
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/dane", "on-premises/a"
+        )
+
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
     # Within a setup, compare between experiments for GPU and cpu
+    data_frames = {}
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
         for problem_size in subset.problem_size.unique():
+            if env == "gpu" and problem_size == "64x64x32":
+                continue
             ps_df = subset[subset.problem_size == problem_size]
 
             # Make a plot for seconds runtime, and each FOM set.
             # We can look at the metric across sizes, colored by experiment
             for metric in ps_df.metric.unique():
+                if "matom" not in metric:
+                    continue
                 metric_df = ps_df[ps_df.metric == metric]
-                title = " ".join([x.capitalize() for x in metric.split("_")])
-                if env == "cpu":
-                    ps.make_plot(
-                        metric_df,
-                        title=f"LAMMPS M/Atom Steps per Second {problem_size} ({env.upper()})",
-                        ydimension="value",
-                        plotname=f"lammps-reax-{metric}-{problem_size}-{env}",
-                        xdimension="nodes",
-                        palette=cloud_colors,
-                        outdir=img_outdir,
-                        hue="experiment",
-                        xlabel="Nodes",
-                        ylabel="Millions of Atom Steps per Second",
-                        do_round=False,
-                    )
-                if env == "gpu":
-                    ps.make_plot(
-                        metric_df,
-                        title=f"LAMMPS M/Atom Steps per Second {problem_size} ({env.upper()})",
-                        ydimension="value",
-                        plotname=f"lammps-reax-{metric}-{problem_size}-{env}-gpu-count",
-                        xdimension="gpu_count",
-                        palette=cloud_colors,
-                        outdir=img_outdir,
-                        hue="experiment",
-                        xlabel="GPU Count",
-                        ylabel="Millions of Atom Steps per Second",
-                        do_round=False,
-                    )
+                data_frames[env] = [metric_df, problem_size]
+
+    fig = plt.figure(figsize=(18, 3.3))
+    gs = plt.GridSpec(1, 3, width_ratios=[2, 2, 1])
+    axes = []
+    cpu_ax = fig.add_subplot(gs[0, 0])
+    axes.append(cpu_ax)
+    axes.append(fig.add_subplot(gs[0, 1], sharey=cpu_ax))
+    axes.append(fig.add_subplot(gs[0, 2]))
+
+    # fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
+    sns.set_style("whitegrid")
+    sns.barplot(
+        data_frames["cpu"][0],
+        ax=axes[0],
+        x="nodes",
+        y="value",
+        hue="experiment",
+        hue_order=[
+            "google/gke/cpu",
+            "azure/aks/cpu",
+            "google/compute-engine/cpu",
+            "azure/cyclecloud/cpu",
+            "aws/eks/cpu",
+            "aws/parallel-cluster/cpu",
+            "on-premises/a/cpu",
+        ],
+        err_kws={"color": "darkred"},
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+    )
+    axes[0].set_title("LAMMPS M/Atom Steps per Second (CPU)", fontsize=14)
+    problem_size = data_frames["cpu"][1]
+    axes[0].set_ylabel("M/Atom Steps Per Second", fontsize=14)
+    axes[0].set_xlabel("Nodes", fontsize=14)
+
+    sns.barplot(
+        data_frames["gpu"][0],
+        ax=axes[1],
+        x="gpu_count",
+        y="value",
+        hue="experiment",
+        hue_order=[
+            "google/compute-engine/gpu",
+            "google/gke/gpu",
+            "aws/eks/gpu",
+            "azure/aks/gpu",
+            "azure/cyclecloud/gpu",
+            "on-premises/b/gpu",
+        ],
+        err_kws={"color": "darkred"},
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+    )
+    axes[1].set_title("LAMMPS M/Atom Steps per Second (GPU)", fontsize=14)
+    axes[1].set_xlabel("GPU Count", fontsize=14)
+    axes[1].set_ylabel("")
+
+    handles, labels = axes[1].get_legend_handles_labels()
+    labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    axes[2].legend(
+        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+    )
+    for ax in axes[0:2]:
+        ax.get_legend().remove()
+    axes[2].axis("off")
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(img_outdir, "lammps-matom-steps-cpu-gpu.svg"))
+    plt.clf()
+    print(f'Total number of CPU datum: {data_frames["cpu"][0].shape[0]}')
+    print(f'Total number of GPU datum: {data_frames["gpu"][0].shape[0]}')
 
 
 if __name__ == "__main__":

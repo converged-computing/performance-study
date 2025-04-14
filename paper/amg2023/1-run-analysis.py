@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import collections
-import json
 import os
 import sys
 import re
 
 import matplotlib.pylab as plt
-import pandas
 import seaborn as sns
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -63,6 +60,12 @@ def get_parser():
         default=os.path.join(root, "experiments"),
     )
     parser.add_argument(
+        "--non-anon",
+        help="Generate non-anon",
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
         "--out",
         help="directory to save parsed results",
         default=os.path.join(here, "data"),
@@ -93,7 +96,8 @@ def main():
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    plot_results(df, outdir, args.non_anon, log=False)
+    plot_results(df, outdir, args.non_anon, log=True)
 
 
 def get_fom_line(item, name):
@@ -165,13 +169,17 @@ def parse_data(indir, outdir, files):
             item = ps.read_file(result)
 
             # If this is a flux run, we have a jobspec and events here
-            duration = None
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
-            # Slurm has the item output, and then just the start/end of the job
-            elif "on-premises" not in filename:
+            elif "on-premises" in filename:
+                # Get the runtime from the err file
+                err_file = ps.read_file(result.replace(".out", ".err"))
+                duration = float(
+                    [x for x in err_file.split("\n") if "real" in x][0].split(" ")[-1]
+                )
+            else:
                 duration = ps.parse_slurm_duration(item)
 
             # Parse the FOM from the item - I see three.
@@ -179,6 +187,7 @@ def parse_data(indir, outdir, files):
             # Figure of Merit (FOM): nnz_AP / (Setup Phase Time + 3 * Solve Phase Time) 1.148604e+09
             fom_overall = get_fom_line(item, "Figure of Merit (FOM)")
             p.add_result("fom_overall", fom_overall)
+            p.add_result("duration", duration)
 
     print("Done parsing amg2023 results!")
 
@@ -188,7 +197,7 @@ def parse_data(indir, outdir, files):
     return p.df
 
 
-def plot_results(df, outdir):
+def plot_results(df, outdir, non_anon=False, log=True):
     """
     Plot analysis results
     """
@@ -198,44 +207,118 @@ def plot_results(df, outdir):
     if not os.path.exists(img_outdir):
         os.makedirs(img_outdir)
 
+    ps.print_experiment_cost(df, outdir)
+
+    # For anonymization
+    if not non_anon:
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/lassen", "on-premises/b"
+        )
+        df["experiment"] = df["experiment"].str.replace(
+            "on-premises/dane", "on-premises/a"
+        )
+
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
     # Within a setup, compare between experiments for GPU and cpu
+    data_frames = {}
     for env in df.env_type.unique():
         subset = df[df.env_type == env]
-
-        # x axis is by gpu count for gpus
-        x_by = "nodes"
-        x_label = "Nodes"
-        if env == "gpu":
-            x_by = "gpu_count"
-            x_label = "Number of GPU"
 
         # Make a plot for seconds runtime, and each FOM set.
         # We can look at the metric across sizes, colored by experiment
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
-            log_scale = False if metric == "seconds" else True
             title = " ".join([x.capitalize() for x in metric.split("_")])
-
-            # Make sure fom is always capitalized
             title = title.replace("Fom", "FOM")
-            ps.make_plot(
-                metric_df,
-                title=f"AMG2023 {title} ({env.upper()})",
-                ydimension="value",
-                plotname=f"amg2023-{metric}-{env}",
-                xdimension=x_by,
-                palette=cloud_colors,
-                outdir=img_outdir,
-                hue="experiment",
-                xlabel=x_label,
-                ylabel=title,
-                log_scale=log_scale,
-            )
+            data_frames[env] = metric_df
+
+    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(18, 3.3))
+
+    fig = plt.figure(figsize=(18, 3.3))
+    gs = plt.GridSpec(1, 3, width_ratios=[2, 2, 1])
+    axes = []
+    axes.append(fig.add_subplot(gs[0, 0]))
+    axes.append(fig.add_subplot(gs[0, 1]))
+    axes.append(fig.add_subplot(gs[0, 2]))
+
+    sns.set_style("whitegrid")
+    sns.barplot(
+        data_frames["cpu"],
+        ax=axes[0],
+        x="nodes",
+        y="value",
+        hue="experiment",
+        err_kws={"color": "darkred"},
+        hue_order=[
+            "google/gke/cpu",
+            "google/compute-engine/cpu",
+            "aws/eks/cpu",
+            "aws/parallel-cluster/cpu",
+            "azure/aks/cpu",
+            "azure/cyclecloud/cpu",
+            "on-premises/a/cpu",
+        ],
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+    )
+    axes[0].set_title("FOM Overall (CPU)", fontsize=14)
+    if log:
+        axes[0].set_ylabel("FOM Overall (logscale)", fontsize=14)
+    else:
+        axes[0].set_ylabel("FOM Overall", fontsize=14)
+    axes[0].set_xlabel("Nodes", fontsize=14)
+
+    # Log scale for FOM
+    if log:
+        axes[0].set_yscale("log")
+
+    sns.barplot(
+        data_frames["gpu"],
+        ax=axes[1],
+        x="gpu_count",
+        y="value",
+        err_kws={"color": "darkred"},
+        hue="experiment",
+        hue_order=[
+            "google/compute-engine/gpu",
+            "on-premises/b/gpu",
+            "google/gke/gpu",
+            "azure/cyclecloud/gpu",
+            "azure/aks/gpu",
+            "aws/eks/gpu",
+        ],
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+    )
+    axes[1].set_title("FOM Overall (GPU)", fontsize=14)
+    axes[1].set_xlabel("GPU Count", fontsize=14)
+    axes[1].set_ylabel("")
+    if log:
+        axes[1].set_yscale("log")
+
+    handles, labels = axes[1].get_legend_handles_labels()
+    labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    axes[2].legend(
+        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+    )
+    for ax in axes[0:2]:
+        ax.get_legend().remove()
+    axes[2].axis("off")
+
+    plt.tight_layout()
+    if log:
+        plt.savefig(os.path.join(img_outdir, "amg-fom-overall-cpu-gpu-log.svg"))
+    else:
+        plt.savefig(os.path.join(img_outdir, "amg-fom-overall-cpu-gpu.svg"))
+    plt.clf()
+
+    # Print the total number of data points
+    print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
+    print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
 
 
 if __name__ == "__main__":

@@ -1,0 +1,1802 @@
+{
+    "google/gke/cpu/size64": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 56,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "/opt/laghos/data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-64-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724385733.2152047,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724385733.2159467,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724385733.2633011,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fcWSBLwR",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724385733.4012718,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    56,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724387266.785276,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 54,
+                        "rank": 278,
+                        "state": "Exited",
+                        "pid": 174,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724387267.0172527,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724387267.017295,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "google/gke/cpu/size32": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 56,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "/opt/laghos/data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-32-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724280907.7647784,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724280907.7653816,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724280907.7858155,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fQB4Btzj",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1724280907.9235184,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    56,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724282147.6885684,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 54,
+                        "rank": 502,
+                        "state": "Exited",
+                        "pid": 174,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724282147.8350546,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724282147.835092,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "google/gke/cpu/size128": [],
+    "google/compute-engine/cpu/size64": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 7
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "singularity",
+                            "exec",
+                            "--env",
+                            "OMPI_MCA_btl_vader_single_copy_mechanism=none",
+                            "/opt/containers/metric-laghos_rocky-8.sif",
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "/opt/laghos/data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/home/sochat1_llnl_gov",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": 0,
+                                    "nofile": 262144,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": 1803560
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-7-thread-64-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724810457.824207,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724810457.8249068,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724810457.8658285,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "1356918789-shell-f69XePEF",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724810457.8854337,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724811321.5773728,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 4,
+                        "rank": 212,
+                        "state": "Exited",
+                        "pid": 15821,
+                        "wait_status": 15,
+                        "signaled": 15,
+                        "exitcode": 143
+                    }
+                },
+                {
+                    "timestamp": 1724811321.617994,
+                    "name": "complete",
+                    "context": {
+                        "status": 36608
+                    }
+                },
+                {
+                    "timestamp": 1724811321.618019,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 56,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "singularity",
+                            "exec",
+                            "--env",
+                            "OMPI_MCA_btl_vader_single_copy_mechanism=none",
+                            "/opt/containers/metric-laghos_rocky-8.sif",
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "/opt/laghos/data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/home/sochat1_llnl_gov",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": 0,
+                                    "nofile": 262144,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": 1803560
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-64-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724726495.2050993,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724726495.205857,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724726495.2456634,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "1356918789-shell-fbtNJpJs",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724726495.3912783,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    56,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724727126.2632236,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 37,
+                        "rank": 1437,
+                        "state": "Exited",
+                        "pid": 27158,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724727126.5144162,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724727126.514464,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "google/compute-engine/cpu/size32": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 56,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/containers/metric-laghos_rocky-8.sif",
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "/opt/laghos/data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/home/sochat1_llnl_gov",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": 0,
+                                    "nofile": 262144,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": 1803560
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-32-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724653544.117166,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724653544.1178784,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724653544.138927,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "1356918789-shell-fG23h39h",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1724653544.3290815,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    56,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724654353.8892608,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 51,
+                        "rank": 1227,
+                        "state": "Exited",
+                        "pid": 30342,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724654354.0246084,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724654354.0246432,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "exclusive": true,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 8,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 7
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/containers/metric-laghos_rocky-8.sif",
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "/opt/laghos/data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/home/sochat1_llnl_gov",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": 0,
+                                    "nofile": 262144,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": 1803560
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-32-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724806648.7605014,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724806648.761196,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724806648.846595,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "1356918789-shell-fqfFmov7",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1724806648.9393625,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    8,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724807695.5705733,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 3,
+                        "rank": 83,
+                        "state": "Exited",
+                        "pid": 3725,
+                        "wait_status": 15,
+                        "signaled": 15,
+                        "exitcode": 143
+                    }
+                },
+                {
+                    "timestamp": 1724807695.612266,
+                    "name": "complete",
+                    "context": {
+                        "status": 36608
+                    }
+                },
+                {
+                    "timestamp": 1724807695.6122928,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "google/compute-engine/cpu/size128": [],
+    "google/compute-engine/cpu/size256": [],
+    "google/compute-engine/gpu/size2": [],
+    "on-premises/dane/cpu/size64": [],
+    "on-premises/dane/cpu/size32": [],
+    "on-premises/dane/cpu/size128": [],
+    "on-premises/dane/cpu/size256": [],
+    "aws/eks/cpu/size64": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "./data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/laghos",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 10485760,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-64-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724361892.4541156,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724361892.4549587,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724361892.4922502,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f7UbR7vmd",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724361892.7841275,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724362640.0294905,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 93,
+                        "rank": 2973,
+                        "state": "Exited",
+                        "pid": 638,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724362640.8670242,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724362640.8671305,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "./data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/laghos",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 10485760,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-64-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724361128.3620887,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724361128.3627834,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724361128.3989336,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-ffrLmQjH",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724361128.6936157,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724361891.1607492,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 67,
+                        "rank": 163,
+                        "state": "Exited",
+                        "pid": 393,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724361892.034234,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724361892.034268,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "aws/eks/cpu/size32": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "./data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/laghos",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 10485760,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-32-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724296357.3330112,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724296357.3337216,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724296357.3607888,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fpCGJyuZ",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1724296357.6627464,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724297064.1341927,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 73,
+                        "rank": 457,
+                        "state": "Exited",
+                        "pid": 212,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724297064.7350416,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724297064.7351193,
+                    "name": "done"
+                }
+            ]
+        },
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "./data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/laghos",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 10485760,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-32-iter-2"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724297083.1914806,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724297083.192173,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724297083.2154655,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-f7L64Wvc7",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1724297083.5184064,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724297768.95759,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 73,
+                        "rank": 457,
+                        "state": "Exited",
+                        "pid": 405,
+                        "wait_status": 0,
+                        "signaled": 0,
+                        "exitcode": 0
+                    }
+                },
+                {
+                    "timestamp": 1724297769.524485,
+                    "name": "complete",
+                    "context": {
+                        "status": 0
+                    }
+                },
+                {
+                    "timestamp": 1724297769.5245266,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "aws/eks/cpu/size128": [],
+    "aws/parallel-cluster/cpu/size64": [],
+    "aws/parallel-cluster/cpu/size32": [],
+    "aws/parallel-cluster/cpu/size128": [],
+    "aws/parallel-cluster/cpu/size256": [],
+    "azure/cyclecloud/cpu/size64": [],
+    "azure/cyclecloud/cpu/size32": [],
+    "azure/cyclecloud/cpu/size128": [],
+    "azure/cyclecloud/cpu/size256": [],
+    "azure/cyclecloud/gpu/size4": [],
+    "azure/aks/cpu/size32-placement": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 32,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "./data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/laghos",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-placement-32-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724871315.1898234,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724871315.1905594,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724871315.2171676,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fWNDRufu",
+                        "leader-rank": 0,
+                        "size": 32
+                    }
+                },
+                {
+                    "timestamp": 1724871315.6014707,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    32,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724872782.3954465,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 32,
+                        "rank": 3008,
+                        "state": "Exited",
+                        "pid": 124,
+                        "wait_status": 15,
+                        "signaled": 15,
+                        "exitcode": 143
+                    }
+                },
+                {
+                    "timestamp": 1724872782.7492676,
+                    "name": "complete",
+                    "context": {
+                        "status": 36608
+                    }
+                },
+                {
+                    "timestamp": 1724872782.7493136,
+                    "name": "done"
+                }
+            ]
+        }
+    ],
+    "azure/aks/cpu/size64-placement": [
+        {
+            "jobspec": {
+                "resources": [
+                    {
+                        "type": "node",
+                        "count": 64,
+                        "with": [
+                            {
+                                "type": "slot",
+                                "count": 96,
+                                "with": [
+                                    {
+                                        "type": "core",
+                                        "count": 1
+                                    }
+                                ],
+                                "label": "task"
+                            }
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "command": [
+                            "/opt/laghos/laghos",
+                            "-pa",
+                            "-p",
+                            "1",
+                            "-tf",
+                            "0.6",
+                            "-pt",
+                            "311",
+                            "-m",
+                            "./data/cube_311_hex.mesh",
+                            "--ode-solver",
+                            "7",
+                            "--max-steps",
+                            "400",
+                            "--cg-tol",
+                            "0",
+                            "-cgm",
+                            "50",
+                            "-ok",
+                            "3",
+                            "-ot",
+                            "2",
+                            "-rs",
+                            "4",
+                            "-rp",
+                            "2",
+                            "--fom"
+                        ],
+                        "slot": "task",
+                        "count": {
+                            "per_slot": 1
+                        }
+                    }
+                ],
+                "attributes": {
+                    "system": {
+                        "duration": 0,
+                        "cwd": "/opt/laghos",
+                        "shell": {
+                            "options": {
+                                "rlimit": {
+                                    "cpu": -1,
+                                    "fsize": -1,
+                                    "data": -1,
+                                    "stack": 8388608,
+                                    "core": -1,
+                                    "nofile": 1048576,
+                                    "as": -1,
+                                    "rss": -1,
+                                    "nproc": -1
+                                },
+                                "cpu-affinity": "per-task"
+                            }
+                        }
+                    },
+                    "user": {
+                        "study_id": "laghos-64-iter-1"
+                    }
+                },
+                "version": 1
+            },
+            "events": [
+                {
+                    "timestamp": 1724551468.5625618,
+                    "name": "init"
+                },
+                {
+                    "timestamp": 1724551468.563615,
+                    "name": "starting"
+                },
+                {
+                    "timestamp": 1724551468.6263523,
+                    "name": "shell.init",
+                    "context": {
+                        "service": "0-shell-fYm38fAf",
+                        "leader-rank": 0,
+                        "size": 64
+                    }
+                },
+                {
+                    "timestamp": 1724551469.0081844,
+                    "name": "shell.start",
+                    "context": {
+                        "taskmap": {
+                            "version": 1,
+                            "map": [
+                                [
+                                    0,
+                                    64,
+                                    96,
+                                    1
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "timestamp": 1724552309.1689699,
+                    "name": "shell.task-exit",
+                    "context": {
+                        "localid": 48,
+                        "rank": 2256,
+                        "state": "Exited",
+                        "pid": 158,
+                        "wait_status": 15,
+                        "signaled": 15,
+                        "exitcode": 143
+                    }
+                },
+                {
+                    "timestamp": 1724552309.6433973,
+                    "name": "complete",
+                    "context": {
+                        "status": 36608
+                    }
+                },
+                {
+                    "timestamp": 1724552309.643423,
+                    "name": "done"
+                }
+            ]
+        }
+    ]
+}
