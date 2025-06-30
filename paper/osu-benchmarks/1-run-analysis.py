@@ -76,8 +76,8 @@ def main():
         raise ValueError(f"There are no input files in {indir}")
 
     # Saves raw data to file
-    parsed = parse_data(indir, outdir, files)
-    plot_results(parsed, outdir)
+    parsed, durations = parse_data(indir, outdir, files)
+    plot_results(parsed, durations, outdir)
 
 
 def split_combined_file(item, host_prefix="flux-sample"):
@@ -229,6 +229,7 @@ def parse_data(indir, outdir, files):
     data = {}
     parsed = []
     result_count = set()
+    p = ps.ResultParser('osu')
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
@@ -261,6 +262,16 @@ def parse_data(indir, outdir, files):
         # For Google Cloud GPU on GKE the point to point benchmarks
         # were run without GPU - never worked
         exp.show()
+        
+        # Calculate number of gpus from nodes
+        number_gpus = 0
+        if exp.env_type == "gpu":
+            number_gpus = (
+                (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
+            )
+
+        # Set the parsing context for the result data frame
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size, gpu_count=number_gpus)
 
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
@@ -321,10 +332,15 @@ def parse_data(indir, outdir, files):
             # These are combined files with OSU that have all the
             # results in one file, parse it differently. No flux metadata here.
             host_prefix = "flux-sample"
+            duration = None
             if re.search("(combinations-|parallel-cluster|cyclecloud)", result):
                 # I don't know what to do with start/end (duration) for
                 # all runs - we can't say anything about a specific run.
                 # So here we are removing it for those that used slurm
+                try:
+                    duration = ps.parse_slurm_duration(item)
+                except:
+                    pass
                 item = ps.remove_slurm_duration(item)
                 if "parallel-cluster" in result:
                     host_prefix = "queue1-"
@@ -388,11 +404,14 @@ def parse_data(indir, outdir, files):
             # Slurm has the item output, and then just the start/end of the job
             else:
                 raise ValueError(f"Unexpected result to parse: {item}")
+            if command == "osu_allreduce":
+                p.add_result("duration", duration)
 
     print(f"Done parsing OSU {len(result_count)} results!")
     ps.write_json(parsed, os.path.join(outdir, "osu-parsed.json"))
     ps.write_json(data, os.path.join(outdir, "flux-jobspec-events.json"))
-    return parsed
+    p.df.to_csv(os.path.join(outdir, "osu-durations.csv"))    
+    return parsed, p.df
 
 
 def get_columns(command):
@@ -419,7 +438,7 @@ def get_osu_title(slug):
     return title
 
 
-def plot_results(results, outdir, non_anon=False):
+def plot_results(results, durations, outdir, non_anon=False):
     """
     Plot result images to file
     """
@@ -438,6 +457,7 @@ def plot_results(results, outdir, non_anon=False):
     dfs_gpu = {}
     idxs_gpu = {}
 
+    ps.print_experiment_cost(durations, outdir)
     # lookup for x and y values for each
     lookup_cpu = {}
     lookup_gpu = {}

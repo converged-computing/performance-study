@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usability Trade-off Matrix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Usability Trade-off Matrix</h1>
+        <h2 id="app-subtitle"></h2>
+
+        <div class="controls-container">
+            <div class="app-selector">
+                <label for="app-select">Application:</label>
+                <select id="app-select"></select>
+            </div>
+            <button id="toggle-all-btn">Expand All</button>
+        </div>
+
+        <div class="description">
+            <p>
+                This table summarizes experiment cost and duration across various cloud platforms, environments, and hardware types. The data is grouped by common environments to provide a high-level summary. You can click on any group row to expand it and view the individual experiments.
+            </p>
+            <p>
+                Experiments were run on cloud providers <span class="cloud-aws-text"><b>aws</b></span>, <span class="cloud-azure-text"><b>azure</b></span>, and <span class="cloud-google-text"><b>google</b></span> using environment types <span class="type-cpu-text"><b>cpu</b></span> and <span class="type-gpu-text"><b>gpu</b></span>. The test sizes included <span class="size-4-text"><b>4</b></span>, <span class="size-8-text"><b>8</b></span>, <span class="size-16-text"><b>16</b></span>, <span class="size-32-text"><b>32</b></span>, <span class="size-64-text"><b>64</b></span>, <span class="size-128-text"><b>128</b></span>, and <span class="size-256-text"><b>256</b></span> nodes/instances.
+            </p>
+            <p>
+                For each test, <b>5 iterations</b> were run, and the median value was used for the <b>Duration</b> column. While standard deviation is not explicitly shown, it is an important factor for result stability and is reflected in the final <b>Cost</b> calculation.
+            </p>
+        </div>
+
+        <table id="experiment-table">
+            <thead>
+                <tr>
+                    <th data-column="cloud">Cloud <span></span></th>
+                    <th data-column="environment">Environment <span></span></th>
+                    <th data-column="type">Type <span></span></th>
+                    <th data-column="size">Size <span></span></th>
+                    <th data-column="iterations">Iterations <span></span></th>
+                    <th data-column="duration">Duration (s) <span></span></th>
+                    <th data-column="cost">Cost ($) <span></span></th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Rows will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -160,12 +160,16 @@ def parse_data(indir, outdir, files):
                 print(item)
 
             elif "JOBSPEC" in item:
-                item, _, metadata = ps.parse_flux_metadata(item)
+                item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
                 metadata = {}
+                try:
+                    duration = ps.parse_slurm_duration(item)
+                except:
+                    print(f"{filename} does not have a wrapped duration.")
                 item = ps.remove_slurm_duration(item)
 
             # Add the duration in seconds
@@ -176,6 +180,7 @@ def parse_data(indir, outdir, files):
                 metrics = parse_cpu_gemm(item)
             for metric, value in metrics.items():
                 p.add_result(metric, value)
+            p.add_result('duration', duration)
 
     print("Done parsing mt-gemm results!")
     p.df.to_csv(os.path.join(outdir, "mt-gemm-results.csv"))
@@ -201,6 +206,8 @@ def plot_results(df, outdir, non_anon=False):
         df["experiment"] = df["experiment"].str.replace(
             "on-premises/dane", "on-premises/a"
         )
+
+    ps.print_experiment_cost(df, outdir)
 
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}
