@@ -220,39 +220,41 @@ def plot_results(df, outdir, non_anon=False):
             metric_df = subset[subset.metric == metric]
             data_frames[env] = metric_df
 
-    fig = plt.figure(figsize=(18, 3))
-    gs = plt.GridSpec(1, 3, width_ratios=[2, 2, 1])
+    fig = plt.figure(figsize=(9, 3))
+    gs = plt.GridSpec(1, 2, width_ratios=[2, 1])
     axes = []
     axes.append(fig.add_subplot(gs[0, 0]))
     axes.append(fig.add_subplot(gs[0, 1]))
-    axes.append(fig.add_subplot(gs[0, 2]))
+    # CPU runs were not used due to a hard coded problem size that made the problem size per rank so small
+    # that communication was a bottleneck.
+    # axes.append(fig.add_subplot(gs[0, 2]))
 
-    sns.set_style("whitegrid")
-    sns.barplot(
-        data_frames["cpu"],
-        ax=axes[0],
-        x="nodes",
-        y="value",
-        hue="experiment",
-        hue_order=[
-            "aws/eks/cpu",
-            "aws/parallel-cluster/cpu",
-            "google/gke/cpu",
-            "azure/aks/cpu",
-            "google/compute-engine/cpu",
-        ],
-        err_kws={"color": "darkred"},
-        palette=cloud_colors,
-        dodge=True,
-        order=[32, 64, 128, 256],
-    )
-    axes[0].set_title("MT-GEMM Metric GFlops/Second (CPU)", fontsize=12)
-    axes[0].set_ylabel("GFlops/Second", fontsize=12)
-    axes[0].set_xlabel("Nodes", fontsize=12)
+    # sns.set_style("whitegrid")
+    # sns.barplot(
+    #    data_frames["cpu"],
+    #    ax=axes[0],
+    #    x="nodes",
+    #    y="value",
+    #    hue="experiment",
+    #    hue_order=[
+    #        "aws/eks/cpu",
+    #        "aws/parallel-cluster/cpu",
+    #        "google/gke/cpu",
+    #        "azure/aks/cpu",
+    #        "google/compute-engine/cpu",
+    #    ],
+    #    err_kws={"color": "darkred"},
+    #    palette=cloud_colors,
+    #    dodge=True,
+    #    order=[32, 64, 128, 256],
+    #)
+    #axes[0].set_title("MT-GEMM Metric GFlops/Second (CPU)", fontsize=12)
+    #axes[0].set_ylabel("GFlops/Second", fontsize=12)
+    #axes[0].set_xlabel("Nodes", fontsize=12)
 
     sns.barplot(
         data_frames["gpu"],
-        ax=axes[1],
+        ax=axes[0],
         x="gpu_count",
         y="value",
         hue="experiment",
@@ -269,26 +271,61 @@ def plot_results(df, outdir, non_anon=False):
         order=[32, 64, 128, 256],
         dodge=True,
     )
-    axes[1].set_title("MT-GEMM Metric GFlops/Second (GPU)", fontsize=14)
-    axes[1].set_ylabel("")
-    axes[1].set_xlabel("GPU Count", fontsize=14)
+    axes[0].set_title("MT-GEMM Metric GFlops/Second (GPU)", fontsize=14)
+    axes[0].set_xlabel("GPU Count", fontsize=14)
+    axes[0].set_ylabel("GFlops/Second", fontsize=12)
 
-    handles, labels = axes[1].get_legend_handles_labels()
+    handles, labels = axes[0].get_legend_handles_labels()
     labels = ["/".join(x.split("/")[0:2]) for x in labels]
-    axes[2].legend(
+    axes[1].legend(
         handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
     )
 
-    for ax in axes[0:2]:
+    for ax in axes[0:1]:
         ax.get_legend().remove()
-    axes[2].axis("off")
+    axes[1].axis("off")
 
     plt.tight_layout()
-    plt.savefig(os.path.join(img_outdir, "mtgemm-cpu-gpu.svg"))
+    plt.savefig(os.path.join(img_outdir, "mtgemm-gpu.svg"))
     plt.clf()
 
     print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
     print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
+
+
+    # Make a variant with legend inside plot
+    fig, axes = plt.subplots(1, 1, figsize=(10, 3.5))
+    sns.set_style("whitegrid")
+    sns.barplot(
+        data_frames["gpu"],
+        ax=axes,
+        x="gpu_count",
+        y="value",
+        hue="experiment",
+        err_kws={"color": "darkred"},
+        hue_order=[
+            "azure/cyclecloud/gpu",
+            "on-premises/b/gpu",
+            "google/gke/gpu",
+            "aws/eks/gpu",
+            "azure/aks/gpu",
+            "google/compute-engine/gpu",
+        ],
+        palette=cloud_colors,
+        order=[32, 64, 128, 256],
+        dodge=True,
+    )
+    axes.set_title("MT-GEMM Metric GFlops/Second (GPU)", fontsize=14)
+    axes.set_xlabel("GPU Count", fontsize=14)
+    axes.set_ylabel("GFlops/Second", fontsize=12)
+
+    # Remove legend title, don't need it
+    handles, labels = axes.get_legend_handles_labels()
+    axes.legend(handles=handles, labels=labels)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(img_outdir, "mt-gemm-gpu-legend.svg"))
+    plt.clf()
 
 
 if __name__ == "__main__":

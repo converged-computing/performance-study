@@ -231,6 +231,8 @@ def plot_results(df, outdir, non_anon=False, log=True):
         # Make a plot for seconds runtime, and each FOM set.
         # We can look at the metric across sizes, colored by experiment
         for metric in subset.metric.unique():
+            if metric == "duration":
+                continue
             metric_df = subset[subset.metric == metric]
             title = " ".join([x.capitalize() for x in metric.split("_")])
             title = title.replace("Fom", "FOM")

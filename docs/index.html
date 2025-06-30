@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usability of HPC Applications - Interactive Visualization</title>
+    <style>
+        /* --- General Styling --- */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Position behind the UI */
+        }
+
+        #ui-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* --- Legend & Description Box Styling --- */
+        #legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            pointer-events: auto;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        #legend h4 {
+            margin: 0 0 15px 0;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        #color-bar-container {
+            width: 100%;
+            height: 16px;
+            background: linear-gradient(to right, #2ecc71, #f1c40f, #e74c3c);
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+
+        #color-bar-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .description p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #444;
+            text-align: justify;
+        }
+        
+        .paper-link {
+            margin: 15px 0 0 0;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .paper-link a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .paper-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Axis Label Styling --- */
+        .axis-label {
+            position: absolute;
+            visibility: hidden;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2c3e50;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+        }
+        
+        /* --- Tooltip Styling --- */
+        #tooltip {
+            position: absolute;
+            visibility: hidden;
+            padding: 10px 15px;
+            background: rgba(40, 40, 40, 0.9);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 13px;
+            pointer-events: none; /* Let mouse events pass through to the canvas */
+            z-index: 10;
+        }
+        #tooltip .tooltip-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #eee;
+            border-bottom: 1px solid #555;
+            padding-bottom: 5px;
+        }
+        #tooltip .tooltip-row {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        #tooltip .color-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="ui-container">
+        <div id="legend">
+            <h4>Usability of HPC Applications</h4>
+            <div id="color-bar-container"></div>
+            <div id="color-bar-labels">
+                <span>Low Value</span>
+                <span>High Value</span>
+            </div>
+            <div class="description">
+                <p>
+                    A traditional performance study typically reports on application performance. Moving to cloud environments that require developer time and accounting for costs, these other two dimensions must be considered. Here we present the Usability Rubix, a conceptual framework for investigating the choice of how to deploy an application. It shows that the choice to deploy a specific HPC application in a cloud comes down to a three dimensional trade-off with dimensions for cost, performance, and human effort. As an example, a large amount of developer time might be worth it for a lower hourly cost, and that decision might change further if the application is intended to be long running. A sub-optimal performance might be OK if it greatly reduces developer time, or leads to a lower cost. Any specific build of an application can be mapped into this space, where each cell is a specific combination (low, medium, or high) for each dimension.
+                </p>
+            </div>
+            <p class="paper-link">
+                Please see our work: <a href="https://arxiv.org/abs/2506.02709" target="_blank" rel="noopener noreferrer">Usability of Cloud for HPC Applications</a>.
+            </p>
+        </div>
+
+        <div id="label-cost" class="axis-label">Cost</div>
+        <div id="label-performance" class="axis-label">Performance</div>
+        <div id="label-effort" class="axis-label">Human Effort</div>
+
+        <!-- NEW: Tooltip element added to the UI -->
+        <div id="tooltip"></div>
+    </div>
+
+    <!-- Import Map Configuration -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.1/build/three.module.js",
+                "three/examples/jsm/": "https://unpkg.com/three@0.160.1/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+        // --- NEW: Global variables for interaction ---
+        const levelNames = ['Low', 'Medium', 'High'];
+        const tooltip = document.getElementById('tooltip');
+        let currentIntersected = null;
+
+        // --- Scene Setup ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(4, 3, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0xf0f2f5, 1);
+        document.body.appendChild(renderer.domElement);
+
+        // --- NEW: Raycaster for mouse detection ---
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2();
+
+        // --- Lighting ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(directionalLight);
+
+        // --- Orbit Controls ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = true;
+        controls.enablePan = true;
+        controls.minDistance = 3;
+        controls.maxDistance = 20;
+        controls.target.set(0, 0, 0);
+        controls.update();
+
+        // --- Cube Dimensions ---
+        const cubeSize = 1;
+        const spacing = 0.1;
+        const gridSize = 3;
+        const totalSize = (cubeSize * gridSize) + (gridSize - 1) * spacing;
+        const startOffset = -totalSize / 2;
+
+        // --- Cube Geometry ---
+        const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+
+        // --- Color Mapping ---
+        const lowColor = new THREE.Color(0x2ecc71);
+        const mediumColor = new THREE.Color(0xf1c40f);
+        const highColor = new THREE.Color(0xe74c3c);
+        
+        // --- NEW: Array to hold cubes for raycasting ---
+        const cubes = [];
+
+        function getColorForLevel(level) {
+            if (level === 0) return lowColor;
+            if (level === 1) return mediumColor;
+            return highColor;
+        }
+
+        // --- Create Cubes ---
+        for (let x = 0; x < gridSize; x++) {
+            for (let y = 0; y < gridSize; y++) {
+                for (let z = 0; z < gridSize; z++) {
+                    const posX = startOffset + (x * (cubeSize + spacing)) + cubeSize / 2;
+                    const posY = startOffset + (y * (cubeSize + spacing)) + cubeSize / 2;
+                    const posZ = startOffset + (z * (cubeSize + spacing)) + cubeSize / 2;
+
+                    const levels = [x, y, z];
+                    let lowCount = 0, mediumCount = 0, highCount = 0;
+                    levels.forEach(level => {
+                        if (level === 0) lowCount++;
+                        else if (level === 1) mediumCount++;
+                        else if (level === 2) highCount++;
+                    });
+
+                    const p_low = lowCount / gridSize;
+                    const p_medium = mediumCount / gridSize;
+                    const p_high = highCount / gridSize;
+
+                    const blendedColor = new THREE.Color();
+                    blendedColor.r = (p_low * lowColor.r) + (p_medium * mediumColor.r) + (p_high * highColor.r);
+                    blendedColor.g = (p_low * lowColor.g) + (p_medium * mediumColor.g) + (p_high * highColor.g);
+                    blendedColor.b = (p_low * lowColor.b) + (p_medium * mediumColor.b) + (p_high * highColor.b);
+
+                    const material = new THREE.MeshStandardMaterial({
+                        color: blendedColor,
+                        roughness: 0.7,
+                        metalness: 0.1,
+                        transparent: true,
+                        opacity: 0.85
+                    });
+
+                    const cube = new THREE.Mesh(geometry, material);
+                    cube.position.set(posX, posY, posZ);
+                    
+                    // --- NEW: Store dimension data on the cube object ---
+                    cube.userData = {
+                        cost: x,
+                        performance: y,
+                        effort: z,
+                        costColor: getColorForLevel(x),
+                        performanceColor: getColorForLevel(y),
+                        effortColor: getColorForLevel(z),
+                    };
+
+                    scene.add(cube);
+                    cubes.push(cube); // Add to intersectable array
+                }
+            }
+        }
+
+        // --- HTML Label Setup ---
+        const labelCost = document.getElementById('label-cost');
+        const labelPerformance = document.getElementById('label-performance');
+        const labelEffort = document.getElementById('label-effort');
+        const labelOffset = totalSize / 2 + 0.5;
+        const labelsToUpdate = [
+            { element: labelCost, position: new THREE.Vector3(labelOffset, 0, 0) },
+            { element: labelPerformance, position: new THREE.Vector3(0, labelOffset, 0) },
+            { element: labelEffort, position: new THREE.Vector3(0, 0, labelOffset) }
+        ];
+
+        function updateLabelPositions() {
+            labelsToUpdate.forEach(point => {
+                const screenPosition = point.position.clone().project(camera);
+                point.element.style.visibility = screenPosition.z > 1 ? 'hidden' : 'visible';
+                const x = (screenPosition.x * 0.5 + 0.5) * window.innerWidth;
+                const y = (-screenPosition.y * 0.5 + 0.5) * window.innerHeight;
+                point.element.style.left = `${x}px`;
+                point.element.style.top = `${y}px`;
+            });
+        }
+        
+        // --- NEW: Mouse Interaction Handler ---
+        function onPointerMove(event) {
+            // Update pointer position for raycaster
+            pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+            pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+            // Always update tooltip position to follow cursor
+            tooltip.style.left = `${event.clientX + 15}px`;
+            tooltip.style.top = `${event.clientY + 15}px`;
+
+            raycaster.setFromCamera(pointer, camera);
+            const intersects = raycaster.intersectObjects(cubes);
+
+            if (intersects.length > 0) {
+                const newIntersected = intersects[0].object;
+                // If we're hovering over a new cube, update the tooltip
+                if (currentIntersected !== newIntersected) {
+                    currentIntersected = newIntersected;
+                    const data = currentIntersected.userData;
+
+                    // Update tooltip content
+                    tooltip.innerHTML = `
+                        <div class="tooltip-title">Dimension Values</div>
+                        <div class="tooltip-row">
+                            <div class="color-swatch" style="background-color: #${data.costColor.getHexString()}"></div>
+                            Cost: <strong>${levelNames[data.cost]}</strong>
+                        </div>
+                        <div class="tooltip-row">
+                            <div class="color-swatch" style="background-color: #${data.performanceColor.getHexString()}"></div>
+                            Performance: <strong>${levelNames[data.performance]}</strong>
+                        </div>
+                        <div class="tooltip-row">
+                            <div class="color-swatch" style="background-color: #${data.effortColor.getHexString()}"></div>
+                            Human Effort: <strong>${levelNames[data.effort]}</strong>
+                        </div>
+                    `;
+                }
+                // Make the tooltip visible since we are on a cube
+                tooltip.style.visibility = 'visible';
+            } else {
+                // If we're not hovering over any cube, hide the tooltip
+                tooltip.style.visibility = 'hidden';
+                currentIntersected = null;
+            }
+        }
+
+        // --- Event Listeners ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            updateLabelPositions();
+        });
+        
+        // --- NEW: Add the mouse move listener ---
+        window.addEventListener('pointermove', onPointerMove);
+
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            updateLabelPositions();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
