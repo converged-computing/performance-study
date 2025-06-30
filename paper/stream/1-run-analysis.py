@@ -163,7 +163,7 @@ def parse_data(indir, outdir, files):
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, _, metadata = ps.parse_flux_metadata(item)
+                item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
@@ -172,6 +172,10 @@ def parse_data(indir, outdir, files):
 
             else:
                 metadata = {}
+                try:
+                    duration = ps.parse_slurm_duration(item)
+                except:
+                    pass
                 item = ps.remove_slurm_duration(item)
 
             # Let's skip adding this - the runs might not be comparable.

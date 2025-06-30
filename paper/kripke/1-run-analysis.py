@@ -130,6 +130,8 @@ def parse_data(indir, outdir, files):
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
+            duration = None
+
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
@@ -142,17 +144,22 @@ def parse_data(indir, outdir, files):
 
             # If this is a flux run, we have a jobspec and events here
             if "JOBSPEC" in item:
-                item, _, metadata = ps.parse_flux_metadata(item)
+                item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
 
             # Slurm has the item output, and then just the start/end of the job
             else:
                 metadata = {}
+                try:
+                    duration = ps.parse_slurm_duration(item)
+                except:
+                    print(f"{filename} does not have a wrapped duration.")
                 item = ps.remove_slurm_duration(item)
 
             metrics = parse_kripke_foms(item)
             for metric, value in metrics.items():
                 p.add_result(metric, value)
+            p.add_result("duration", duration)
 
     print("Done parsing kripke results!")
     p.df.to_csv(os.path.join(outdir, "kripke-cpu-grind-time-results.csv"))
@@ -177,6 +184,8 @@ def plot_results(df, outdir, non_anon=False):
         df["experiment"] = df["experiment"].str.replace(
             "on-premises/dane", "on-premises/a"
         )
+
+    ps.print_experiment_cost(df, outdir)
 
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}

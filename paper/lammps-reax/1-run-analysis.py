@@ -239,18 +239,40 @@ def plot_results(df, outdir, non_anon=False):
         os.makedirs(img_outdir)
 
     # Calculate cost for running lammps!
-    ps.print_experiment_cost(df, outdir)
-    # azure/cyclecloud/gpu          84.081167
+    print('Costs for 64x64x32')
+    ps.print_experiment_cost(df[df.problem_size == "64x64x32"], outdir, '-64-64-32')
+    # This first df doesn't account for 5 iteratinos (could have more or less)
+    # on-premises/dane/cpu                  0
+    # azure/cyclecloud/gpu          52.774089
+    # aws/eks/gpu                   60.077584
+    # azure/aks/gpu                 60.276223
+    # google/gke/gpu                71.926594
+    # google/compute-engine/gpu     74.441981
     # aws/parallel-cluster/cpu         93.312
-    # aws/eks/gpu                   96.525686
-    # azure/aks/gpu                 97.891336
-    # google/gke/gpu               133.417111
-    # google/compute-engine/gpu    135.256841
-    # aws/eks/cpu                  266.731258
+    # aws/eks/cpu                  307.597583
     # azure/cyclecloud/cpu            348.832
+    # google/compute-engine/cpu    457.718113
+    # google/gke/cpu               898.050777
+    # azure/aks/cpu                975.219782
+
+    # Experiment costs - not missing runs (cost sum across sizes)
+    # experiment
+    # on-premises/dane/cpu                  0
+    # experiment                    cost
+    # azure/cyclecloud/gpu          52.774089
+    # aws/eks/gpu                   60.077584
+    # azure/aks/gpu                 60.276223
+    # google/gke/gpu                71.926594
+    # google/compute-engine/gpu     74.441981
+    # aws/parallel-cluster/cpu         93.312
+    # azure/cyclecloud/cpu            236.576
+    # aws/eks/cpu                  266.731258
     # azure/aks/cpu                358.192452
     # google/compute-engine/cpu    396.780725
     # google/gke/cpu               487.407771
+
+    print('Costs for 64x32x32')
+    ps.print_experiment_cost(df[df.problem_size == "64x32x32"], outdir, '-64-32-32')
 
     # For anonymization
     if not non_anon:

@@ -371,7 +371,9 @@ def set_group_color_properties(plot_name, color_code, label):
     plt.legend()
 
 
-def print_experiment_cost(df, outdir, duration_field="duration"):
+def print_experiment_cost(
+    df, outdir, duration_field="duration", problem_size="", iterations=5
+):
     """
     Based on costs of instances, calculate the cost for runs
     """
@@ -379,43 +381,97 @@ def print_experiment_cost(df, outdir, duration_field="duration"):
     # This is not saying on-premises costs nothing, but rather that
     # we cannot share / disclose (and we aren't entirely sure)
     instance_costs = {
-       'google/gke/cpu': 5.06,
-       'google/gke/gpu': 23.36,
-       'google/compute-engine/cpu': 5.06,
-       'google/compute-engine/gpu': 23.36,
-       'aws/eks/cpu': 2.88,
-       'aws/eks/gpu': 34.33,
-       'on-premises/a/cpu': None,
-       'on-premises/b/gpu': None,
-       'on-premises/dane/cpu': None,
-       'on-premises/lassen/gpu': None,
-       'aws/parallel-cluster/cpu': 2.88,
-       'azure/cyclecloud/cpu': 3.60,
-       'azure/cyclecloud/gpu': 22.03,
-       'azure/aks/cpu': 3.60,
-       'azure/aks/gpu': 22.03, 
+        "google/gke/cpu": 5.06,
+        "google/gke/gpu": 23.36,
+        "google/compute-engine/cpu": 5.06,
+        "google/compute-engine/gpu": 23.36,
+        "aws/eks/cpu": 2.88,
+        "aws/eks/gpu": 34.33,
+        "on-premises/a/cpu": None,
+        "on-premises/b/gpu": None,
+        "on-premises/dane/cpu": None,
+        "on-premises/lassen/gpu": None,
+        "aws/parallel-cluster/cpu": 2.88,
+        "azure/cyclecloud/cpu": 3.60,
+        "azure/cyclecloud/gpu": 22.03,
+        "azure/aks/cpu": 3.60,
+        "azure/aks/gpu": 22.03,
     }
-    
-    cost_df = pandas.DataFrame(columns=["experiment", "cost", "size"])
+
+    cost_df = pandas.DataFrame(columns=["experiment", "cost", "size", "duration"])
     idx = 0
 
-    # This is OK to use node and discount the on prem GPU counts, we
     # aren't calculating on prem costs because we can't
     for size in df.nodes.unique():
-        subset = df[(df.metric=='duration') & (df.nodes == size)]    
-        subset['cost_per_hour'] = [instance_costs[x] for x in subset.experiment.values]
+        subset = df[(df.metric == "duration") & (df.nodes == size)]
+        subset["cost_per_hour"] = [instance_costs[x] for x in subset.experiment.values]
 
         # This converts seconds to hours
-        hourly_cost_node = (subset['value'] / 60 / 60) * subset['cost_per_hour']
-        
-        # Multiply by number of nodes        
-        subset['cost'] = hourly_cost_node * size 
-        for idx, row in subset.iterrows():
-            cost_df.loc[idx, :] = [row.experiment, row.cost, row.nodes]
-            idx +=1 
+        hourly_cost_node = (subset["value"] / 60 / 60) * subset["cost_per_hour"]
 
-    print(cost_df.groupby(['experiment']).cost.sum().sort_values())
-    cost_df.to_csv(os.path.join(outdir, 'cost-by-environment.csv'))
+        # Multiply by number of nodes.
+        # row.value is duration in seconds
+        subset["cost"] = hourly_cost_node * size
+        for idx, row in subset.iterrows():
+            cost_df.loc[idx, :] = [row.experiment, row.cost, row.nodes, row.value]
+            idx += 1
+
+    cost_comparison_df = pandas.DataFrame(
+        columns=["experiment", "size", "iterations", "cost", "duration"]
+    )
+    cost_idx = 0
+
+    # Also build a data frame that calculates based on 5 iterations, and if
+    # we have less than 5, we use median value.
+    for experiment in cost_df.experiment.unique():
+        # We don't have on premises costs
+        if "on-premises" in experiment:
+            continue
+        subset = cost_df[cost_df.experiment == experiment]
+        for size in subset["size"].unique():
+            size_subset = subset[subset["size"] == size]
+            # Case 1: zero entries, we can't count really
+            if size_subset.shape[0] == 0:
+                cost_comparison_df.loc[cost_idx, :] = [
+                    experiment,
+                    size,
+                    iterations,
+                    None,
+                    None,
+                ]
+                cost_idx += 1
+                continue
+            elif size_subset.shape[0] < iterations:
+                median = size_subset.cost.median()
+                duration = size_subset.duration.median()
+                for _ in range(0, iterations - size_subset.shape[0]):
+                    cost_df.loc[idx, :] = [experiment, median, size, duration]
+                    idx += 1
+            elif size_subset.shape[0] > 5:
+                size_subset = size_subset.loc[size_subset.index[0:5], :]
+            # Other case is we have exactly 5.
+            # Finally, add the values
+            cost_comparison_df.loc[cost_idx, :] = [
+                experiment,
+                size,
+                iterations,
+                size_subset.cost.sum(),
+                size_subset.duration.sum(),
+            ]
+            cost_idx += 1
+
+    # Add median and std of duration to each        
+    # print(cost_df.groupby(['experiment']).cost.sum().sort_values())
+    print("Experiment costs - missing runs (cost by size)")
+    print(
+        cost_comparison_df.groupby(["experiment", "size", "iterations", "duration"])
+        .cost.sum()
+        .sort_values()
+    )
+    cost_df.to_csv(os.path.join(outdir, f"cost-by-environment{problem_size}.csv"))
+    cost_comparison_df.to_csv(
+        os.path.join(outdir, f"cost-by-environment-5-iterations{problem_size}.csv")
+    )
 
 
 def convert_walltime_to_seconds(walltime):
@@ -442,8 +498,11 @@ def convert_walltime_to_seconds(walltime):
         return 0
 
     # If we get here, we have an error
-    msg = f"Walltime value '{walltime}' is not an integer or colon-" f"separated string."
+    msg = (
+        f"Walltime value '{walltime}' is not an integer or colon-" f"separated string."
+    )
     raise ValueError(msg)
+
 
 def make_plot(
     df,
@@ -477,7 +536,7 @@ def make_plot(
     Speedup definition - normalize by performance at smallest size tested.
       This means taking each value and dividing by result at smallest test size (relative speed up)
       to see if conveys information better.
-    """    
+    """
     # Replace the initial value of interest with the speedup (this gets thrown away after plot)
     plt.figure(figsize=(width, height))
     sns.set_style("whitegrid")
@@ -489,7 +548,7 @@ def make_plot(
         hue_order=hue_order,
         palette=palette,
         order=order,
-        err_kws={'color': 'darkred'},   
+        err_kws={"color": "darkred"},
     )
     plt.title(title, fontsize=14)
     ax.set_xlabel(xlabel, fontsize=14)
@@ -507,12 +566,12 @@ def make_plot(
         x_min, x_max = ax.get_xlim()
         x_pos = x_min + 0.2
         # Remove the default x-axis label
-        ax.set_xlabel('')
+        ax.set_xlabel("")
         # Add the new x-axis label at the desired position
-        ax.text(x_pos, ax.get_ylim()[0] - 30, xlabel, ha='left', va='top')
+        ax.text(x_pos, ax.get_ylim()[0] - 30, xlabel, ha="left", va="top")
         plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.2), ncol=3)
     elif no_legend:
-        plt.legend().remove()    
+        plt.legend().remove()
     else:
         plt.legend(facecolor="white")
     plt.tight_layout()

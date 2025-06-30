@@ -174,6 +174,8 @@ def plot_results(df, outdir, non_anon=True):
             "on-premises/dane", "on-premises/a"
         )
 
+    ps.print_experiment_cost(df, outdir)
+
     # We are going to put the plots together, and the colors need to match!
     # cloud_colors = ps.get_cloud_colors(df.experiment.unique())
 

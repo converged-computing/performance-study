@@ -136,6 +136,7 @@ def parse_data(indir, outdir, files):
             problem_size = "230nx-ny-nz"
             fom = item["CG solve"]["Total"]["Total CG Mflops"]
             p.add_result("total_cg_mflops", fom, problem_size)
+            p.add_result("duration", item['Total Program Time'], problem_size)
 
     print("Done parsing minife results!")
     p.df.to_csv(os.path.join(outdir, "minife-results.csv"))
@@ -160,6 +161,8 @@ def plot_results(df, outdir, non_anon=False):
         df["experiment"] = df["experiment"].str.replace(
             "on-premises/dane", "on-premises/a"
         )
+
+    ps.print_experiment_cost(df, outdir)
 
     # We are going to put the plots together, and the colors need to match!
     cloud_colors = {}

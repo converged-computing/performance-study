@@ -181,8 +181,8 @@ def main():
         raise ValueError(f"There are no input files in {indir}")
 
     # Saves raw data to file
-    df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    df, durations = parse_data(indir, outdir, files)
+    plot_results(df, durations, outdir)
 
 
 def parse_data(indir, outdir, files):
@@ -194,6 +194,9 @@ def parse_data(indir, outdir, files):
     parsed = {}
     csvs = {}
     result_counts = set()
+    
+    # Just for duration
+    p = ps.ResultParser("mixbench")
 
     # It's important to just parse raw data once, and then use intermediate
     for filename in files:
@@ -223,12 +226,23 @@ def parse_data(indir, outdir, files):
         if exp.prefix not in parsed[exp.prefix][exp.env_type][exp.size]:
             parsed[exp.prefix][exp.env_type][exp.size][exp.prefix] = []
 
+        # Calculate number of gpus from nodes
+        number_gpus = 0
+        if exp.env_type == "gpu":
+            number_gpus = (
+                (exp.size * 4) if "on-premises" in filename else (exp.size * 8)
+            )
+
+        # Set the parsing context for the result data frame
+        p.set_context(exp.cloud, exp.env, exp.env_type, exp.size, gpu_count=number_gpus)
+
         # Set the parsing context for the result data frame
         exp.show()
 
         # Now we can read each result file to get metrics.
         results = list(ps.get_outfiles(filename))
         for result in results:
+
             # Skip over found erroneous results
             if errors and re.search(error_regex, result):
                 print(f"Skipping {result} due to known missing result or error.")
@@ -241,6 +255,7 @@ def parse_data(indir, outdir, files):
             result_counts.add(result)
             item = ps.read_file(result)
             # If this is a flux run, we have a jobspec and events here
+            duration = None
             if "JOBSPEC" in item:
                 item, duration, metadata = ps.parse_flux_metadata(item)
                 data[exp.prefix].append(metadata)
@@ -248,7 +263,13 @@ def parse_data(indir, outdir, files):
             # Slurm has the item output, and then just the start/end of the job
             else:
                 metadata = {}
+                try:
+                    duration = ps.parse_slurm_duration(item)
+                except:
+                    print(f"{filename} does not have a wrapped duration.")
                 item = ps.remove_slurm_duration(item)
+
+            p.add_result("duration", duration)
 
             # These are cancelled
             if "job.exception type=cancel" in item:
@@ -287,10 +308,11 @@ def parse_data(indir, outdir, files):
                 ps.write_file("\n".join(csv), outfile)
     ps.write_json(parsed, os.path.join(outdir, "mixbench-parsed.json"))
     ps.write_json(data, os.path.join(outdir, "mixbench-flux-events.json"))
-    return parsed
+    p.df.to_csv(os.path.join(outdir, "mixbench-durations.csv"))
+    return parsed, p.df
 
 
-def plot_results(results, outdir):
+def plot_results(results, durations, outdir):
     """
     Plot analysis results. We are only going to look at breakdown
     of attributes for each. This is just for GPU for now.
@@ -304,6 +326,8 @@ def plot_results(results, outdir):
         columns=["experiment", "env_type", "nodes", "metric", "value", "percentage"]
     )
     idx = 0
+
+    ps.print_experiment_cost(durations, outdir)
 
     # Within a setup, compare between experiments for GPU and cpu
     for label, env_types in results.items():
