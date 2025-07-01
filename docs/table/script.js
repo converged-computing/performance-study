@@ -22,8 +22,7 @@ const allApplicationsData = {
         { "experiment": "aws/eks/cpu", "size": 32, "iterations": 5, "duration": 28.669969, "cost": 0.733951 }, { "experiment": "google/compute-engine/gpu", "size": 4, "iterations": 5, "duration": 32.621873, "cost": 0.846719 }, { "experiment": "azure/aks/cpu", "size": 32, "iterations": 5, "duration": 53.064232, "cost": 1.698055 }, { "experiment": "google/compute-engine/gpu", "size": 8, "iterations": 5, "duration": 35.240112, "cost": 1.829353 }, { "experiment": "google/compute-engine/cpu", "size": 32, "iterations": 5, "duration": 50.568045, "cost": 2.274438 }, { "experiment": "google/compute-engine/gpu", "size": 16, "iterations": 5, "duration": 32.2897, "cost": 3.352388 }, { "experiment": "aws/eks/gpu", "size": 4, "iterations": 5, "duration": 99.367589, "cost": 3.790321 }, { "experiment": "google/compute-engine/cpu", "size": 64, "iterations": 5, "duration": 54.268371, "cost": 4.881741 }, { "experiment": "azure/aks/gpu", "size": 4, "iterations": 5, "duration": 226.787617, "cost": 5.551257 }, { "experiment": "google/gke/gpu", "size": 4, "iterations": 5, "duration": 276.663975, "cost": 7.180967 }, { "experiment": "google/compute-engine/gpu", "size": 32, "iterations": 5, "duration": 34.646825, "cost": 7.194221 }, { "experiment": "aws/eks/gpu", "size": 8, "iterations": 5, "duration": 99.367589, "cost": 7.580643 }, { "experiment": "google/compute-engine/cpu", "size": 128, "iterations": 5, "duration": 50.754113, "cost": 9.131229 }, { "experiment": "aws/eks/gpu", "size": 16, "iterations": 5, "duration": 68.652741, "cost": 10.474883 }, { "experiment": "azure/aks/gpu", "size": 8, "iterations": 5, "duration": 216.184067, "cost": 10.583411 }, { "experiment": "google/gke/gpu", "size": 8, "iterations": 5, "duration": 285.476659, "cost": 14.819411 }, { "experiment": "google/compute-engine/cpu", "size": 256, "iterations": 5, "duration": 50.665977, "cost": 18.230744 }, { "experiment": "azure/aks/gpu", "size": 16, "iterations": 5, "duration": 235.459511, "cost": 23.054102 }, { "experiment": "azure/cyclecloud/cpu", "size": 32, "iterations": 5, "duration": 786.0, "cost": 25.152 }, { "experiment": "google/gke/gpu", "size": 16, "iterations": 5, "duration": 276.272679, "cost": 28.683243 }, { "experiment": "aws/parallel-cluster/cpu", "size": 32, "iterations": 5, "duration": 1380.0, "cost": 35.328 }, { "experiment": "azure/aks/gpu", "size": 32, "iterations": 5, "duration": 231.82029, "cost": 45.395564 }, { "experiment": "azure/cyclecloud/cpu", "size": 64, "iterations": 5, "duration": 776.0, "cost": 49.664 }, { "experiment": "google/gke/gpu", "size": 32, "iterations": 5, "duration": 286.738237, "cost": 59.539602 }, { "experiment": "google/gke/cpu", "size": 32, "iterations": 5, "duration": 1423.450112, "cost": 64.023623 }, { "experiment": "aws/parallel-cluster/cpu", "size": 64, "iterations": 5, "duration": 1389.0, "cost": 71.1168 }, { "experiment": "aws/eks/cpu", "size": 64, "iterations": 5, "duration": 1391.655292, "cost": 71.252751 }, { "experiment": "azure/aks/cpu", "size": 64, "iterations": 5, "duration": 1490.26084, "cost": 95.376694 }, { "experiment": "azure/cyclecloud/cpu", "size": 128, "iterations": 5, "duration": 777.0, "cost": 99.456 }, { "experiment": "google/gke/cpu", "size": 64, "iterations": 5, "duration": 1416.36664, "cost": 127.410048 }, { "experiment": "aws/eks/cpu", "size": 128, "iterations": 5, "duration": 1384.076351, "cost": 141.729418 }, { "experiment": "aws/parallel-cluster/cpu", "size": 128, "iterations": 5, "duration": 1392.0, "cost": 142.5408 }, { "experiment": "azure/aks/cpu", "size": 128, "iterations": 5, "duration": 1399.095298, "cost": 179.084198 }, { "experiment": "azure/cyclecloud/cpu", "size": 256, "iterations": 5, "duration": 779.0, "cost": 199.424 }, { "experiment": "google/gke/cpu", "size": 128, "iterations": 5, "duration": 1410.262067, "cost": 253.721815 }, { "experiment": "aws/eks/cpu", "size": 256, "iterations": 5, "duration": 1374.343377, "cost": 281.465524 }, { "experiment": "aws/parallel-cluster/cpu", "size": 256, "iterations": 5, "duration": 1387.0, "cost": 284.0576 }, { "experiment": "azure/aks/cpu", "size": 256, "iterations": 5, "duration": 1397.968787, "cost": 357.88001 }, { "experiment": "google/gke/cpu", "size": 256, "iterations": 5, "duration": 1411.052188, "cost": 507.727934 }
     ],
     "OSU All Reduce": [
-        { "experiment": "azure/aks/gpu", "size": 8, "iterations": 5, "duration": 10.820151, "cost": 0.529707 }, { "experiment": "google/gke/gpu", "size": 4, "iterations": 5, "duration": 42.378436, "cost": 1.099956 }, { "experiment": "azure/aks/gpu", "size": 16, "iterations": 5, "duration": 12.323122, "cost": 1.206571 }, { "experiment": "google/gke/gpu", "size": 8, "iterations": 5, "duration": 53.380249, "cost": 2.771028 }, { "experiment": "azure/aks/gpu", "size": 32, "iterations": 5, "duration": 16.101114, "cost": 3.152956 }, { "experiment": "aws/eks/cpu", "size": 32, "iterations": 5, "duration": 123.960993, "cost": 3.173401 }, { "experiment": "aws/eks/gpu", "size": 16, "iterations": 5, "duration": 30.697072, "cost": 4.683691 }, { "experiment": "google/compute-engine/gpu", "size": 8, "iterations": 5, "duration": 106.54936, "cost": 5.531096 }, { "experiment": "azure/cyclecloud/gpu", "size": 4, "iterations": 5, "duration": 267.0, "cost": 6.535567 }, { "experiment": "google/compute-engine/cpu", "size": 32, "iterations": 5, "duration": 164.118048, "cost": 7.381665 }, { "experiment": "google/gke/cpu", "size": 32, "iterations": 5, "duration": 192.932057, "cost": 8.677655 }, { "experiment": "aws/parallel-cluster/cpu", "size": 32, "iterations": 5, "duration": 404.0, "cost": 10.3424 }, { "experiment": "google/compute-engine/gpu", "size": 4, "iterations": 5, "duration": 404.004946, "cost": 10.486173 }, { "experiment": "azure/cyclecloud/cpu", "size": 128, "iterations": 5, "duration": 93.0, "cost": 11.904 }, { "experiment": "aws/eks/cpu", "size": 64, "iterations": 5, "duration": 283.709185, "cost": 14.52591 }, { "experiment": "google/compute-engine/gpu", "size": 16, "iterations": 5, "duration": 161.134438, "cost": 16.729335 }, { "experiment": "google/compute-engine/cpu", "size": 64, "iterations": 5, "duration": 191.082398, "cost": 17.188923 }, { "experiment": "aws/parallel-cluster/cpu", "size": 64, "iterations": 5, "duration": 403.0, "cost": 20.6336 }, { "experiment": "google/gke/gpu", "size": 32, "iterations": 5, "duration": 104.781043, "cost": 21.757201 }, { "experiment": "azure/cyclecloud/cpu", "size": 32, "iterations": 5, "duration": 816.0, "cost": 26.112 }, { "experiment": "google/gke/cpu", "size": 64, "iterations": 5, "duration": 359.483085, "cost": 32.337501 }, { "experiment": "aws/parallel-cluster/cpu", "size": 128, "iterations": 5, "duration": 425.0, "cost": 43.52 }, { "experiment": "azure/cyclecloud/gpu", "size": 8, "iterations": 5, "duration": 958.0, "cost": 46.899422 }, { "experiment": "google/compute-engine/cpu", "size": 128, "iterations": 5, "duration": 290.419833, "cost": 52.249755 }, { "experiment": "google/compute-engine/gpu", "size": 32, "iterations": 5, "duration": 273.055737, "cost": 56.698507 }, { "experiment": "aws/eks/cpu", "size": 128, "iterations": 5, "duration": 600.750433, "cost": 61.516844 }, { "experiment": "azure/aks/cpu", "size": 64, "iterations": 5, "duration": 1200.567244, "cost": 76.836304 }, { "experiment": "google/compute-engine/cpu", "size": 256, "iterations": 5, "duration": 224.147536, "cost": 80.653264 }, { "experiment": "azure/cyclecloud/cpu", "size": 64, "iterations": 5, "duration": 1569.0, "cost": 100.416 }, { "experiment": "azure/cyclecloud/gpu", "size": 16, "iterations": 5, "duration": 1282.0, "cost": 125.522044 }, { "experiment": "aws/eks/cpu", "size": 256, "iterations": 5, "duration": 793.881815, "cost": 162.586996 }, { "experiment": "azure/aks/cpu", "size": 128, "iterations": 5, "duration": 1324.174377, "cost": 169.49432 }, { "experiment": "azure/cyclecloud/gpu", "size": 32, "iterations": 5, "duration": 931.0, "cost": 182.310489 }, { "experiment": "google/gke/cpu", "size": 128, "iterations": 5, "duration": 1023.604868, "cost": 184.157889 }, { "experiment": "aws/parallel-cluster/cpu", "size": 256, "iterations": 5, "duration": 901.0, "cost": 184.5248 }, { "experiment": "azure/aks/cpu", "size": 256, "iterations": 5, "duration": 1106.4933, "cost": 283.262285 }, { "experiment": "google/gke/cpu", "size": 256, "iterations": 5, "duration": 911.117476, "cost": 327.840315 }, { "experiment": "azure/cyclecloud/cpu", "size": 256, "iterations": 5, "duration": 1483.0, "cost": 379.648 }
-    ]
+        { "experiment": "azure/aks/gpu", "size": 8, "iterations": 5, "duration": 10.820151, "cost": 0.529707 }, { "experiment": "google/gke/gpu", "size": 4, "iterations": 5, "duration": 42.378436, "cost": 1.099956 }, { "experiment": "azure/aks/gpu", "size": 16, "iterations": 5, "duration": 12.323122, "cost": 1.206571 }, { "experiment": "google/gke/gpu", "size": 8, "iterations": 5, "duration": 53.380249, "cost": 2.771028 }, { "experiment": "azure/aks/gpu", "size": 32, "iterations": 5, "duration": 16.101114, "cost": 3.152956 }, { "experiment": "aws/eks/cpu", "size": 32, "iterations": 5, "duration": 123.960993, "cost": 3.173401 }, { "experiment": "aws/eks/gpu", "size": 16, "iterations": 5, "duration": 30.697072, "cost": 4.683691 }, { "experiment": "google/compute-engine/gpu", "size": 8, "iterations": 5, "duration": 106.54936, "cost": 5.531096 }, { "experiment": "azure/cyclecloud/gpu", "size": 4, "iterations": 5, "duration": 267.0, "cost": 6.535567 }, { "experiment": "google/compute-engine/cpu", "size": 32, "iterations": 5, "duration": 164.118048, "cost": 7.381665 }, { "experiment": "google/gke/cpu", "size": 32, "iterations": 5, "duration": 192.932057, "cost": 8.677655 }, { "experiment": "aws/parallel-cluster/cpu", "size": 32, "iterations": 5, "duration": 404.0, "cost": 10.3424 }, { "experiment": "google/compute-engine/gpu", "size": 4, "iterations": 5, "duration": 404.004946, "cost": 10.486173 }, { "experiment": "azure/cyclecloud/cpu", "size": 128, "iterations": 5, "duration": 93.0, "cost": 11.904 }, { "experiment": "aws/eks/cpu", "size": 64, "iterations": 5, "duration": 283.709185, "cost": 14.52591 }, { "experiment": "google/compute-engine/gpu", "size": 16, "iterations": 5, "duration": 161.134438, "cost": 16.729335 }, { "experiment": "google/compute-engine/cpu", "size": 64, "iterations": 5, "duration": 191.082398, "cost": 17.188923 }, { "experiment": "aws/parallel-cluster/cpu", "size": 64, "iterations": 5, "duration": 403.0, "cost": 20.6336 }, { "experiment": "google/gke/gpu", "size": 32, "iterations": 5, "duration": 104.781043, "cost": 21.757201 }, { "experiment": "azure/cyclecloud/cpu", "size": 32, "iterations": 5, "duration": 816.0, "cost": 26.112 }, { "experiment": "google/gke/cpu", "size": 64, "iterations": 5, "duration": 359.483085, "cost": 32.337501 }, { "experiment": "aws/parallel-cluster/cpu", "size": 128, "iterations": 5, "duration": 425.0, "cost": 43.52 }, { "experiment": "azure/cyclecloud/gpu", "size": 8, "iterations": 5, "duration": 958.0, "cost": 46.899422 }, { "experiment": "google/compute-engine/cpu", "size": 128, "iterations": 5, "duration": 290.419833, "cost": 52.249755 }, { "experiment": "google/compute-engine/gpu", "size": 32, "iterations": 5, "duration": 273.055737, "cost": 56.698507 }, { "experiment": "aws/eks/cpu", "size": 128, "iterations": 5, "duration": 600.750433, "cost": 61.516844 }, { "experiment": "azure/aks/cpu", "size": 64, "iterations": 5, "duration": 1200.567244, "cost": 76.836304 }, { "experiment": "google/compute-engine/cpu", "size": 256, "iterations": 5, "duration": 224.147536, "cost": 80.653264 }, { "experiment": "azure/cyclecloud/cpu", "size": 64, "iterations": 5, "duration": 1569.0, "cost": 100.416 }, { "experiment": "azure/cyclecloud/gpu", "size": 16, "iterations": 5, "duration": 1282.0, "cost": 125.522044 }, { "experiment": "aws/eks/cpu", "size": 256, "iterations": 5, "duration": 793.881815, "cost": 162.586996 }, { "experiment": "azure/aks/cpu", "size": 128, "iterations": 5, "duration": 1324.174377, "cost": 169.49432 }, { "experiment": "azure/cyclecloud/gpu", "size": 32, "iterations": 5, "duration": 931.0, "cost": 182.310489 }, { "experiment": "google/gke/cpu", "size": 128, "iterations": 5, "duration": 1023.604868, "cost": 184.157889 }, { "experiment": "aws/parallel-cluster/cpu", "size": 256, "iterations": 5, "duration": 901.0, "cost": 184.5248 }, { "experiment": "azure/aks/cpu", "size": 256, "iterations": 5, "duration": 1106.4933, "cost": 283.262285 }, { "experiment": "google/gke/cpu", "size": 256, "iterations": 5, "duration": 911.117476, "cost": 327.840315 }, { "experiment": "azure/cyclecloud/cpu", "size": 256, "iterations": 5, "duration": 1483.0, "cost": 379.648 } ]
 };
 
 // 2. STATE AND CONFIG
@@ -33,6 +32,7 @@ let flatData = [];
 let globalMinCost = 0;
 let globalMaxCost = 0;
 let isGlobalSortActive = false;
+let groupSizeFilter = "all";
 
 // 3. COLOR MAPPING
 const cloudColorMap = { aws: '#D87900', azure: '#002D62', google: '#8AB4F8' };
@@ -98,16 +98,19 @@ function renderTable() {
     if (isGlobalSortActive) {
         renderFlatTable();
     } else {
-        renderGroupedTable();
+        const filteredGroups = groupSizeFilter === "all"
+            ? groupedData
+            : groupedData.filter(g => g.summary.childCount === parseInt(groupSizeFilter, 10));
+        renderGroupedTable(filteredGroups);
     }
 }
-function renderGroupedTable() {
+function renderGroupedTable(data) {
     const tableBody = document.getElementById('table-body');
     tableBody.innerHTML = '';
-    const summaryCosts = groupedData.map(g => g.summary.cost);
+    const summaryCosts = data.map(g => g.summary.cost);
     const summaryMinCost = Math.min(...summaryCosts); const summaryMaxCost = Math.max(...summaryCosts);
 
-    groupedData.forEach(group => {
+    data.forEach(group => {
         const summary = group.summary;
         const costColor = getColorForValue(summary.cost, summaryMinCost, summaryMaxCost);
         const headerRow = document.createElement('tr');
@@ -176,6 +179,9 @@ function initializeApp(appName) {
     flatData = currentData.map(item => { const [cloud, environment, type] = item.experiment.split('/'); return { cloud, environment, type, ...item }; });
     groupedData = createGroupedData(currentData);
     
+    populateGroupSizeFilter(groupedData);
+    groupSizeFilter = "all";
+    
     const allCosts = currentData.map(item => item.cost);
     globalMinCost = Math.min(...allCosts);
     globalMaxCost = Math.max(...allCosts);
@@ -183,6 +189,17 @@ function initializeApp(appName) {
     sortState = { column: 'cost', direction: 'asc' };
     sortData();
     updateToggleButton();
+}
+function populateGroupSizeFilter(data) {
+    const select = document.getElementById('group-size-select');
+    select.innerHTML = '';
+    const sizes = [...new Set(data.map(g => g.summary.childCount))].sort((a, b) => a - b);
+    
+    select.add(new Option('All Sizes', 'all'));
+    sizes.forEach(size => {
+        select.add(new Option(`${size} Member(s)`, size));
+    });
+    select.value = 'all';
 }
 function updateToggleButton() {
     const btn = document.getElementById('toggle-all-btn');
@@ -212,6 +229,7 @@ function setupEventListeners() {
     const appSelect = document.getElementById('app-select');
     const toggleBtn = document.getElementById('toggle-all-btn');
     const tableBody = document.getElementById('table-body');
+    const groupSizeSelect = document.getElementById('group-size-select');
 
     Object.keys(allApplicationsData).forEach(appName => {
         const option = document.createElement('option');
@@ -226,6 +244,14 @@ function setupEventListeners() {
         sortState = { column: 'cost', direction: 'asc' };
         sortData();
         updateToggleButton();
+    });
+    groupSizeSelect.addEventListener('change', (e) => {
+        groupSizeFilter = e.target.value;
+        if (isGlobalSortActive) {
+            isGlobalSortActive = false;
+            updateToggleButton();
+        }
+        renderTable();
     });
     document.querySelectorAll('#experiment-table th').forEach(header => {
         header.addEventListener('click', () => {

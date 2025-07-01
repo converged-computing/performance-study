@@ -16,6 +16,11 @@
                 <label for="app-select">Application:</label>
                 <select id="app-select"></select>
             </div>
+            <!-- New Filter Dropdown -->
+            <div class="app-selector">
+                <label for="group-size-select">Group Size:</label>
+                <select id="group-size-select"></select>
+            </div>
             <button id="toggle-all-btn">Expand All</button>
         </div>
 
@@ -27,7 +32,7 @@
                 Experiments were run on cloud providers <span class="cloud-aws-text"><b>aws</b></span>, <span class="cloud-azure-text"><b>azure</b></span>, and <span class="cloud-google-text"><b>google</b></span> using environment types <span class="type-cpu-text"><b>cpu</b></span> and <span class="type-gpu-text"><b>gpu</b></span>. The test sizes included <span class="size-4-text"><b>4</b></span>, <span class="size-8-text"><b>8</b></span>, <span class="size-16-text"><b>16</b></span>, <span class="size-32-text"><b>32</b></span>, <span class="size-64-text"><b>64</b></span>, <span class="size-128-text"><b>128</b></span>, and <span class="size-256-text"><b>256</b></span> nodes/instances.
             </p>
             <p>
-                For each test, <b>5 iterations</b> were run, and the median value was used for the <b>Duration</b> column. While standard deviation is not explicitly shown, it is an important factor for result stability and is reflected in the final <b>Cost</b> calculation.
+                For each test, <b>5 iterations</b> were run, and the <b>Duration</b> column is the sum of the time taken for each iteration. While standard deviation is not explicitly shown, it is an important factor for result stability and is reflected in the final <b>Cost</b> calculation. Note that if you want to compare the total experiment cost, you need to select groups with all sizes (N=4) using the dropdown above.
             </p>
         </div>
 
