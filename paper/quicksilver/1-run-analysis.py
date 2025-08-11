@@ -190,6 +190,29 @@ def plot_results(df, outdir, non_anon=False):
     for cloud in data_frames["cpu"].experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
+    hue_order = [
+        "google/gke/cpu",
+        "google/compute-engine/cpu",
+        "aws/eks/cpu",
+        "azure/aks/cpu",
+        "azure/cyclecloud/cpu",
+        "aws/parallel-cluster/cpu",
+        "on-premises/a/cpu",
+    ]
+    if non_anon:
+        cloud_colors["on-premises/dane/cpu"] = "grey"
+        cloud_colors["on-premises/lassen/cpu"] = "grey"
+        hue_order = [
+            "google/gke/cpu",
+            "google/compute-engine/cpu",
+            "aws/eks/cpu",
+            "azure/aks/cpu",
+            "azure/cyclecloud/cpu",
+            "aws/parallel-cluster/cpu",
+            "on-premises/dane/cpu",
+        ]
+
+    # osu, lammps, mtgemm, laghos, amg2023, kripke
     fig, axes = plt.subplots(1, 1, figsize=(10, 3.5))
     sns.set_style("whitegrid")
     sns.barplot(
@@ -198,16 +221,8 @@ def plot_results(df, outdir, non_anon=False):
         x="nodes",
         y="value",
         hue="experiment",
+        hue_order=hue_order,
         err_kws={"color": "darkred"},
-        hue_order=[
-            "google/gke/cpu",
-            "google/compute-engine/cpu",
-            "aws/eks/cpu",
-            "azure/aks/cpu",
-            "azure/cyclecloud/cpu",
-            "aws/parallel-cluster/cpu",
-            "on-premises/a/cpu",
-        ],
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )

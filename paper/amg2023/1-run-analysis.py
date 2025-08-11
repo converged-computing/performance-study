@@ -247,6 +247,28 @@ def plot_results(df, outdir, non_anon=False, log=True):
     axes.append(fig.add_subplot(gs[0, 1]))
     axes.append(fig.add_subplot(gs[0, 2]))
 
+    hue_order=[
+        "google/gke/cpu",
+        "google/compute-engine/cpu",
+        "aws/eks/cpu",
+        "aws/parallel-cluster/cpu",
+        "azure/aks/cpu",
+        "azure/cyclecloud/cpu",
+        "on-premises/a/cpu",
+    ]
+    if non_anon:
+        cloud_colors["on-premises/dane/cpu"] = "grey"
+        cloud_colors["on-premises/lassen/cpu"] = "grey"
+        hue_order=[
+            "google/gke/cpu",
+            "google/compute-engine/cpu",
+            "aws/eks/cpu",
+            "aws/parallel-cluster/cpu",
+            "azure/aks/cpu",
+            "azure/cyclecloud/cpu",
+            "on-premises/dane/cpu",
+        ]
+
     sns.set_style("whitegrid")
     sns.barplot(
         data_frames["cpu"],
@@ -255,15 +277,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
         y="value",
         hue="experiment",
         err_kws={"color": "darkred"},
-        hue_order=[
-            "google/gke/cpu",
-            "google/compute-engine/cpu",
-            "aws/eks/cpu",
-            "aws/parallel-cluster/cpu",
-            "azure/aks/cpu",
-            "azure/cyclecloud/cpu",
-            "on-premises/a/cpu",
-        ],
+        hue_order=hue_order,
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
@@ -277,6 +291,23 @@ def plot_results(df, outdir, non_anon=False, log=True):
     # Log scale for FOM
     if log:
         axes[0].set_yscale("log")
+    hue_order = [
+        "google/compute-engine/gpu",
+        "on-premises/b/gpu",
+        "google/gke/gpu",
+        "azure/cyclecloud/gpu",
+        "azure/aks/gpu",
+        "aws/eks/gpu",
+    ]
+    if non_anon:
+      hue_order = [
+        "google/compute-engine/gpu",
+        "on-premises/lassen/gpu",
+        "google/gke/gpu",
+        "azure/cyclecloud/gpu",
+        "azure/aks/gpu",
+        "aws/eks/gpu",
+      ]
 
     sns.barplot(
         data_frames["gpu"],
@@ -285,14 +316,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
         y="value",
         err_kws={"color": "darkred"},
         hue="experiment",
-        hue_order=[
-            "google/compute-engine/gpu",
-            "on-premises/b/gpu",
-            "google/gke/gpu",
-            "azure/cyclecloud/gpu",
-            "azure/aks/gpu",
-            "aws/eks/gpu",
-        ],
+        hue_order=hue_order,
         palette=cloud_colors,
         order=[32, 64, 128, 256],
     )
@@ -304,8 +328,13 @@ def plot_results(df, outdir, non_anon=False, log=True):
 
     handles, labels = axes[1].get_legend_handles_labels()
     labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    updated = []
+    for label in labels:
+        if "on-premises" in label:
+            label = "on-premises"
+        updated.append(label)
     axes[2].legend(
-        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+        handles, updated, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
     )
     for ax in axes[0:2]:
         ax.get_legend().remove()

@@ -67,7 +67,7 @@ def main():
 
     # Saves raw data to file
     df = parse_data(indir, outdir, files)
-    plot_results(df, outdir)
+    plot_results(df, outdir, args.non_anon)
 
 
 def parse_cpu_gemm(item):
@@ -180,7 +180,7 @@ def parse_data(indir, outdir, files):
                 metrics = parse_cpu_gemm(item)
             for metric, value in metrics.items():
                 p.add_result(metric, value)
-            p.add_result('duration', duration)
+            p.add_result("duration", duration)
 
     print("Done parsing mt-gemm results!")
     p.df.to_csv(os.path.join(outdir, "mt-gemm-results.csv"))
@@ -254,10 +254,31 @@ def plot_results(df, outdir, non_anon=False):
     #    palette=cloud_colors,
     #    dodge=True,
     #    order=[32, 64, 128, 256],
-    #)
-    #axes[0].set_title("MT-GEMM Metric GFlops/Second (CPU)", fontsize=12)
-    #axes[0].set_ylabel("GFlops/Second", fontsize=12)
-    #axes[0].set_xlabel("Nodes", fontsize=12)
+    # )
+    # axes[0].set_title("MT-GEMM Metric GFlops/Second (CPU)", fontsize=12)
+    # axes[0].set_ylabel("GFlops/Second", fontsize=12)
+    # axes[0].set_xlabel("Nodes", fontsize=12)
+
+    hue_order = [
+        "azure/cyclecloud/gpu",
+        "on-premises/b/gpu",
+        "google/gke/gpu",
+        "aws/eks/gpu",
+        "azure/aks/gpu",
+        "google/compute-engine/gpu",
+    ]
+
+    if non_anon:
+        cloud_colors["on-premises/dane/cpu"] = "grey"
+        cloud_colors["on-premises/lassen/gpu"] = "grey"
+        hue_order = [
+            "azure/cyclecloud/gpu",
+            "on-premises/lassen/gpu",
+            "google/gke/gpu",
+            "aws/eks/gpu",
+            "azure/aks/gpu",
+            "google/compute-engine/gpu",
+        ]
 
     sns.barplot(
         data_frames["gpu"],
@@ -265,15 +286,8 @@ def plot_results(df, outdir, non_anon=False):
         x="gpu_count",
         y="value",
         hue="experiment",
+        hue_order=hue_order,
         err_kws={"color": "darkred"},
-        hue_order=[
-            "azure/cyclecloud/gpu",
-            "on-premises/b/gpu",
-            "google/gke/gpu",
-            "aws/eks/gpu",
-            "azure/aks/gpu",
-            "google/compute-engine/gpu",
-        ],
         palette=cloud_colors,
         order=[32, 64, 128, 256],
         dodge=True,
@@ -299,6 +313,23 @@ def plot_results(df, outdir, non_anon=False):
     print(f'Total number of CPU datum: {data_frames["cpu"].shape[0]}')
     print(f'Total number of GPU datum: {data_frames["gpu"].shape[0]}')
 
+    hue_order = [
+        "azure/cyclecloud/gpu",
+        "on-premises/b/gpu",
+        "google/gke/gpu",
+        "aws/eks/gpu",
+        "azure/aks/gpu",
+        "google/compute-engine/gpu",
+    ]
+    if non_anon:
+        hue_order = [
+            "azure/cyclecloud/gpu",
+            "on-premises/lassen/gpu",
+            "google/gke/gpu",
+            "aws/eks/gpu",
+            "azure/aks/gpu",
+            "google/compute-engine/gpu",
+        ]
 
     # Make a variant with legend inside plot
     fig, axes = plt.subplots(1, 1, figsize=(10, 3.5))
@@ -310,14 +341,7 @@ def plot_results(df, outdir, non_anon=False):
         y="value",
         hue="experiment",
         err_kws={"color": "darkred"},
-        hue_order=[
-            "azure/cyclecloud/gpu",
-            "on-premises/b/gpu",
-            "google/gke/gpu",
-            "aws/eks/gpu",
-            "azure/aks/gpu",
-            "google/compute-engine/gpu",
-        ],
+        hue_order=hue_order,
         palette=cloud_colors,
         order=[32, 64, 128, 256],
         dodge=True,
