@@ -77,8 +77,7 @@ def main():
 
     # Saves raw data to file
     parsed, durations = parse_data(indir, outdir, files)
-    plot_results(parsed, durations, outdir)
-
+    plot_results(parsed, durations, outdir, args.non_anon)
 
 def split_combined_file(item, host_prefix="flux-sample"):
     """

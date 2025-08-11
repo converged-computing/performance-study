@@ -192,6 +192,29 @@ def plot_results(df, outdir, non_anon=False):
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
+    hue_order = [
+        "on-premises/a/cpu",
+        "aws/parallel-cluster/cpu",
+        "aws/eks/cpu",
+        "azure/cyclecloud/cpu",
+        "google/compute-engine/cpu",
+        "azure/aks/cpu",
+        "google/gke/cpu",
+    ]
+
+    if non_anon:
+        cloud_colors["on-premises/dane/cpu"] = "grey"
+        cloud_colors["on-premises/lassen/cpu"] = "grey"
+        hue_order = [
+            "on-premises/dane/cpu",
+            "aws/parallel-cluster/cpu",
+            "aws/eks/cpu",
+            "azure/cyclecloud/cpu",
+            "google/compute-engine/cpu",
+            "azure/aks/cpu",
+            "google/gke/cpu",
+        ]
+
     # Within a setup, compare between experiments for GPU and cpu
     for env in df.env_type.unique():
         if env != "cpu":
@@ -216,15 +239,7 @@ def plot_results(df, outdir, non_anon=False):
                 outdir=img_outdir,
                 hue="experiment",
                 xlabel="Nodes",
-                hue_order=[
-                    "on-premises/a/cpu",
-                    "aws/parallel-cluster/cpu",
-                    "aws/eks/cpu",
-                    "azure/cyclecloud/cpu",
-                    "google/compute-engine/cpu",
-                    "azure/aks/cpu",
-                    "google/gke/cpu",
-                ],
+                hue_order=hue_order,
                 order=[32, 64, 128, 256],
                 ylabel="Grind Time (Seconds)",
                 do_round=False,

@@ -288,6 +288,28 @@ def plot_results(df, outdir, non_anon=False):
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
+    hue_order =[
+        "google/gke/cpu",
+        "azure/aks/cpu",
+        "google/compute-engine/cpu",
+        "azure/cyclecloud/cpu",
+        "aws/eks/cpu",
+        "aws/parallel-cluster/cpu",
+        "on-premises/a/cpu",
+    ]
+    if non_anon:
+        cloud_colors["on-premises/dane/cpu"] = "grey"
+        cloud_colors["on-premises/lassen/cpu"] = "grey"
+        hue_order =[
+          "google/gke/cpu",
+          "azure/aks/cpu",
+          "google/compute-engine/cpu",
+          "azure/cyclecloud/cpu",
+          "aws/eks/cpu",
+          "aws/parallel-cluster/cpu",
+          "on-premises/dane/cpu",
+        ]
+
     # Within a setup, compare between experiments for GPU and cpu
     data_frames = {}
     for env in df.env_type.unique():
@@ -321,15 +343,7 @@ def plot_results(df, outdir, non_anon=False):
         x="nodes",
         y="value",
         hue="experiment",
-        hue_order=[
-            "google/gke/cpu",
-            "azure/aks/cpu",
-            "google/compute-engine/cpu",
-            "azure/cyclecloud/cpu",
-            "aws/eks/cpu",
-            "aws/parallel-cluster/cpu",
-            "on-premises/a/cpu",
-        ],
+        hue_order=hue_order,
         err_kws={"color": "darkred"},
         palette=cloud_colors,
         order=[32, 64, 128, 256],
@@ -339,20 +353,25 @@ def plot_results(df, outdir, non_anon=False):
     axes[0].set_ylabel("M/Atom Steps Per Second", fontsize=14)
     axes[0].set_xlabel("Nodes", fontsize=14)
 
-    sns.barplot(
-        data_frames["gpu"][0],
-        ax=axes[1],
-        x="gpu_count",
-        y="value",
-        hue="experiment",
+    if non_anon:
+        cloud_colors["on-premises/dane/cpu"] = "grey"
+        cloud_colors["on-premises/lassen/cpu"] = "grey"
         hue_order=[
             "google/compute-engine/gpu",
             "google/gke/gpu",
             "aws/eks/gpu",
             "azure/aks/gpu",
             "azure/cyclecloud/gpu",
-            "on-premises/b/gpu",
-        ],
+            "on-premises/lassen/gpu",
+        ]
+
+    sns.barplot(
+        data_frames["gpu"][0],
+        ax=axes[1],
+        x="gpu_count",
+        y="value",
+        hue="experiment",
+        hue_order=hue_order,
         err_kws={"color": "darkred"},
         palette=cloud_colors,
         order=[32, 64, 128, 256],
@@ -363,8 +382,13 @@ def plot_results(df, outdir, non_anon=False):
 
     handles, labels = axes[1].get_legend_handles_labels()
     labels = ["/".join(x.split("/")[0:2]) for x in labels]
+    updated = []
+    for label in labels:
+        if "on-premises" in label:
+            label = "on-premises"
+        updated.append(label)
     axes[2].legend(
-        handles, labels, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
+        handles, updated, loc="center left", bbox_to_anchor=(-0.1, 0.5), frameon=False
     )
     for ax in axes[0:2]:
         ax.get_legend().remove()

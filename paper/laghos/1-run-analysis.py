@@ -179,6 +179,25 @@ def plot_results(df, outdir, non_anon=True):
     # We are going to put the plots together, and the colors need to match!
     # cloud_colors = ps.get_cloud_colors(df.experiment.unique())
 
+    hue_order = [
+        "google/gke/cpu",
+        "azure/cyclecloud/cpu",
+        "aws/eks/cpu",
+        "google/compute-engine/cpu",
+        "aws/parallel-cluster/cpu",
+        "on-premises/a/cpu",
+    ]
+
+    if non_anon:
+        hue_order = [
+            "google/gke/cpu",
+            "azure/cyclecloud/cpu",
+            "aws/eks/cpu",
+            "google/compute-engine/cpu",
+            "aws/parallel-cluster/cpu",
+            "on-premises/dane/cpu",
+        ]
+
     data_frames = {}
     for env in df.env_type.unique():
         # We could not build the gpu container
@@ -211,6 +230,10 @@ def plot_results(df, outdir, non_anon=True):
     for cloud in df.experiment.unique():
         cloud_colors[cloud] = ps.match_color(cloud)
 
+    # In case we need for non-anon
+    cloud_colors["on-premises/dane/cpu"] = "grey"
+    cloud_colors["on-premises/lassen/cpu"] = "grey"
+
     fig, axes = plt.subplots(1, 1, sharey=True, figsize=(10, 3.8))
     sns.set_style("whitegrid")
     sns.barplot(
@@ -220,14 +243,7 @@ def plot_results(df, outdir, non_anon=True):
         y="value",
         hue="experiment",
         err_kws={"color": "darkred"},
-        hue_order=[
-            "google/gke/cpu",
-            "azure/cyclecloud/cpu",
-            "aws/eks/cpu",
-            "google/compute-engine/cpu",
-            "aws/parallel-cluster/cpu",
-            "on-premises/a/cpu",
-        ],
+        hue_order=hue_order,
         palette=cloud_colors,
         order=[32, 64],
     )
