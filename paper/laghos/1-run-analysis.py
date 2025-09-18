@@ -253,6 +253,7 @@ def plot_results(df, outdir, non_anon=True):
 
     # Remove legend title, don't need it
     handles, labels = axes.get_legend_handles_labels()
+    labels = [x.replace('/cpu', '') for x in labels]
     axes.legend(handles=handles, labels=labels)
 
     plt.tight_layout()

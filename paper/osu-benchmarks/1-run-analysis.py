@@ -598,6 +598,8 @@ def plot_results(results, durations, outdir, non_anon=False):
         labels = ["/".join(x.split("/")[0:3]) for x in labels]
         labels = [x.replace("/dane/", "/a/") for x in labels]
 
+    # Get rid of the cpu / gpu suffix - we are only plotting single images
+    labels = [x.rsplit("/", 1)[0] for x in labels] 
     axes[3].legend(
         handles, labels, loc="center left", bbox_to_anchor=(-0.25, 0.5), frameon=False
     )

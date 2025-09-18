@@ -574,6 +574,11 @@ def make_plot(
         plt.legend().remove()
     else:
         plt.legend(facecolor="white")
+
+    handles, labels = ax.get_legend_handles_labels()
+    labels = [x.replace('/cpu', '') for x in labels]
+    ax.legend(handles=handles, labels=labels)
+
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, f"{plotname}-speedup-scaled.svg"))
     plt.clf()
