@@ -224,6 +224,7 @@ def plot_results(df, outdir, non_anon=False):
         # Make a plot for each metric
         for metric in subset.metric.unique():
             metric_df = subset[subset.metric == metric]
+            metric = metric.replace('_seconds', '')
             title = " ".join([x.capitalize() for x in metric.split("_")])
             if "grind" not in metric.lower():
                 continue
@@ -241,7 +242,7 @@ def plot_results(df, outdir, non_anon=False):
                 xlabel="Nodes",
                 hue_order=hue_order,
                 order=[32, 64, 128, 256],
-                ylabel="Grind Time (Seconds)",
+                ylabel="(seconds/iteration)/unknowns",
                 do_round=False,
                 log_scale=True,
                 height=3.8,

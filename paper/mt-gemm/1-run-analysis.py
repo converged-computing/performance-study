@@ -346,9 +346,9 @@ def plot_results(df, outdir, non_anon=False):
         order=[32, 64, 128, 256],
         dodge=True,
     )
-    axes.set_title("MT-GEMM Metric GFlops/Second (GPU)", fontsize=14)
+    axes.set_title("MT-GEMM (GPU)", fontsize=14)
     axes.set_xlabel("GPU Count", fontsize=14)
-    axes.set_ylabel("GFlops/Second", fontsize=12)
+    axes.set_ylabel("GFLOPS", fontsize=12)
 
     # Remove legend title, don't need it
     handles, labels = axes.get_legend_handles_labels()
