@@ -326,7 +326,7 @@ def plot_results(df, outdir, non_anon=False, log=True):
     if log:
         axes[1].set_yscale("log")
 
-    handles, labels = axes[1].get_legend_handles_labels()
+    handles, labels = axes[0].get_legend_handles_labels()
     labels = ["/".join(x.split("/")[0:2]) for x in labels]
     updated = []
     for label in labels:
